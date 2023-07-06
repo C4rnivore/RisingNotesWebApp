@@ -1,0 +1,27 @@
+import logo from '../../Images/login/logo.svg'
+import {Link} from "react-router-dom";
+
+function Login() {
+    return (
+        <div className="login">
+            <div className="login__content">
+                <div className="login__content-logo">
+                    <img className="login-logo" src={logo} alt=""/>
+                    <span className="subtitle"> music everywhere.<br/>for everyone</span>
+                </div>
+                <div className="login__content-form">
+                    <form action="#" className="login-auth-form" method="post">
+                        <span className="login-auth-form__label">Вход</span>
+                        <input type="email" placeholder="Почта" className="login-input email-input"/>
+                        <input type="password" placeholder="Пароль" className="login-input password-input"/>
+                        <button className="loin-submit-button">Войти</button>
+                        <span className="login-form-subtext">
+                            <Link to={"#"}>Еще не зарегистрированы?</Link>
+                        </span>
+                    </form>
+                </div>
+            </div>
+        </div>
+    );
+}
+export default Login;
