@@ -1,12 +1,13 @@
 import logo from '../../Images/login/logo.svg'
 import {Link} from "react-router-dom";
+import Registration from "../Registration/Registration";
 
 function Login() {
     return (
         <div className="login">
             <div className="login__content">
                 <div className="login__content-logo">
-                    <img className="login-logo" src={logo} alt=""/>
+                    <img className="login-logo" src={logo} alt="" draggable="false"/>
                     <span className="subtitle"> music everywhere.<br/>for everyone</span>
                 </div>
                 <div className="login__content-form">
@@ -16,7 +17,7 @@ function Login() {
                         <input type="password" placeholder="Пароль" className="login-input password-input"/>
                         <button className="loin-submit-button">Войти</button>
                         <span className="login-form-subtext">
-                            <Link to={"#"}>Еще не зарегистрированы?</Link>
+                            Еще нет аккаунта? <Link to="/registration">Регистрация</Link>
                         </span>
                     </form>
                 </div>

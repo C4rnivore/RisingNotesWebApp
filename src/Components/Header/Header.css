@@ -21,9 +21,11 @@
     gap:30px
 }
 .header__track-name{
-    max-width: 300px;
+    max-width: 270px;
+    display: block;
     overflow-x: hidden;
     word-wrap: unset;
+    white-space: nowrap;
 }
 .header__track-image{
     width: 40px;
