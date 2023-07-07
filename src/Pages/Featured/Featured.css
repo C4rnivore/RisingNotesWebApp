@@ -1,0 +1,33 @@
+.featured {
+    padding-top: 81px;
+    display: grid;
+    max-width: 1200px;
+    padding-left: 91px;
+
+    @media screen and (min-width: 1200px){
+        width: 1200px;
+    }
+
+    @media screen and (max-width: 1199px){
+        width: 100%;
+    }
+}
+
+.featured > h2 {
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 600;
+
+    margin-bottom: 20px;
+}
+
+.new-playlist {
+    width: 156px;
+    height: 156px;
+}
+
+.new-playlist:hover {
+    cursor: pointer;
+    transition: all .1s ease;
+    transform: scale(1.1);
+}

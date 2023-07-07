@@ -1,0 +1,232 @@
+.black-page {
+    background: #000;
+    display: grid;
+    justify-content: center;
+    text-align: start;
+}
+
+.side-bar {
+    width: 81px;
+    height: 100vh;
+    position: fixed;
+    background: linear-gradient(180deg, #2D202B 0%, #DAB2B4 100%);
+}
+
+.side-bar > img {
+    margin-left: 25px;
+    margin-top: 105px;
+}
+
+.artistcard {
+    padding-left: 91px;
+    width: 100%;
+    max-width: 1200px;
+    display: grid;
+    justify-content: center;
+    padding-top: 81px;
+}
+
+.back-button {
+    color: #FFF;
+    text-align: center;
+    font-family: Montserrat Alternates;
+    font-size: 20px;
+    border: none;
+    outline: none;
+    background: transparent;
+
+    display:flex;
+    align-items: center;
+
+    margin-bottom: 30px;
+    margin-top: 30px;
+}
+
+.card-head {
+    display: flex;
+    justify-content: space-between;
+
+    margin-bottom: 20px;
+}
+
+.card-head > h1 {
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 600;
+}
+
+.card-head > button {
+    color: #FFF;
+    font-family: Montserrat Alternates;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+
+    border-radius: 50px;
+    background: #5E935D;
+    border: none;
+    outline: none;
+    width: 185px;
+    height: 31px;
+}
+
+.artistcard > h2 {
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 600;
+
+    margin-bottom: 20px;
+}
+
+.artistcard-main {
+    display: flex;
+    justify-content: space-between;
+    gap: 25px;
+    margin-bottom: 106px;
+}
+
+.top-tracks {
+    display: grid;
+    gap: 27px;
+}
+
+.top-track {
+    height: 163px;
+    width: 100%;
+    max-width: 360px;
+    display: flex;
+    gap: 14px;
+}
+
+.top-track:hover {
+    cursor: pointer;
+}
+
+.top-track > span {
+    display: grid;
+    gap: 15px;
+}
+
+.artist-info {
+    width: 100%;
+    max-width: 661px;
+}
+
+.artist-photo {
+    width: 274px;
+    height: 319px;
+    border-radius: 19px;
+}
+
+.artist-info-second-part {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 59px;
+    gap: 20px;
+}
+
+.artist-info-second-part > span > h2 {
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 600;
+}
+
+.artist-info-second-part > span > ul {
+    margin-top: 10px;
+    padding-left: 30px;
+    margin-bottom: 25px;
+}
+
+.playlists {
+    display: flex;
+    gap: 17px;
+    width: 100%;
+    max-width: 1200px;
+    flex-wrap: wrap;
+    margin-bottom: 106px;
+}
+
+.playlist {
+    display: grid;
+    justify-items: center;
+    width: 170px;
+}
+
+.playlist:hover {
+    cursor: pointer;
+    transition: all .1s ease;
+    transform: scale(0.95);
+}
+
+.playlist > p {
+    width: 170px;
+    height: fit-content;
+    text-align: center;
+}
+
+.track {
+    display: flex;
+    border-radius: 9px;
+    background: #8B6868;
+    width: 100%;
+    height: 72px;
+    max-width: 1117px;
+    align-items: center;
+
+    margin-bottom: 33px;
+}
+
+.track > img {
+    border-radius: 55px;
+    width: 55px;
+    height: 55px;
+    margin-left: 15px;
+    margin-right: 26px;
+}
+
+.song-title {
+    width: 100%;
+    max-width: 500px;
+    padding-right: 67px;
+}
+
+.song-title:hover {
+    cursor: pointer;
+}
+
+.song-genre {
+    width: 100%;
+    max-width: 200px;
+    padding-right: 42px;   
+}
+
+.song-duration {
+    width: 100%;
+    max-width: 176px;
+    padding-right: 41px; 
+}
+
+.track > a {
+    display: flex;
+    padding-right: 10px;
+}
+
+.track > a:hover {
+    cursor: pointer;
+    transition: all .1s ease;
+    transform: scale(0.95);
+}
+
+.link:hover {
+    cursor: pointer;
+}
+
+.subcribe-button:hover {
+    cursor: pointer;
+    transition: all .1s ease;
+    transform: scale(1.1);
+}
+
+.back-button:hover {
+    cursor: pointer;
+}
