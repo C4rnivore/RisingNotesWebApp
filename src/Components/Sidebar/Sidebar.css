@@ -1,12 +1,5 @@
-.player{
-    overflow-x: hidden;
-    width: 100%;
-    height: 100vh;
-    background: red;
-}
-
 .player__sidebar{
-    position: relative;
+    position: fixed;
     transition: 350ms ease-in-out;
     padding: 90px 50px 50px 50px;
     height: 100vh;
@@ -19,14 +12,50 @@
 
 
 .sidebar__toggle-btn{
+    display: flex;
+    flex-direction: column;
+    gap:5px;
     position: absolute;
     transition: 350ms ease-in;
     top:10%;
-    right: 6%;
+    right: 7%;
     width: 20px;
     height: 20px;
-
 }
+.sidebar__toggle-btn:hover{
+    cursor: pointer;
+}
+.sidebar__toggle-btn-el{
+    transition: 350ms ease-in-out;
+    position: absolute;
+    width: 25px;
+    height: 2px;
+    background: white;
+}
+.sidebar__toggle-btn-el:nth-child(1){
+    top:0;
+    left: 0;
+}
+.sidebar__toggle-btn-el:nth-child(2){
+    top:7px;
+    left: 0;
+}
+.sidebar__toggle-btn-el:nth-child(3){
+    top:14px;
+    left: 0;
+}
+.sidebar-expanded> .sidebar__toggle-btn> .sidebar__toggle-btn-el:nth-child(1){
+    transform: rotate(45deg);
+    top: 5px;
+}
+.sidebar-expanded> .sidebar__toggle-btn> .sidebar__toggle-btn-el:nth-child(2){
+    opacity: 0;
+}
+.sidebar-expanded> .sidebar__toggle-btn> .sidebar__toggle-btn-el:nth-child(3){
+    transform: rotate(-45deg);
+    top: 5px;
+}
+
 .sidebar-expanded{
     transition: 350ms ease-in-out;
     transform: translateX(0);
@@ -98,6 +127,7 @@
     margin-bottom: 25px;
 }
 .nav-el{
+    font-family: var(--text-font);
     width: 85%;
     font-size: 24px;
     padding: 15px 60px;

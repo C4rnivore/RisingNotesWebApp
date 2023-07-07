@@ -12,7 +12,9 @@
     z-index: 999;
 }
 .header-text{
+    height:max-content ;
     color: white;
+    font-family: var(--text-font);
 }
 
 .header__track{
@@ -45,6 +47,7 @@
     display: flex;
     flex-direction: row;
     gap:20px;
+    align-items: center;
 }
 .entrance-holder{
     display: flex;

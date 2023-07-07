@@ -2,6 +2,6 @@
     overflow-x: hidden;
     width: 100%;
     height: 100vh;
-    background: red;
+    background: linear-gradient(0deg, rgba(40,27,38,1) 0%, rgba(249,204,204,1) 100%);
 }
 

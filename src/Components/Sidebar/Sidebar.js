@@ -14,7 +14,11 @@ function Sidebar() {
     return (
         <div className="sidebar">
             <div id="sidebar" className="player__sidebar">
-                <button className="sidebar__toggle-btn" onClick={ToggleSidebar}></button>
+                <div className="sidebar__toggle-btn" onClick={ToggleSidebar}>
+                    <div className="sidebar__toggle-btn-el"></div>
+                    <div className="sidebar__toggle-btn-el"></div>
+                    <div className="sidebar__toggle-btn-el"></div>
+                </div>
                 <div className="sidebar__label">
                     <span className="label">
                          music everywhere.<br/>for everyone
