@@ -7,6 +7,7 @@ import rewind_backward from '../../Images/controller/rewind-1.svg'
 import dislike from '../../Images/controller/thumbs-down.svg'
 import volume from '../../Images/controller/volume-2.svg'
 import track_placeholder from '../../Images/image-placeholder/song-placeholder.png'
+import {Link} from "react-router-dom";
 
 function Header() {
     return (
@@ -37,8 +38,8 @@ function Header() {
             <div className="header-right-container">
                 <img className="header-volume-btn" src={volume}></img>
                 <div className="entrance-holder">
-                    <span className="header-text entrance-btn entrance-signup-btn">Зарегистрироваться</span>
-                    <span className="header-text entrance-btn entrance-login-btn">Войти</span>
+                    <span className="header-text entrance-btn entrance-signup-btn"><Link className="header-link" to='/registration'>Зарегистрироваться</Link></span>
+                    <span className="header-text entrance-btn entrance-login-btn"><Link className="header-link" to='/login'>Войти</Link></span>
                 </div>
             </div>
         </header>

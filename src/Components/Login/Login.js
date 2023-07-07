@@ -1,6 +1,5 @@
 import logo from '../../Images/login/logo.svg'
 import {Link} from "react-router-dom";
-import Registration from "../Registration/Registration";
 
 function Login() {
     return (
