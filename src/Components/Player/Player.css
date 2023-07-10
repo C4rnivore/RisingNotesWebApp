@@ -1,26 +1,36 @@
+body{
+    background: linear-gradient(0deg, rgba(40,27,38,1) 0%, rgba(249,204,204,1) 100%);
+}
 .player{
     grid-auto-columns: auto;
 
     overflow-x: hidden;
     width: 100%;
-    height: 100vh;
-    background: linear-gradient(0deg, rgba(40,27,38,1) 0%, rgba(249,204,204,1) 100%);
+    max-width: 1200px;
+    min-height: 100vh;
+    margin: 0 auto;
 }
 .player__content-wrapper{
     display: grid;
+    grid-column-gap: 60px;
     grid-template-columns: 1fr 1fr 1fr;
 }
 .text-area{
     max-height: 100vh;
-    padding: 90px 60px 90px 120px ;
+    margin-top:140px;
 }
+
 .main-player{
     height: 100vh;
 }
 .filters{
     height: 100vh;
 }
+#lyrics::-webkit-scrollbar{
+    display: none;
+}
 .text-container{
+    overflow-y: scroll;
     text-align: start;
     display: flex;
     flex-direction: column;
@@ -51,7 +61,7 @@
 .main-player__cover{
     display: flex;
     flex-direction: column;
-    width: 60%;
+    width: 100%;
     min-height: 450px;
     background: #EAE1E1;
     margin: 140px auto 0 auto;
@@ -103,7 +113,7 @@
 
 .main-player__controller{
     padding: 30px 30px 15px 30px;
-    width: 60%;
+    width: 100%;
     margin: 0 auto;
     border-radius: 30px;
     background: #EAE1E1;
@@ -128,21 +138,18 @@
 .switch-field{
     display: flex;
     flex-direction: column;
-    gap:30px;
 }
 .filters__panel{
-    position: absolute;
-    width: 20%;
+    position: fixed;
     height: 86%;
+    width: 370px;
     background: black;
     bottom: 0;
-    right: 10%;
     margin: 0 auto;
     border-radius: 30px 30px 0 0;
+    padding-top:20px ;
 }
-.switch-panel{
-    padding: 10px 30px;
-}
+
 .switch-upper-filed{
     display: flex;
     flex-direction: row;
@@ -153,7 +160,6 @@
     font-family: var(--text-font);
     color: white;
     font-size: 20px;
-    margin-left: 15px;
 }
 
 .switch {
@@ -194,11 +200,11 @@
 }
 
 input:checked + .slider {
-    background-color: #2196F3
+    background-color: #8B6868
 }
 
 input:focus + .slider {
-    box-shadow: 0 0 1px #2196F3;
+    box-shadow: 0 0 1px #8B6868          ;
 }
 
 input:checked + .slider:before {
@@ -219,7 +225,8 @@ input:checked + .slider:before {
 .switch-panel{
     display: flex;
     flex-direction: column;
-    gap:10px;
+    padding: 10px 30px;
+    gap:7px;
 }
 .radio-filter{
     margin-left: 3px;
@@ -229,7 +236,8 @@ input:checked + .slider:before {
     width: 100%;
     height: 35px;
     padding: 10px;
-    border-radius: 10px;
+    border-radius: 10px 0 0 10px;
+    border:none ;
     background:#EAE1E1;
 }
 .switch-bottom-field{
@@ -241,13 +249,79 @@ input:checked + .slider:before {
     align-items: center;
 }
 .tag{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap:10px;
     width: max-content;
-    padding: 2px 10px;
+    padding:0 10px;
     border-radius: 20px;
     background: #8B6868;
+}
+.tag-close{
+    cursor: pointer;
+    font-size: 22px;
 }
 .tag-text{
     font-family: var(--text-font);
     color: white;
-    font-size: 14px;
+    font-size: 12px;
+}
+.switch-middle-field>form{
+    display: flex;
+    align-items: center;
+    gap: -1px;
+    flex-direction: row;
+}
+.add-button{
+    border-radius: 0 10px 10px 0;
+    background: none;
+    border: none;
+    background:#EAE1E1;
+    height: 35px;
+    width: 34px;
+}
+select.dropdown{
+    padding: 8px;
+    border-radius: 10px;
+    background:#EAE1E1;
+}
+.dropdown-label{
+    text-align: start;
+}
+label.extra-label{
+    text-align: start;
+    width: 83%;
+    margin: 0 auto 10px auto
+}
+.checkbox-field{
+    padding: 5px;
+    background:#EAE1E1;
+}
+.extra-params-panel {
+    display: flex;
+    flex-direction: column;
+}
+.extra-params-form{
+    display: flex;
+    flex-direction: column;
+    gap:10px;
+}
+.checkbox-field{
+    border-radius: 10px;
+    display: flex;
+    flex-direction: row;
+    gap:5px;
+    align-items: center;
+    width: 83%;
+    margin: 0 auto;
+}
+.checkbox-placeholder{
+    user-select: none;
+    font-size: 16px;
+    color: black;
+}
+.checkbox-extra{
+    width: 20px;
+    cursor: pointer;
 }

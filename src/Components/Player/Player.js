@@ -16,10 +16,19 @@ function Player() {
     return (
         <div className="player">
             <div className="player__content-wrapper">
-                <div className="p-col text-area">
-                    <div className="text-container">
+                <div className="p-col text-area" >
+                    <div id="lyrics" className="text-container">
                         <span className="song-lyrics">Текст песни</span>
                         <p>
+                            <span>
+                                Lorem ipsum dolor sit amet,
+                                consectetur adipisicing elit.
+                                Cum dolores ea, expedita labore
+                                laudantium optio vero! Ad aliquam,
+                                aliquid eum, facere libero nobis
+                                omnis perferendis placeat quas tempora
+                                vel voluptatibus.
+                            </span>
                             <span>
                                 Lorem ipsum dolor sit amet,
                                 consectetur adipisicing elit.
@@ -111,8 +120,7 @@ function Player() {
                                 <div className="genre-switch-panel switch-panel">
                                     <div className="switch-upper-filed">
                                         <div className="cb">
-                                            <input type="checkbox" name="genre-cb" className="radio-filter"/>
-                                            <label htmlFor="genre-cb" className="cb-label">Жанр</label>
+                                            <label htmlFor="genre-cb" className="cb-label">&#9679; Жанр</label>
                                         </div>
                                         <label className="switch">
                                             <input type="checkbox"/>
@@ -122,6 +130,7 @@ function Player() {
                                     <div className="switch-middle-field">
                                         <form action="#" method="post">
                                             <input type="text"  className="switch-input" placeholder="Начните вводить жанр..."/>
+                                            <button className="add-button" type="submit">&#9547;</button>
                                         </form>
                                     </div>
                                     <div className="switch-bottom-field">
@@ -129,14 +138,14 @@ function Player() {
                                             <span className="tag-text">
                                                 Placeholder
                                             </span>
+                                            <span className="tag-close">&#215;</span>
                                         </div>
                                     </div>
                                 </div>
                                 <div className="language-switch-panel switch-panel">
                                     <div className="switch-upper-filed">
                                         <div className="cb">
-                                            <input type="checkbox" name="genre-cb" className="radio-filter"/>
-                                            <label htmlFor="genre-cb" className="cb-label">Язык</label>
+                                            <label htmlFor="genre-cb" className="cb-label">&#9679; Язык</label>
                                         </div>
                                         <label className="switch">
                                             <input type="checkbox"/>
@@ -146,6 +155,7 @@ function Player() {
                                     <div className="switch-middle-field">
                                         <form action="#" method="post">
                                             <input type="text"  className="switch-input" placeholder="Начните вводить язык..."/>
+                                            <button className="add-button" type="submit">&#9547;</button>
                                         </form>
                                     </div>
                                     <div className="switch-bottom-field">
@@ -153,14 +163,14 @@ function Player() {
                                             <span className="tag-text">
                                                 Placeholder
                                             </span>
+                                            <span className="tag-close">&#215;</span>
                                         </div>
                                     </div>
                                 </div>
                                 <div className="same-switch-panel switch-panel">
                                     <div className="switch-upper-filed">
                                         <div className="cb">
-                                            <input type="checkbox" name="genre-cb" className="radio-filter"/>
-                                            <label htmlFor="genre-cb" className="cb-label">На что похоже?</label>
+                                            <label htmlFor="genre-cb" className="cb-label">&#9679; На что похоже?</label>
                                         </div>
                                         <label className="switch">
                                             <input type="checkbox"/>
@@ -170,6 +180,7 @@ function Player() {
                                     <div className="switch-middle-field">
                                         <form action="#" method="post">
                                             <input type="text"  className="switch-input" placeholder="Напишите исполнителей..."/>
+                                            <button className="add-button" type="submit">&#9547;</button>
                                         </form>
                                     </div>
                                     <div className="switch-bottom-field">
@@ -177,14 +188,14 @@ function Player() {
                                             <span className="tag-text">
                                                 Placeholder
                                             </span>
+                                            <span className="tag-close">&#215;</span>
                                         </div>
                                     </div>
                                 </div>
                                 <div className="mood-switch-panel switch-panel">
                                     <div className="switch-upper-filed">
                                         <div className="cb">
-                                            <input type="checkbox" name="genre-cb" className="radio-filter"/>
-                                            <label htmlFor="genre-cb" className="cb-label">Настроение</label>
+                                            <label htmlFor="genre-cb" className="cb-label">&#9679;  Настроение</label>
                                         </div>
                                         <label className="switch">
                                             <input type="checkbox"/>
@@ -194,6 +205,7 @@ function Player() {
                                     <div className="switch-middle-field">
                                         <form action="#" method="post">
                                             <input type="text"  className="switch-input" placeholder="Начните вводить..."/>
+                                            <button className="add-button" type="submit">&#9547;</button>
                                         </form>
                                     </div>
                                     <div className="switch-bottom-field">
@@ -201,10 +213,45 @@ function Player() {
                                             <span className="tag-text">
                                                 Placeholder
                                             </span>
+                                            <span className="tag-close">&#215;</span>
                                         </div>
                                     </div>
                                 </div>
-
+                                <div className="switch-panel gender">
+                                    <label className="dropdown-label" htmlFor="gender-switch">&#9679; Пол исполнителя</label>
+                                    <select name="gender-switch" className="gender-switch dropdown" >
+                                        <option value="none">Не имеет значения</option>
+                                        <option value="male">Мужской</option>
+                                        <option value="female">Женский</option>
+                                    </select>
+                                </div>
+                                <div className="switch-panel duration">
+                                    <span></span>
+                                    <label className="dropdown-label" htmlFor="duration-switch">&#9679; Длительность трека</label>
+                                    <select name="duration-switch" className="gender-switch dropdown" >
+                                        <option value="none">Не имеет значения</option>
+                                        <option value="short">Короткая (до 1 минуты)</option>
+                                        <option value="medium">Стандартная (1 - 3 минуты)</option>
+                                        <option value="long">Длинная (Больше 3 минут)</option>
+                                    </select>
+                                </div>
+                                <div className="extra-params-panel">
+                                    <label htmlFor="extra-params" className="extra-label">&#9679; Дополнительно</label>
+                                    <form action="#" method="post" name="extra-params" className="extra-params-form">
+                                        <div className="checkbox-field" >
+                                            <input className="checkbox-extra" type="checkbox"/>
+                                            <span className="checkbox-placeholder">Инструментальная музыка</span>
+                                        </div>
+                                        <div className="checkbox-field">
+                                            <input className="checkbox-extra" type="checkbox"/>
+                                            <span className="checkbox-placeholder">Ненормативаня лексика</span>
+                                        </div>
+                                        <div className="checkbox-field">
+                                            <input className="checkbox-extra" type="checkbox"/>
+                                            <span className="checkbox-placeholder">Добавить исключенные</span>
+                                        </div>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>

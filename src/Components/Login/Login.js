@@ -14,7 +14,7 @@ function Login() {
                         <span className="login-auth-form__label">Вход</span>
                         <input type="email" placeholder="Почта" className="login-input email-input"/>
                         <input type="password" placeholder="Пароль" className="login-input password-input"/>
-                        <button className="loin-submit-button">Войти</button>
+                        <button type="submit" className="loin-submit-button">Войти</button>
                         <span className="login-form-subtext">
                             Еще нет аккаунта? <Link to="/registration">Регистрация</Link>
                         </span>
