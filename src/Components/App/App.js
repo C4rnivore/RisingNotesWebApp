@@ -7,6 +7,8 @@ import  '../Sidebar/Sidebar.css'
 
 import '../../Pages/ArtistCard/ArtistCard.css';
 import '../../Pages/Featured/Featured.css';
+import '../LK/LK.css';
+import '../InstallMusic/InstallMusic.css'
 import Header from "../Header/Header";
 import Login from "../Login/Login"
 import Registration from "../Registration/Registration";
@@ -14,6 +16,9 @@ import Sidebar from "../Sidebar/Sidebar";
 import Player from "../Player/Player";
 
 import ArtistCard from '../../Pages/ArtistCard/ArtistCard';
+import LK from "../LK/LK"
+import LKlistener from "../LKlistener/LKlistener"
+import InstallMusic from "../InstallMusic/InstallMusic"
 import {Routes,Route, Link} from 'react-router-dom';
 import {Fragment} from "react";
 import Featured from '../../Pages/Featured/Featured';
@@ -33,7 +38,10 @@ function App() {
             <Route  path={'/artist'} element={<ArtistCard/>}/>
             <Route  path={'/featured'} element={<Featured/>}/>
             <Route  path={'/excluded'} element={<Excluded/>}/>
-        </Routes>
+            <Route  path={'/LK'} element={<LK/>}/>
+            <Route  path={'/LKlistener'} element={<LKlistener/>}/>
+            <Route  path={'/InstallMusic'} element={<InstallMusic/>}/>
+        </Routes>  
     </div>
   );
 }
