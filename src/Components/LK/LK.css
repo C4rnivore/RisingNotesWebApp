@@ -1,0 +1,33 @@
+
+.LKC {
+    display: grid;
+}
+
+.LKglav {
+    background-color: black;
+    width: 1000px;
+    height: 1748px;
+    margin-left: 100px;
+    margin-bottom: 40px;
+    margin-top: 45px;
+    
+    
+    background: black;
+    box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.1);
+    
+}
+
+.bill {
+    color: white;
+}
+
+.LKprice-h1 {
+    color: white;
+}
+
+.pay-h1 {
+    color: white;
+}
+.pay-h2 {
+    color: white;
+}
