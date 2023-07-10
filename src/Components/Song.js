@@ -15,7 +15,7 @@ class Song extends React.Component {
                 <p className='song-duration'>3:00</p>
                 <a><img alt='dislike' src={dislike}/></a>
                 <a><img alt='like' src={heart}/></a>
-                <a><img alt='comment' src={message}/></a>
+                <a href='/commentaries'><img alt='comment' src={message}/></a>
             </div>
         )
     }

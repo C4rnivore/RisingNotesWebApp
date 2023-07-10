@@ -40,17 +40,17 @@ function Sidebar() {
                         </NavLink>
                     </li>
                     <li className="nav-el" id="favourites">
-                        <NavLink className="nav-link" to="/path" >
+                        <NavLink className="nav-link" to="/featured" >
                             Избранные
                         </NavLink>
                     </li>
                     <li className="nav-el" id="excluded">
-                        <NavLink className="nav-link" to="/path" >
+                        <NavLink className="nav-link" to="/excluded" >
                             Исключенные
                         </NavLink>
                     </li>
                     <li className="nav-el" id="subs">
-                        <NavLink className="nav-link" to="/path" >
+                        <NavLink className="nav-link" to="/subscriptions" >
                             Подписки
                         </NavLink>
                     </li>

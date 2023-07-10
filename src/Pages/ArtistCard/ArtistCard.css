@@ -155,7 +155,7 @@
 .playlist:hover {
     cursor: pointer;
     transition: all .1s ease;
-    transform: scale(0.95);
+    transform: scale(0.98);
 }
 
 .playlist > p {
@@ -176,6 +176,10 @@
     margin-bottom: 33px;
 }
 
+.track:hover {
+    filter: brightness(90%)
+}
+
 .track > img {
     border-radius: 55px;
     width: 55px;
@@ -188,6 +192,12 @@
     width: 100%;
     max-width: 500px;
     padding-right: 67px;
+
+    color: #FFF;
+    font-family: Montserrat Alternates;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
 }
 
 .song-title:hover {
