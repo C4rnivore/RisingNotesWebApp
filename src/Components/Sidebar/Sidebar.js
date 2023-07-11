@@ -34,31 +34,40 @@ function Sidebar() {
                     </form>
                 </div>
                 <ul className="sidebar__menu">
-                    <li className="nav-el" id="player">
-                        <NavLink className="nav-link" to="/" >
-                            Моя волна
-                        </NavLink>
-                    </li>
-                    <li className="nav-el" id="favourites">
-                        <NavLink className="nav-link" to="/featured" >
-                            Избранные
-                        </NavLink>
-                    </li>
-                    <li className="nav-el" id="excluded">
-                        <NavLink className="nav-link" to="/excluded" >
-                            Исключенные
-                        </NavLink>
-                    </li>
-                    <li className="nav-el" id="subs">
-                        <NavLink className="nav-link" to="/subscriptions" >
-                            Подписки
-                        </NavLink>
-                    </li>
-                    <li className="nav-el" id="personal-page">
-                        <NavLink className="nav-link" to="/account" >
-                            Личный кабинет
-                        </NavLink>
-                    </li>
+                    <a className="sidebar-link" href="/">
+                        <li className="nav-el" id="player">
+                            <NavLink className="nav-link" to="/" >
+                                Моя волна
+                            </NavLink>
+                        </li>
+                    </a>
+                    <a href="/featured">
+                        <li className="nav-el" id="favourites">
+                            <NavLink className="nav-link" to="/featured" >
+                                Избранные
+                            </NavLink>
+                        </li>
+                    </a>
+                    <a href="/excluded">
+                        <li className="nav-el" id="excluded">
+                            <NavLink className="nav-link" to="/excluded" >
+                                Исключенные
+                            </NavLink>
+                        </li>
+                    </a>
+                    <a href="/subscriptions">
+                        <li className="nav-el" id="subs">
+                            <NavLink className="nav-link" to="/subscriptions" >
+                                Подписки
+                            </NavLink>
+                        </li>
+                    </a>
+                    <a href="/artistpage">
+                        <li className="nav-el" id="personal-page">
+                            <NavLink className="nav-link" to="/account" >
+                                Личный кабинет
+                            </NavLink>
+                        </li>
                     <li className="nav-el" id="personal-page">
                         <NavLink className="nav-link" to="/adminpanel" >
                             Все авторы
@@ -69,6 +78,7 @@ function Sidebar() {
                             Уведомления
                         </NavLink>
                     </li>
+                    </a>
                 </ul>
             </div>
         </div>
