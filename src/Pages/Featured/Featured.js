@@ -30,9 +30,9 @@ class Featured extends React.Component {
 
                     <h2>Все треки</h2>
                     <div className='tracks'>
-                        <Song/>
-                        <Song/>
-                        <Song/>
+                        <Song id={1}/>
+                        <Song id={2}/>
+                        <Song id={3}/>
                     </div>
                 </div>
             </div>
