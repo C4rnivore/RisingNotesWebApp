@@ -7,7 +7,7 @@ function LK() {
     return (
         <div className='LKglav'>
             <button className='back'>
-                <img className='back-ph' src={back} alt="back-button"/> &nbsp;Назад 
+            <img className='back-ph' src={back} alt="back-button"/>Назад 
             </button>
                 <LKCard/>
                 <LKprice/>
