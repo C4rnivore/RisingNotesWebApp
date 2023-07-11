@@ -17,17 +17,355 @@
     
 }
 
-.bill {
+.input-div {
+    margin-top: -260px;
+}
+
+.pay {
+    width: 435px;
+    height: 380px;
+    border-radius: 9px;
+    background: linear-gradient(180deg, #DCB5B6 0%, #2E202A 100%);
+    margin-top: -370px;
+    margin-left: 230px;
+}
+
+.LKprice {
+    width: 1200px;
+    height: 900px;
+    margin-left: 0px;
+}
+
+/*элементы*/
+
+.back {
+    background-color: black;
+    border: none;
+    color: #FFF;
+    text-align: center;
+    font-family: Montserrat Alternates;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin-top: 31px;
+    margin-left: -600px;
+}
+
+.Dima {
+    width: 263.226px;
+    height: 263.226px;
+    border-radius: 9px;
+    margin-left: 50px;
+    margin-top: -25px;
+}
+
+.LKCard-input1 {
+    width: 377px;
+    height: 36px;
+    border-radius: 9px;
+    background: #EAE1E1;
+    box-shadow: 0px 4px 7px 0px rgba(0, 0, 0, 0.25) inset;
+    color: #A6A6A6;
+    font-family: Montserrat Alternates;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    padding-left: 11px;
+    margin-left: 700px;
+    margin-top: 0px;
+    margin-bottom: 24px;
+
+}
+
+.LKCard-input2 {
+    width: 377px;
+    height: 36px;
+    border-radius: 9px;
+    background: #EAE1E1;
+    box-shadow: 0px 4px 7px 0px rgba(0, 0, 0, 0.25) inset;
+    color: #A6A6A6;
+    font-family: Montserrat Alternates;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    padding-left: 11px;
+    margin-left: 700px;
+    margin-top: 24px;
+
+}
+
+.save-button {
+    width: 231px;
+    height: 33px;
+    border-radius: 9px;
+    background: #5E935D;
+    color: #FFF;
+    font-family: Montserrat Alternates;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin-top: 14px;
+    margin-left: 770px;
+}
+
+.save-button:hover {
+    transition: all .1s ease;
+    transform: scale(1.02);
+    cursor: pointer;
+}
+
+.change-button {
+    width: 231px;
+    height: 33px;
+    border-radius: 9px;
+    background: #8B6868;;
+    color: #FFF;
+    font-family: Montserrat Alternates;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin-left: 770px;
+    margin-top: 12px;
+}
+
+.change-button:hover {
+    transition: all .1s ease;
+    transform: scale(1.02);
+    cursor: pointer;
+}
+
+.transition-button {
+    width: 384px;
+    height: 55px;
+    border-radius: 9px;
+    background: #5E935D;
+    color: #FFF;
+    font-family: Montserrat Alternates;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin-left: 400px;
+    margin-top: 24px;
+    margin-bottom: 20px;
+}
+
+.transition-button:hover {
+    transition: all .1s ease;
+    transform: scale(1.02);
+    cursor: pointer;
+}
+
+.palochka {
+    width: 1064px;
+    height: 0px;    
+    margin-top: 100px;
+    margin-left: 150px;
+    border-top: 3px solid white;  
+}
+
+.palochka2 {
+    width: 1064px;
+    height: 0px;
+    margin-top: 0px;
+    margin-left: 150px;  
+    border-top: 3px solid white;  
+}
+
+.bill1 {
     color: white;
+    font-family: Montserrat Alternates;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+
+    margin-top: 19px;
+    margin-left: -700px;
+}
+
+.bill2 {
+    color: white;
+    font-family: Montserrat Alternates;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+
+    margin-top: -26px;
+    margin-left: -200px;
 }
 
 .LKprice-h1 {
     color: white;
+    font-family: Montserrat Alternates;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin-top: 50px;
+    margin-left: 460px;
+    margin-bottom: 25px;
+
+}
+
+.bill3 {
+    color: white;
+    font-family: Montserrat Alternates;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 25px;
+    text-align: left;
+    margin-top: 10px;
+    margin-left: 730px;
 }
 
 .pay-h1 {
     color: white;
+    font-family: Montserrat Alternates;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    padding-top: 13px; 
+    margin-left: -40px;
 }
 .pay-h2 {
     color: white;
+    font-family: Montserrat Alternates;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin-left: -123px;
+    margin-top: 10px;
+}
+
+.pay-h2cvv {
+    color: white;
+    font-family: Montserrat Alternates;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin-left: 105px;
+    margin-top: -65px;
+}
+
+.pay-h2sum {
+    color: white;
+    font-family: Montserrat Alternates;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin-left: -320px;
+    margin-top: 20px;
+}
+
+.pay-h2srok {
+    color: white;
+    font-family: Montserrat Alternates;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin-left: -225px;
+    margin-top: 20px;
+}
+
+.pay-h2num {
+    color: white;
+    font-family: Montserrat Alternates;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin-left: -245px;
+    margin-top: 10px;
+}
+
+.pay-input1 {
+    width: 377px;
+    height: 36px;
+
+    border-radius: 9px;
+    background: #EAE1E1;
+    box-shadow: 0px 4px 7px 0px rgba(0, 0, 0, 0.25) inset;
+
+    color: #A6A6A6;
+    font-family: Montserrat Alternates;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin-top: 3px;
+    padding-left: 5px;
+
+}
+
+.pay-input2 {
+    width: 173px;
+    height: 36px;
+
+    border-radius: 9px;
+    background: #EAE1E1;
+    box-shadow: 0px 4px 7px 0px rgba(0, 0, 0, 0.25) inset;
+
+    color: #A6A6A6;
+    font-family: Montserrat Alternates;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin-top: 3px;
+    margin-left: -200px;
+    padding-left: 5px;
+}
+
+.pay-input3 {
+    width: 173px;
+    height: 36px;
+
+    border-radius: 9px;
+    background: #EAE1E1;
+    box-shadow: 0px 4px 7px 0px rgba(0, 0, 0, 0.25) inset;
+
+    color: #A6A6A6;
+    font-family: Montserrat Alternates;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin-top: 4px;
+    margin-left: 200px;
+    padding-left: 5px;
+}
+
+.pay-button {
+    width: 217px;
+    height: 33px;
+    border-radius: 9px;
+    background: #5E935D;
+    color: #FFF;
+    font-family: Montserrat Alternates;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin-left: px;
+    margin-top: 35px;
+    margin-bottom: 20px;
+}
+
+.pay-button:hover {
+    transition: all .1s ease;
+    transform: scale(1.02);
+    cursor: pointer;
 }

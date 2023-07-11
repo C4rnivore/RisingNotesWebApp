@@ -5,21 +5,22 @@ import Dima from '../../Images/Dima.svg'
 const LKCard2 = () => {
     return (
         <div className='LKCard'>
-            <button className='back'>
-                <img className='back-ph' src={back} alt="back-button"/> &nbsp;Назад 
-            </button>
-            <img className='Dima' src={Dima} alt="zaglushka"/>
-            <input className='LKCard-input' placeholder='ФИО'/>
-            <input className='LKCard-input' placeholder='Почта'/>
-            <button className='save'>
+            <img className='Dima' src={Dima} alt="photo"/>
+            <div className='input-div'>
+                <input className='LKCard-input1' placeholder='ФИО'/>
+                <input className='LKCard-input1' placeholder='Почта'/>
+            </div>
+            <button className='save-button'>
                 Сохранить
             </button>
-            <button className='change'>
+            <button className='change-button'>
                 Изменить пароль
             </button>
+            <div class="palochka"></div>
             <button className='transition-button'>
-                    Стать музыкантом!
+                    Перейти в кабинет музыканта
             </button>
+            <div class="palochka2"></div>
         </div>
     );
 };
