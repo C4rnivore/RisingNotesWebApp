@@ -10,6 +10,20 @@ import track_placeholder from '../../Images/image-placeholder/song-placeholder.p
 import {Link} from "react-router-dom";
 
 function Header() {
+    function showModal() {
+       const vl_md = document.getElementById('volume-modal')
+        if(vl_md.classList.contains('volume-modal-hidden')){
+            vl_md.classList.remove('volume-modal-hidden')
+        }
+    }
+
+    function hideModal() {
+        const vl_md = document.getElementById('volume-modal')
+        if(!vl_md.classList.contains('volume-modal-hidden')){
+            vl_md.classList.add('volume-modal-hidden')
+        }
+    }
+
     return (
         <header className="header">
             <div className="header-left-container">
@@ -36,7 +50,13 @@ function Header() {
                 </div>
             </div>
             <div className="header-right-container">
-                <img className="header-volume-btn" src={volume}></img>
+                <div className="volume-container">
+                    <div id='volume-modal' className="volume-modal volume-modal-hidden" onMouseLeave={hideModal}>
+                        <input type="range"/>
+                    </div>
+                    <img className="header-volume-btn" src={volume} onMouseOver={showModal} ></img>
+                </div>
+
                 <div className="entrance-holder">
                     <span className="header-text entrance-btn entrance-signup-btn"><Link className="header-link" to='/registration'>Зарегистрироваться</Link></span>
                     <span className="header-text entrance-btn entrance-login-btn"><Link className="header-link" to='/login'>Войти</Link></span>

@@ -73,6 +73,27 @@ input[type='range']{
 .header-link:hover{
     text-decoration: underline;
 }
+.volume-container{
+    position: relative;
+    width: 28px;
+    height: 28px;
+}
+.volume-modal{
+    align-items: center;
+    position: absolute;
+    display: flex;
+    top:35px;
+    left: -270%;
+    padding: 10px 30px;
+    width: max-content;
+    border-radius: 10px;
+    background: #EAE1E1;
+    box-shadow: 0px 0px 10px black;
+}
+.volume-modal-hidden{
+    animation: hide;
+    display: none;
+}
 
 
 
