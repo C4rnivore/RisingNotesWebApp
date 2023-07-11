@@ -1,0 +1,49 @@
+.artist-personal-page{
+    background: black;
+    width: 100%;
+    min-height: 100vh;
+    padding: 100px 0;
+}
+.about{
+    display: flex;
+    flex-direction: column;
+    gap:40px;
+}
+.app-content-wrapper{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 1200px;
+    margin:0 auto;
+}
+.about-label{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+.artist-name{
+    font-size: 32px;
+}
+.submit-editing-btn{
+    font-family: var(--text-font);
+    font-size: 20px;
+    background: #5E935D;
+    padding: 5px 15px;
+    color: white;
+    border-radius: 10px;
+}
+.about-text-area{
+    display: flex;
+    gap:10px;
+    flex-direction: column;
+    width: 100%;
+    align-items: start;
+}
+.artist-input-field{
+    padding: 10px;
+    width: 100%;
+    min-height: 150px;
+    border-radius: 10px;
+    background:#EAE1E1 ;
+}

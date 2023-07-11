@@ -6,8 +6,8 @@
     width: 500px;
     top:0;
     left: 0;
-    background: black;
     transform: translateX(-85%);
+    background: linear-gradient(0deg,  rgba(249,204,204,1) 0%,rgba(40,27,38,1) 100%);
 }
 
 
@@ -59,8 +59,8 @@
 .sidebar-expanded{
     transition: 350ms ease-in-out;
     transform: translateX(0);
+    background: black;
 }
-
 
 .sidebar__label{
     position: relative;

@@ -55,7 +55,7 @@ function Sidebar() {
                         </NavLink>
                     </li>
                     <li className="nav-el" id="personal-page">
-                        <NavLink className="nav-link" to="/path" >
+                        <NavLink className="nav-link" to="/artistpage" >
                             Личный кабинет
                         </NavLink>
                     </li>
