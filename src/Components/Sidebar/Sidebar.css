@@ -76,6 +76,12 @@
     height: 273px;
 }
 .label{
+    color: #FFF;
+    font-family: Montserrat;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 200;
+
     position: absolute;
     top:0;
     left: 0;
@@ -84,7 +90,6 @@
     margin-left: 38px;
     margin-top: -15px;
     text-align: start;
-    color: #FFFFFF;
     text-transform: uppercase;
 }
 .sidebar__searchbar{
