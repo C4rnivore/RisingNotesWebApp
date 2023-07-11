@@ -45,7 +45,7 @@ class Commentaries extends React.Component {
                             <h2>Иванов Иван</h2>
                             <textarea placeholder='Начните писать, что думаете...'>
                             </textarea>
-                            <button className='comment-button'>Комментировать</button>
+                            <button className='comment-button-b'>Комментировать</button>
                         </span>
                     </div>
 

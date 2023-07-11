@@ -1,6 +1,6 @@
 .featured {
     padding-top: 81px;
-    display: grid;
+    /* display: grid; */
     max-width: 1200px;
     padding-left: 91px;
 
@@ -19,6 +19,8 @@
     font-weight: 600;
 
     margin-bottom: 20px;
+    /* justify-self: start; */
+    text-align: start;
 }
 
 .new-playlist {
