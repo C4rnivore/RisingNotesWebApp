@@ -29,5 +29,15 @@
 .new-playlist:hover {
     cursor: pointer;
     transition: all .1s ease;
-    transform: scale(1.1);
+    transform: scale(0.98);
+}
+
+.search-element {
+    display: flex;
+    justify-content: space-between;
+}
+
+.page-search {
+    margin: 0 0;
+    display: inline;
 }

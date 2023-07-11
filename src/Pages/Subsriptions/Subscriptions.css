@@ -1,0 +1,44 @@
+.subscription > img {
+    width: 198px;
+    height: 198px;
+    border-radius: 9px;
+}
+
+.subscription > p {
+    color: #FFF;
+    text-align: center;
+    font-family: Montserrat Alternates;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+}
+
+.sub-h2 {
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 600;
+
+    margin-bottom: 30px;
+}
+
+.subscriptions {
+    display: flex;
+    gap: 27px;
+    width: 100%;
+    max-width: 1200px;
+    flex-wrap: wrap;
+
+    margin-bottom: 120px;
+}
+
+.subscription > img:hover {
+    filter: brightness(50%)
+}
+
+.subscription:hover {
+    cursor: pointer;
+}
+
+a {
+    text-decoration: none;
+}

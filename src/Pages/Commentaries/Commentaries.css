@@ -1,0 +1,140 @@
+.comm-head {
+    display: flex;
+    gap: 26px;
+
+    margin-bottom: 34px;
+}
+
+.comm-head > img {
+    width: 276px;
+    height: 276px;
+
+    border-radius: 20px;
+}
+
+.comm-head-buttons {
+    display: flex;
+    gap: 13px;
+}
+
+.comm-head-name {
+    display: flex;
+    align-items: center;
+
+    margin-bottom: 8px;
+}
+
+.listeners {
+    margin-bottom: 8px;
+}
+
+h2 {
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 600; 
+}
+
+.comment > img {
+    width: 55px;
+    height: 55px;
+
+    border-radius: 50px;
+}
+
+.comment > span > textarea, text {
+    border-radius: 9px;
+    background: #EAE1E1;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset;
+
+    width: 100%;
+    max-width: 988px;
+    height: 100%;
+    min-height: 166px;
+    max-height: fit-content;
+
+    padding: 10px;
+    color: #000;
+    font-family: Montserrat Alternates;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+
+    resize: none;
+}
+
+.comment-text {
+    display: grid;
+    gap: 10px;
+    width: 100%;
+    max-width: 988px;
+}
+
+.comment {
+    display: flex;
+    gap: 19px;
+
+    margin-bottom: 37px;
+}
+
+.comment-button {
+    border-radius: 9px;
+    background: #5E935D;
+
+    width: 224px;
+    padding: 5px;
+
+    color: #FFF;
+    font-family: Montserrat Alternates;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+
+    border: none;
+    outline: none;
+
+    justify-self: end;
+    margin-top: 27px;
+    margin-right: 20px;
+}
+
+.comment-button:hover {
+    cursor: pointer;
+    transition: all .1s ease;
+    transform: scale(1.02);
+}
+
+.stripe {
+    width: 100%;
+    max-width: 1064px;
+    border-top: 2px solid #FFF;
+    margin-bottom: 27px;
+}
+
+.delete {
+    position: absolute;
+    justify-self: end;
+    align-self: start;
+    margin-top: -10px;
+    margin-right: 20px;
+    
+    width: 129px;
+    padding: 5px;
+
+    border-radius: 9px;
+    background: #8B6868;
+
+    color: #FFF;
+    font-family: Montserrat Alternates;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+
+    border: none;
+    outline: none;
+}
+
+.delete:hover {
+    cursor: pointer;
+    transition: all .1s ease;
+    transform: scale(1.02);
+}

@@ -5,12 +5,13 @@ import Playlist from '../../Components/Playlist';
 import Song from '../../Components/Song';
 import newPlaylist from '../../Images/featured/new-playlist.png';
 import menu from '../../Images/controller/menu.svg'
+import Sidebar from '../../Components/Sidebar/Sidebar';
 
 class Excluded extends React.Component {
     render() {
         return (
             <div className='black-page'>
-                <div className='side-bar'><img alt='menu' src={menu}/></div>
+                <Sidebar/>
                 <div className='featured'>
                     <BackButton/>
 

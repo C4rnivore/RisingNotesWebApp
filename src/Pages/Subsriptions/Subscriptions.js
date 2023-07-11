@@ -6,9 +6,9 @@ import Song from '../../Components/Song';
 import newPlaylist from '../../Images/featured/new-playlist.png';
 import menu from '../../Images/controller/menu.svg'
 import Sidebar from '../../Components/Sidebar/Sidebar';
-import searchIcon from '../../Images/player/search-ico.svg'
+import Subscription from '../../Components/Subscription';
 
-class Featured extends React.Component {
+class Subscriptions extends React.Component {
     render() {
         return (
             <div className='black-page'>
@@ -16,23 +16,34 @@ class Featured extends React.Component {
                 <div className='featured'>
                     <BackButton/>
                     <div className='search-element'>
-                        <h2 className='sub-h2'>Плейлисты</h2>
+                        <h2 className='sub-h2'>Мои подписки</h2>
                         <form className="searchbar-form page-search" action="#" method="post">
                             <input className="search-input" type="text" placeholder="Поиск музыканта" />
                         </form>
                     </div>
-                    <div className='playlists'>
-                        <Playlist/>
-                        <Playlist/>
-                        <Playlist/>
-                        <img className='new-playlist' alt='add new playlist' src={newPlaylist}/>
+
+                    <div className='subscriptions'>
+                        <Subscription/>
+                        <Subscription/>
+                        <Subscription/>
+                        <Subscription/>
+                        <Subscription/>
+                        <Subscription/>
+                        <Subscription/>
+                        <Subscription/>
                     </div>
 
-                    <h2>Все треки</h2>
-                    <div className='tracks'>
-                        <Song/>
-                        <Song/>
-                        <Song/>
+                    <h2>Все авторы</h2>
+
+                    <div className='subscriptions'>
+                        <Subscription/>
+                        <Subscription/>
+                        <Subscription/>
+                        <Subscription/>
+                        <Subscription/>
+                        <Subscription/>
+                        <Subscription/>
+                        <Subscription/>
                     </div>
                 </div>
             </div>
@@ -40,4 +51,4 @@ class Featured extends React.Component {
     }
 }
 
-export default Featured
+export default Subscriptions

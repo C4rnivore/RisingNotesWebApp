@@ -7,12 +7,13 @@ import Playlist from '../../Components/Playlist';
 import Song from '../../Components/Song';
 import BackButton from '../../Components/BackButton'
 import TopSong from '../../Components/TopSong';
+import Sidebar from '../../Components/Sidebar/Sidebar';
 
 class ArtistCard extends React.Component {
     render() {
         return (
             <div className='black-page'>
-                <div className='side-bar'><img alt='menu' src={menu}/></div>
+                <Sidebar/>
                 <div className='artistcard'>
                     <BackButton/>
                     <span className='card-head'>

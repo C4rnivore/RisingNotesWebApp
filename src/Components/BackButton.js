@@ -6,7 +6,9 @@ import Chevron from '../Images/controller/chevron-left.svg';
 class BackButton extends React.Component {
     render() {
         return (
-            <button className='back-button'><img alt='back' src={Chevron}/>Назад</button>
+            <Link to='javascript:history.back()'>
+                <button className='back-button'><img alt='back' src={Chevron}/>Назад</button>
+            </Link> 
         )
     }
 }

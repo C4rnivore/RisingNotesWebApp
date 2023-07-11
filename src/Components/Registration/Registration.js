@@ -1,9 +1,11 @@
 import logo from '../../Images/login/logo.svg'
 import {Link} from "react-router-dom";
+import Sidebar from '../Sidebar/Sidebar';
 
 function Registration() {
     return (
         <div className="registration">
+            <Sidebar/>
             <div className="registration__content">
                 <div className="registration__content-logo">
                     <img className="registration-logo" src={logo} alt="" draggable="false"/>
