@@ -1,0 +1,46 @@
+.playlist-window {
+    position: absolute;
+    width: 100%;
+    max-width: 762px;
+    height: fit-content;
+    border-radius: 20px;
+    background: linear-gradient(180deg, #DFB7B8 0%, rgba(45, 32, 43, 0.88) 100%);
+    box-shadow: 0px 4px 15px 0px rgba(0, 0, 0, 0.25);
+    padding: 22px;
+
+    margin-top: 150px;
+}
+
+.playlist-head {
+    display: flex;
+    gap: 31px;
+    justify-content: center;
+    margin-bottom: 52px;
+}
+
+.playlist-head > h2 {
+    text-align: start;
+    width: 100%;
+    max-width: 350px;
+}
+
+.playlist-cover {
+    width: 221px;
+    height: 221px;
+
+    border-radius: 9px;
+    box-shadow: 0px 4px 38px 0px rgba(0, 0, 0, 0.25);
+}
+
+.delete-playlist {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.delete-playlist:hover {
+    cursor: pointer;
+}
+
+
+

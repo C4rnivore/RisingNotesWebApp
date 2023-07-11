@@ -300,3 +300,7 @@
 .l-m-w-hidden{
     display: none;
 }
+
+.song-state {
+    width: 259px;
+}

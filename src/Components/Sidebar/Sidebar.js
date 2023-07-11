@@ -59,6 +59,16 @@ function Sidebar() {
                             Личный кабинет
                         </NavLink>
                     </li>
+                    <li className="nav-el" id="personal-page">
+                        <NavLink className="nav-link" to="/adminpanel" >
+                            Все авторы
+                        </NavLink>
+                    </li>
+                    <li className="nav-el" id="personal-page">
+                        <NavLink className="nav-link" to="/messages" >
+                            Уведомления
+                        </NavLink>
+                    </li>
                 </ul>
             </div>
         </div>

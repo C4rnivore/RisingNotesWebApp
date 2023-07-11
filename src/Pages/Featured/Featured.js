@@ -4,9 +4,14 @@ import BackButton from '../../Components/BackButton';
 import Playlist from '../../Components/Playlist';
 import Song from '../../Components/Song';
 import newPlaylist from '../../Images/featured/new-playlist.png';
-import menu from '../../Images/controller/menu.svg'
+import menu from '../../Images/controller/menu.svg';
 import Sidebar from '../../Components/Sidebar/Sidebar';
-import searchIcon from '../../Images/player/search-ico.svg'
+import searchIcon from '../../Images/player/search-ico.svg';
+import cover from '../../Images/image-placeholder/song-cover-default.png';
+import edit from '../../Images/controller/edit-2.svg';
+import Chevron from '../../Images/controller/chevron-left.svg';
+import del from '../../Images/controller/x.svg';
+import PlaylistWindow from '../../Components/PlaylistWindow/PlaylistWindow';
 
 class Featured extends React.Component {
     render() {
@@ -35,6 +40,8 @@ class Featured extends React.Component {
                         <Song id={3}/>
                     </div>
                 </div>
+
+                <PlaylistWindow/>
             </div>
         )
     }

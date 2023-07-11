@@ -27,7 +27,7 @@ class Song extends React.Component {
             <>
                 <div className='track'>
                     <img alt='cover' src={SongCover}/>
-                    <p className='song-title'>Deconstructive Achievements</p>
+                    <p className='song-title'>Francis Owens - Deconstructive Achi...</p>
                     <p className='song-genre'>Джаз</p>
                     <p className='song-duration'>3:00</p>
                     
