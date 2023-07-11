@@ -1,4 +1,5 @@
 .featured {
+    text-align: start;
     padding-top: 81px;
     /* display: grid; */
     max-width: 1200px;

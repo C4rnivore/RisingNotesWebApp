@@ -7,12 +7,13 @@ import  '../Sidebar/Sidebar.css';
 import '../../Pages/Subsriptions/Subscriptions.css';
 import '../../Pages/Commentaries/Commentaries.css';
 
-import  '../../Pages/ArtistPersonalPage/ArtistPersonalPage.css'
+import  '../../Pages/ArtistPersonalPage/ArtistPersonalPage.css';
 import '../../Pages/ArtistCard/ArtistCard.css';
 import '../../Pages/Featured/Featured.css';
 import '../LK/LK.css';
 import '../InstallMusic/InstallMusic.css';
 import '../../Pages/AdminPanel/AdminPanel.css';
+import '../../Components/PlaylistWindow/PlaylistWindow.css';
 
 import Header from "../Header/Header";
 import Login from "../Login/Login"
@@ -32,6 +33,7 @@ import Excluded from '../../Pages/Excluded/Excluded';
 import Subscriptions from '../../Pages/Subsriptions/Subscriptions';
 import Commentaries from '../../Pages/Commentaries/Commentaries';
 import AdminPanel from '../../Pages/AdminPanel/AdminPanel';
+import AdminMessages from '../../Pages/AdminMessages/AdminMessages';
 
 function App() {
   return (
@@ -54,6 +56,7 @@ function App() {
             <Route path={'/commentaries'} element={<Commentaries/>}/>
             <Route path={'/adminpanel'} element={<AdminPanel/>}/>
             <Route  path={'/artistpage'} element={<ArtistPersonalPage/>}/>
+            <Route path={'/messages'} element={<AdminMessages/>}/>
         </Routes>  
     </div>
   );

@@ -2,6 +2,24 @@
     height: 100%;
     min-height: 100vh;
     background: linear-gradient(0deg, rgba(40,27,38,1) 0%, rgba(249,204,204,1) 100%);
-    display: grid;
+    display: flex;
     justify-content: center;
+}
+
+.search-input {
+    border-radius: 50px;
+    background: #EAE1E1;
+    box-shadow: 0px 4px 5px 0px rgba(0, 0, 0, 0.25) inset;
+    outline: none;
+    border: transparent;
+
+    color: black;
+    font-family: Montserrat Alternates;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+}
+
+.search-input::placeholder {
+    background: url('../../Images/player/search-ico.svg') no-repeat scroll 160px 0px;
 }

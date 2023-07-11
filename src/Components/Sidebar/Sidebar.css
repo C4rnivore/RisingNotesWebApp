@@ -150,3 +150,7 @@ li:has(>a.active){
 .active{
     color: #EAE1E1;
 }
+
+.sidebar {
+    z-index: 100;
+}
