@@ -3,11 +3,13 @@ import Song from "../../Components/Song";
 import ProfileImage from '../../Images/pfpimg.png'
 import {Link} from "react-router-dom";
 import logo from '../../Images/login/logo.svg'
+import BackButton from "../../Components/BackButton";
 
 function ArtistPersonalPage() {
     return (
         <div className="artist-personal-page">
             <div className="app-content-wrapper">
+                <BackButton/>
                 <section className="about app-sec">
                     <div className="about-label">
                         <span className="artist-name">Francis Owens</span>

@@ -1,5 +1,7 @@
 import React from 'react';
 import Dima from '../../Images/Dima.svg'
+import { Link } from 'react-router-dom';
+import BackButton from '../BackButton';
 
 const LKCard = () => {
     return (
@@ -15,10 +17,17 @@ const LKCard = () => {
             <button className='change-button'>
                 Изменить пароль
             </button>
-            <div class="palochka"></div>
-            <button className='transition-button'>
-                    Перейти в кабинет музыканта
+            <button className='change-button'>
+                Выйти
             </button>
+            <div class="palochka"></div>
+
+            <Link to='/artistpage'>
+                <button className='transition-button'>
+                        Перейти в кабинет музыканта
+                </button>
+            </Link>
+            
             <div class="palochka2"></div>
         </div>
     );

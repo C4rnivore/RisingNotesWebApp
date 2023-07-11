@@ -3,10 +3,12 @@ import LKCard from '../LK/LKCard';
 import LKprice from '../LK/LKprice';
 import back from '../../Images/back.svg'
 import BackButton from '../BackButton';
+import Sidebar from '../Sidebar/Sidebar';
 
 function LK() {
     return (
         <div className='LKglav'>
+            <Sidebar/>
             <div className='LK-wrapper'>
                 <BackButton/>
                 <LKCard/>
