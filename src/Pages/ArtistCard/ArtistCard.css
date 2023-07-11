@@ -247,12 +247,11 @@
 
 
 .list-modal-container{
-    position: relative;
-    padding-right: 10px;
+    position:inherit;
+    z-index: 2;
 }
 .list-modal-container:hover {
     cursor: pointer;
-    scale: 0.95;
 }
 .list-modal-content{
     display: flex;
@@ -266,9 +265,9 @@
 .list-modal-window{
     z-index: 60;
     position: absolute;
-    top: 40px;
-    left: -250px;
     display: flex;
+    margin-left: 800px;
+    margin-top: -40px;
     flex-direction: column;
     gap:10px;
 }
