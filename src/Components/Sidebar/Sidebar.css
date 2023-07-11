@@ -119,12 +119,11 @@
 }
 
 .sidebar__menu{
-    gap: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
     margin-left: -50px;
     list-style-type: none;
-}
-.nav-el:not(:last-child){
-    margin-bottom: 25px;
 }
 .nav-el{
     font-family: var(--text-font);
