@@ -1,3 +1,568 @@
-.textsong {
+.DownloadMusic {
+    width: 100%;
+    height: 100%;
+    min-height: 100vh;
+    background-color: black;
+    display: grid;
+    justify-content: center;
+}
+
+.DownloadCard {
+    margin-top: -170px;
+    margin-left: -150px;
+}
+
+.DownloadMusicMusician {
+    width: 100%;
+    height: 100%;
+    min-height: 100vh;
+    background-color: black;
+    display: grid;
+    justify-content: center;
+}
+
+.AdminDwndMusic {
+    display: flex;
+    width: 1070px;
+    height: 350px;
+    justify-content: center;
+    margin-top: -100px;
+    margin-left: 100px;
+}
+
+.Author {
+    display: grid;
+    width: 250px;
+    height: 230px;
+    margin-left: 70px;
+    margin-top: 60px;
+}
+
+.publish-div {
+    display: grid;
+    width: 400px;
+    height: 230px;
+    margin-left: 70px;
+    margin-top: 60px;
+}
+
+.Dwnd {
+    display: flex;
+    width: 1000px;
+    height: 800px;
+}
+
+.Album {
+    display: grid;
+    width: 265px;
+    height: 400px;
+    margin-left: 267px;
+    margin-top: 10px;
+}
+
+.Characteristics {
+    display: grid;
+    width: 400px;
+    height: 600px;
+    margin-left: 26px;
+    margin-top: 10px;
+}
+
+.Text {
+    display: flex;
+    width: 700px;
+    height: 350px;
+    margin-left: -700px;
+    margin-top: 530px; 
+}
+
+.save-button2 {
+    width: 170px;
+    height: 33px;
+    margin-top: -929px;
+    margin-left: 770px;
+}
+
+.backbutton {
+    margin-top: 80px;
+    margin-left: -110px;
+}
+
+.backbutton2 {
+    margin-top: -10px;
+    margin-left: -150px;
+}
+
+/*элементы*/
+
+.save-but {
+    width: 170px;
+    height: 33px;
+    border-radius: 9px;
+    background: #5E935D;
+
+    color: #FFF;
+    font-family: Montserrat Alternates;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin-top: 40px;
+    margin-left: 30px;
+}
+
+.save-but:hover {
+    transition: all .1s ease;
+    transform: scale(1.02);
+    cursor: pointer;
+}
+
+.palka {
+    width: 1000px;
+    height: 0px;    
+    margin-top: 330px;
+    margin-left: -855px;
+    border-top: 3px solid white;  
+}
+
+.author-name {
+    color: #FFF;
+    font-family: Montserrat Alternates;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    margin-left: -2px;
+}
+
+.tire {
+    color: #FFF;
+    font-family: Montserrat Alternates;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin-top: -25px;
+    margin-left: 180px;
+}
+
+.song-name {
+    color: #FFF;
+    font-family: Montserrat Alternates;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin-left: -5px;
+}
+
+.play {
+    margin-top: 40px;
+    margin-left: 70px;
+}
+
+.author-button {
+    width: 266px;
+    height: 33px;
+
+    border-radius: 9px;
+    background: #8B6868;
+
+    color: #FFF;
+    font-family: Montserrat Alternates;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin-top: 40px;
+    margin-left: 30px;
+}
+
+.publish-button {
+    width: 170px;
+    height: 33px;
+
+    border-radius: 9px;
+    background: #5E935D;
+
+    color: #FFF;
+    font-family: Montserrat Alternates;
+    font-size: 17px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.delete-button {
+    width: 170px;
+    height: 33px;
+
+    border-radius: 9px;
+    background: #8B6868;
+
+    color: #FFF;
+    font-family: Montserrat Alternates;
+    font-size: 17px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin-left: 180px;
+    margin-top: -33px;
+}
+
+.reject-button {
+    width: 170px;
+    height: 33px;
+
+    border-radius: 9px;
+    background: #8B6868;
+
+    color: #FFF;
+    font-family: Montserrat Alternates;
+    font-size: 17px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+
+    margin-top: 10px;
+}
+
+.publish-h1 {
+    color: #FFF;
+    font-family: Montserrat Alternates;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    margin-top: 20px;
+    margin-left: -120px;
+}
+
+.reject-input {
+    width: 377px;
+    height: 90px;
+    padding-left: 10px;
+    padding-top: 5px;
+    margin-top: 17px;
+    
+    color: #A6A6A6;
+    font-family: Montserrat Alternates;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    border-radius: 9px;
+    background: #EAE1E1;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset;
+}
+
+.delete-button:hover {
+    transition: all .1s ease;
+    transform: scale(1.02);
+    cursor: pointer;
+}
+
+.reject-button:hover {
+    transition: all .1s ease;
+    transform: scale(1.02);
+    cursor: pointer;
+}
+
+.publish-button:hover {
+    transition: all .1s ease;
+    transform: scale(1.02);
+    cursor: pointer;
+}
+
+.author-button:hover {
+    transition: all .1s ease;
+    transform: scale(1.02);
+    cursor: pointer;
+}
+
+.play:hover {
+    transition: all .1s ease;
+    transform: scale(1.02);
+    cursor: pointer;
+}
+
+.dwnd-button {
+    width: 217px;
+    height: 36px;
+
+    border-radius: 9px;
+    background: #5E935D;
+
+    color: #FFF;
+    font-family: Montserrat Alternates;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin-top: 10px;
+}
+
+.dwnd-button:hover {
+    transition: all .1s ease;
+    transform: scale(1.02);
+    cursor: pointer;
+}
+
+.play2 {
+    margin-left: 227px;
+    margin-top: -70px;
+}
+
+.play2:hover {
+    transition: all .1s ease;
+    transform: scale(1.02);
+    cursor: pointer;
+}
+
+.input1 {
+    width: 377px;
+    height: 36px;
+
+    border-radius: 9px;
+    background: #EAE1E1;
+    box-shadow: 0px 4px 7px 0px rgba(0, 0, 0, 0.25) inset;
+
+    color: #A6A6A6;
+    font-family: Montserrat Alternates;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin-top: 3px;
+    margin-left: 0px;
+    padding-left: 5px;
+}
+
+.input2 {
+    width: 377px;
+    height: 36px;
+
+    border-radius: 9px;
+    background: #EAE1E1;
+    box-shadow: 0px 4px 7px 0px rgba(0, 0, 0, 0.25) inset;
+
+    color: #A6A6A6;
+    font-family: Montserrat Alternates;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin-top: 60px;
+    margin-left: -11px;
+    padding-left: 5px;
+}
+
+.add-button2 {
+    background: none;
+    border: none;
+    margin-top: -10px;
+    margin-left: -30px;
+}
+
+.input2-div {
+    width: 377px;
+    height: 36px;
+    margin-top: -70px;
+    margin-left: -2px;
+}
+
+.tags {
+    width: 400px;
+    height: 50px;
+    display: flex;
+    flex-flow: wrap;
+    flex-direction: row;
+    gap:8px;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.tag1 {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap:10px;
+    width: max-content;
+    padding:0 10px;
+    border-radius: 20px;
+    background: #8B6868;
+}
+
+.tag-t {
+    font-family: var(--text-font);
     color: white;
+    font-size: 12px;
+}
+
+.tag-cl {
+    cursor: pointer;
+    font-size: 22px;
+    margin-top: 2px;
+    margin-left: -4px;
+}
+
+.input3-div {
+    width: 377px;
+    height: 36px;
+    margin-top: -80px;
+    margin-left: -2px;
+}
+
+.authors-input {
+    width: 377px;
+    height: 36px;
+    padding-left: 5px;
+    padding-top: 5px;
+    margin-top: 9px;
+    
+        
+    color: #A6A6A6;
+    font-family: Montserrat Alternates;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    border-radius: 9px;
+    background: #EAE1E1;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset;
+}
+
+.input5-div {
+    width: 377px;
+    height: 36px;
+    margin-top: -67px;
+    margin-left: -2px;
+}
+
+.select1 {
+    width: 377px;
+    height: 36px;
+
+    border-radius: 9px;
+    background: #EAE1E1;
+    box-shadow: 0px 4px 7px 0px rgba(0, 0, 0, 0.25) inset;
+
+    color: black;
+    font-family: Montserrat Alternates;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin-top: 23px;
+    margin-left: 0px;
+}
+
+.p1 {
+    color: #FFF;
+    font-family: Montserrat Alternates;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    margin-left: -200px;
+}
+
+.p2 {
+    color: #FFF;
+    font-family: Montserrat Alternates;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    margin-left: 40px;
+    margin-top: -23.5px;
+}
+
+.p3 {
+    color: #FFF;
+    font-family: Montserrat Alternates;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    margin-left: -180px;
+    margin-top: -5px;
+}
+
+.p4 {
+    color: #FFF;
+    font-family: Montserrat Alternates;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    margin-left: -250px;
+    margin-top: -23.5px;
+}
+
+.p5 {
+    color: #FFF;
+    font-family: Montserrat Alternates;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    margin-left: -60px;
+    margin-top: -50px;
+}
+
+.switch1 {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 20px;
+    margin-top: -50px;
+    margin-left: 310px;
+}
+
+.switch2 {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 20px;
+    margin-top: -85px;
+    margin-left: 310px;
+}
+
+.input6-div {
+    width: 377px;
+    height: 36px;
+    margin-top: -100px;
+    margin-left: -2px;
+}
+
+.h1-text {
+    color: #FFF;
+    font-family: Montserrat Alternates;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    margin-top: 3px;
+    margin-left: 10px;
+}
+
+.text-input {
+    width: 674px;
+    height: 200px;
+    padding-left: 10px;
+    padding-top: 5px;
+    margin-top: 40px;
+    margin-left: -140px;
+    
+        
+    color: #A6A6A6;
+    font-family: Montserrat Alternates;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    border-radius: 9px;
+    background: #EAE1E1;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset;
 }

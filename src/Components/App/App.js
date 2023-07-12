@@ -26,6 +26,7 @@ import ArtistCard from '../../Pages/ArtistCard/ArtistCard';
 import LK from "../LK/LK";
 import LKlistener from "../LKlistener/LKlistener";
 import InstallMusic from "../InstallMusic/InstallMusic";
+import InstallMusicMusician from '../InstallMusicMusician/InstallMusicMusician';
 import {Routes,Route, Link} from 'react-router-dom';
 import {Fragment} from "react";
 import Featured from '../../Pages/Featured/Featured';
@@ -34,6 +35,7 @@ import Subscriptions from '../../Pages/Subsriptions/Subscriptions';
 import Commentaries from '../../Pages/Commentaries/Commentaries';
 import AdminPanel from '../../Pages/AdminPanel/AdminPanel';
 import AdminMessages from '../../Pages/AdminMessages/AdminMessages';
+
 
 function App() {
   return (
@@ -56,7 +58,6 @@ function App() {
             <Route path={'/commentaries'} element={<Commentaries/>}/>
             <Route path={'/adminpanel'} element={<AdminPanel/>}/>
             <Route  path={'/artistpage'} element={<ArtistPersonalPage/>}/>
-            <Route path={'/messages'} element={<AdminMessages/>}/>
         </Routes>  
     </div>
   );
