@@ -58,6 +58,7 @@ function App() {
             <Route path={'/commentaries'} element={<Commentaries/>}/>
             <Route path={'/adminpanel'} element={<AdminPanel/>}/>
             <Route  path={'/artistpage'} element={<ArtistPersonalPage/>}/>
+            <Route path={'/messages'} element={<AdminMessages/>}/>
         </Routes>  
     </div>
   );

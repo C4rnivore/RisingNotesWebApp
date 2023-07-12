@@ -5,14 +5,14 @@ import message from '../../Images/controller/message-circle.svg'
 import play from '../../Images/controller/play-circle.svg'
 import rewind_forward from '../../Images/controller/rewind.svg'
 import rewind_backward from '../../Images/controller/rewind-1.svg'
-import dislike from '../../Images/controller/thumbs-down.svg'
+import dislike from '../../Images/controller/thumbs-down.svg';
+import plus from '../../Images/plus.svg';
 
 import {Link} from "react-router-dom";
+import TagItem from '../TagItem'
+import Slider from '../Slider'
 
 function Player() {
-    function switchState() {
-
-    }
     return (
         <div className="player">
             <div className="player__content-wrapper">
@@ -76,11 +76,11 @@ function Player() {
                     <div className="main-player__cover">
                         <span className="cur-playing">Сейчас играет...</span>
                         <img src={songPlaceholder} alt="" className="song-cover"/>
-                        <div className="song-title">
-                            <span className="author">Francis Owens</span>
-                            <span className="song-name"> Deconstructive Achievements</span>
+                        <div className="player-song-title">
+                            <p>Francis Owens</p>
+                            <p> Deconstructive Achievements</p>
                         </div>
-                        <button className="author-more-btn"><Link to=""> Подробнее об авторе</Link></button>
+                        <button className="author-more-btn"><Link to="/artist"> Подробнее об авторе</Link></button>
                     </div>
                     <div className="main-player__controller">
                         <div className="song-progress-bar">
@@ -106,7 +106,9 @@ function Player() {
                                 <img src={heart} alt="" className="cntrl-btn-img"/>
                             </button>
                             <button className="song-control-button comment-button">
-                                <img src={message} alt="" className="cntrl-btn-img"/>
+                                <Link to="/commentaries">
+                                    <img src={message} alt="comment" className="cntrl-btn-img"/>
+                                </Link>
                             </button>
                         </div>
                     </div>
@@ -114,7 +116,7 @@ function Player() {
                 </div>
                 <div className="p-col filters">
                     <div className="filters__panel">
-                        <span className="filters__panel-label text">Фильтры</span>
+                        <p className="filters__panel-label">Фильтры</p>
                         <div className="filters__switches">
                             <div className="switch-field">
                                 <div className="genre-switch-panel switch-panel">
@@ -122,24 +124,16 @@ function Player() {
                                         <div className="cb">
                                             <label htmlFor="genre-cb" className="cb-label">&#9679; Жанр</label>
                                         </div>
-                                        <label className="switch">
-                                            <input type="checkbox"/>
-                                            <span className="slider round" onClick={switchState}></span>
-                                        </label>
+                                        <Slider/>
                                     </div>
                                     <div className="switch-middle-field">
                                         <form action="#" method="post">
                                             <input type="text"  className="switch-input" placeholder="Начните вводить жанр..."/>
-                                            <button className="add-button" type="submit">&#9547;</button>
+                                            <button className="add-button2" type="submit"><img className='plus2' src={plus} alt="добавить"/></button>
                                         </form>
                                     </div>
                                     <div className="switch-bottom-field">
-                                        <div className="tag">
-                                            <span className="tag-text">
-                                                Placeholder
-                                            </span>
-                                            <span className="tag-close">&#215;</span>
-                                        </div>
+                                        <TagItem/>
                                     </div>
                                 </div>
                                 <div className="language-switch-panel switch-panel">
@@ -147,24 +141,18 @@ function Player() {
                                         <div className="cb">
                                             <label htmlFor="genre-cb" className="cb-label">&#9679; Язык</label>
                                         </div>
-                                        <label className="switch">
-                                            <input type="checkbox"/>
-                                            <span className="slider round" onClick={switchState}></span>
-                                        </label>
+                                        <Slider/>
                                     </div>
                                     <div className="switch-middle-field">
                                         <form action="#" method="post">
                                             <input type="text"  className="switch-input" placeholder="Начните вводить язык..."/>
-                                            <button className="add-button" type="submit">&#9547;</button>
+                                            <button className="add-button2" type="submit"><img className='plus2' src={plus} alt="добавить"/></button>
                                         </form>
                                     </div>
                                     <div className="switch-bottom-field">
-                                        <div className="tag">
-                                            <span className="tag-text">
-                                                Placeholder
-                                            </span>
-                                            <span className="tag-close">&#215;</span>
-                                        </div>
+                                        <TagItem/>
+                                        <TagItem/>
+                                        <TagItem/>
                                     </div>
                                 </div>
                                 <div className="same-switch-panel switch-panel">
@@ -172,24 +160,16 @@ function Player() {
                                         <div className="cb">
                                             <label htmlFor="genre-cb" className="cb-label">&#9679; На что похоже?</label>
                                         </div>
-                                        <label className="switch">
-                                            <input type="checkbox"/>
-                                            <span className="slider round" onClick={switchState}></span>
-                                        </label>
+                                        <Slider/>
                                     </div>
                                     <div className="switch-middle-field">
                                         <form action="#" method="post">
                                             <input type="text"  className="switch-input" placeholder="Напишите исполнителей..."/>
-                                            <button className="add-button" type="submit">&#9547;</button>
+                                            <button className="add-button2" type="submit"><img className='plus2' src={plus} alt="добавить"/></button>
                                         </form>
                                     </div>
                                     <div className="switch-bottom-field">
-                                        <div className="tag">
-                                            <span className="tag-text">
-                                                Placeholder
-                                            </span>
-                                            <span className="tag-close">&#215;</span>
-                                        </div>
+                                        <TagItem/>
                                     </div>
                                 </div>
                                 <div className="mood-switch-panel switch-panel">
@@ -197,24 +177,20 @@ function Player() {
                                         <div className="cb">
                                             <label htmlFor="genre-cb" className="cb-label">&#9679;  Настроение</label>
                                         </div>
-                                        <label className="switch">
-                                            <input type="checkbox"/>
-                                            <span className="slider round" onClick={switchState}></span>
-                                        </label>
+                                        <Slider/>
                                     </div>
                                     <div className="switch-middle-field">
                                         <form action="#" method="post">
                                             <input type="text"  className="switch-input" placeholder="Начните вводить..."/>
-                                            <button className="add-button" type="submit">&#9547;</button>
+                                            <button className="add-button2" type="submit"><img className='plus2' src={plus} alt="добавить"/></button>
                                         </form>
                                     </div>
                                     <div className="switch-bottom-field">
-                                        <div className="tag">
-                                            <span className="tag-text">
-                                                Placeholder
-                                            </span>
-                                            <span className="tag-close">&#215;</span>
-                                        </div>
+                                        <TagItem/>
+                                        <TagItem/>
+                                        <TagItem/>
+                                        <TagItem/>
+                                        <TagItem/>
                                     </div>
                                 </div>
                                 <div className="switch-panel gender">

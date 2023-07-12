@@ -62,7 +62,7 @@ function Sidebar() {
                             </NavLink>
                         </li>
                     </a>
-                    <a href="/artistpage">
+                    <a href="/account">
                         <li className="nav-el" id="personal-page">
                             <NavLink className="nav-link" to="/account" >
                                 Личный кабинет

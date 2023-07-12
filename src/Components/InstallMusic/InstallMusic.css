@@ -1,10 +1,13 @@
 .DownloadMusic {
     width: 100%;
+    max-width: 1200px;
     height: 100%;
     min-height: 100vh;
     background-color: black;
-    display: grid;
-    justify-content: center;
+    /* display: grid;
+    justify-content: center; */
+    align-items: center;
+    padding-top: 81px;
 }
 
 .DownloadCard {
@@ -147,12 +150,7 @@
 }
 
 .song-name {
-    color: #FFF;
-    font-family: Montserrat Alternates;
-    font-size: 20px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
+    
     margin-left: -5px;
 }
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import Sidebar from '../Sidebar/Sidebar';
 import BackButton from '../BackButton';
-import DownloadCard from '../InstallMusic/DownloadCard';
+import DownloadCard from '../InstallMusic/UploadCard';
 
 
 function InstallMusicMusician() {

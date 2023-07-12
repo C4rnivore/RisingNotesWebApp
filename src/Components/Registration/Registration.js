@@ -17,7 +17,7 @@ function Registration() {
                         <input type="text" placeholder="ФИО" className="registration-input email-input"/>
                         <input type="email" placeholder="Почта" className="registration-input email-input"/>
                         <input type="password" placeholder="Пароль" className="registration-input password-input"/>
-                        <button className="registration-submit-button">Войти</button>
+                        <button className="registration-submit-button">Зарегистрироваться</button>
                         <span className="registration-form-subtext">
                             Уже есть аккаунт? <Link to="/login">Войти</Link>
                         </span>
