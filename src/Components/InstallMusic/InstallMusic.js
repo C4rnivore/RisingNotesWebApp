@@ -1,33 +1,41 @@
 import React from 'react';
-import back from '../../Images/back.svg'
-import DA from '../../Images/DA.svg'
 import play from '../../Images/play.svg'
+import Sidebar from '../Sidebar/Sidebar';
+import BackButton from '../BackButton';
+import DownloadCard from './DownloadCard';
+
 
 function InstallMusic() {
     return (
-        <div className='LKglav'>
-            <button className='back'>
-                <img className='back-ph' src={back} alt="back-button"/> &nbsp;Назад 
-            </button>
-            <img className='DA' src={DA} alt="zaglushka"/>
-            <input className='InstallMusic-input' placeholder='Название песни'/>
-            <button className='save2'>
-                Сохранить
-            </button>
-            <button className='installsong'>
-                Загрузить трек
-            </button>
-            <img className='play' src={play} alt="проигрыватель"/>
-            <input className='InstallMusic-input' placeholder='Жанры'/>
-            <input className='InstallMusic-input' placeholder='На что похоже'/>
-            <input className='InstallMusic-input' placeholder='Соавторы'/>
-            <input className='InstallMusic-input' placeholder='Настроение'/>
-            <select className='select1'>
-                    <option className='select1-option'>Мужской</option>
-                    <option className='select1-option'>Женский</option>   
-            </select>
-            <p className='textsong'>Текст песни</p>
-            <input className='InstallMusic-input2' placeholder='Текст песни'/>
+        <div className='DownloadMusic'>
+            <Sidebar/>
+            <div className='backbutton'>
+                    <BackButton/>
+            </div>
+            <div className='AdminDwndMusic'>
+                <div className='Author'>
+                        <p><p className='author-name'>Francis Owens</p><p className='tire'>-</p><p className='song-name'>Deconstructive Achievements</p></p>
+                        <img className='play' src={play} alt="проигрыватель"/>
+                        <button className='author-button'>
+                            Подробнее об авторе
+                        </button>
+                </div> 
+                <div className='publish-div'>
+                        <button className='publish-button'>
+                            Опубликовать
+                        </button>
+                        <button className='delete-button'>
+                            Удалить
+                        </button>
+                        <button className='reject-button'>
+                            Отклонить
+                        </button>
+                        <h1 className='publish-h1'>Причина отклонения</h1>
+                        <textarea className = 'reject-input' placeholder='Начните писать...'/>
+                </div>
+                <div class="palka"></div>
+            </div>
+            <DownloadCard/>
         </div>
     );
 }
