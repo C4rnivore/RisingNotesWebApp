@@ -1,0 +1,148 @@
+/* BASIC */
+.sidebar{
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    gap:40px;
+    padding:78px 60px 0 60px;
+    top:0;
+    left: 0;
+    width: 20em;
+    height: 100dvh;
+    background: rgb(25,30,40);
+    background: linear-gradient(180deg, rgba(25,30,40,1) 50%, rgba(15,20,29,1) 100%);
+    z-index: 9;
+}
+
+.bg-gradient{
+    position: fixed;
+    top:0;
+    left:0;
+    width: 100%;
+    height: 100%;
+}
+
+/* SEARCHBAR */
+
+.searchbar_container{
+    position: relative;
+    width: max-content;
+    margin: 40px auto 0 auto;
+}
+
+.searchbar{
+    font-family: 'Montserrat',sans-serif;
+    font-size: 16px;
+
+    background: transparent;
+    color: #787885;
+    padding:10px 15px 10px 50px;
+    border-radius: 10px;
+    border:1px solid #787885;
+    width: 280px;
+    margin: 0 auto;
+}
+
+.searchbar_submit{
+    position: absolute;
+    background: none;
+    border: none;
+    top:10.5px;
+    left:18px;
+}
+
+/* MUSIC */
+
+.music_container{
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    align-items: start;
+}
+.section_title{
+    font-family: 'Montserrat',sans-serif;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: 0em;
+    text-align: left;
+}
+.nav_links{
+    display: flex;
+    align-items: start;
+    flex-direction: column;
+    gap:22px;
+    list-style-type:none ;
+}
+
+.nav_link{
+    display: flex;
+    align-items: center;
+    gap:10px;
+    font-family: 'Montserrat',sans-serif;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: 0em;
+    text-align: left;
+    text-decoration: none;
+    color:#787885;
+}
+.fav{
+    margin-left: -4px;
+}
+.remove{
+    margin-left: -3px;
+    gap:13px;
+}
+.wave{
+    gap:16px;
+}
+.active > img{
+    filter: invert(30%) sepia(82%) saturate(7218%) hue-rotate(327deg) brightness(105%) contrast(103%);
+}
+
+/* PLAYLISTS */
+.playlists-container{
+    display: flex;
+    flex-direction: column;
+    gap:25px;
+    align-items: start;
+}
+
+.sidebar_playlist, .add_playlist{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap:10px;
+}
+.sidebar_playlist:hover{
+    cursor: pointer;
+}
+.sidebar_playlists{
+    display: flex;
+    flex-direction: column;
+    list-style-type: none;
+    gap:22px;
+}
+.sidebar_playlist_thumb, .add_playlist_btn{
+    width: 24px;
+    height: 24px;
+}
+.sidebar_playlist_name{
+    font-family: 'Montserrat',sans-serif;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: 0em;
+    text-align: left;
+    text-decoration: none;
+    color:#787885;
+}
+.add_playlist_btn{
+    margin-top: -7px;
+    background: transparent;
+    border:none;
+    color:#787885;
+    font-size: 24px;
+}
