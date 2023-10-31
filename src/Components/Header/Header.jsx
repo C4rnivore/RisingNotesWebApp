@@ -1,9 +1,10 @@
 import { useState } from 'react'
 import pfp_placeholder from '../../Images/image-placeholder/pfp_placeholder.jpg'
+import logotype from '../../Images/logo.svg'
 
 function Header() {
     const [pfp,setPfp] = useState(pfp_placeholder)
-    const [logo, setLogo] = useState()
+    const [logo, setLogo] = useState(logotype)
 
     return (
         <header className='header'>

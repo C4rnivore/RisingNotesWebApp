@@ -19,6 +19,12 @@
     text-align: left;
 }
 
+.header_logo{
+    display: flex;
+    align-items: center;
+    gap:17px;
+}
+
 .header_pfp{
     display: flex;
     align-items: center;
