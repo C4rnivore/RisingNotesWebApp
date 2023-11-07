@@ -14,6 +14,7 @@ import '../LK/LK.css';
 import '../InstallMusic/InstallMusic.css';
 import '../../Pages/AdminPanel/AdminPanel.css';
 import '../../Components/PlaylistWindow/PlaylistWindow.css';
+import '../Player/FilterComponent/FilterComponent.css'
 
 import Header from "../Header/Header";
 import Login from "../Login/Login"

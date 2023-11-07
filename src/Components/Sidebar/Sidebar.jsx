@@ -18,6 +18,10 @@ function Sidebar() {
       {name:'Для поездок под дождем', thumb: thumb },
    ])
 
+   const handleCreatePlaylistBtn = () =>{
+      return
+   }
+
    return(
     <div className="sidebar">
       <div className="searchbar_container">
@@ -63,13 +67,13 @@ function Sidebar() {
          <span className="section_title">Плейлисты</span>
          <ul className="sidebar_playlists">
             {playlists.map((pl => 
-               <li className='sidebar_playlist'>
+               <li className='sidebar_playlist' key={pl.name.toString()}>
                   <img className='sidebar_playlist_thumb' src={pl.thumb} alt="" />
                   <span className='sidebar_playlist_name'> {pl.name} </span>
                </li>
             ))}
-            <li className='add_playlist'>
-               <button className="add_playlist_btn">+</button>
+            <li className='add_playlist' onClick={handleCreatePlaylistBtn}>
+               <span className="add_playlist_icon">+</span>
                <span className='sidebar_playlist_name'>Добавить плейлист</span>
             </li>
          </ul>

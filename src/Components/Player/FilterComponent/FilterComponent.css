@@ -1,0 +1,104 @@
+/* FILTERS */
+.filters-container{
+    display: flex;
+    align-items: center;
+}
+.filters{
+    display: flex;
+    flex-direction: column;
+    gap:10px;
+    padding: 40px;
+    width: 80%;
+    height: 70vh;
+    background: rgb(25,30,40);
+    border-radius: 25px;
+    
+    background: linear-gradient(119deg, rgba(25,30,40,1) 0%, rgba(180,180,180,0.7) 0%, rgba(15,20,29,0.5) 100%); 
+    margin:auto;
+    border: 2px solid #1a202b;
+}
+.filters-label{
+    font-family: var(--text-font);
+    text-align: start;
+    font-size: 20px;
+    color:#fff;
+}
+
+.filterOption{
+    display: flex;
+    flex-direction: column;
+    gap:10px;
+    max-width: 100%;
+}
+.filter-top{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+.filter-top-start{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap:10px;
+}
+.filter-dot{
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;;
+    background-color: #cb115e;
+}
+.filter-name{
+    font-family: var(--text-font);
+    font-size: 14px;
+    font-weight: 500;
+}
+.filter-switch{
+    height: 15px;
+    width: 45px;
+    background-color: #cb115e;
+}
+
+.filters-input{
+    height: 30px;
+    background-color: #fff;
+    padding:5px 15px;
+    border:none;
+    border-radius: 10px;
+}
+.filters-input::after{
+    content: '+';
+    width: auto;
+    color:red;
+    font-size: 20px;
+}
+
+.filter-tags{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+.tag-container{
+    display: flex;
+    flex-direction: row;
+    gap:5px;
+    padding: 3px 10px;
+    background-color: #cb115e;
+    border-radius: 50px;
+}
+.tag{
+    font-family: var(--text-font);
+    font-size: 14px;
+}
+.tag-close{
+    scale:1.5;
+    color: white;
+    font-family: var(--text-font);
+    background: transparent;
+    border: none;
+}
+.filters-form{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
