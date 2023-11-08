@@ -27,7 +27,7 @@ import LK from "../LK/LK";
 import LKlistener from "../LKlistener/LKlistener";
 import InstallMusic from "../InstallMusic/InstallMusic";
 import InstallMusicMusician from '../InstallMusicMusician/InstallMusicMusician';
-import {Routes,Route, Link} from 'react-router-dom';
+import {Routes,Route, Link, createBrowserRouter, createRoutesFromElements, RouterProvider} from 'react-router-dom';
 import {Fragment} from "react";
 import Featured from '../../Pages/Featured/Featured';
 import Excluded from '../../Pages/Excluded/Excluded';
@@ -37,29 +37,35 @@ import AdminPanel from '../../Pages/AdminPanel/AdminPanel';
 import AdminMessages from '../../Pages/AdminMessages/AdminMessages';
 
 
+
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <Route element={<Header/>}>
+        <Route path={'/'} element={<Fragment>
+            <Sidebar></Sidebar>
+            <Player></Player>
+        </Fragment>}/>
+        <Route path={'/login'} element={<Login/>}/>
+        <Route path={'/registration'} element={<Registration/>}/>
+        <Route path={'/artist'} element={<ArtistCard/>}/>
+        <Route path={'/featured'} element={<Featured/>}/>
+        <Route path={'/excluded'} element={<Excluded/>}/>
+        <Route path={'/account'} element={<LK/>}/>
+        {/* <Route path={'/LKlistener'} element={<LKlistener/>}/> */}
+        <Route path={'/upload'} element={<InstallMusic/>}/>
+        <Route path={'/subscriptions'} element={<Subscriptions/>}/>
+        <Route path={'/commentaries'} element={<Commentaries/>}/>
+        <Route path={'/adminpanel'} element={<AdminPanel/>}/>
+        <Route  path={'/artistpage'} element={<ArtistPersonalPage/>}/>
+        <Route path={'/messages'} element={<AdminMessages/>}/>
+    </Route>  
+  )
+)
+
 function App() {
   return (
     <div className="App">
-        <Header/>
-        <Routes>
-            <Route path={'/'} element={<Fragment>
-                <Sidebar></Sidebar>
-                <Player></Player>
-            </Fragment>}/>
-            <Route path={'/login'} element={<Login/>}/>
-            <Route path={'/registration'} element={<Registration/>}/>
-            <Route path={'/artist'} element={<ArtistCard/>}/>
-            <Route path={'/featured'} element={<Featured/>}/>
-            <Route path={'/excluded'} element={<Excluded/>}/>
-            <Route path={'/account'} element={<LK/>}/>
-            {/* <Route path={'/LKlistener'} element={<LKlistener/>}/> */}
-            <Route path={'/upload'} element={<InstallMusic/>}/>
-            <Route path={'/subscriptions'} element={<Subscriptions/>}/>
-            <Route path={'/commentaries'} element={<Commentaries/>}/>
-            <Route path={'/adminpanel'} element={<AdminPanel/>}/>
-            <Route  path={'/artistpage'} element={<ArtistPersonalPage/>}/>
-            <Route path={'/messages'} element={<AdminMessages/>}/>
-        </Routes>  
+      <RouterProvider router={router}/>
     </div>
   );
 }

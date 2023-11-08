@@ -1,15 +1,31 @@
-import alert from '../../Images/controller/alert-octagon.svg'
-import heart from '../../Images/controller/heart.svg'
-import message from '../../Images/controller/message-circle.svg'
-import play from '../../Images/controller/play-circle.svg'
-import rewind_forwrad from '../../Images/controller/rewind.svg'
-import rewind_backward from '../../Images/controller/rewind-1.svg'
-import dislike from '../../Images/controller/thumbs-down.svg'
+
 import volume from '../../Images/controller/volume-2.svg'
 import track_placeholder from '../../Images/image-placeholder/song-placeholder.png'
-import {Link} from "react-router-dom";
+import {Link, Outlet, useLoaderData} from "react-router-dom";
+import { useEffect } from 'react';
+import { GetSong } from '../App/MusicPlayer';
+import { useState } from 'react';
+import axios from 'axios';
+import MusicPlayer from '../App/MusicPlayer';
+const api = 'https://2100237-gs89005.twc1.net/'
 
-function Header() {
+function Header() {    
+    const [songs, setSongs] = useState([]);
+    const [isLoaded, setIsLoaded] = useState(false);
+
+    useEffect(() => {
+        axios.get(api + `api/song/list/${'4347606b-3d32-4a85-8244-edc3e31b497b'}`)
+            .then(response => {
+                setIsLoaded(true);
+                setSongs(response.data.songInfoList);
+                console.log(response.data.songInfoList);
+            })
+            .catch(error => {
+                console.error(error);
+                throw error;
+            });
+    }, [])
+
     function showModal() {
        const vl_md = document.getElementById('volume-modal')
         if(vl_md.classList.contains('volume-modal-hidden')){
@@ -23,47 +39,42 @@ function Header() {
             vl_md.classList.add('volume-modal-hidden')
         }
     }
-
-    return (
-        <header className="header">
-            <div className="header-left-container">
-                <div className="header__track">
-                    <img className="header__track-image" src={track_placeholder} alt=""/>
-                    <div className="header__track-options">
-                        <span className="header-text header__track-name">Francis Owens - Deconstructive Ac...</span>
-                        <div className="track-range">
-                            <input type="range" id="time" name="volume"
-                                   min="0" max="100"/>
-                            <span className="header-text header__track-duration">2:03</span>
+    if (isLoaded) {
+        return (
+            <>
+            <header className="header">
+                <div className="header-left-container">
+                    <div className="header__track">
+                        <img className="header__track-image" src={track_placeholder} alt=""/>
+                        <div className="header__track-options">
+                            <span className="header-text header__track-name">Francis Owens - Deconstructive Ac...</span>
+                            <div className="track-range">
+                                <input type="range" id="time" name="volume"
+                                    min="0" max="100"/>
+                                <span className="header-text header__track-duration">2:03</span>
+                            </div>
                         </div>
+                        <MusicPlayer songsInfo={songs}/>
+                    </div>
+                </div>
+                <div className="header-right-container">
+                    <div className="volume-container">
+                        <div id='volume-modal' className="volume-modal volume-modal-hidden" onMouseLeave={hideModal}>
+                            <input type="range"/>
+                        </div>
+                        <img className="header-volume-btn" src={volume} onMouseOver={showModal} ></img>
+                    </div>
 
-                    </div>
-                    <div className="header__track-controller">
-                        <img className="track-controller__btn warning-btn" src={alert}></img>
-                        <img className="track-controller__btn dislike-btn" src={dislike}></img>
-                        <img className="track-controller__btn to-start-btn" src={rewind_backward}></img>
-                        <img className="track-controller__btn play-btn" src={play}></img>
-                        <img className="track-controller__btn to-end-btn" src={rewind_forwrad}></img>
-                        <img className="track-controller__btn like-btn" src={heart}></img>
-                        <img className="track-controller__btn lyrics-btn" src={message}></img>
+                    <div className="entrance-holder">
+                        <span className="header-text entrance-btn entrance-signup-btn"><Link className="header-link" to='/registration'>Зарегистрироваться</Link></span>
+                        <span className="header-text entrance-btn entrance-login-btn"><Link className="header-link" to='/login'>Войти</Link></span>
                     </div>
                 </div>
-            </div>
-            <div className="header-right-container">
-                <div className="volume-container">
-                    <div id='volume-modal' className="volume-modal volume-modal-hidden" onMouseLeave={hideModal}>
-                        <input type="range"/>
-                    </div>
-                    <img className="header-volume-btn" src={volume} onMouseOver={showModal} ></img>
-                </div>
-
-                <div className="entrance-holder">
-                    <span className="header-text entrance-btn entrance-signup-btn"><Link className="header-link" to='/registration'>Зарегистрироваться</Link></span>
-                    <span className="header-text entrance-btn entrance-login-btn"><Link className="header-link" to='/login'>Войти</Link></span>
-                </div>
-            </div>
-        </header>
-    );
+            </header>
+            <Outlet/>
+            </>
+        );
+    }
 }
 
 export default Header;
