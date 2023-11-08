@@ -10,7 +10,9 @@ button:hover{
   font-family: var(--text-font);
 }
 :root{
-  --text-font: 'Montserrat Alternates',sans-serif;
+  --text-font: 'Montserrat',sans-serif;
+  --sidebar-width:400px;
+  --header-height:78px;
 }
 body {
   margin: 0;

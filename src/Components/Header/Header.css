@@ -1,99 +1,53 @@
 .header{
     position: fixed;
     top:0;
-    left: 0;
-    align-items: center;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    background: #000000 ;
-    width: 100%;
-    padding: 5px 25px;
-    z-index: 999;
-}
-.header-text{
-    height:max-content ;
-    color: white;
-    font-family: var(--text-font);
-}
+    left:0;
 
-.header__track{
     display: flex;
-    align-items: center;
-    flex-direction: row;
-    gap:30px
-}
-.header__track-name{
-    max-width: 270px;
-    display: block;
-    overflow-x: hidden;
-    word-wrap: unset;
-    white-space: nowrap;
-}
-.header__track-image{
-    width: 40px;
-    height: 40px;
-}
-.track-controller__btn{
-    scale: 0.8;
-    cursor: pointer;
-}
-.header__track-controller{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-}
-.header-right-container{
-    display: flex;
-    flex-direction: row;
-    gap:20px;
-    align-items: center;
-}
-.entrance-holder{
-    display: flex;
-    flex-direction: row;
-    gap:15px;
-}
-.track-range{
     justify-content: space-between;
+    align-items: center;
+
     width: 100%;
-    display: flex;
-    flex-direction: row;
+    height: var(--header-height);
+    background: #0F141D;
+    border-bottom: 1px solid #2C323D;
+
+    padding: 0 60px;
+    z-index: 10;
+    
 }
-.track-range> #time{
-    width: 80%;
+.logo_txt{
+    font-family: var(--text-font);
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 24px;
+    letter-spacing: 0em;
+    text-align: left;
 }
-input[type='range']{
-    overflow:hidden;
-}
-.header-link{
-    text-decoration: none;
+.logo_link{
     color:white;
 }
-.header-link:hover{
-    text-decoration: underline;
-}
-.volume-container{
-    position: relative;
-    width: 28px;
-    height: 28px;
-}
-.volume-modal{
-    align-items: center;
-    position: absolute;
+
+.header_logo{
     display: flex;
-    top:35px;
-    left: -270%;
-    padding: 10px 30px;
-    width: max-content;
-    border-radius: 10px;
-    background: #EAE1E1;
-    box-shadow: 0px 0px 10px black;
-}
-.volume-modal-hidden{
-    animation: hide;
-    display: none;
+    align-items: center;
+    gap:17px;
 }
 
-
-
+.header_pfp{
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    gap:8px;
+}
+.pfp_dropdown{
+    user-select: none;
+    color:white;
+}
+.pfp_dropdown:hover{
+    cursor: pointer;
+}
+.pfp_image{
+    width: 40px;
+    border-radius: 50%;
+}
