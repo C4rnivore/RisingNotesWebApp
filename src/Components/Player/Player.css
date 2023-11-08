@@ -118,7 +118,7 @@
     font-weight: 300;
     text-align: left;
     white-space: pre-wrap;
-    max-height: 300px;
+    max-height: 70vh;
     overflow-y: scroll;
 
     transition: max-height 350ms ease-out;
