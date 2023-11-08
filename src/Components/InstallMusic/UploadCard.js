@@ -1,6 +1,6 @@
 import React from 'react';
 import DA from '../../Images/DA.svg'
-import play from '../../Images/play.svg'
+import play from '../../Images/Play.svg'
 import plus from '../../Images/plus.svg'
 import x from '../../Images/x.svg'
 
