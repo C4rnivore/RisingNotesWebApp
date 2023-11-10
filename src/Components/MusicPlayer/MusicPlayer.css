@@ -3,7 +3,7 @@
     z-index: 100;
 
     border-radius: 30px;
-    border: 1px solid rgba(28, 33, 44, 0.00);
+    border: 0px solid;
     background: radial-gradient(228.74% 144.12% at 0.9% 2.98%, rgba(255, 255, 255, 0.40) 0%, rgba(255, 255, 255, 0.16) 60.52%, rgba(255, 255, 255, 0.00) 100%);
     backdrop-filter: blur(21px);
 

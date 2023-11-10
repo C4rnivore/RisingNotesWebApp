@@ -1,5 +1,6 @@
 import axios from 'axios';
-import { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, memo } from 'react';
+import {Link, NavLink} from "react-router-dom";
 
 import heart from '../../Images/controller/heart.svg';
 import message from '../../Images/controller/message.svg';
@@ -11,9 +12,9 @@ import dislike from '../../Images/controller/thumbs-down.svg';
 import cover from '../../Images/image-placeholder/song-cover-default.png';
 import volume from '../../Images/controller/volume-2.svg';
 
-export const api = 'https://2100237-gs89005.twc1.net/'
+import { api } from '../App/App';
 
-export default function MusicPlayer (props) {
+const MusicPlayer = memo((props) => {
     const [isPlaying, setIsPlaying] = useState(false);  
     const [nextSongIndex,setNextSongIndex] = useState(0);
     const audioRef = useRef(null);
@@ -86,31 +87,35 @@ export default function MusicPlayer (props) {
     const handleVolumeChange = (event) => {
         let audio = document.querySelector('audio');
         audio.volume = event.target.value*0.01;
-    }
+    };
 
     function formatTime(seconds) {
+        if (seconds === undefined || seconds === NaN || seconds === null) {
+            return '00:00';
+        }
         seconds = Math.round(seconds);
         let minutes = Math.floor(seconds / 60);
         seconds = seconds % 60;
         return `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-    }
+    };
 
     function showModal() {
         const vl_md = document.getElementById('volume-modal')
         if(vl_md.classList.contains('volume-modal-hidden')){
-            vl_md.classList.remove('volume-modal-hidden')
+            vl_md.classList.remove('volume-modal-hidden');
         }
-    }
- 
+    };
+
     function hideModal() {
         const vl_md = document.getElementById('volume-modal')
         if(!vl_md.classList.contains('volume-modal-hidden')){
-            vl_md.classList.add('volume-modal-hidden')
+            vl_md.classList.add('volume-modal-hidden');
         }
-    }
+    };
 
     return (<div className="music-player-wrapper">
-        <audio ref={audioRef} src={api + `api/song/${props.songsInfo[nextSongIndex]?.id}/file`} type="audio/mpeg"/>
+        <audio ref={audioRef} src={api + `api/song/${props.songsInfo[nextSongIndex]?.id}/file`}
+            onEnded={handleNextSong} type="audio/mpeg"/>
         <div className="music-player">
             <img className='music-player-cover' src={props.songsInfo.length > nextSongIndex ?
             (api + `api/song/${props.songsInfo[nextSongIndex]?.id}/logo?width=100&height=100`) : cover} alt='cover'/>
@@ -131,13 +136,14 @@ export default function MusicPlayer (props) {
 
             <div className='music-player-buttons'>
                 <button><img alt='dislike' src={dislike}/></button>
-                <a href='/commentaries'><img alt='comment' src={message}/></a>
+                <Link to={`/commentaries/${props.songsInfo[nextSongIndex]?.id}`}><img alt='comment' src={message}/></Link>
                 <button><img alt='add to featured' src={heart}/></button>
             </div>
             
             <div className="track-range">
                 <span className="header-text header__track-duration">{formatTime(trackCurrentDuration)}</span>
-                <input className='track-range-input' value={trackCurrentDuration} onChange={handleCurrentDurationChange}
+                <input className='track-range-input' value={trackCurrentDuration} 
+                    onChange={handleCurrentDurationChange}
                     type="range" id="time" name="volume" min="0" max={trackDuration}/>
                 <span className="header-text header__track-duration">{formatTime(trackDuration)}</span>
             </div>
@@ -150,4 +156,6 @@ export default function MusicPlayer (props) {
             </div>
         </div>
     </div>)
-}
+});
+
+export default MusicPlayer;

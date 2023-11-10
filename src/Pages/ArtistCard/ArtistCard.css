@@ -30,10 +30,12 @@
 }
 
 .back-button {
-    color: #FFF;
-    text-align: center;
-    font-family: Montserrat Alternates;
+    color: #787885;
+    font-family: Montserrat;
     font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    
     border: none;
     outline: none;
     background: transparent;
