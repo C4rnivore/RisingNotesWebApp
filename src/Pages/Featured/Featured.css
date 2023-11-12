@@ -1,9 +1,9 @@
 .featured {
     text-align: start;
     padding-top: 81px;
-    /* display: grid; */
     max-width: 1200px;
     padding-left: 91px;
+    margin-bottom: 200px;
 
     @media screen and (min-width: 1200px){
         width: 1200px;

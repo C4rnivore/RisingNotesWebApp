@@ -1,4 +1,5 @@
-<svg width="43" height="43" viewBox="0 0 43 43" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M21.5 36.8571C29.9815 36.8571 36.8571 29.9815 36.8571 21.5C36.8571 13.0184 29.9815 6.14282 21.5 6.14282C13.0185 6.14282 6.14286 13.0184 6.14286 21.5C6.14286 29.9815 13.0185 36.8571 21.5 36.8571Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M18.4286 15.3572L27.6429 21.5L18.4286 27.6429V15.3572Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Media / Play">
+<path id="Vector" d="M5 17.0936V6.90716C5 6.06719 5 5.64674 5.18677 5.39821C5.34977 5.1813 5.60102 5.03889 5.87995 5.00484C6.19943 4.96584 6.59126 5.16362 7.3738 5.55862L17.4642 10.6519L17.4678 10.6534C18.3327 11.0899 18.7653 11.3083 18.9072 11.5993C19.0309 11.8532 19.0309 12.1463 18.9072 12.4002C18.7651 12.6916 18.3314 12.9109 17.4642 13.3486L7.3738 18.4419C6.5907 18.8371 6.19954 19.0342 5.87995 18.9951C5.60102 18.9611 5.34977 18.8187 5.18677 18.6018C5 18.3533 5 17.9336 5 17.0936Z" fill="white" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
 </svg>

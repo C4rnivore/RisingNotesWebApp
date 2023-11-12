@@ -1,5 +1,3 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
 import BackButton from '../../Components/BackButton';
 import Playlist from '../../Components/Playlist';
 import Song from '../../Components/Song';
@@ -13,52 +11,78 @@ import dislike from '../../Images/controller/thumbs-down.svg'
 import avatar from '../../Images/image-placeholder/song-cover-default.png'
 import Comment from '../../Components/Comment';
 
-class Commentaries extends React.Component {
-    render() {
-        return (
-            <div className='black-page'>
-                <Sidebar/>
-                <div className='featured'>
-                    <BackButton/>
+import { api } from '../../Components/App/App';
+import { token } from '../../Components/App/App';
 
-                    <div className='comm-head'>
-                        <img alt='cover' src={SongCover}/>
-                        <span>
-                            <span className='comm-head-name'>
-                                <h2>Francis Owens</h2>
-                                <p>&nbsp;- Deconstructive Achievements</p>
-                            </span>
-                            <p className='listeners'>200 прослушиваний/месяц</p>
-                            <div className='comm-head-buttons'>
-                                <a><img alt='give a strike' src={alert}/></a>
-                                <a><img alt='dislike' src={dislike}/></a>
-                                <a><img alt='like' src={heart}/></a>
-                            </div>
-                        </span>
-                    </div>
+import React from 'react';
+import { Link, useParams } from 'react-router-dom';
+import { useEffect, useState } from "react";
+import axios from "axios";
 
-                    <h2>Комментарии</h2>
+const Commentaries = (props) => {
+    const params = useParams();
+    const [comments, setComments] = useState([]);
+    const [comment, setComment] = useState('');
+    const [isDataUpdated, setIsDataUpdated] = useState(false);
 
-                    <div className='comment'>
-                        <img alt='avatar' src={avatar}/>
-                        <span className='comment-text'>
-                            <h2>Иванов Иван</h2>
-                            <textarea placeholder='Начните писать, что думаете...'>
-                            </textarea>
-                            <button className='comment-button-b'>Комментировать</button>
-                        </span>
-                    </div>
+    useEffect(() => {
+        axios.get(api + `api/song/${params.id}/comment/list`)
+            .then(response => {
+                let arr = response.data.commentList;
+                arr.reverse();
+                setComments(arr);
+            })
+    }, [isDataUpdated]);
 
-                    <div className='stripe'></div>
-
-                    <Comment/>
-                    <Comment/>
-                    <Comment/>
-                    <Comment/>
-                </div>
-            </div>
-        )
+    const handleSendComment = () => {
+        axios.post(api + `api/song/${params.id}/comment`, {text: comment}, {
+                headers: {
+                    Authorization: 'Bearer ' + token
+                }
+            })
+            .then(response => {
+                setIsDataUpdated(!isDataUpdated);
+                setComment('');
+            })
+            .catch(err => {
+                console.log(err);
+                throw err;
+            })
     }
+
+    return (
+        <div className='comment-page-wrapper'>
+            <Sidebar/>
+            <div className='featured'>
+                <BackButton/>
+
+                <div className='comm-head'>
+                    <img alt='cover' src={SongCover}/>
+                    <span>
+                        <h2 className='comm-page-h2'>Deconstructive Achievements</h2>
+                        <p className='comm-page-author'>Francis Owens</p>
+                        <div className='comm-head-buttons'>
+                            <span className='song-tag'>Рок</span>
+                            <span className='song-tag'>Джаз</span>
+                        </div>
+                    </span>
+                </div>
+
+                <h3 className='comm-page-h3'>Комментарии</h3>
+
+                <div className='comment-input-wrapper'>
+                    <textarea placeholder='Введите текст комментария здесь...' className='comment-input' 
+                        onChange={(e) => setComment(e.target.value)} value={comment}></textarea>
+                    <button className='comment-button-b' onClick={handleSendComment}>Отправить</button>
+                </div>
+
+                <div className='stripe'></div>
+
+                {comments.map(e => (<div key={e.id}><Comment data={e} songId={params.id}/></div>))}
+
+            </div>
+        </div>
+    );
 }
 
-export default Commentaries
+export default Commentaries;
