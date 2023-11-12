@@ -53,24 +53,13 @@
     font-size: 14px;
     font-weight: 500;
 }
-.filter-switch{
-    height: 15px;
-    width: 45px;
-    background-color: #cb115e;
-}
 
 .filters-input{
     height: 30px;
     background-color: #fff;
-    padding:5px 15px;
+    padding:5px 50px 5px 15px;
     border:none;
     border-radius: 10px;
-}
-.filters-input::after{
-    content: '+';
-    width: auto;
-    color:red;
-    font-size: 20px;
 }
 
 .filter-tags{
@@ -97,8 +86,59 @@
     background: transparent;
     border: none;
 }
+
+/* SWITCH */
+.filter-switch,
+.filter-switch-toggled{
+    display: flex;
+    position: relative;
+    border-radius: 10px;
+    
+    align-items: center;
+    justify-content: center;
+    height: 20px;
+    width: 70px;
+    background-color: #cb115e;
+}
+.filter-switch:hover,
+.filter-switch-toggled{
+    cursor: pointer;
+}
+.switch-state-name{
+    user-select: none;
+    font-family: var(--text-font);
+    font-size: 16px;
+    margin-bottom: 1px;
+}
+.switch-ball{
+    position: absolute;
+    height: 12px;
+    width: 12px;
+    background-color: #fff;
+    border-radius: 50%;
+    left: 4px;
+    transform: translateX(0);
+    transition: 250ms ease-in-out;
+}
+.filter-switch-toggled > .switch-ball{
+    transform: translateX(410%);
+}
+.submit-tag-input{
+    width: max-content;
+}
+
+/* FORM */
 .filters-form{
+    position: relative;
     width: 100%;
     display: flex;
     flex-direction: column;
+}
+.submit-tag-input{
+    position: absolute;
+    height: 100%;
+    padding-inline: 20px;
+    background: none;
+    border: none;
+    right: 0;
 }

@@ -3,11 +3,13 @@ import wave from '../../Images/sidebar/vave.svg'
 import warning from '../../Images/sidebar/warning.svg'
 import like from '../../Images/sidebar/like.svg'
 import thumb from '../../Images/sidebar/playlist_thumb.png'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {Link, NavLink} from "react-router-dom";
 import player from "../Player/Player";
 
-function Sidebar() {
+export const api = 'https://2100237-gs89005.twc1.net/'
+
+function Sidebar(props) {
    const [search, setSearch] = useState(searchIcon)
 
    // Подтягивать с бэка?
@@ -17,6 +19,19 @@ function Sidebar() {
       {name:'Треки для вечеринки', thumb: thumb },
       {name:'Для поездок под дождем', thumb: thumb },
    ])
+
+   // useEffect(()=>{
+   //    axios.get(api + `/api/playlist/list/${props.userId}`)
+   //    .then(response => {
+   //       setPlaylists(response.data...);
+   //    })
+   //    .catch(err => {
+   //        console.log(err);
+   //        throw err;
+   //    })
+
+   // },[])
+
 
    const handleCreatePlaylistBtn = () =>{
       return

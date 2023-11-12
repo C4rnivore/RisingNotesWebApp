@@ -76,13 +76,7 @@ I guess I will survive in spite of being in a bad view.
                 </button>
             </div>
             <div className="filters-container">
-                <div className="filters">
-                    <span className="filters-label">Фильтры</span>
-                    <FilterComponent name='Жанр' key='Genre'/>
-                    <FilterComponent name='Язык' key='Language'/>
-                    <FilterComponent name='На что похоже' key='SimilarTo'/>
-                    <FilterComponent name='Настроение' key='Mood'/>
-                </div>
+                <FilterComponent/>
             </div>
             <img className="player-bg-image" src={currentTrack.trackCover} alt="" />
         </section>
