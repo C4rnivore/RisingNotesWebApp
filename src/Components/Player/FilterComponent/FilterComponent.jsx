@@ -20,12 +20,8 @@ function FilterComponent(){
 }
 
 function FilterElement(props){
-    const [tags,setTags] = useState();
+    const [tags,setTags] = useState([]);
     const [switchState, setSwitchState] = useState('и')
-
-    useEffect(()=>{
-        setTags([])
-    })
 
     const handleswitchStateClick = ()=>{
         const swt = document.getElementById(props.id)
@@ -41,13 +37,23 @@ function FilterElement(props){
     }
 
     const handleInputClick = (e) =>{
-       // e.preventDefault()
+        e.preventDefault()
 
         let inp = document.getElementById(props.id+"-input")
         if(!inp)
             return
+        else if(inp.value == '')
+            return
+        else if(tags.includes(inp.value))
+            return
 
-        setTags([1,2,3])
+        setTags(cur => cur = [...cur, inp.value])
+    }
+
+    const handleRemoveClick = (index) =>{
+        const temp = [...tags]
+        temp.splice(index, 1)
+        setTags(temp)
     }
 
 
@@ -68,12 +74,12 @@ function FilterElement(props){
             <button className="submit-tag-input" type="submit" onClick={handleInputClick}>&#10010;</button>
         </form>
         <div className="filter-tags">
-            {tags.map(tag => {
-                <div className="tag-container">
+            {tags.map((tag, index) => (
+                <div className="tag-container" key={`string${index}`} >
                     <span className='tag'>{tag}</span>
-                    <button className='tag-close'>&#215;</button>
+                    <button className='tag-close' onClick={handleRemoveClick(index)}>&#215;</button>
                 </div>
-            })}
+            ))}
         </div>
     </div>
 )}
