@@ -4,7 +4,7 @@ import {Link, NavLink} from "react-router-dom";
 
 import heart from '../../Images/controller/heart.svg';
 import message from '../../Images/controller/message.svg';
-import play from '../../Images/Play.svg';
+import play from '../../Images/play.svg';
 import pause from '../../Images/Pause.svg';
 import rewind_forwrad from '../../Images/controller/rewind.svg';
 import rewind_backward from '../../Images/controller/rewind-1.svg';
@@ -24,7 +24,8 @@ const MusicPlayer = memo((props) => {
     const [songName, setSongName] = useState('Название трека');
 
     useEffect(() => {
-        axios.get(api + `api/song/${props.songsInfo[nextSongIndex]?.id}`)
+        if(props.songsInfo > 0){
+            axios.get(api + `api/song/${props.songsInfo[nextSongIndex]?.id}`)
             .then(response => {
                 setSongName(response.data.name);
             })
@@ -32,6 +33,8 @@ const MusicPlayer = memo((props) => {
                 console.log(err);
                 throw err;
             })
+        }
+
     }, [nextSongIndex])
 
     const handlePlayPause = () => { 

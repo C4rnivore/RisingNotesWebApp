@@ -32,6 +32,9 @@ const Commentaries = (props) => {
                 arr.reverse();
                 setComments(arr);
             })
+            .catch(err=>{
+                console.log(err);
+            })
     }, [isDataUpdated]);
 
     const handleSendComment = () => {

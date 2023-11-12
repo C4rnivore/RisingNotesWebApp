@@ -1,5 +1,5 @@
 import React from 'react';
-import play from '../../Images/Play.svg'
+import play from '../../Images/play.svg'
 import Sidebar from '../Sidebar/Sidebar';
 import BackButton from '../BackButton';
 import UploadCard from './UploadCard';

@@ -51,24 +51,24 @@ function App() {
   const [songs, setSongs] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
 
-  useEffect(() => {
-      axios.get(api + `api/song/list/${'4347606b-3d32-4a85-8244-edc3e31b497b'}`)
-          .then(response => {
-              setIsLoaded(true);
-              setSongs(response.data.songInfoList);
-              console.log(response.data.songInfoList);
-          })
-          .catch(error => {
-              console.error(error);
-              throw error;
-          });
-  }, [])
+//   useEffect(() => {
+//       axios.get(api + `api/song/list/${'4347606b-3d32-4a85-8244-edc3e31b497b'}`)
+//           .then(response => {
+//               setIsLoaded(true);
+//               setSongs(response.data.songInfoList);
+//               console.log(response.data.songInfoList);
+//           })
+//           .catch(error => {
+//               console.error(error);
+//               throw error;
+//           });
+//   }, [])
   
-  if (isLoaded)
+  if (true)
     return (
       <div className="App">
           <Header/>
-          <MusicPlayer songsInfo={songs}/>
+          <MusicPlayer songsInfo={[]}/>
           <Routes>
               <Route path={'/'} element={<Fragment>
                   <Sidebar></Sidebar>
