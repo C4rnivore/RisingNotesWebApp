@@ -1,87 +1,90 @@
-import { useEffect,useState } from "react"
-
-
+import FilterElement from './FilterElements/FilterElement'
+import FilterTimeElement from './FilterElements/FilterTimeElement'
+import FilterChckboxElement from './FilterElements/FilterCheckboxElement'
+import { useState, useEffect } from 'react'
 
 function FilterComponent(){
+    let filtersInitial = {
+        genre : [],
+        genreOrAnd: 'and',
+
+        language : [],
+        languageOrAnd: 'and',
+
+        similar : [],
+        similarOrAnd: 'and',
+
+        mood : [],
+        moodOrAnd: 'and',
+
+        duration : 'any',
+
+        extra: {
+                explicit : "Disabled",
+                removed : "Disabled"}
+    }
+
+    const [filters,setFilters] = useState(filtersInitial)
 
     const passThroughFunc = (filterId, filterValue, filterOrAnd = null) => {
-        // on filter changes
+        updateFilters(filterId, filterValue, filterOrAnd)
         return
     }
+
+    function updateFilters(filterId, filterValue, filterOrAnd){
+        let temp = filters
+
+        switch(filterId){
+            case "genre":
+                temp.genre = concatWithoutRepeat(temp.genre, filterValue)
+                temp.genreOrAnd = filterOrAnd
+                break
+            case "language":
+                temp.language = concatWithoutRepeat(temp.language, filterValue)
+                temp.languageOrAnd = filterOrAnd
+                break
+            case "similar":
+                temp.similar = concatWithoutRepeat(temp.similar, filterValue)
+                temp.similarOrAnd = filterOrAnd
+                break
+            case "mood":
+                temp.mood = concatWithoutRepeat(temp.mood, filterValue)
+                temp.moodOrAnd = filterOrAnd
+                break
+            case "duration":
+                temp.duration = filterValue
+                break
+            case "extra":
+                temp.extra = filterValue
+                break
+        }
+        setFilters(temp)
+        console.log(filters);
+    }
+
+    function concatWithoutRepeat(first, second){
+        second.forEach(element => {
+            if(!first.includes(element)){
+                first.push(element)
+            }
+        });
+        return first
+    }
+
+    useEffect(()=>{
+    },[filters])
 
     return(
         <div className="filters">
             <FilterElement name="Жанр" id="genre" function = {passThroughFunc}/>
-            <FilterElement name="Язык" id="language"/>
-            <FilterElement name="На что похоже?" id="similar"/>
-            <FilterElement name="Настроение" id="mood" />
+            <FilterElement name="Язык" id="language" function = {passThroughFunc}/>
+            <FilterElement name="На что похоже?" id="similar" function = {passThroughFunc}/>
+            <FilterElement name="Настроение" id="mood" function = {passThroughFunc}/>
+            <FilterTimeElement  name="Длительность" id="duration" function = {passThroughFunc}/>
+            <FilterChckboxElement name="Дополнительно" id="extra" function = {passThroughFunc}/>
         </div>
     )    
 }
-
-function FilterElement(props){
-    const [tags,setTags] = useState([]);
-    const [switchState, setSwitchState] = useState('и')
-
-    const handleswitchStateClick = ()=>{
-        const swt = document.getElementById(props.id)
-        if(swt.classList.contains('filter-switch-toggled')){
-            swt.classList.remove('filter-switch-toggled')
-            swt.classList.add('filter-switch')
-        }
-        else{
-            swt.classList.add('filter-switch-toggled')
-            swt.classList.remove('filter-switch')
-        }
-        setSwitchState(cur => cur == 'и' ? 'или': 'и' )
-    }
-
-    const handleInputClick = (e) =>{
-        e.preventDefault()
-
-        let inp = document.getElementById(props.id+"-input")
-
-        if(!inp)
-            return
-        else if(inp.value == '')
-            return
-        else if(tags.includes(inp.value))
-            return
-
-        setTags(cur => cur = [...cur, inp.value])
-    }
-
-    const removeTag = (index) =>{
-        
-    }
-
-
-    return(     
-            <div className="filterOption">
-                <div className="filter-top">
-                    <div className="filter-top-start">
-                        <div className="filter-dot"></div>
-                        <span className="filter-name">{props.name}</span>
-                    </div>
-                    <div id={props.id} className="filter-switch" onClick={handleswitchStateClick}>
-                        <div className="switch-ball"></div>
-                        <span className="switch-state-name">{switchState}</span>
-                    </div>
-                </div>
-                <form className="filters-form">
-                    <input className="filters-input" id={props.id+"-input"} list="options" type="text"  placeholder={'Начните вводить'}/>
-                    <button className="submit-tag-input" type="submit" onClick={handleInputClick}>&#10010;</button>
-                </form>
-                <div className="filter-tags">
-                    {tags.map((tag, index) => (
-                        <div className="tag-container" key={index} onClick={removeTag(index)}>
-                            <span className='tag'>{tag}</span>
-                            <button className='tag-close'>&#215;</button>
-                        </div>
-                    ))}
-                </div>
-            </div>
-        )}
 
 
 export default FilterComponent

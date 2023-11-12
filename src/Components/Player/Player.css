@@ -33,9 +33,11 @@
 .main-player-container{
     padding-top: calc(var(--header-height) * 2 - 40px);
     padding-inline: 50px;
+    padding-bottom: 250px;
     display: flex;
     flex-direction: column;
     gap:35px;
+    max-height: 100vh;
 }
 .current-song-title{
     display: flex;
@@ -77,6 +79,9 @@
     gap:10px;
     padding-top: calc(var(--header-height) * 2 - 40px);
     padding-inline: 50px;
+    padding-bottom: 250px;
+
+    max-height: 100vh;
 }
 
 .song-name{
@@ -118,10 +123,10 @@
     font-weight: 300;
     text-align: left;
     white-space: pre-wrap;
-    max-height: 70vh;
+    max-height: auto;
     overflow-y: scroll;
 
-    transition: max-height 350ms ease-out;
+    transition: max-height 350ms ease-in-out;
 }
 .closed-lyrics > .cover-gradient{
     position: absolute;

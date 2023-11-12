@@ -26,6 +26,19 @@ I'll say it all again
 
 Some dreams are not becoming true, but other do. 
 I guess I will survive in spite of being in a bad view.
+
+I feel so lonely in a lonely world.
+When man is screaming on a metal sword.
+And when another man is shouting all aboard.
+I feel a little tired saying
+
+Oh, Lord.
+My faith and love will die within my new fault.
+And when I broke my last chord
+I'll say it all again
+
+Some dreams are not becoming true, but other do. 
+I guess I will survive in spite of being in a bad view.
 `
     })
 
