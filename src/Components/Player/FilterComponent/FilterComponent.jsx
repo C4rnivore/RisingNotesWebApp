@@ -16,9 +16,9 @@ function FilterComponent(){
 
         mood : [],
         moodOrAnd: 'and',
-
+        
         duration : 'any',
-
+        
         extra: {
                 explicit : "Disabled",
                 removed : "Disabled"}
@@ -59,7 +59,7 @@ function FilterComponent(){
                 break
         }
         setFilters(temp)
-        console.log(filters);
+        // console.log(filters);
     }
 
     function concatWithoutRepeat(first, second){

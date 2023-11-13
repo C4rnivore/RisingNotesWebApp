@@ -8,6 +8,7 @@
     min-height: 100dvh;
     background: #0f141d;
     padding-left: var(--sidebar-width);
+    transition: padding 250ms ease-in-out;
 }
 .main-player-container,
 .lyrics-container,
@@ -27,6 +28,8 @@
     object-fit: cover;
     mask-image: linear-gradient(to bottom, rgba(0,0,0,1)-60%, rgba(0,0,0,0)80%);
     filter: blur(.5em);
+
+    transition: 250ms ease-in-out;
 }
 
 /* PLAYER */
