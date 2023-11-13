@@ -1,99 +1,119 @@
-.login{
-    overflow-x: hidden;
-    width: 100%;
-    height: 100vh;
-    align-items: center;
-    background: linear-gradient(0deg, rgba(40,27,38,1) 0%, rgba(249,204,204,1) 100%);
-}
-.login__content{
+.login_wrapper {
+    background: #0F141D;
+    height: 95.5vh;
     display: flex;
-    justify-content: space-between;
-    flex-direction: row;
-    align-items: center;
-    gap:50px;
-    top:20vw;
-    width: 100%;
-    max-width: 760px;
-    margin: 30vh auto 0 auto;
-}
-.login__content-logo{
-    display: flex;
-    flex-direction: column;
-}
-.login-logo{
-    width: 300px;
-    height: 300px;
-    user-select: none;
-}
-.subtitle{
-    user-select: none;
-    font-weight: 400;
-    margin-left: 38px;
-    margin-top: -15px;
-    text-align: start;
-    color: #FFFFFF;
-    text-transform: uppercase;
+    justify-content: center;
 }
 
+.login__content-form {
+    border-radius: 26.535px;
+    border: 1px solid rgb(100, 100, 100);
+    background: radial-gradient(237.69% 139.69% at 0.9% 2.98%, rgba(255, 255, 255, 0.40) 0%, rgba(255, 255, 255, 0.00) 100%);
+    backdrop-filter: blur(21px);   
 
-.login__content-form{
-    width: max-content;
-    height: max-content;
-    background: black;
-    border-radius: 20px;
-    padding:  10px;
-}
-.login-auth-form{
-    display: flex;
-    width: 400px;
-    gap:20px;
-    padding: 20px;
-    flex-direction: column;
-}
-.login-auth-form__label{
-    width: 100%;
-    text-align: start;
-    font-weight: 600;
-    font-size: 30px;
-    color: #FFFFFF;
-}
-.login-input{
-    border-radius: 9px;
-    background: #EAE1E1;
-    box-shadow: 0px 4px 6px -1px rgba(0, 0, 0, 0.25) inset, 0px 2px 4px 0px rgba(0, 0, 0, 0.25);
+    width: 500px;
+    height: fit-content;
+    padding: 40px 70px;
 
-    padding: 10px;
-
-    color: #000;
-    font-family: Montserrat Alternates;
-    font-size: 20px;
-    font-style: normal;
-    font-weight: 400;
+    display: grid;
+    align-items: start;
 }
-.loin-submit-button{
+
+.login__content {
+    margin-top: 220px;
+    z-index: 8;
+}
+
+.login-logo {
+    margin-bottom: 70px;
+}
+
+.login-auth-form__label {
     color: #FFF;
-    text-align: center;
-    font-family: Montserrat Alternates;
-    font-size: 24px;
+    text-align: start;
+
+    font-family: Montserrat;
+    font-size: 36.291px;
     font-style: normal;
     font-weight: 600;
+    margin-bottom: 30px;
+}
+
+.login-input {
+    margin: 0;
+    margin-bottom: 25px;
+    border-style: none;
+    width: 359px;
+    height: 47px;
 
     border-radius: 10px;
+    border-bottom: 2px solid #FFF;
+    background: #585B62;
+
+    color: #FFF;
+
+    font-family: Montserrat;
+    font-size: 18.145px;
+    font-style: normal;
+    font-weight: 300;
+
+    padding: 0 14px;
+}
+
+.login-input::placeholder {
+    color: #FFF;
+}
+
+.login-submit-button {
+    margin: 0;
+    margin-bottom: 24px;
+    margin-top: 13px;
+    border-style: none;
+    border-radius: 15.264px;
+    background: #CB115E;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+
+    width: 359px;
+    height: 64px;
+
+    color: #FFF;
+
+    font-family: Montserrat;
+    font-size: 32.662px;
+    font-style: normal;
+    font-weight: 500;
+}
+
+.login-form-subtext {
+    margin: 0;
+    color: #FFF;
+
+    font-family: Montserrat;
+    font-size: 18.145px;
+    font-style: normal;
+    font-weight: 400; 
+}
+
+.reg-a {
+    color: #FE1170;
+}
+
+.warning-login {
+    margin: 0;
+    margin-top: -20px;
+    color: #fe1111;
+    text-align: start;
+    font-size: 15px;
+}
+
+.headphones {
+    position: absolute;
+    margin-top: 600px;
+    margin-left: 25%;
+}
+
+.decorative-stripe {
+    position: absolute;
+    bottom: 0;
     width: 100%;
-    padding: 10px 0;
-    background: #5E935D;
-    color: #FFFFFF;
-    letter-spacing: 0.05em;
-}
-.login-form-subtext{
-    font-size: 16px;
-    color: white;
-}
-.login-form-subtext> a{
-    text-decoration: none;
-    font-weight: 600;
-    color: white;
-}
-.login-form-subtext> a:hover{
-    text-decoration: underline;
 }

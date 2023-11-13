@@ -39,56 +39,103 @@ import AdminPanel from '../../Pages/AdminPanel/AdminPanel';
 import AdminMessages from '../../Pages/AdminMessages/AdminMessages';
 import MusicPlayer from '../MusicPlayer/MusicPlayer';
 
+
 import {useState, useEffect} from 'react';
 import axios from 'axios';
+import { jwtDecode } from 'jwt-decode';
+import { useCookies } from 'react-cookie';
 
 
 export const api = 'https://2100237-gs89005.twc1.net/';
-export const token = 'eyJhbGciOiJSUzI1NiIsImtpZCI6IkUxOUU2RTBEQjA1ODY4NDg0NjYwOUREOTVBRTc2RTQwIiwidHlwIjoiYXQrand0In0.eyJuYmYiOjE2OTk2MDQ0ODksImV4cCI6MTY5OTYwODA4OSwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo1MDk1IiwiYXVkIjoiQXBpIiwiY2xpZW50X2lkIjoiQXBpIiwic3ViIjoiOTBmN2QyNWUtNWYwOC00Y2Y1LWFjY2MtNmEyMjU4ZjU5NmYzIiwiYXV0aF90aW1lIjoxNjk5NjA0NDg5LCJpZHAiOiJsb2NhbCIsInJvbGUiOiJhdXRob3IiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiNDM0NzYwNmItM2QzMi00YTg1LTgyNDQtZWRjM2UzMWI0OTdiIiwianRpIjoiMzQzOUM2MDA3MDdGMDg1MTI4QUNCRTdEQzVFRTVFMzMiLCJpYXQiOjE2OTk2MDQ0ODksInNjb3BlIjpbIkFwaSJdLCJhbXIiOlsicHdkIl19.uCNmNv9rCvp9QlA1--KbtdGq5u3_g08UP2GapfpV8BxeMLPp09-MTMJBVd3FCWHlqT3Tnm1YnXSk9tIlgsw7AiQYT90rGu1DMfmT4IBQxN-8N2sQtky_sLDBD38uVfa2huoFMr4W2M7YSQSNZPaV2RjpkqG624jevyq6xVnnypX24GeihQixlKtVZAw2PY6GHnD5Vh2BCQquFlV4szFSX5QzmAW_MaEIPKsFe9yhfrf32C0OIzcZEDLLQNkU0RWu4uo9Ultajx3TVDlHVK5LqxXUzLQlwWCO-dJuYmSiJERKeF9wiTDad1Iyx8bapL0V85dTZpOeRfv6QoLY940lbQ';
-
 
 function App() {
-  const [songs, setSongs] = useState([]);
-  const [isLoaded, setIsLoaded] = useState(false);
-
-//   useEffect(() => {
-//       axios.get(api + `api/song/list/${'4347606b-3d32-4a85-8244-edc3e31b497b'}`)
-//           .then(response => {
-//               setIsLoaded(true);
-//               setSongs(response.data.songInfoList);
-//               console.log(response.data.songInfoList);
-//           })
-//           .catch(error => {
-//               console.error(error);
-//               throw error;
-//           });
-//   }, [])
+    const [songs, setSongs] = useState([]);
+    const [isLoaded, setIsLoaded] = useState(false);
+    const [cookies, setCookies] = useCookies(['accessToken', 'refreshToken', 'authorId', 'role']);
   
-  if (true)
+    //обновление токена
+    const refreshTokens = () => {
+        axios.post(api + '/connect/token', {
+            client_id: 'Api',
+            client_secret: 'megaclientsecret',
+            grant_type: 'refresh_token',
+            refresh_token: cookies.refreshToken
+        })
+        .then(response => {
+            setCookies('accessToken', response.data.access_token, { path: '/' });
+            setCookies('refreshToken', response.data.refresh_token, { path: '/' });
+        })
+    }
+  
+    //Вставка токена в запрос и его проверка
+    axios.interceptors.request.use(
+        config => {
+            const accessToken = cookies.accessToken;
+            const refreshToken = cookies.refreshToken;
+            if (accessToken) {
+                let decoded = jwtDecode(accessToken);
+                setCookies('authorId', decoded["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"])
+                setCookies('role', decoded.role)
+                if (decoded.exp > new Date().getTime()/1000)
+                    config.headers['Authorization'] = 'Bearer ' + accessToken;
+                else 
+                    refreshTokens();
+            }
+            else if (refreshToken) {
+                refreshTokens();
+            }
+            return config;
+        },
+        error => {
+            Promise.reject(error);
+            console.log(error);
+        }
+    );
+
+    axios.interceptors.response.use(
+        response => {
+            return response
+        }
+    );
+
+    useEffect(() => {
+        axios.get(api + `api/author/${'f8173a9f-332b-47b6-95b3-78007a1eb036'}/song/list`)
+            .then(response => {
+                setIsLoaded(true);
+                setSongs(response.data.songInfoList);
+                console.log(response.data.songInfoList);
+            })
+            .catch(error => {
+                console.error(error);
+                throw error;
+            });
+    }, []);
+
+    if (isLoaded)
     return (
-      <div className="App">
-          <Header/>
-          <MusicPlayer songsInfo={[]}/>
-          <Routes>
-              <Route path={'/'} element={<Fragment>
-                  <Sidebar></Sidebar>
-                  <Player></Player>
-              </Fragment>}/>
-              <Route path={'/login'} element={<Login/>}/>
-              <Route path={'/registration'} element={<Registration/>}/>
-              <Route path={'/artist'} element={<ArtistCard/>}/>
-              <Route path={'/featured'} element={<Featured/>}/>
-              <Route path={'/excluded'} element={<Excluded/>}/>
-              <Route path={'/account'} element={<LK/>}/>
-              {/* <Route path={'/LKlistener'} element={<LKlistener/>}/> */}
-              <Route path={'/upload'} element={<InstallMusic/>}/>
-              <Route path={'/subscriptions'} element={<Subscriptions/>}/>
-              <Route path={'/commentaries/:id'} element={<Commentaries/>}/>
-              <Route path={'/adminpanel'} element={<AdminPanel/>}/>
-              <Route  path={'/artistpage'} element={<ArtistPersonalPage/>}/>
-              <Route path={'/messages'} element={<AdminMessages/>}/>
-          </Routes>  
-      </div>
+        <div className="App">
+            <Header/>
+            <MusicPlayer songsInfo={songs}/>
+            <Routes>
+                <Route path={'/'} element={<Fragment>
+                    <Sidebar></Sidebar>
+                    <Player></Player>
+                </Fragment>}/>
+                <Route path={'/login'} element={<Login/>}/>
+                <Route path={'/registration'} element={<Registration/>}/>
+                <Route path={'/artist'} element={<ArtistCard/>}/>
+                <Route path={'/featured'} element={<Featured/>}/>
+                <Route path={'/excluded'} element={<Excluded/>}/>
+                <Route path={'/account'} element={<LK/>}/>
+                {/* <Route path={'/LKlistener'} element={<LKlistener/>}/> */}
+                <Route path={'/upload'} element={<InstallMusic/>}/>
+                <Route path={'/subscriptions'} element={<Subscriptions/>}/>
+                <Route path={'/commentaries/:id'} element={<Commentaries/>}/>
+                <Route path={'/adminpanel'} element={<AdminPanel/>}/>
+                <Route  path={'/artistpage'} element={<ArtistPersonalPage/>}/>
+                <Route path={'/messages'} element={<AdminMessages/>}/>
+            </Routes>  
+        </div>
     );
 }
 

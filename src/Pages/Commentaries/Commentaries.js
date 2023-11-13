@@ -12,7 +12,6 @@ import avatar from '../../Images/image-placeholder/song-cover-default.png'
 import Comment from '../../Components/Comment';
 
 import { api } from '../../Components/App/App';
-import { token } from '../../Components/App/App';
 
 import React from 'react';
 import { Link, useParams } from 'react-router-dom';
@@ -24,6 +23,8 @@ const Commentaries = (props) => {
     const [comments, setComments] = useState([]);
     const [comment, setComment] = useState('');
     const [isDataUpdated, setIsDataUpdated] = useState(false);
+    const [songName, setSongName] = useState('');
+    const [songAuthor, setSongAuthor] = useState('');
 
     useEffect(() => {
         axios.get(api + `api/song/${params.id}/comment/list`)
@@ -35,14 +36,23 @@ const Commentaries = (props) => {
             .catch(err=>{
                 console.log(err);
             })
+
+        axios.get(api + `api/song/${params.id}`)
+        .then(response => {
+            setSongName(response.data.name);
+            axios.get(api + `api/author/${response.data.authorId}`)
+                .then(resp => {
+                    setSongAuthor(resp.data.name);
+                })
+                .catch(err => {
+                    console.log(err);
+                    throw err;
+                })
+        })
     }, [isDataUpdated]);
 
     const handleSendComment = () => {
-        axios.post(api + `api/song/${params.id}/comment`, {text: comment}, {
-                headers: {
-                    Authorization: 'Bearer ' + token
-                }
-            })
+        axios.post(api + `api/song/${params.id}/comment`, {text: comment})
             .then(response => {
                 setIsDataUpdated(!isDataUpdated);
                 setComment('');
@@ -60,10 +70,10 @@ const Commentaries = (props) => {
                 <BackButton/>
 
                 <div className='comm-head'>
-                    <img alt='cover' src={SongCover}/>
+                    <img alt='cover' src={(api + `api/song/${params.id}/logo?width=500&height=500`)}/>
                     <span>
-                        <h2 className='comm-page-h2'>Deconstructive Achievements</h2>
-                        <p className='comm-page-author'>Francis Owens</p>
+                        <h2 className='comm-page-h2'>{songName}</h2>
+                        <p className='comm-page-author'>{songAuthor}</p>
                         <div className='comm-head-buttons'>
                             <span className='song-tag'>Рок</span>
                             <span className='song-tag'>Джаз</span>
