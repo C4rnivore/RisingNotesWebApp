@@ -161,14 +161,15 @@
 }
 .collapse{
     padding: 0;
-
 }
 .collapse > *{
     opacity:0;
+    pointer-events: none;
 }
 
 .toggle-menu-btn{
     user-select:none ;
+    pointer-events: all;
     opacity:1 !important;
     padding: 10px;
     position: absolute;
