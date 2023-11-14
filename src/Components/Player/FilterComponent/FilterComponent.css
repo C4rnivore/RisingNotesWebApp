@@ -1,22 +1,20 @@
 /* FILTERS */
 .filters-container{
     display: flex;
-    padding-top: calc(var(--header-height) * 2 - 40px);
-    padding-bottom: 250px;
-    max-height: 100vh;
+    max-height: 100%;
 }
 .filters{
     display: flex;
     flex-direction: column;
     gap:10px;
     padding: 40px;
-    width: 80%;
+    width: max-content;
     height: max-content;
     background: rgb(25,30,40);
     border-radius: 25px;
     
     background: linear-gradient(119deg, rgba(25,30,40,1) 0%, rgba(180,180,180,0.7) 0%, rgba(15,20,29,0.5) 100%); 
-    margin:80px auto 0 auto;
+    /* margin:80px auto 0 auto; */
     border: 2px solid #1a202b;
 }
 .filters-label{
