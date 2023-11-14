@@ -36,19 +36,19 @@ function FilterComponent(){
 
         switch(filterId){
             case "genre":
-                temp.genre = concatWithoutRepeat(temp.genre, filterValue)
+                temp.genre = filterValue
                 temp.genreOrAnd = filterOrAnd
                 break
             case "language":
-                temp.language = concatWithoutRepeat(temp.language, filterValue)
+                temp.language = filterValue
                 temp.languageOrAnd = filterOrAnd
                 break
             case "similar":
-                temp.similar = concatWithoutRepeat(temp.similar, filterValue)
+                temp.similar = filterValue
                 temp.similarOrAnd = filterOrAnd
                 break
             case "mood":
-                temp.mood = concatWithoutRepeat(temp.mood, filterValue)
+                temp.mood = filterValue
                 temp.moodOrAnd = filterOrAnd
                 break
             case "duration":
@@ -59,16 +59,7 @@ function FilterComponent(){
                 break
         }
         setFilters(temp)
-        // console.log(filters);
-    }
-
-    function concatWithoutRepeat(first, second){
-        second.forEach(element => {
-            if(!first.includes(element)){
-                first.push(element)
-            }
-        });
-        return first
+        //console.log(filters);
     }
 
     useEffect(()=>{

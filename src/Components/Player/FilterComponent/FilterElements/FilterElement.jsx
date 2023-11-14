@@ -33,8 +33,9 @@ function FilterElement(props){
         setTags(cur => cur = [...cur, inp.value])
     }
 
-    const deleteTag = (index) => {
-        //удалить из tags по index
+    const deleteTag = (value) => {
+        let updated = tags.filter(val => val != value)
+        setTags(updated)
     }
 
     function passToParent(filterId, filterValue, filterOrAnd = null){
@@ -44,7 +45,7 @@ function FilterElement(props){
     useEffect(()=>{
         const stateToPass = switchState === 'и' ? 'and': 'or'
         passToParent(props.id, tags, stateToPass )
-    },[tags, switchState])
+    }, [tags, switchState])
 
     return(     
             <div className="filterOption">
@@ -66,7 +67,7 @@ function FilterElement(props){
                     {tags.map((tag, index) => (
                         <div className="tag-container" key={index} id={index.id}  >
                             <span className='tag'>{tag}</span>
-                            <button className='tag-close' onClick={ e => deleteTag(index)}>&#215;</button>
+                            <button className='tag-close' onClick={ e => deleteTag(tag)}>&#215;</button>
                         </div>
                     ))}
                 </div>
