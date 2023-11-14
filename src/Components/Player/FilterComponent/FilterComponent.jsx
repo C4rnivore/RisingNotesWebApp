@@ -4,6 +4,7 @@ import FilterChckboxElement from './FilterElements/FilterCheckboxElement'
 import { useState, useEffect } from 'react'
 
 function FilterComponent(){
+
     let filtersInitial = {
         genre : [],
         genreOrAnd: 'and',
@@ -23,17 +24,10 @@ function FilterComponent(){
                 explicit : "Disabled",
                 removed : "Disabled"}
     }
-
     const [filters,setFilters] = useState(filtersInitial)
 
-    const passThroughFunc = (filterId, filterValue, filterOrAnd = null) => {
-        updateFilters(filterId, filterValue, filterOrAnd)
-        return
-    }
-
-    function updateFilters(filterId, filterValue, filterOrAnd){
+    const filtersUpdateFunction = (filterId, filterValue, filterOrAnd = null) => {
         let temp = filters
-
         switch(filterId){
             case "genre":
                 temp.genre = filterValue
@@ -62,17 +56,14 @@ function FilterComponent(){
         //console.log(filters);
     }
 
-    useEffect(()=>{
-    },[filters])
-
     return(
         <div className="filters">
-            <FilterElement name="Жанр" id="genre" function = {passThroughFunc}/>
-            <FilterElement name="Язык" id="language" function = {passThroughFunc}/>
-            <FilterElement name="На что похоже?" id="similar" function = {passThroughFunc}/>
-            <FilterElement name="Настроение" id="mood" function = {passThroughFunc}/>
-            <FilterTimeElement  name="Длительность" id="duration" function = {passThroughFunc}/>
-            <FilterChckboxElement name="Дополнительно" id="extra" function = {passThroughFunc}/>
+            <FilterElement name="Жанр" id="genre" function = {filtersUpdateFunction}/>
+            <FilterElement name="Язык" id="language" function = {filtersUpdateFunction}/>
+            <FilterElement name="На что похоже?" id="similar" function = {filtersUpdateFunction}/>
+            <FilterElement name="Настроение" id="mood" function = {filtersUpdateFunction}/>
+            <FilterTimeElement  name="Длительность" id="duration" function = {filtersUpdateFunction}/>
+            <FilterChckboxElement name="Дополнительно" id="extra" function = {filtersUpdateFunction}/>
         </div>
     )    
 }
