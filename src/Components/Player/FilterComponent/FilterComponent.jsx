@@ -57,13 +57,15 @@ function FilterComponent(){
     }
 
     return(
-        <div className="filters">
-            <FilterElement name="Жанр" id="genre" function = {filtersUpdateFunction}/>
-            <FilterElement name="Язык" id="language" function = {filtersUpdateFunction}/>
-            <FilterElement name="На что похоже?" id="similar" function = {filtersUpdateFunction}/>
-            <FilterElement name="Настроение" id="mood" function = {filtersUpdateFunction}/>
-            <FilterTimeElement  name="Длительность" id="duration" function = {filtersUpdateFunction}/>
-            <FilterChckboxElement name="Дополнительно" id="extra" function = {filtersUpdateFunction}/>
+        <div className="filters-container">
+            <div className="filters">
+                <FilterElement name="Жанр" id="genre" function = {filtersUpdateFunction}/>
+                <FilterElement name="Язык" id="language" function = {filtersUpdateFunction}/>
+                <FilterElement name="На что похоже?" id="similar" function = {filtersUpdateFunction}/>
+                <FilterElement name="Настроение" id="mood" function = {filtersUpdateFunction}/>
+                <FilterTimeElement  name="Длительность" id="duration" function = {filtersUpdateFunction}/>
+                <FilterChckboxElement name="Дополнительно" id="extra" function = {filtersUpdateFunction}/>
+            </div>
         </div>
     )    
 }
