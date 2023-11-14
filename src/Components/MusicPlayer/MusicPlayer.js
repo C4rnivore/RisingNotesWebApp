@@ -13,6 +13,7 @@ import cover from '../../Images/image-placeholder/song-cover-default.png';
 import volume from '../../Images/controller/volume-2.svg';
 
 import { api } from '../App/App';
+import { axiosAuthorized, axiosUnauthorized } from '../App/App';
 
 const MusicPlayer = (props) => {
     const [isPlaying, setIsPlaying] = useState(false);  
@@ -26,10 +27,10 @@ const MusicPlayer = (props) => {
 
     useEffect(() => {
         if(audioRef.current){
-            axios.get(api + `api/song/${props.songsInfo[nextSongIndex]?.id}`)
+            axiosUnauthorized.get(`api/song/${props.songsInfo[nextSongIndex]?.id}`)
             .then(response => {
                 setSongName(response.data.name);
-                axios.get(api + `api/author/${response.data.authorId}`)
+                axiosUnauthorized.get(`api/author/${response.data.authorId}`)
                     .then(resp => {
                         setSongAuthor(resp.data.name);
                     })

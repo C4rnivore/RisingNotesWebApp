@@ -7,6 +7,7 @@ import { api } from '../App/App';
 import headphones from '../../Images/login/headphones.png';
 import stripe from '../../Images/login/bottom-design-element.svg';
 
+import { axiosAuthorized, axiosUnauthorized } from '../App/App';
 
 function Registration() {
     const [userName, setUserName] = useState(undefined);
@@ -17,7 +18,7 @@ function Registration() {
         if (!((userName === '' || userName === undefined) || 
             (password === '' || password === undefined) ||
             (mail === '' || mail === undefined))) {
-                axios.post(api + 'api/profile/registration', {
+                axiosUnauthorized.post('api/profile/registration', {
                     userName:userName,
                     email: mail,
                     password: password

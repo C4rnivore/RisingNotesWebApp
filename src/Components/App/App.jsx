@@ -48,14 +48,35 @@ import { useCookies } from 'react-cookie';
 
 export const api = 'https://2100237-gs89005.twc1.net/';
 
+export const axiosAuthorized = axios.create({
+    baseURL: api,
+    headers: {
+        "Content-Type": "application/json",
+    },
+});
+
+export const axiosUnauthorized = axios.create({
+    baseURL: api,
+    headers: {
+        "Content-Type": "application/json",
+    },
+});
+
+const axiosRefresh = axios.create({
+    baseURL: api,
+    headers : {
+        'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
+    }
+});
+
 function App() {
     const [songs, setSongs] = useState([]);
     const [isLoaded, setIsLoaded] = useState(false);
     const [cookies, setCookies] = useCookies(['accessToken', 'refreshToken', 'authorId', 'role']);
   
     //обновление токена
-    const refreshTokens = () => {
-        axios.post(api + '/connect/token', {
+    async function refreshTokens (config) {
+        await axiosRefresh.post('connect/token', {
             client_id: 'Api',
             client_secret: 'megaclientsecret',
             grant_type: 'refresh_token',
@@ -64,12 +85,13 @@ function App() {
         .then(response => {
             setCookies('accessToken', response.data.access_token, { path: '/' });
             setCookies('refreshToken', response.data.refresh_token, { path: '/' });
+            config.headers['Authorization'] = 'Bearer ' + response.data.access_token;
         })
     }
   
     //Вставка токена в запрос и его проверка
-    axios.interceptors.request.use(
-        config => {
+    axiosAuthorized.interceptors.request.use(
+        async config => {
             const accessToken = cookies.accessToken;
             const refreshToken = cookies.refreshToken;
             if (accessToken) {
@@ -78,11 +100,12 @@ function App() {
                 setCookies('role', decoded.role)
                 if (decoded.exp > new Date().getTime()/1000)
                     config.headers['Authorization'] = 'Bearer ' + accessToken;
-                else 
-                    refreshTokens();
+                else {
+                    await refreshTokens(config);
+                }  
             }
             else if (refreshToken) {
-                refreshTokens();
+                await refreshTokens(config);
             }
             return config;
         },
@@ -92,14 +115,8 @@ function App() {
         }
     );
 
-    axios.interceptors.response.use(
-        response => {
-            return response
-        }
-    );
-
     useEffect(() => {
-        axios.get(api + `api/author/${'f8173a9f-332b-47b6-95b3-78007a1eb036'}/song/list`)
+        axiosUnauthorized.get(`api/author/${'f8173a9f-332b-47b6-95b3-78007a1eb036'}/song/list`)
             .then(response => {
                 setIsLoaded(true);
                 setSongs(response.data.songInfoList);

@@ -18,6 +18,8 @@ import { Link, useParams } from 'react-router-dom';
 import { useEffect, useState } from "react";
 import axios from "axios";
 
+import { axiosAuthorized, axiosUnauthorized } from '../../Components/App/App';
+
 const Commentaries = (props) => {
     const params = useParams();
     const [comments, setComments] = useState([]);
@@ -27,7 +29,7 @@ const Commentaries = (props) => {
     const [songAuthor, setSongAuthor] = useState('');
 
     useEffect(() => {
-        axios.get(api + `api/song/${params.id}/comment/list`)
+        axiosUnauthorized.get(`api/song/${params.id}/comment/list`)
             .then(response => {
                 let arr = response.data.commentList;
                 arr.reverse();
@@ -37,10 +39,10 @@ const Commentaries = (props) => {
                 console.log(err);
             })
 
-        axios.get(api + `api/song/${params.id}`)
+        axiosUnauthorized.get(`api/song/${params.id}`)
         .then(response => {
             setSongName(response.data.name);
-            axios.get(api + `api/author/${response.data.authorId}`)
+            axiosUnauthorized.get(`api/author/${response.data.authorId}`)
                 .then(resp => {
                     setSongAuthor(resp.data.name);
                 })
@@ -52,7 +54,7 @@ const Commentaries = (props) => {
     }, [isDataUpdated]);
 
     const handleSendComment = () => {
-        axios.post(api + `api/song/${params.id}/comment`, {text: comment})
+        axiosAuthorized.post(`api/song/${params.id}/comment`, {text: comment})
             .then(response => {
                 setIsDataUpdated(!isDataUpdated);
                 setComment('');

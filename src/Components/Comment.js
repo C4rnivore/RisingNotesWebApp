@@ -5,21 +5,20 @@ import axios from 'axios';
 import { useCookies, withCookies } from 'react-cookie';
 
 import { api } from './App/App';
+import { axiosAuthorized } from './App/App';
 
 const Comment = (props) => {
     const [isDeleted, setIsDeleted] = useState(false);
     const [comment, setComment] = useState(props.data.text);
     const [cookies, setCookies] = useCookies(['authorId']);
 
-    console.log(props.data.authorId);
-
     const handleDeleteComment = () => {
-        axios.delete(api + `api/song/comment/${props.data.id}`);
+        axiosAuthorized.delete(`api/song/comment/${props.data.id}`);
         setIsDeleted(true);
     }
 
     const handleSendComment = () => {
-        axios.post(api + `api/song/${props.songId}/comment`, {text: comment})
+        axiosAuthorized.post(`api/song/${props.songId}/comment`, {text: comment})
             .then(response => {
                 setIsDeleted(false);
             })

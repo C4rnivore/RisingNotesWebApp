@@ -7,8 +7,7 @@ import { useCookies, withCookies } from 'react-cookie';
 import headphones from '../../Images/login/headphones.png';
 import stripe from '../../Images/login/bottom-design-element.svg';
 
-
-import { api } from '../App/App';
+import { axiosAuthorized, axiosUnauthorized } from '../App/App';
 
 function Login() {
     const [tokens, setTokens] = useCookies(['accessToken', 'refreshToken']);
@@ -17,7 +16,7 @@ function Login() {
 
     const handleLogin = () => {
         if (!((userName === '' || userName === undefined) || (password === '' || password === undefined))) {
-            axios.post(api + `connect/token`, {
+            axiosUnauthorized.post(`connect/token`, {
                 client_id: 'Api',
                 client_secret: 'megaclientsecret',
                 grant_type: 'password',
