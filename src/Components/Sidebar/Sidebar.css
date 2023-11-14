@@ -168,12 +168,27 @@
 }
 
 .toggle-menu-btn{
+    width: 50px;
+    height: max-content;
+    display: flex;
+    gap:8px;
+    flex-direction: column;
+    background: transparent;
+    border:none;
     user-select:none ;
     pointer-events: all;
     opacity:1 !important;
     padding: 10px;
     position: absolute;
-    top:calc(var(--header-height) + 20px);
-    right: 10px;
+    top:calc(var(--header-height) + 40px);
+    right: 0;
 }
+
+.toggle-menu-btn > div{
+    height: 2px;
+    border-radius: 1px;
+    width: 100%;
+    background-color: #a6a6b3;
+}
+
 

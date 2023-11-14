@@ -51,7 +51,11 @@ function Sidebar(props) {
 
    return(
     <div className="sidebar" id='sidebar'>
-      <button className='toggle-menu-btn' onClick={handleToggleMenu}>X</button>
+      <button className='toggle-menu-btn' onClick={handleToggleMenu}>
+         <div className='first'></div>
+         <div className='second'></div>
+         <div className='third'></div>
+      </button>
       <div className="searchbar-container">
          <form action="" method='GET'>
             <button className='searchbar-submit' type='submit'>
