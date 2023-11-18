@@ -1,0 +1,36 @@
+.top-tracks-container{
+    margin-top: 40px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap:30px;
+}
+.top-tracks-title{
+    text-align: start;
+    font-family: var(--text-font);
+    font-size: 24px;
+    color:#fff;
+}
+.tracks{
+    width: 100%;
+    display: flex;
+    height: max-content;
+    justify-content: space-between;
+    align-items: center;
+}
+.track-container{
+    max-width: 230px;
+    max-height: 230px;
+    display: flex;
+    flex-direction: column;
+    gap:16px;
+}
+.track-container>span{
+    text-align: start;
+    font-family: var(--text-font);
+    font-size: 20px;
+    font-weight: 200;
+}
+.track-container>img{
+    cursor: pointer;
+}

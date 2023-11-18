@@ -6,6 +6,7 @@ import  '../Player/Player.css';
 import  '../Sidebar/Sidebar.css';
 import '../../Pages/Subsriptions/Subscriptions.css';
 import '../../Pages/Commentaries/Commentaries.css';
+import '../ArtistCard/ArtistCard.css';
 
 import  '../../Pages/ArtistPersonalPage/ArtistPersonalPage.css';
 import '../../Pages/ArtistCard/ArtistCard.css';
@@ -24,7 +25,7 @@ import Sidebar from "../Sidebar/Sidebar";
 import Player from "../Player/Player";
 import ArtistPersonalPage from "../../Pages/ArtistPersonalPage/ArtistPersonalPage";
 
-import ArtistCard from '../../Pages/ArtistCard/ArtistCard';
+import ArtistCard from '../ArtistCard/ArtistCard'
 import LK from "../LK/LK";
 import LKlistener from "../LKlistener/LKlistener";
 import InstallMusic from "../InstallMusic/InstallMusic";
@@ -69,11 +70,9 @@ function App() {
       <div className="App">
           <Header/>
           <MusicPlayer songsInfo={[]}/>
+          <Sidebar></Sidebar>
           <Routes>
-              <Route path={'/'} element={<Fragment>
-                  <Sidebar></Sidebar>
-                  <Player></Player>
-              </Fragment>}/>
+              <Route path={'/'} element={<Player/>}/>
               <Route path={'/login'} element={<Login/>}/>
               <Route path={'/registration'} element={<Registration/>}/>
               <Route path={'/artist'} element={<ArtistCard/>}/>

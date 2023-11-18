@@ -53,7 +53,7 @@ function FilterComponent(){
                 break
         }
         setFilters(temp)
-        //console.log(filters);
+        console.log(filters);
     }
 
     return(
