@@ -51,7 +51,7 @@ const Commentaries = (props) => {
                     throw err;
                 })
         })
-    }, [isDataUpdated]);
+    }, [isDataUpdated, params.id]);
 
     const handleSendComment = () => {
         axiosAuthorized.post(`api/song/${params.id}/comment`, {text: comment})
