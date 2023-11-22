@@ -1,4 +1,4 @@
-import SongCover from '../Images/image-placeholder/song-cover-default.png';
+import SongCover from '../Images/image-placeholder/FrOwforplaylist.png';
 import React from 'react';
 import { Link } from 'react-router-dom';
 
@@ -6,8 +6,8 @@ class Playlist extends React.Component {
     render() {
         return (
             <div className='playlist'>
-                <img alt='cover' src={SongCover}/>
-                <p>Лучшие треки в моей жизни</p>
+                <img className='playlistskin' alt='cover' src={SongCover}/>
+                <p className='labelplaylist'>Лучшие треки</p>
             </div>
         )
     }
