@@ -26,7 +26,7 @@ const MusicPlayer = (props) => {
     const [songAuthor, setSongAuthor] = useState('');
 
     useEffect(() => {
-        if(audioRef.current){
+        if(audioRef.current && props.songsInfo[nextSongIndex]?.id !== undefined){
             axiosUnauthorized.get(`api/song/${props.songsInfo[nextSongIndex]?.id}`)
             .then(response => {
                 setSongName(response.data.name);

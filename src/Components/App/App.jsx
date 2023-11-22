@@ -117,7 +117,7 @@ function App() {
     );
 
     useEffect(() => {
-        axiosUnauthorized.get(`api/author/${'f8173a9f-332b-47b6-95b3-78007a1eb036'}/song/list`)
+        axiosUnauthorized.get(`api/author/${'902be286-f22e-43ca-bc16-007de8cdeddd'}/song/list`)
             .then(response => {
                 setIsLoaded(true);
                 setSongs(response.data.songInfoList);
@@ -133,13 +133,13 @@ function App() {
     return (
       <div className="App">
           <Header/>
-          <MusicPlayer songsInfo={[]}/>
+          <MusicPlayer songsInfo={songs}/>
           <Sidebar></Sidebar>
           <Routes>
               <Route path={'/'} element={<Player/>}/>
               <Route path={'/login'} element={<Login/>}/>
               <Route path={'/registration'} element={<Registration/>}/>
-              <Route path={'/artist'} element={<ArtistCard/>}/>
+              <Route path={'/artist/:id'} element={<ArtistCard/>}/>
               <Route path={'/featured'} element={<Featured/>}/>
               <Route path={'/excluded'} element={<Excluded/>}/>
               <Route path={'/account'} element={<LK/>}/>
