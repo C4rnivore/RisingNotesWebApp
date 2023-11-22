@@ -17,6 +17,7 @@
     height: max-content;
     justify-content: space-between;
     align-items: center;
+    flex-direction: column;
 }
 .track-container{
     max-width: 230px;
