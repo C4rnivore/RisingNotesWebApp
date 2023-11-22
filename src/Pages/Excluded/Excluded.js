@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import BackButton from '../../Components/BackButton';
 import Playlist from '../../Components/Playlist';
 import Song from '../../Components/Song';
-import newPlaylist from '../../Images/featured/new-playlist.png';
+import newPlaylist from '../../Images/featured/newplaylist.png';
 import menu from '../../Images/controller/menu.svg'
 import Sidebar from '../../Components/Sidebar/Sidebar';
 
