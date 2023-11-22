@@ -1,0 +1,47 @@
+.artist-card-container{
+    width: 100%;
+    padding-left: var(--sidebar-width);
+    padding-top: var(--header-height);
+    min-height: 100dvh;
+    background-color: #0F141D;
+
+    transition: padding 250ms ease-in-out;
+}
+.content-container{
+    position: relative;
+    padding-top: 80px;
+    width: 100%;
+    max-width: 1200px;
+    max-height: 100vh;
+    margin: 0 auto;
+}
+.content-container >  div{
+    z-index: 8;
+    position: relative;
+}
+
+/* Back Button */
+.back-btn{
+    display: flex;
+    align-items: center;
+    margin-bottom: 40px;
+}
+.back-btn:hover{
+    cursor: pointer;
+}
+
+.artist-bg-image{
+    pointer-events: none;
+    position: absolute;
+    left: var(--sidebar-width);
+    top:0;
+
+    width: calc(100% - var(--sidebar-width));
+    height: max(100%, 100vh);
+
+    object-fit: cover;
+    mask-image: linear-gradient(to bottom, rgba(0,0,0,1)-60%, rgba(0,0,0,0)80%);
+    filter: blur(1em);
+    transition: 250ms ease-in-out;
+}
+

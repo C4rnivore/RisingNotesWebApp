@@ -1,18 +1,30 @@
 /* CONTAINERS */
 .player-area{
     position: relative;
-    display: grid;
-    
-    grid-template-columns: repeat(3, 1fr);
-    grid-column-gap: 20px;
-    min-height: 100dvh;
-    background: #0f141d;
+    display: flex;
+    align-items: start;
+    flex-direction: row;
+    justify-content: space-evenly;
+
     padding-left: var(--sidebar-width);
+    padding-top: var(--header-height);
+    padding-bottom: 200px;
+    
+    height: 100dvh;
+    background: #0f141d;
+    overflow: hidden;
+
+    transition: padding 250ms ease-in-out;
 }
 .main-player-container,
 .lyrics-container,
 .filters-container{
+    padding-top: 50px;
     z-index: 8;
+}
+.lyrics-container,
+.filters-container{
+    padding-top: 124px;
 }
 
 /* BG-IMAGE */
@@ -27,15 +39,16 @@
     object-fit: cover;
     mask-image: linear-gradient(to bottom, rgba(0,0,0,1)-60%, rgba(0,0,0,0)80%);
     filter: blur(.5em);
+
+    transition: 250ms ease-in-out;
 }
 
 /* PLAYER */
 .main-player-container{
-    padding-top: calc(var(--header-height) * 2 - 40px);
-    padding-inline: 50px;
     display: flex;
     flex-direction: column;
     gap:35px;
+    max-height: 100%;
 }
 .current-song-title{
     display: flex;
@@ -75,12 +88,12 @@
     display: flex;
     flex-direction: column;
     gap:10px;
-    padding-top: calc(var(--header-height) * 2 - 40px);
-    padding-inline: 50px;
+    max-height: 675px;
+    width: 25%;
+    /* padding-top: calc(var(--header-height) * 2 - 40px); */
 }
 
 .song-name{
-    margin-top: 65px;
     font-family: var(--text-font);
     font-size: 40px;
     font-weight: 500;
@@ -118,10 +131,10 @@
     font-weight: 300;
     text-align: left;
     white-space: pre-wrap;
-    max-height: 70vh;
     overflow-y: scroll;
+    max-height: 100vh;
 
-    transition: max-height 350ms ease-out;
+    transition: max-height 250ms ease-in-out;
 }
 .closed-lyrics > .cover-gradient{
     position: absolute;

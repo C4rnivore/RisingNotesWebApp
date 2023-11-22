@@ -12,6 +12,10 @@
     background: rgb(25,30,40);
     background: linear-gradient(180deg, rgba(25,30,40,1) 50%, rgba(15,20,29,1) 100%);
     z-index: 9;
+    transition: 250ms ease-in-out;
+}
+.sidebar > * {
+    transition: opacity 250ms ease-in-out;
 }
 
 .bg-gradient{
@@ -24,7 +28,7 @@
 
 /* SEARCHBAR */
 
-.searchbar_container{
+.searchbar-container{
     position: relative;
     width: max-content;
     margin: 40px auto 0 auto;
@@ -43,7 +47,7 @@
     margin: 0 auto;
 }
 
-.searchbar_submit{
+.searchbar-submit{
     position: absolute;
     background: none;
     border: none;
@@ -53,13 +57,13 @@
 
 /* MUSIC */
 
-.music_container{
+.music-container{
     display: flex;
     flex-direction: column;
     gap: 25px;
     align-items: start;
 }
-.section_title{
+.section-title{
     font-family: var(--text-font);
     font-size: 20px;
     font-weight: 400;
@@ -67,7 +71,7 @@
     letter-spacing: 0em;
     text-align: left;
 }
-.nav_links{
+.nav-links{
     display: flex;
     align-items: start;
     flex-direction: column;
@@ -75,7 +79,7 @@
     list-style-type:none ;
 }
 
-.nav_link{
+.nav-link{
     display: flex;
     align-items: center;
     gap:10px;
@@ -110,26 +114,26 @@
     align-items: start;
 }
 
-.sidebar_playlist, .add_playlist{
+.sidebar-playlist, .add_playlist{
     display: flex;
     flex-direction: row;
     align-items: center;
     gap:10px;
 }
-.sidebar_playlist:hover{
+.sidebar-playlist:hover{
     cursor: pointer;
 }
-.sidebar_playlists{
+.sidebar-playlists{
     display: flex;
     flex-direction: column;
     list-style-type: none;
     gap:22px;
 }
-.sidebar_playlist_thumb, .add_playlist_btn{
+.sidebar-playlist-thumb, .add-playlist-btn{
     width: 24px;
     height: 24px;
 }
-.sidebar_playlist_name{
+.sidebar-playlist-name{
     font-family: var(--text-font);
     font-size: 20px;
     font-weight: 400;
@@ -140,11 +144,11 @@
     color:#787885;
 }
 
-.add_playlist:hover > span,
-.sidebar_playlist_name:hover{
+.add-playlist:hover > span,
+.sidebar-playlist-name:hover{
     color:#a6a6b3;
 }
-.add_playlist_icon{
+.add-playlist-icon{
     background: transparent;
     border:none;
     color:#787885;
@@ -152,8 +156,39 @@
     font-weight: 600;
     margin-top:5px;
 }
-.add_playlist{
+.add-playlist{
     cursor: pointer;
+}
+.collapse{
+    padding: 0;
+}
+.collapse > *{
+    opacity:0;
+    pointer-events: none;
+}
+
+.toggle-menu-btn{
+    width: 50px;
+    height: max-content;
+    display: flex;
+    gap:8px;
+    flex-direction: column;
+    background: transparent;
+    border:none;
+    user-select:none ;
+    pointer-events: all;
+    opacity:1 !important;
+    padding: 10px;
+    position: absolute;
+    top:calc(var(--header-height) + 40px);
+    right: 0;
+}
+
+.toggle-menu-btn > div{
+    height: 2px;
+    border-radius: 1px;
+    width: 100%;
+    background-color: #a6a6b3;
 }
 
 

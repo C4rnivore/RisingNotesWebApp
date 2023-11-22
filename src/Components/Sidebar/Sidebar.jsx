@@ -37,59 +37,76 @@ function Sidebar(props) {
       return
    }
 
+   const handleToggleMenu = () =>{
+      const sidebar = document.getElementById('sidebar')
+      if(sidebar.classList.contains('collapse')){
+         sidebar.classList.remove('collapse')
+         document.documentElement.style.setProperty('--sidebar-width', '400px');
+      }
+      else{
+         sidebar.classList.add('collapse')
+         document.documentElement.style.setProperty('--sidebar-width', '50px');
+      }
+   }
+
    return(
-    <div className="sidebar">
-      <div className="searchbar_container">
+    <div className="sidebar" id='sidebar'>
+      <button className='toggle-menu-btn' onClick={handleToggleMenu}>
+         <div className='first'></div>
+         <div className='second'></div>
+         <div className='third'></div>
+      </button>
+      <div className="searchbar-container">
          <form action="" method='GET'>
-            <button className='searchbar_submit' type='submit'>
+            <button className='searchbar-submit' type='submit'>
                <img src={search} alt="" />
             </button>
             <input className='searchbar' type="text" placeholder='Поиск'/>
          </form>
       </div>
-      <div className="music_container">
+      <div className="music-container">
          <span className="section_title">Музыка</span>
-         <nav className='music_nav'>
-            <ul className="nav_links">
+         <nav className='music-nav'>
+            <ul className="nav-links">
                <li>
-                  <NavLink className ={({ isActive }) => (isActive ? 'nav_link wave active' : 'nav_link wave' )} 
+                  <NavLink className ={({ isActive }) => (isActive ? 'nav-link wave active' : 'nav-link wave' )} 
                    to={'/'} 
                    style={({ isActive }) => (isActive ? {color: '#FE1170'} : {color: '#787885'})}>
-                     <img src={wave} alt="" className="nav_icon" />
-                     <span className='link_label'>Моя волна</span>
+                     <img src={wave} alt="" className="nav-icon" />
+                     <span>Моя волна</span>
                   </NavLink>
                </li>
                <li>
-                  <NavLink className ={({ isActive }) => (isActive ? 'nav_link fav active' : 'nav_link fav ' )}
+                  <NavLink className ={({ isActive }) => (isActive ? 'nav-link fav active' : 'nav-link fav ' )}
                   to={'/login'} 
                   style={({ isActive }) => (isActive ? {color: '#FE1170'} : {color: '#787885'})}>
                      <img src={like} alt="" className="nav_icon" />
-                     <span className='link_label'>Избранное</span>
+                     <span >Избранное</span>
                   </NavLink>
                </li>
                <li> 
-                  <NavLink className ={({ isActive }) => (isActive ? 'nav_link remove active' : 'nav_link remove ' )}
+                  <NavLink className ={({ isActive }) => (isActive ? 'nav-link remove active' : 'nav-link remove ' )}
                   to={'/registration  '} 
                   style={({ isActive }) => (isActive ? {color: '#FE1170'} : {color: '#787885'})}>
-                     <img src={warning} alt="" className="nav_icon" />
-                     <span className='link_label'>Исключенное</span>
+                     <img src={warning} alt="" className="nav-icon" />
+                     <span >Исключенное</span>
                   </NavLink>
                </li>
             </ul>
          </nav>
       </div>
       <div className="playlists-container">
-         <span className="section_title">Плейлисты</span>
-         <ul className="sidebar_playlists">
+         <span className="section-title">Плейлисты</span>
+         <ul className="sidebar-playlists">
             {playlists.map((pl => 
-               <li className='sidebar_playlist' key={pl.name.toString()}>
-                  <img className='sidebar_playlist_thumb' src={pl.thumb} alt="" />
-                  <span className='sidebar_playlist_name'> {pl.name} </span>
+               <li className='sidebar-playlist' key={pl.name.toString()}>
+                  <img className='sidebar-playlist-thumb' src={pl.thumb} alt="" />
+                  <span className='sidebar-playlist-name'> {pl.name} </span>
                </li>
             ))}
-            <li className='add_playlist' onClick={handleCreatePlaylistBtn}>
-               <span className="add_playlist_icon">+</span>
-               <span className='sidebar_playlist_name'>Добавить плейлист</span>
+            <li className='add-playlist' onClick={handleCreatePlaylistBtn}>
+               <span className="add-playlist-icon">+</span>
+               <span className='sidebar-playlist-name'>Добавить плейлист</span>
             </li>
          </ul>
       </div>

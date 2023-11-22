@@ -6,6 +6,7 @@ import  '../Player/Player.css';
 import  '../Sidebar/Sidebar.css';
 import '../../Pages/Subsriptions/Subscriptions.css';
 import '../../Pages/Commentaries/Commentaries.css';
+import '../ArtistCard/ArtistCard.css';
 
 import  '../../Pages/ArtistPersonalPage/ArtistPersonalPage.css';
 import '../../Pages/ArtistCard/ArtistCard.css';
@@ -24,7 +25,7 @@ import Sidebar from "../Sidebar/Sidebar";
 import Player from "../Player/Player";
 import ArtistPersonalPage from "../../Pages/ArtistPersonalPage/ArtistPersonalPage";
 
-import ArtistCard from '../../Pages/ArtistCard/ArtistCard';
+import ArtistCard from '../ArtistCard/ArtistCard'
 import LK from "../LK/LK";
 import LKlistener from "../LKlistener/LKlistener";
 import InstallMusic from "../InstallMusic/InstallMusic";
@@ -130,29 +131,27 @@ function App() {
 
     if (isLoaded)
     return (
-        <div className="App">
-            <Header/>
-            <MusicPlayer songsInfo={songs}/>
-            <Routes>
-                <Route path={'/'} element={<Fragment>
-                    <Sidebar></Sidebar>
-                    <Player></Player>
-                </Fragment>}/>
-                <Route path={'/login'} element={<Login/>}/>
-                <Route path={'/registration'} element={<Registration/>}/>
-                <Route path={'/artist'} element={<ArtistCard/>}/>
-                <Route path={'/featured'} element={<Featured/>}/>
-                <Route path={'/excluded'} element={<Excluded/>}/>
-                <Route path={'/account'} element={<LK/>}/>
-                {/* <Route path={'/LKlistener'} element={<LKlistener/>}/> */}
-                <Route path={'/upload'} element={<InstallMusic/>}/>
-                <Route path={'/subscriptions'} element={<Subscriptions/>}/>
-                <Route path={'/commentaries/:id'} element={<Commentaries/>}/>
-                <Route path={'/adminpanel'} element={<AdminPanel/>}/>
-                <Route  path={'/artistpage'} element={<ArtistPersonalPage/>}/>
-                <Route path={'/messages'} element={<AdminMessages/>}/>
-            </Routes>  
-        </div>
+      <div className="App">
+          <Header/>
+          <MusicPlayer songsInfo={[]}/>
+          <Sidebar></Sidebar>
+          <Routes>
+              <Route path={'/'} element={<Player/>}/>
+              <Route path={'/login'} element={<Login/>}/>
+              <Route path={'/registration'} element={<Registration/>}/>
+              <Route path={'/artist'} element={<ArtistCard/>}/>
+              <Route path={'/featured'} element={<Featured/>}/>
+              <Route path={'/excluded'} element={<Excluded/>}/>
+              <Route path={'/account'} element={<LK/>}/>
+              {/* <Route path={'/LKlistener'} element={<LKlistener/>}/> */}
+              <Route path={'/upload'} element={<InstallMusic/>}/>
+              <Route path={'/subscriptions'} element={<Subscriptions/>}/>
+              <Route path={'/commentaries/:id'} element={<Commentaries/>}/>
+              <Route path={'/adminpanel'} element={<AdminPanel/>}/>
+              <Route  path={'/artistpage'} element={<ArtistPersonalPage/>}/>
+              <Route path={'/messages'} element={<AdminMessages/>}/>
+          </Routes>  
+      </div>
     );
 }
 
