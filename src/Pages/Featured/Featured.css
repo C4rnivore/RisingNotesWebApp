@@ -1,9 +1,14 @@
+.black-page{
+    background-color: #0F141D;
+}
+
 .featured {
     text-align: start;
     padding-top: 81px;
     max-width: 1200px;
     padding-left: 91px;
     margin-bottom: 200px;
+    background-color: #0F141D;
 
     @media screen and (min-width: 1200px){
         width: 1200px;
@@ -25,8 +30,8 @@
 }
 
 .new-playlist {
-    width: 156px;
-    height: 156px;
+    width: 230px;
+    height: 230px;
 }
 
 .new-playlist:hover {
@@ -43,4 +48,33 @@
 .page-search {
     margin: 0 0;
     display: inline;
+}
+
+.sub-h2 {
+    color: #FFF;
+
+    font-family: Montserrat;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.playlistskin {
+    width: 230px;
+    height: 230px;
+    border-radius: 25px;
+    object-fit: cover;
+}
+
+.labelplaylist {
+    color: #C5C5C5;
+    font-family: Montserrat;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    padding-top: 10px;
+    text-align: start;
+    width: 230px;
 }

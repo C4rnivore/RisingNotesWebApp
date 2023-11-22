@@ -13,21 +13,31 @@ import cover from '../../Images/image-placeholder/song-cover-default.png';
 import volume from '../../Images/controller/volume-2.svg';
 
 import { api } from '../App/App';
+import { axiosAuthorized, axiosUnauthorized } from '../App/App';
 
-const MusicPlayer = memo((props) => {
+const MusicPlayer = (props) => {
     const [isPlaying, setIsPlaying] = useState(false);  
     const [nextSongIndex,setNextSongIndex] = useState(0);
     const audioRef = useRef(null);
     const [trackCurrentDuration, setTrackCurrentDuration] = useState(0);
     const [trackDuration, setTrackDuration] = useState(0);
     const handleRef = useRef(0);
-    const [songName, setSongName] = useState('Название трека');
+    const [songName, setSongName] = useState('');
+    const [songAuthor, setSongAuthor] = useState('');
 
     useEffect(() => {
-        if(props.songsInfo > 0){
-            axios.get(api + `api/song/${props.songsInfo[nextSongIndex]?.id}`)
+        if(audioRef.current && props.songsInfo[nextSongIndex]?.id !== undefined){
+            axiosUnauthorized.get(`api/song/${props.songsInfo[nextSongIndex]?.id}`)
             .then(response => {
                 setSongName(response.data.name);
+                axiosUnauthorized.get(`api/author/${response.data.authorId}`)
+                    .then(resp => {
+                        setSongAuthor(resp.data.name);
+                    })
+                    .catch(err => {
+                        console.log(err);
+                        throw err;
+                    })
             })
             .catch(err => {
                 console.log(err);
@@ -35,16 +45,17 @@ const MusicPlayer = memo((props) => {
             })
         }
 
-    }, [nextSongIndex])
+    }, [audioRef.current, nextSongIndex])
 
     const handlePlayPause = () => { 
-        let audio = document.querySelector('audio');
-        if (isPlaying) {
+        clearInterval(handleRef.current);
+        let audio = audioRef.current;
+        if (isPlaying && audioRef.current) {
             audio.pause();
         }
         else {
-            audio.play();
             if (audioRef.current) {
+                audio.play();
                 handleRef.current = setInterval(() => {
                     setTrackCurrentDuration(t => t = audioRef.current.currentTime);
                     setTrackDuration(t => t = audioRef.current.duration);
@@ -55,6 +66,7 @@ const MusicPlayer = memo((props) => {
     };
 
     const handleNextSong = () => {
+        clearInterval(handleRef.current);
         const songsCount = props.songsInfo.length;
         if (nextSongIndex + 1 == songsCount)
             setNextSongIndex(0);
@@ -62,15 +74,20 @@ const MusicPlayer = memo((props) => {
             setNextSongIndex(nextSongIndex => nextSongIndex + 1);
 
         audioRef.current.currentTime = 0;
+        if (isPlaying) 
+            handlePlayPause();
     };
 
     const handlePrevSong = () => {
+        clearInterval(handleRef.current);
         if (nextSongIndex - 1 == -1)
             setNextSongIndex(props.songsInfo.length - 1);
         else
             setNextSongIndex(nextSongIndex => nextSongIndex - 1);
 
         audioRef.current.currentTime = 0;
+        if (isPlaying)
+            handlePlayPause();
     };
 
     const handleCurrentDurationChange = (event) => {
@@ -118,14 +135,14 @@ const MusicPlayer = memo((props) => {
 
     return (<div className="music-player-wrapper">
         <audio ref={audioRef} src={api + `api/song/${props.songsInfo[nextSongIndex]?.id}/file`}
-            onEnded={handleNextSong} type="audio/mpeg"/>
+            onEnded={handleNextSong} type="audio/mpeg" autoplay controls/>
         <div className="music-player">
             <img className='music-player-cover' src={props.songsInfo.length > nextSongIndex ?
             (api + `api/song/${props.songsInfo[nextSongIndex]?.id}/logo?width=100&height=100`) : cover} alt='cover'/>
 
             <span className='music-player-head'>
                 <p className='music-player-head-song'>{songName}</p>
-                <p className='music-player-head-author'>Francis Owens, ZIA</p>
+                <p className='music-player-head-author'>{songAuthor}</p>
             </span>
 
             <div className='music-player-buttons'>
@@ -159,6 +176,6 @@ const MusicPlayer = memo((props) => {
             </div>
         </div>
     </div>)
-});
+};
 
 export default MusicPlayer;
