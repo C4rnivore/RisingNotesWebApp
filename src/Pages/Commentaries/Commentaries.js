@@ -27,6 +27,7 @@ const Commentaries = (props) => {
     const [isDataUpdated, setIsDataUpdated] = useState(false);
     const [songName, setSongName] = useState('');
     const [songAuthor, setSongAuthor] = useState('');
+    const [authorId, setAuthorId] = useState('');
 
     useEffect(() => {
         axiosUnauthorized.get(`api/song/${params.id}/comment/list`)
@@ -37,20 +38,29 @@ const Commentaries = (props) => {
             })
             .catch(err=>{
                 console.log(err);
-            })
+            });
 
         axiosUnauthorized.get(`api/song/${params.id}`)
-        .then(response => {
-            setSongName(response.data.name);
-            axiosUnauthorized.get(`api/author/${response.data.authorId}`)
-                .then(resp => {
-                    setSongAuthor(resp.data.name);
-                })
-                .catch(err => {
-                    console.log(err);
-                    throw err;
-                })
-        })
+            .then(response => {
+                setSongName(response.data.name);
+                axiosUnauthorized.get(`api/author/${response.data.authorId}`)
+                    .then(resp => {
+                        setSongAuthor(resp.data.name);
+                    })
+                    .catch(err => {
+                        console.log(err);
+                        throw err;
+                    })
+            })
+            .catch(err => {
+                console.log(err);
+                throw err;
+            });
+        
+        axiosUnauthorized.get(`api/song/${params.id}`)
+            .then(response => {
+                setAuthorId(response.data.authorId);
+            })
     }, [isDataUpdated, params.id]);
 
     const handleSendComment = () => {
@@ -67,7 +77,6 @@ const Commentaries = (props) => {
 
     return (
         <div className='comment-page-wrapper'>
-            <Sidebar/>
             <div className='featured'>
                 <BackButton/>
 
@@ -75,7 +84,7 @@ const Commentaries = (props) => {
                     <img alt='cover' src={(api + `api/song/${params.id}/logo?width=500&height=500`)}/>
                     <span>
                         <h2 className='comm-page-h2'>{songName}</h2>
-                        <p className='comm-page-author'>{songAuthor}</p>
+                        <Link to={`/artist/${authorId}`} className='comm-page-author'>{songAuthor}</Link>
                         <div className='comm-head-buttons'>
                             <span className='song-tag'>Рок</span>
                             <span className='song-tag'>Джаз</span>

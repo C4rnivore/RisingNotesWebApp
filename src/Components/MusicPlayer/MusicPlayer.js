@@ -1,18 +1,18 @@
 import axios from 'axios';
-import React, { useEffect, useState, useRef, memo } from 'react';
+import React, { useEffect, useState, useRef, useContext } from 'react';
 import {Link, NavLink} from "react-router-dom";
 
 import heart from '../../Images/controller/heart.svg';
-import message from '../../Images/controller/message.svg';
+import message from '../../Images/controller/Chat_Dots.png';
 import play from '../../Images/play.svg';
 import pause from '../../Images/Pause.svg';
 import rewind_forwrad from '../../Images/controller/rewind.svg';
 import rewind_backward from '../../Images/controller/rewind-1.svg';
 import dislike from '../../Images/controller/thumbs-down.svg';
 import cover from '../../Images/image-placeholder/song-cover-default.png';
-import volume from '../../Images/controller/volume-2.svg';
+import vol from '../../Images/controller/volume-2.svg';
 
-import { api } from '../App/App';
+import { CurrentSongContext, PlayerContext, api } from '../App/App';
 import { axiosAuthorized, axiosUnauthorized } from '../App/App';
 
 const MusicPlayer = (props) => {
@@ -24,12 +24,26 @@ const MusicPlayer = (props) => {
     const handleRef = useRef(0);
     const [songName, setSongName] = useState('');
     const [songAuthor, setSongAuthor] = useState('');
+    const [authorId, setAuthorId] = useState('');
+
+    const {songs, setSongs} = useContext(PlayerContext);
+    const {currentSong, setCurrentSong} = useContext(CurrentSongContext);
+    
+    const volumeJSON = localStorage.getItem('VOL');
+    const [volume, setVolume] = useState(volumeJSON ? JSON.parse(volumeJSON) : 1);
 
     useEffect(() => {
-        if(audioRef.current && props.songsInfo[nextSongIndex]?.id !== undefined){
-            axiosUnauthorized.get(`api/song/${props.songsInfo[nextSongIndex]?.id}`)
+        let audio = document.querySelector('audio');
+        audio.volume = volume;
+        localStorage.setItem('VOL', JSON.stringify(audio.volume));
+    }, [volume])
+
+    useEffect(() => {
+        if(currentSong !== ''){
+            axiosUnauthorized.get(`api/song/${currentSong}`)
             .then(response => {
                 setSongName(response.data.name);
+                setAuthorId(response.data.authorId);
                 axiosUnauthorized.get(`api/author/${response.data.authorId}`)
                     .then(resp => {
                         setSongAuthor(resp.data.name);
@@ -44,8 +58,11 @@ const MusicPlayer = (props) => {
                 throw err;
             })
         }
+        else if (songs.length > 0){
+            setCurrentSong(songs[0]);
+        }
 
-    }, [audioRef.current, nextSongIndex])
+    }, [songs, currentSong])
 
     const handlePlayPause = () => { 
         clearInterval(handleRef.current);
@@ -62,32 +79,40 @@ const MusicPlayer = (props) => {
                 }, 1);
             }
         }
-        setIsPlaying(!isPlaying);
+        setIsPlaying(isPlaying => isPlaying = !isPlaying);
     };
 
     const handleNextSong = () => {
         clearInterval(handleRef.current);
-        const songsCount = props.songsInfo.length;
+        const songsCount = songs.length;
         if (nextSongIndex + 1 == songsCount)
             setNextSongIndex(0);
         else
             setNextSongIndex(nextSongIndex => nextSongIndex + 1);
 
         audioRef.current.currentTime = 0;
-        if (isPlaying) 
-            handlePlayPause();
+        setCurrentSong(songs[nextSongIndex]);
+
+        handleRef.current = setInterval(() => {
+            setTrackCurrentDuration(t => t = audioRef.current.currentTime);
+            setTrackDuration(t => t = audioRef.current.duration);
+        }, 1);
     };
 
     const handlePrevSong = () => {
         clearInterval(handleRef.current);
         if (nextSongIndex - 1 == -1)
-            setNextSongIndex(props.songsInfo.length - 1);
+            setNextSongIndex(songs.length - 1);
         else
             setNextSongIndex(nextSongIndex => nextSongIndex - 1);
 
         audioRef.current.currentTime = 0;
-        if (isPlaying)
-            handlePlayPause();
+        setCurrentSong(songs[nextSongIndex]);
+
+        handleRef.current = setInterval(() => {
+            setTrackCurrentDuration(t => t = audioRef.current.currentTime);
+            setTrackDuration(t => t = audioRef.current.duration);
+        }, 1);
     };
 
     const handleCurrentDurationChange = (event) => {
@@ -107,6 +132,7 @@ const MusicPlayer = (props) => {
     const handleVolumeChange = (event) => {
         let audio = document.querySelector('audio');
         audio.volume = event.target.value*0.01;
+        setVolume(audio.volume);
     };
 
     function formatTime(seconds) {
@@ -134,29 +160,31 @@ const MusicPlayer = (props) => {
     };
 
     return (<div className="music-player-wrapper">
-        <audio ref={audioRef} src={api + `api/song/${props.songsInfo[nextSongIndex]?.id}/file`}
-            onEnded={handleNextSong} type="audio/mpeg" autoplay controls/>
+        <audio ref={audioRef} src={currentSong ? api + `api/song/${currentSong}/file` : ''}
+            onEnded={handleNextSong} type="audio/mpeg" autoPlay={isPlaying} controls/>
         <div className="music-player">
-            <img className='music-player-cover' src={props.songsInfo.length > nextSongIndex ?
-            (api + `api/song/${props.songsInfo[nextSongIndex]?.id}/logo?width=100&height=100`) : cover} alt='cover'/>
+            <img className='music-player-cover' src={currentSong ?
+            (api + `api/song/${currentSong}/logo?width=100&height=100`) : cover} alt='cover'/>
 
             <span className='music-player-head'>
                 <p className='music-player-head-song'>{songName}</p>
-                <p className='music-player-head-author'>{songAuthor}</p>
+                <Link to={`/artist/${authorId}`} className='music-player-head-author'>{songAuthor}</Link>
             </span>
 
             <div className='music-player-buttons'>
-                <button onClick={handlePrevSong}>
+                <button onClick={handlePrevSong} disabled={songs.length < 1}>
                     <img alt='previous track' src={rewind_backward}/></button>
-                <button onClick={handlePlayPause} 
+                <button onClick={handlePlayPause} disabled={currentSong === ''}
                     className='play-button'><img alt='play' src={isPlaying? pause : play}/></button>
-                <button onClick={handleNextSong}>
+                <button onClick={handleNextSong} disabled={songs.length < 1}>
                     <img alt='next track' src={rewind_forwrad}/></button>
             </div>
 
             <div className='music-player-buttons'>
                 <button><img alt='dislike' src={dislike}/></button>
-                <Link to={`/commentaries/${props.songsInfo[nextSongIndex]?.id}`}><img alt='comment' src={message}/></Link>
+                <Link to={currentSong === '' ? '' : `/commentaries/${currentSong}`}>
+                    <img alt='comment' src={message}/>
+                </Link>
                 <button><img alt='add to featured' src={heart}/></button>
             </div>
             
@@ -170,9 +198,9 @@ const MusicPlayer = (props) => {
 
             <div className="volume-container">
                 <div id='volume-modal' className="volume-modal volume-modal-hidden" onMouseLeave={hideModal}>
-                    <input type="range" className='track-range-input' min="0" max="100" onChange={handleVolumeChange}/>
+                    <input type="range" className='track-range-input' min="0" max="100" onChange={handleVolumeChange} value={volume*100}/>
                 </div>
-                <img className="header-volume-btn" src={volume} onMouseOver={showModal} ></img>
+                <img className="header-volume-btn" src={vol} onMouseOver={showModal} ></img>
             </div>
         </div>
     </div>)

@@ -31,7 +31,7 @@ import LKlistener from "../LKlistener/LKlistener";
 import InstallMusic from "../InstallMusic/InstallMusic";
 import InstallMusicMusician from '../InstallMusicMusician/InstallMusicMusician';
 import {Routes,Route, Link, createBrowserRouter, createRoutesFromElements, RouterProvider} from 'react-router-dom';
-import React, {Fragment} from "react";
+import React, {Fragment, createContext} from "react";
 import Featured from '../../Pages/Featured/Featured';
 import Excluded from '../../Pages/Excluded/Excluded';
 import Subscriptions from '../../Pages/Subsriptions/Subscriptions';
@@ -70,8 +70,14 @@ const axiosRefresh = axios.create({
     }
 });
 
+export const PlayerContext = createContext({});
+export const CurrentSongContext = createContext({});
+
 function App() {
-    const [songs, setSongs] = useState([]);
+    const songsJSON = localStorage.getItem('SONGS');
+    const currentSongJSON = localStorage.getItem('CURR_SONG');
+    const [songs, setSongs] = useState(songsJSON ? JSON.parse(songsJSON) : []);
+    const [currentSong, setCurrentSong] = useState(currentSongJSON ? JSON.parse(currentSongJSON) : '');
     const [isLoaded, setIsLoaded] = useState(false);
     const [cookies, setCookies] = useCookies(['accessToken', 'refreshToken', 'authorId', 'role']);
   
@@ -117,41 +123,37 @@ function App() {
     );
 
     useEffect(() => {
-        axiosUnauthorized.get(`api/author/${'902be286-f22e-43ca-bc16-007de8cdeddd'}/song/list`)
-            .then(response => {
-                setIsLoaded(true);
-                setSongs(response.data.songInfoList);
-                console.log(response.data.songInfoList);
-            })
-            .catch(error => {
-                console.error(error);
-                throw error;
-            });
-    }, []);
+        localStorage.setItem('SONGS', JSON.stringify(songs));
+        localStorage.setItem('CURR_SONG', JSON.stringify(currentSong));
+    }, [songs, currentSong]);
 
-    if (isLoaded)
+    if (true)
     return (
-      <div className="App">
-          <Header/>
-          <MusicPlayer songsInfo={songs}/>
-          <Sidebar></Sidebar>
-          <Routes>
-              <Route path={'/'} element={<Player/>}/>
-              <Route path={'/login'} element={<Login/>}/>
-              <Route path={'/registration'} element={<Registration/>}/>
-              <Route path={'/artist/:id'} element={<ArtistCard/>}/>
-              <Route path={'/featured'} element={<Featured/>}/>
-              <Route path={'/excluded'} element={<Excluded/>}/>
-              <Route path={'/account'} element={<LK/>}/>
-              {/* <Route path={'/LKlistener'} element={<LKlistener/>}/> */}
-              <Route path={'/upload'} element={<InstallMusic/>}/>
-              <Route path={'/subscriptions'} element={<Subscriptions/>}/>
-              <Route path={'/commentaries/:id'} element={<Commentaries/>}/>
-              <Route path={'/adminpanel'} element={<AdminPanel/>}/>
-              <Route  path={'/artistpage'} element={<ArtistPersonalPage/>}/>
-              <Route path={'/messages'} element={<AdminMessages/>}/>
-          </Routes>  
-      </div>
+        <CurrentSongContext.Provider value={{currentSong, setCurrentSong}}>
+            <PlayerContext.Provider value={{songs, setSongs}}>
+                <div className="App">
+                    <Header/>
+                    <MusicPlayer/>
+                    <Sidebar></Sidebar>
+                    <Routes>
+                        <Route path={'/'} element={<Player/>}/>
+                        <Route path={'/login'} element={<Login/>}/>
+                        <Route path={'/registration'} element={<Registration/>}/>
+                        <Route path={'/artist/:id'} element={<ArtistCard/>}/>
+                        <Route path={'/featured'} element={<Featured/>}/>
+                        <Route path={'/excluded'} element={<Excluded/>}/>
+                        <Route path={'/account'} element={<LK/>}/>
+                        {/* <Route path={'/LKlistener'} element={<LKlistener/>}/> */}
+                        <Route path={'/upload'} element={<InstallMusic/>}/>
+                        <Route path={'/subscriptions'} element={<Subscriptions/>}/>
+                        <Route path={'/commentaries/:id'} element={<Commentaries/>}/>
+                        <Route path={'/adminpanel'} element={<AdminPanel/>}/>
+                        <Route  path={'/artistpage'} element={<ArtistPersonalPage/>}/>
+                        <Route path={'/messages'} element={<AdminMessages/>}/>
+                    </Routes>  
+                </div>
+            </PlayerContext.Provider>
+        </CurrentSongContext.Provider>
     );
 }
 

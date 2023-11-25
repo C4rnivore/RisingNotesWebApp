@@ -30,7 +30,7 @@
 }
 
 .back-button {
-    color: #787885;
+    color: #ffffff;
     font-family: Montserrat;
     font-size: 20px;
     font-style: normal;
@@ -208,6 +208,21 @@
     font-style: normal;
     font-weight: 400;
     line-height: normal;
+}
+
+.song-title-t {
+    width: 100%;
+    max-width: 500px;
+    padding-right: 67px;
+
+    color: #FFF;
+
+    font-family: Montserrat;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    text-align: start;
 }
 
 .songAuthor{

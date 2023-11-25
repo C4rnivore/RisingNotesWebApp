@@ -1,7 +1,6 @@
 .artist-card-container{
     width: 100%;
     padding-left: var(--sidebar-width);
-    padding-top: var(--header-height);
     min-height: 100dvh;
     background-color: #0F141D;
 
@@ -11,7 +10,7 @@
     position: relative;
     padding-top: 80px;
     width: 100%;
-    max-width: 1200px;
+    max-width: 1040px;
     max-height: 100vh;
     margin: 0 auto;
 }

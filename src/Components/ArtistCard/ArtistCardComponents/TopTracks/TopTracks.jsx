@@ -10,7 +10,7 @@ function TopTracks(props){
     return(
         <div className="top-tracks-container">
             <span className='top-tracks-title'>Топ Треков</span>
-            <div className="tracks">
+            <div className="top-tracks">
                 {tracks.map((track,index) =>(
                     <div className="track-container" key={index}>
                         <img src={track.trackCover} draggable='false' onClick={() => handleOnTrackClick(index)}/>

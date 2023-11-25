@@ -4,6 +4,7 @@
     display: flex;
     flex-direction: column;
     gap:30px;
+    margin-bottom: 110px;
 }
 .top-tracks-title{
     text-align: start;
@@ -11,6 +12,7 @@
     font-size: 24px;
     color:#fff;
 }
+
 .tracks{
     width: 100%;
     display: flex;
@@ -19,6 +21,15 @@
     align-items: center;
     flex-direction: column;
 }
+
+.top-tracks {
+    width: 100%;
+    display: flex;
+    height: max-content;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .track-container{
     max-width: 230px;
     max-height: 230px;

@@ -7,6 +7,7 @@ import ArtistInfo from "./ArtistCardComponents/ArtistInfo/ArtistInfo.jsx"
 import TopTracks from "./ArtistCardComponents/TopTracks/TopTracks.jsx"
 import { useEffect, useState } from "react"
 import { api, axiosUnauthorized } from "../App/App.jsx"
+import Song from "../Song.js"
 
 function ArtistCard(props){
     const navigate = useNavigate();
@@ -71,6 +72,16 @@ function ArtistCard(props){
                     </div>
                     <ArtistInfo artist={artist}/>
                     <TopTracks artist={artist}/>
+                    <div className="top-tracks-container">
+                        <span className='top-tracks-title'>Все треки</span>
+                        <div className="tracks">
+                            {songs.map(el => (
+                                <Song key={el.id} id={el.id} name={el.name} duration={el.durationMs} artist={artist.artistName}/>
+                            ))}
+                            
+                        </div>
+                    </div>
+                    
                 </div>
                 <img className="artist-bg-image" src={artist.artistImage}/>
             </section>

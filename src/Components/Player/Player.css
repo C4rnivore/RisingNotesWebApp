@@ -7,7 +7,7 @@
     justify-content: space-evenly;
 
     padding-left: var(--sidebar-width);
-    padding-top: var(--header-height);
+    /* padding-top: var(--header-height); */
     padding-bottom: 200px;
     
     height: 100dvh;

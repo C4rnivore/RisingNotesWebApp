@@ -39,15 +39,15 @@ function ArtistInfo(props){
                     <div className="right">
                         <div className="site">
                             <img src={linkIcon} alt="" draggable='false'/>
-                            <a href={site}>Сайт</a>
+                            <a href={site} target="_blank">Сайт</a>
                         </div>
                         <div className="vk">
                             <img src={vkIcon} alt="" draggable='false'/>
-                            <a href={vk}>Вконтакте</a>
+                            <a href={vk} target="_blank">Вконтакте</a>
                         </div>
                         <div className="yandex">
                             <img src={yandexIcon} alt="" draggable='false'/>
-                            <a href={yandex}>Я.Музыка</a>
+                            <a href={yandex} target="_blank">Я.Музыка</a>
                         </div>
                     </div>
                 </div>
