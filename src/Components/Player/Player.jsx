@@ -43,10 +43,12 @@ I guess I will survive in spite of being in a bad view.
 
     return (
         <section className="player-area">
+        <div className="player-content-container">
             <SongCover track = {currentTrack}/>
             <SongLyrics track = {currentTrack}/>
             <FilterComponent/>
-            <img className="player-bg-image" src={currentTrack.trackCover} alt="" />
+        </div>
+        <img className="player-bg-image" src={currentTrack.trackCover} alt="" />
         </section>
     );
 }

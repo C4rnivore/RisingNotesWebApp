@@ -148,7 +148,7 @@ function App() {
               <Route path={'/subscriptions'} element={<Subscriptions/>}/>
               <Route path={'/commentaries/:id'} element={<Commentaries/>}/>
               <Route path={'/adminpanel'} element={<AdminPanel/>}/>
-              <Route  path={'/artistpage'} element={<ArtistPersonalPage/>}/>
+              <Route path={'/artistpage'} element={<ArtistPersonalPage/>}/>
               <Route path={'/messages'} element={<AdminMessages/>}/>
           </Routes>  
       </div>

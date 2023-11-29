@@ -59,6 +59,7 @@ function FilterComponent(){
     return(
         <div className="filters-container">
             <div className="filters">
+                <span className="filters-title">Фильтры</span>
                 <FilterElement name="Жанр" id="genre" function = {filtersUpdateFunction}/>
                 <FilterElement name="Язык" id="language" function = {filtersUpdateFunction}/>
                 <FilterElement name="На что похоже?" id="similar" function = {filtersUpdateFunction}/>

@@ -169,3 +169,11 @@
     width: 100%;
     align-self: center;
 }
+.player-content-container{
+    position: relative;
+    display: flex;
+    align-items: start;
+    flex-direction: row;
+    justify-content: space-evenly;
+
+}

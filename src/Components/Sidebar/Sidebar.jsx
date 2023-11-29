@@ -20,19 +20,6 @@ function Sidebar(props) {
       {name:'Для поездок под дождем', thumb: thumb },
    ])
 
-   // useEffect(()=>{
-   //    axios.get(api + `/api/playlist/list/${props.userId}`)
-   //    .then(response => {
-   //       setPlaylists(response.data...);
-   //    })
-   //    .catch(err => {
-   //        console.log(err);
-   //        throw err;
-   //    })
-
-   // },[])
-
-
    const handleCreatePlaylistBtn = () =>{
       return
    }

@@ -162,7 +162,7 @@
 .collapse{
     padding: 0;
 }
-.collapse > *{
+.collapse > div{
     opacity:0;
     pointer-events: none;
 }

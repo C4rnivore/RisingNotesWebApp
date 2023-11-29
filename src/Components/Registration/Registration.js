@@ -35,7 +35,6 @@ function Registration() {
 
     return (
         <div className="login_wrapper">
-            <Sidebar/>
             <div className="login__content">
                 <img className="login-logo" src={logo} alt="" draggable="false"/>
                 <div className="login__content-form">
