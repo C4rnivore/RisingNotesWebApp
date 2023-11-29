@@ -134,48 +134,48 @@ const MusicPlayer = (props) => {
     };
 
     return (<div className="music-player-wrapper">
-        <audio ref={audioRef} src={api + `api/song/${props.songsInfo[nextSongIndex]?.id}/file`}
-            onEnded={handleNextSong} type="audio/mpeg" autoplay controls/>
-        <div className="music-player">
-            <img className='music-player-cover' src={props.songsInfo.length > nextSongIndex ?
-            (api + `api/song/${props.songsInfo[nextSongIndex]?.id}/logo?width=100&height=100`) : cover} alt='cover'/>
+                <audio ref={audioRef} src={api + `api/song/${props.songsInfo[nextSongIndex]?.id}/file`}
+                    onEnded={handleNextSong} type="audio/mpeg" autoplay controls/>
+                <div className="music-player">
+                    <img className='music-player-cover' src={props.songsInfo.length > nextSongIndex ?
+                    (api + `api/song/${props.songsInfo[nextSongIndex]?.id}/logo?width=100&height=100`) : cover} alt='cover'/>
 
-            <span className='music-player-head'>
-                <p className='music-player-head-song'>{songName}</p>
-                <p className='music-player-head-author'>{songAuthor}</p>
-            </span>
+                    <span className='music-player-head'>
+                        <p className='music-player-head-song'>{songName}</p>
+                        <p className='music-player-head-author'>{songAuthor}</p>
+                    </span>
 
-            <div className='music-player-buttons'>
-                <button onClick={handlePrevSong}>
-                    <img alt='previous track' src={rewind_backward}/></button>
-                <button onClick={handlePlayPause} 
-                    className='play-button'><img alt='play' src={isPlaying? pause : play}/></button>
-                <button onClick={handleNextSong}>
-                    <img alt='next track' src={rewind_forwrad}/></button>
-            </div>
+                    <div className='music-player-buttons'>
+                        <button onClick={handlePrevSong}>
+                            <img alt='previous track' src={rewind_backward}/></button>
+                        <button onClick={handlePlayPause} 
+                            className='play-button'><img alt='play' src={isPlaying? pause : play}/></button>
+                        <button onClick={handleNextSong}>
+                            <img alt='next track' src={rewind_forwrad}/></button>
+                    </div>
 
-            <div className='music-player-buttons'>
-                <button><img alt='dislike' src={dislike}/></button>
-                <Link to={`/commentaries/${props.songsInfo[nextSongIndex]?.id}`}><img alt='comment' src={message}/></Link>
-                <button><img alt='add to featured' src={heart}/></button>
-            </div>
-            
-            <div className="track-range">
-                <span className="header-text header__track-duration">{formatTime(trackCurrentDuration)}</span>
-                <input className='track-range-input' value={trackCurrentDuration} 
-                    onChange={handleCurrentDurationChange}
-                    type="range" id="time" name="volume" min="0" max={trackDuration}/>
-                <span className="header-text header__track-duration">{formatTime(trackDuration)}</span>
-            </div>
+                    <div className='music-player-buttons'>
+                        <button><img alt='dislike' src={dislike}/></button>
+                        <Link to={`/commentaries/${props.songsInfo[nextSongIndex]?.id}`}><img alt='comment' src={message}/></Link>
+                        <button><img alt='add to featured' src={heart}/></button>
+                    </div>
+                    
+                    <div className="track-range">
+                        <span className="header-text header__track-duration">{formatTime(trackCurrentDuration)}</span>
+                        <input className='track-range-input' value={trackCurrentDuration} 
+                            onChange={handleCurrentDurationChange}
+                            type="range" id="time" name="volume" min="0" max={trackDuration}/>
+                        <span className="header-text header__track-duration">{formatTime(trackDuration)}</span>
+                    </div>
 
-            <div className="volume-container">
-                <div id='volume-modal' className="volume-modal volume-modal-hidden" onMouseLeave={hideModal}>
-                    <input type="range" className='track-range-input' min="0" max="100" onChange={handleVolumeChange}/>
+                    <div className="volume-container">
+                        <div id='volume-modal' className="volume-modal volume-modal-hidden" onMouseLeave={hideModal}>
+                            <input type="range" className='track-range-input' min="0" max="100" onChange={handleVolumeChange}/>
+                        </div>
+                        <img className="header-volume-btn" src={volume} onMouseOver={showModal} ></img>
+                    </div>
                 </div>
-                <img className="header-volume-btn" src={volume} onMouseOver={showModal} ></img>
-            </div>
-        </div>
-    </div>)
+            </div>)
 };
 
 export default MusicPlayer;

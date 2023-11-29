@@ -1,0 +1,16 @@
+.collapser{
+    position: absolute;
+    top:0;
+    left: 0;
+    height: 100%;
+    width: 40px;
+    margin-right: 20px;
+    border-right: 1px solid #2C323D;
+    padding-top: calc(var(--header-height) + 27px);
+}
+.collapser>button{
+    background: none;
+    border:none;
+    font-size: 50px;
+    color: #787885; 
+}

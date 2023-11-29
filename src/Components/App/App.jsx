@@ -30,7 +30,7 @@ import LK from "../LK/LK";
 import LKlistener from "../LKlistener/LKlistener";
 import InstallMusic from "../InstallMusic/InstallMusic";
 import InstallMusicMusician from '../InstallMusicMusician/InstallMusicMusician';
-import {Routes,Route, Link, createBrowserRouter, createRoutesFromElements, RouterProvider} from 'react-router-dom';
+import {Routes,Route, Link, createBrowserRouter, createRoutesFromElements, RouterProvider, useSubmit} from 'react-router-dom';
 import React, {Fragment} from "react";
 import Featured from '../../Pages/Featured/Featured';
 import Excluded from '../../Pages/Excluded/Excluded';
@@ -39,6 +39,7 @@ import Commentaries from '../../Pages/Commentaries/Commentaries';
 import AdminPanel from '../../Pages/AdminPanel/AdminPanel';
 import AdminMessages from '../../Pages/AdminMessages/AdminMessages';
 import MusicPlayer from '../MusicPlayer/MusicPlayer';
+import SearchResults from '../SearchResults/SearchResults';
 
 
 import {useState, useEffect} from 'react';
@@ -116,25 +117,33 @@ function App() {
         }
     );
 
-    useEffect(() => {
-        axiosUnauthorized.get(`api/author/${'902be286-f22e-43ca-bc16-007de8cdeddd'}/song/list`)
-            .then(response => {
-                setIsLoaded(true);
-                setSongs(response.data.songInfoList);
-                console.log(response.data.songInfoList);
-            })
-            .catch(error => {
-                console.error(error);
-                throw error;
-            });
-    }, []);
+    // useEffect(() => {
+    //     axiosUnauthorized.get(`api/author/${'902be286-f22e-43ca-bc16-007de8cdeddd'}/song/list`)
+    //         .then(response => {
+    //             setIsLoaded(true);
+    //             setSongs(response.data.songInfoList);
+    //             console.log(response.data.songInfoList);
+    //         })
+    //         .catch(error => {
+    //             console.error(error);
+    //             throw error;
+    //         });
+    // }, []);
 
-    if (isLoaded)
+    // if (isLoaded)
+
+    const [searchInput, setSearchInput] = useState('')
+
+    function searchInputHandler(input) {
+        setSearchInput(input)
+    }
+
     return (
       <div className="App">
           <Header/>
           <MusicPlayer songsInfo={songs}/>
-          <Sidebar></Sidebar>
+          <Sidebar searchHandler = {searchInputHandler} ></Sidebar>
+          <SearchResults searchQuery={searchInput}/>
           <Routes>
               <Route path={'/'} element={<Player/>}/>
               <Route path={'/login'} element={<Login/>}/>
