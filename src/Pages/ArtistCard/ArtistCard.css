@@ -182,6 +182,8 @@
     margin-bottom: 33px;
     padding-left: 10px;
     padding-right: 10px;
+
+    justify-content: space-around;
 }
 
 .track:hover {
@@ -212,8 +214,9 @@
 
 .song-title-t {
     width: 100%;
-    max-width: 500px;
-    padding-right: 67px;
+    max-width: 300px;
+    margin-right: 67px;
+    height: 67px;
 
     color: #FFF;
 
@@ -223,6 +226,21 @@
     font-weight: 400;
     line-height: normal;
     text-align: start;
+
+    text-overflow:ellipsis;
+    overflow:scroll;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.track-buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 5px;
+    margin-top: 5px;
 }
 
 .songAuthor{
@@ -243,7 +261,6 @@
     width: 100%;
     text-align: center;
     padding: 5px;
-    margin-left: -100px;
     max-width: 100px;   
     border-radius: 36.135px;
     border: 2.286px solid #FE1170;
@@ -260,7 +277,8 @@
 .song-duration {
     width: 100%;
     max-width: 150px;
-    margin-left: 130px;
+    margin-left: 10px;
+    text-align: end;
     color: #FFF;
 
     font-family: Montserrat;
@@ -268,6 +286,7 @@
     font-style: normal;
     font-weight: 400;
     line-height: normal;
+    padding-right: 10px;
 }
 
 .track > a {
@@ -275,7 +294,7 @@
     padding-right: 10px;
 }
 
-.track > a:hover {
+.track > a:hover, .track-buttons > a:hover {
     cursor: pointer;
     transition: all .1s ease;
     transform: scale(0.95);

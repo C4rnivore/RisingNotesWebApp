@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import avatar from '../Images/image-placeholder/user_logo_small_placeholder.png';
-import axios from 'axios';
 import { useCookies, withCookies } from 'react-cookie';
+import trashIcon from '../Images/commentaries/trash-icon.svg';
+import trashRedIcon from '../Images/commentaries/trash-red-icon.svg';
+import xIcon from '../Images/commentaries/x-icon.svg';
 
 import { api } from './App/App';
 import { axiosAuthorized } from './App/App';
@@ -21,6 +23,7 @@ const Comment = (props) => {
         axiosAuthorized.post(`api/song/${props.songId}/comment`, {text: comment})
             .then(response => {
                 setIsDeleted(false);
+                props.setIsDataUpdated(!props.isDataUpdated);
             })
             .catch(err => {
                 console.log(err);
@@ -29,16 +32,31 @@ const Comment = (props) => {
     }
 
     return (
-        <div className='comment'>
-            <img alt='avatar' src={avatar}/>
-            <span className='comm-text-area'>
-                <h2>{props.data.authorDisplayedName}</h2>
-                {cookies.authorId === props.data.authorId ? (
-                    <button className='' onClick={isDeleted ? handleSendComment : handleDeleteComment}>{isDeleted ? 'Восстановить' : 'Удалить'}</button>
-                ) : (<></>)}
-                <text>{comment}</text>
-            </span>
-        </div>
+        <>
+            <div className='comment'>
+                <img alt='avatar' src={avatar}/>
+                <span className='comm-text-area'>
+                    {isDeleted ? (
+                    <div className='comment-deleted'>
+                        <p><img alt='icon' src={trashRedIcon}/>Комментарий удален</p>
+                        <button className='comment-restore-button' onClick={handleSendComment}>
+                            <img alt='delete' src={xIcon}/>
+                            {'Отменить'}
+                        </button>
+                    </div>
+                    ) : (<></>)}
+                    <h2>{props.data.authorDisplayedName}</h2> 
+                    <text>{comment}</text>
+                </span>
+            </div>
+            {cookies.authorId === props.data.authorId && !isDeleted ? (
+                <button className='comment-del-button' onClick={handleDeleteComment}>
+                    <img alt='delete' src={trashIcon}/>
+                    {'Удалить'}
+                </button>
+            ) : (<></>)}
+        </>
+        
     )
 }
 

@@ -1,18 +1,20 @@
 import logo from '../../Images/login/logo.png'
 import {Link} from "react-router-dom";
 import Sidebar from '../Sidebar/Sidebar';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import axios from 'axios';
 import { useCookies, withCookies } from 'react-cookie';
 import headphones from '../../Images/login/headphones.png';
 import stripe from '../../Images/login/bottom-design-element.svg';
+import { jwtDecode } from 'jwt-decode';
 
-import { axiosAuthorized, axiosUnauthorized } from '../App/App';
+import { SubscriptionsContext, api, axiosAuthorized, axiosUnauthorized } from '../App/App';
 
 function Login() {
-    const [tokens, setTokens] = useCookies(['accessToken', 'refreshToken']);
+    const [cookies, setCookies] = useCookies(['accessToken', 'refreshToken', 'authorId', 'role', 'subscriptions']);
     const [userName, setUserName] = useState(undefined);
     const [password, setPassword] = useState(undefined);
+    const {subscriptions, setSubscriptions} = useContext(SubscriptionsContext);
 
     const handleLogin = () => {
         if (!((userName === '' || userName === undefined) || (password === '' || password === undefined))) {
@@ -25,14 +27,29 @@ function Login() {
                 password: password
             }, {
                 headers : {
-                    'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
+                    'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
                 }
             })
             .then(response => {
                 console.log(response);
-                setTokens('accessToken', response.data.access_token, { path: '/' });
-                setTokens('refreshToken', response.data.refresh_token, { path: '/' });
-                window.location.replace('/');
+                setCookies('accessToken', response.data.access_token, { path: '/' });
+                setCookies('refreshToken', response.data.refresh_token, { path: '/' });
+                let decoded = jwtDecode(response.data.access_token);
+                setCookies('authorId', decoded["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"]);
+                setCookies('role', decoded.role);
+
+                axiosUnauthorized.get(api + 'api/subscription/list', {
+                    headers: {
+                        "Content-Type": "application/json",
+                        'Authorization': 'Bearer ' + response.data.access_token
+                    },
+                })
+                .then(response => {
+                    let arr = [];
+                    response.data.subscriptionList.map(e => arr.push(e.authorId));
+                    setSubscriptions(arr);
+                    window.location.replace('/');
+                })
             })
             .catch(err => {
                 console.log(err);

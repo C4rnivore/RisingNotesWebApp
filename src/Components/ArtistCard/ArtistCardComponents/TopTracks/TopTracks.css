@@ -20,6 +20,8 @@
     justify-content: space-between;
     align-items: center;
     flex-direction: column;
+
+    margin-bottom: 100px;
 }
 
 .top-tracks {
@@ -27,14 +29,16 @@
     display: flex;
     height: max-content;
     justify-content: space-between;
-    align-items: center;
+    align-items: start;
 }
 
 .track-container{
+    width: 100%;
     max-width: 230px;
-    max-height: 230px;
     display: flex;
     flex-direction: column;
+    justify-content: start;
+    align-items: start;
     gap:16px;
 }
 .track-container>span{
@@ -45,4 +49,7 @@
 }
 .track-container>img{
     cursor: pointer;
+    width: 100%;
+    max-width: 230px;
+    height: auto;
 }

@@ -102,7 +102,7 @@ const Commentaries = (props) => {
 
                 <div className='stripe'></div>
 
-                {comments.map(e => (<div key={e.id}><Comment data={e} songId={params.id}/></div>))}
+                {comments.map(e => (<div key={e.id}><Comment data={e} songId={params.id} setIsDataUpdated={setIsDataUpdated} isDataUpdated={isDataUpdated}/></div>))}
 
             </div>
         </div>

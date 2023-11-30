@@ -1,0 +1,352 @@
+.account-page-wrapper {
+    margin: 0 60px;
+    padding-top: var(--header-height);
+    padding-left: var(--sidebar-width);
+    transition: padding 250ms ease-in-out;
+}
+
+.account-page {
+    width: 100%;
+    max-width: 1040px;
+    margin: 0 auto;
+}
+
+.account-page-head {
+    display: flex;
+    gap: 40px;
+}
+
+.account-page-avatar-button {
+    background: none;
+    border: none;
+    width: 100%;
+    max-width: 250px;
+    height:auto;
+}
+
+.account-page-avatar-button > img {
+    width: 100%;
+    max-width: 250px;
+    height:auto;
+}
+
+.account-page-head > span {
+    text-align: start;
+}
+
+.account-page-user-status {
+    border-radius: 31.618px;
+    border: 2px solid #FE1170;
+    box-shadow: 0px 4.07976px 6.11964px -1.01994px rgba(0, 0, 0, 0.25) inset, 0px 2.03988px 4.07976px 0px rgba(0, 0, 0, 0.25);
+    width:fit-content;
+    padding: 2px 20px;
+    margin-bottom: 20px;
+    margin-top: 10px;
+
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+}
+
+.account-page-stats {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+}
+
+.account-page-username {
+    font-size: 36px;
+    font-style: normal;
+    font-weight: 500;
+}
+
+.account-page-menu {
+    display: flex;
+    width: 100%;
+    height: 60px;
+
+    border-bottom: #191E28 solid 4px;
+
+    margin-bottom: 40px;
+}
+
+.account-page-menu-item {
+    display: flex;
+    height: 60px;
+    width: 100%;
+    max-width: 250px;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+
+    border-bottom: #191E28 solid 4px;
+}
+
+.account-page-menu-item:hover {
+    cursor: pointer;
+}
+
+.account-page-active {
+    border-bottom: #FE1170 solid 4px;
+    transition: all .2s ease-in-out;
+}
+
+.account-page-user {
+    text-align: start;
+}
+
+.account-page-user > h2 {
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 500;
+
+    margin-bottom: 24px;
+}
+
+.account-page-user-inputs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+
+    margin-bottom: 40px;
+}
+
+.account-page-user-input {
+    width: 500px;
+}
+
+.account-page-user-input > p {
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+
+    margin-bottom: 10px;
+}
+
+.account-page-link {
+    border-radius: 10px;
+    background: #191E28;
+    width: 100%;
+    height: 40px;
+
+    color: white;
+    font-family: Montserrat;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    padding: 0 16px;
+
+    border: none;
+}
+
+.account-page-user-input > input::placeholder {
+    color: #787885;
+}
+
+.account-page-user-buttons {
+    display: flex;
+    gap: 24px;
+}
+
+.account-page-filled-button {
+    border-radius: 15px;
+    background: #FE1170;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2px;
+
+    padding: 13px 40px;
+
+    color: #FFF;
+    font-family: Montserrat;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+
+    border-style: none;
+    margin-bottom: 40px;
+}
+
+.account-page-filled-button:hover {
+    background: #fd418c;
+    transition: all .2s ease;
+}
+
+.account-page-unfilled-button {
+    border-radius: 15px;
+    border: 1px solid #FE1170;
+    background: #0F141D;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2px;
+
+    padding: 13px 40px;
+
+    color: #FFF;
+    font-family: Montserrat;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+
+    margin-bottom: 40px;
+}
+
+.account-page-unfilled-button:hover {
+    background: #212b3d;
+    transition: all .2s ease;
+}
+
+.account-page-textarea {
+    border-radius: 10px;
+    background: #191E28;
+    width: 100%;
+    height: 80px;
+    resize: none;
+
+    color: white;
+    font-family: Montserrat;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+
+    padding: 10px 16px;
+    border-style: none;
+
+    margin-bottom: 24px;
+}
+
+.account-page-textarea::placeholder {
+    color: #787885;
+}
+
+.account-page-link-wrapper {
+    display: flex;
+    width: 100%;
+    gap: 40px;
+    margin-bottom: 16px;
+}
+
+.account-page-link-wrapper > span {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: start;
+
+    color: #787885;
+    font-family: Montserrat;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+
+    width: 200px;
+}
+
+.account-page-user > p {
+    color: #FFF;
+    font-family: Montserrat;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+
+    margin-bottom: 10px;
+}
+
+.account-page-add-song {
+    color: #FE1170;
+
+    font-family: Montserrat;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    gap: 10px;
+
+    margin-top: -50px;
+    margin-bottom: 30px;
+}
+
+.account-page-add-song:hover {
+    cursor: pointer;
+    color:#fd418c;
+    transition: all .2s ease;
+}
+
+.track-statistic, .song-status {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+
+    color: #FFF;
+
+    font-family: Montserrat;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+}
+
+.song-status {
+    margin-left: 100px;
+}
+
+.song-status-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 100px;
+}
+
+.red {
+    background-color: #F00;
+}
+
+.green {
+    background-color: #00FF1A;
+}
+
+.yellow {
+    background-color: #FFE500;
+}
+
+.account-non-musician {
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    width: 100%;
+    max-width: 600px
+}
+
+.account-non-musician > p {
+    margin-top: 150px;
+    color: #787885;
+
+    font-family: Montserrat;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+}
+
+.account-non-musician > p > b {
+    color: #FFF;
+    font-family: Montserrat;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+}

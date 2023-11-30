@@ -5,8 +5,8 @@ import TrackTemplate from '../../Images/artist-card/Rectangle 161.png'
 
 import ArtistInfo from "./ArtistCardComponents/ArtistInfo/ArtistInfo.jsx"
 import TopTracks from "./ArtistCardComponents/TopTracks/TopTracks.jsx"
-import { useEffect, useState } from "react"
-import { api, axiosUnauthorized } from "../App/App.jsx"
+import { useContext, useEffect, useState } from "react"
+import { SubscriptionsContext, api, axiosAuthorized, axiosUnauthorized } from "../App/App.jsx"
 import Song from "../Song.js"
 
 function ArtistCard(props){
@@ -15,15 +15,19 @@ function ArtistCard(props){
     const [artist, setArtist] = useState(undefined);
     const [isLoaded, setIsLoaded] = useState(false);
     const [songs, setSongs] = useState([]);
+    const {subscriptions, setSubscriptions} = useContext(SubscriptionsContext);
+    const [isSubscribed, setIsSubscribed] = useState(subscriptions.includes(params.id));
 
     useEffect(() => {
-        axiosUnauthorized.get(api + `api/author/${params.id}`)
+        axiosUnauthorized.get(api + `api/subscription/${params.id}/count`)
+        .then(resp => {
+            axiosUnauthorized.get(api + `api/author/${params.id}`)
             .then(response => {
                 setArtist({
                     artistName: response.data.name,
                     artistImage: ArtistImage,
                     artistInfoText: response.data.about,
-                    subscribersCount:228,
+                    subscribersCount: resp.data.count,
                     socialLinks:{
                         site: response.data.webSiteLink,
                         vk: response.data.vkLink,
@@ -56,11 +60,32 @@ function ArtistCard(props){
             .catch(err => {
                 throw err;
             })
+        })
+        .catch(err => {
+            throw err;
+        })
+
     }, [])
 
     const handleBackBtnClick = () =>{
         navigate(-1)
     };
+
+    const handleSubscribe = () => {
+        axiosAuthorized.post(api + `api/subscription/${params.id}`)
+        .then( r => {
+            setSubscriptions(e => e = [...e, params.id])
+            setIsSubscribed(subscriptions.includes(params.id));
+        });
+    }
+
+    const handleUnsubscribe = () => {
+        axiosAuthorized.delete(api + `api/subscription/${params.id}`)
+        .then( r => {
+            setSubscriptions(e => e = e.filter(el => el != params.id))
+            setIsSubscribed(subscriptions.includes(params.id));
+        });
+    }
 
     if (isLoaded)
         return(
@@ -70,7 +95,9 @@ function ArtistCard(props){
                         <img src={backIcon} alt="" />
                         <span>Назад</span>
                     </div>
-                    <ArtistInfo artist={artist}/>
+                    <ArtistInfo artist={artist} 
+                        handleSubscribe={handleSubscribe} 
+                        handleUnsubscribe={handleUnsubscribe}/>
                     <TopTracks artist={artist}/>
                     <div className="top-tracks-container">
                         <span className='top-tracks-title'>Все треки</span>

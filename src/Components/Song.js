@@ -49,10 +49,13 @@ function Song(props) {
                 <p onClick={handleAddToSongs} className='song-title-t'>{props.name}<p className='songAuthor'>{props.artist}</p></p>
                 <p className='song-genre'>Джаз</p>
                 <p className='song-duration'>{duration}</p>
-                <a><img alt='list' src={list} onClick={changeModalState}/></a>
-                <a><img alt='dislike' src={dislike}/></a>
-                <a><img alt='like' src={heart}/></a>
-                <Link to={`/commentaries/${props.id}`}><img alt='comment' src={message}/></Link>
+                <div className='track-buttons'>
+                    <a><img alt='list' src={list} onClick={changeModalState}/></a>
+                    <a><img alt='dislike' src={dislike}/></a>
+                    <a><img alt='like' src={heart}/></a>
+                    <Link to={`/commentaries/${props.id}`}><img alt='comment' src={message}/></Link>
+                </div>
+                
             </div>
             {!modalIsHidden ? (
                     <div className="list-modal-container">

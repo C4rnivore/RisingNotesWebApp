@@ -61,6 +61,8 @@
 .music-player-head-song {
     font-size: 18px;
     width: 250px;
+    overflow-x: scroll;
+    text-overflow: ellipsis;
 }
 
 .music-player-head-author {

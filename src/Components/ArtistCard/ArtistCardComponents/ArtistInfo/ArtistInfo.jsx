@@ -4,16 +4,27 @@ import subsIcon from '../../../../Images/artist-card/Users.svg'
 import linkIcon from '../../../../Images/artist-card/Link.svg'
 import vkIcon from '../../../../Images/artist-card/Social Icons.svg'
 import yandexIcon from '../../../../Images/artist-card/yandex.svg'
+import { useContext, useEffect, useState } from "react"
+import { SubscriptionsContext, api, axiosAuthorized, axiosUnauthorized } from "../../../App/App"
+import { useNavigate, useParams } from "react-router-dom"
 
-function ArtistInfo(props){
+function ArtistInfo(props) {
     
     const artistImage = props.artist.artistImage
     const artistName = props.artist.artistName
     const artistInfoText = props.artist.artistInfoText
-    const subcribersCount = props.artist.subscribersCount
+    let subcribersCount = props.artist.subscribersCount
     const site = props.artist.socialLinks.site
     const vk = props.artist.socialLinks.vk
     const yandex = props.artist.socialLinks.yandex
+
+    const params = useParams();
+    const {subscriptions, setSubscriptions} = useContext(SubscriptionsContext);
+    const [isSubscribed, setIsSubscribed] = useState(subscriptions.includes(params.id));
+
+    useEffect(() => {
+        setIsSubscribed(subscriptions.includes(params.id));
+    }, [subscriptions]);
 
     return(
         <div className="info-container">
@@ -21,10 +32,18 @@ function ArtistInfo(props){
             <div className="artist-info">
                 <div className="row-top">
                     <span className="artist-name">{artistName}</span>
-                    <button className="subscribe-btn">
-                        <img src={subscribeIcon} alt="" draggable='false'/>
-                        <span>Подписаться</span>
-                    </button>
+                    {isSubscribed ? (
+                        <button className={"subscribe-btn"} onClick={props.handleUnsubscribe}>
+                            <img src={subscribeIcon} alt="" draggable='false'/>
+                            <span>Отписаться</span>
+                        </button>
+                    ) : (
+                        <button className={"subscribe-btn-red"} onClick={props.handleSubscribe}>
+                            <img src={subscribeIcon} alt="" draggable='false'/>
+                            <span>Подписаться</span>
+                        </button>
+                    )}
+                    
                 </div>
                 <div className="row-md">
                     <p className="artist-info-p">
@@ -53,7 +72,7 @@ function ArtistInfo(props){
                 </div>
             </div>
         </div>
-    )
+    );
 }
 
 export default ArtistInfo
