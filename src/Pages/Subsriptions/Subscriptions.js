@@ -27,8 +27,16 @@ function Subscriptions () {
 
                 </div>
                 <div className='subscriptions'>
-                    {subscriptions.map(el => (
+                    {subscriptions.map(el => (<>
                         <Subscription key={el} authorId={el}/>
+                        <Subscription key={el} authorId={el}/>
+                        <Subscription key={el} authorId={el}/>
+                        <Subscription key={el} authorId={el}/>
+                        <Subscription key={el} authorId={el}/>
+                        <Subscription key={el} authorId={el}/>
+                        <Subscription key={el} authorId={el}/>
+                        <Subscription key={el} authorId={el}/>
+                    </>
                     ))}
                 </div>
             </div>
