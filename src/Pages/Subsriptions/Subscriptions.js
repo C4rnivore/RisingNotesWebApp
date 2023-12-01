@@ -1,54 +1,39 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect } from 'react';
 import BackButton from '../../Components/BackButton';
-import Playlist from '../../Components/Playlist';
-import Song from '../../Components/Song';
-import newPlaylist from '../../Images/featured/newplaylist.png';
-import menu from '../../Images/controller/menu.svg'
-import Sidebar from '../../Components/Sidebar/Sidebar';
 import Subscription from '../../Components/Subscription';
+import { useContext } from 'react';
+import { SubscriptionsContext } from '../../Components/App/App';
+import { useCookies } from 'react-cookie';
 
-class Subscriptions extends React.Component {
-    render() {
-        return (
-            <div className='black-page'>
-                <Sidebar/>
-                <div className='featured'>
-                    <BackButton/>
-                    <div className='search-element'>
-                        <h2 className='sub-h2'>Мои подписки</h2>
-                        <form className="searchbar-form page-search" action="#" method="post">
-                            <input className="search-input" type="text" placeholder="Поиск музыканта" />
-                        </form>
-                    </div>
+function Subscriptions () {
+    const {subscriptions, setSubscriptions} = useContext(SubscriptionsContext);
+    const [cookies, setCookies] = useCookies(['accessToken', 'refreshToken', 'authorId', 'role', 'userId']);
 
-                    <div className='subscriptions'>
-                        <Subscription/>
-                        <Subscription/>
-                        <Subscription/>
-                        <Subscription/>
-                        <Subscription/>
-                        <Subscription/>
-                        <Subscription/>
-                        <Subscription/>
-                    </div>
+    useEffect(() => {
+        if (!cookies.userId) {
+            window.location.replace('/login');
+        }
+    }, []);
 
-                    <h2>Все авторы</h2>
+    return (
+        <div className='comment-page-wrapper'>
+            <div className='featured'>
+                <BackButton/>
+                <div className='search-element'>
+                    <h2 className='sub-h2'>Мои подписки</h2>
+                </div>
 
-                    <div className='subscriptions'>
-                        <Subscription/>
-                        <Subscription/>
-                        <Subscription/>
-                        <Subscription/>
-                        <Subscription/>
-                        <Subscription/>
-                        <Subscription/>
-                        <Subscription/>
-                    </div>
+                <div className='subs-wrapper'>
+
+                </div>
+                <div className='subscriptions'>
+                    {subscriptions.map(el => (
+                        <Subscription key={el} authorId={el}/>
+                    ))}
                 </div>
             </div>
-        )
-    }
+        </div>
+    )
 }
 
 export default Subscriptions

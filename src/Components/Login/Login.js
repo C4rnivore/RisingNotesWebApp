@@ -11,7 +11,7 @@ import { jwtDecode } from 'jwt-decode';
 import { SubscriptionsContext, api, axiosAuthorized, axiosUnauthorized } from '../App/App';
 
 function Login() {
-    const [cookies, setCookies] = useCookies(['accessToken', 'refreshToken', 'authorId', 'role', 'subscriptions']);
+    const [cookies, setCookies] = useCookies(['accessToken', 'refreshToken', 'authorId', 'role', 'subscriptions', 'userId']);
     const [userName, setUserName] = useState(undefined);
     const [password, setPassword] = useState(undefined);
     const {subscriptions, setSubscriptions} = useContext(SubscriptionsContext);
@@ -35,10 +35,12 @@ function Login() {
                 setCookies('accessToken', response.data.access_token, { path: '/' });
                 setCookies('refreshToken', response.data.refresh_token, { path: '/' });
                 let decoded = jwtDecode(response.data.access_token);
-                setCookies('authorId', decoded["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"]);
-                setCookies('role', decoded.role);
+                setCookies('authorId', decoded?.authorId, { path: '/' });
+                setCookies('role', decoded.role, { path: '/' });
+                const userId = jwtDecode(response.data.access_token)["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"];
+                setCookies('userId', userId, { path: '/' });
 
-                axiosUnauthorized.get(api + 'api/subscription/list', {
+                axiosUnauthorized.get(api + `api/subscription/${userId}/list`, {
                     headers: {
                         "Content-Type": "application/json",
                         'Authorization': 'Bearer ' + response.data.access_token

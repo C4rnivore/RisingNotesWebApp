@@ -17,7 +17,6 @@ class Featured extends React.Component {
     render() {
         return (
             <div className='black-page'>
-                <Sidebar/>
                 <div className='featured'>
                     <BackButton/>
                     <div className='search-element'>

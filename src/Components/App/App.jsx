@@ -84,7 +84,7 @@ function App() {
     const [songs, setSongs] = useState(songsJSON ? JSON.parse(songsJSON) : []);
     const [currentSong, setCurrentSong] = useState(currentSongJSON ? JSON.parse(currentSongJSON) : '');
     const [isLoaded, setIsLoaded] = useState(false);
-    const [cookies, setCookies] = useCookies(['accessToken', 'refreshToken', 'authorId', 'role']);
+    const [cookies, setCookies] = useCookies(['accessToken', 'refreshToken', 'authorId', 'role', 'userId']);
   
     //обновление токена
     async function refreshTokens (config) {
@@ -99,8 +99,11 @@ function App() {
             setCookies('refreshToken', response.data.refresh_token, { path: '/' });
 
             let decoded = jwtDecode(response.data.access_token);
-            setCookies('authorId', decoded["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"]);
-            setCookies('role', decoded.role);
+            setCookies('authorId', decoded?.authorId, { path: '/' });
+
+            const userId = jwtDecode(response.data.access_token)["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"];
+            setCookies('userId', userId, { path: '/' });
+            setCookies('role', decoded.role, { path: '/' });
 
             config.headers['Authorization'] = 'Bearer ' + response.data.access_token;
         })
@@ -113,8 +116,9 @@ function App() {
             const refreshToken = cookies.refreshToken;
             if (accessToken) {
                 let decoded = jwtDecode(accessToken);
-                setCookies('authorId', decoded["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"])
-                setCookies('role', decoded.role)
+                setCookies('userId', decoded["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"],{ path: '/' });
+                setCookies('role', decoded.role,{ path: '/' });
+                setCookies('authorId', decoded?.authorId, { path: '/' });
                 if (decoded.exp > new Date().getTime()/1000)
                     config.headers['Authorization'] = 'Bearer ' + accessToken;
                 else {

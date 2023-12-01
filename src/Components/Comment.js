@@ -12,7 +12,7 @@ import { axiosAuthorized } from './App/App';
 const Comment = (props) => {
     const [isDeleted, setIsDeleted] = useState(false);
     const [comment, setComment] = useState(props.data.text);
-    const [cookies, setCookies] = useCookies(['authorId']);
+    const [cookies, setCookies] = useCookies(['userId']);
 
     const handleDeleteComment = () => {
         axiosAuthorized.delete(`api/song/comment/${props.data.id}`);
@@ -49,7 +49,7 @@ const Comment = (props) => {
                     <text>{comment}</text>
                 </span>
             </div>
-            {cookies.authorId === props.data.authorId && !isDeleted ? (
+            {cookies.userId === props.data.authorId && !isDeleted ? (
                 <button className='comment-del-button' onClick={handleDeleteComment}>
                     <img alt='delete' src={trashIcon}/>
                     {'Удалить'}

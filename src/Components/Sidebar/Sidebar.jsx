@@ -6,8 +6,7 @@ import thumb from '../../Images/sidebar/playlist_thumb.png'
 import { useEffect, useState } from 'react';
 import {Link, NavLink} from "react-router-dom";
 import player from "../Player/Player";
-
-export const api = 'https://2100237-gs89005.twc1.net/'
+import subsIcon from '../../Images/sidebar/subs-icon.svg';
 
 function Sidebar(props) {
    const [search, setSearch] = useState(searchIcon)
@@ -78,7 +77,7 @@ function Sidebar(props) {
                </li>
                <li>
                   <NavLink className ={({ isActive }) => (isActive ? 'nav-link fav active' : 'nav-link fav ' )}
-                  to={'/login'} 
+                  to={'/featured'} 
                   style={({ isActive }) => (isActive ? {color: '#FE1170'} : {color: '#787885'})}>
                      <img src={like} alt="" className="nav_icon" />
                      <span >Избранное</span>
@@ -86,10 +85,42 @@ function Sidebar(props) {
                </li>
                <li> 
                   <NavLink className ={({ isActive }) => (isActive ? 'nav-link remove active' : 'nav-link remove ' )}
-                  to={'/registration  '} 
+                  to={'/excluded'} 
                   style={({ isActive }) => (isActive ? {color: '#FE1170'} : {color: '#787885'})}>
                      <img src={warning} alt="" className="nav-icon" />
                      <span >Исключенное</span>
+                  </NavLink>
+               </li>
+               <li> 
+                  <NavLink className ={({ isActive }) => (isActive ? 'nav-link remove active' : 'nav-link remove ' )}
+                  to={'/subscriptions'} 
+                  style={({ isActive }) => (isActive ? {color: '#FE1170'} : {color: '#787885'})}>
+                     <img src={subsIcon} alt="" className="nav-icon" />
+                     <span>Подписки</span>
+                  </NavLink>
+               </li>
+               <li> 
+                  <NavLink className ={({ isActive }) => (isActive ? 'nav-link remove active' : 'nav-link remove ' )}
+                  to={'/login'} 
+                  style={({ isActive }) => (isActive ? {color: '#FE1170'} : {color: '#787885'})}>
+                     <img src={subsIcon} alt="" className="nav-icon" />
+                     <span>логин</span>
+                  </NavLink>
+               </li>
+               <li> 
+                  <NavLink className ={({ isActive }) => (isActive ? 'nav-link remove active' : 'nav-link remove ' )}
+                  to={'/registration'} 
+                  style={({ isActive }) => (isActive ? {color: '#FE1170'} : {color: '#787885'})}>
+                     <img src={subsIcon} alt="" className="nav-icon" />
+                     <span>рега</span>
+                  </NavLink>
+               </li>
+               <li> 
+                  <NavLink className ={({ isActive }) => (isActive ? 'nav-link remove active' : 'nav-link remove ' )}
+                  to={'/account'} 
+                  style={({ isActive }) => (isActive ? {color: '#FE1170'} : {color: '#787885'})}>
+                     <img src={subsIcon} alt="" className="nav-icon" />
+                     <span>аккаунт</span>
                   </NavLink>
                </li>
             </ul>

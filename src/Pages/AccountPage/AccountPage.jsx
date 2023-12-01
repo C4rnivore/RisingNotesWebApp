@@ -20,7 +20,7 @@ export default function AccountPage () {
     const [yaMusicLink, setYaMusicLink] = useState(undefined);
     const [webSiteLink, setWebSiteLink] = useState(undefined);
     const [role, setRole] = useState(undefined);
-    const [cookies, setCookies] = useCookies(['accessToken', 'refreshToken', 'authorId', 'role']);
+    const [cookies, setCookies] = useCookies(['accessToken', 'refreshToken', 'authorId', 'role', 'userId']);
     const [authorId, setAuthorId] = useState(undefined);
 
     useEffect(() => {

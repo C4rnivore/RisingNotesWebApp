@@ -13,7 +13,7 @@ function ArtistInfo(props) {
     const artistImage = props.artist.artistImage
     const artistName = props.artist.artistName
     const artistInfoText = props.artist.artistInfoText
-    let subcribersCount = props.artist.subscribersCount
+    const [subcribersCount, setSubscribersCount] = useState(props.artist.subscribersCount);
     const site = props.artist.socialLinks.site
     const vk = props.artist.socialLinks.vk
     const yandex = props.artist.socialLinks.yandex
@@ -24,6 +24,7 @@ function ArtistInfo(props) {
 
     useEffect(() => {
         setIsSubscribed(subscriptions.includes(params.id));
+        setSubscribersCount(props.artist.subscribersCount);
     }, [subscriptions]);
 
     return(

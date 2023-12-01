@@ -4,19 +4,11 @@
 
 .featured {
     text-align: start;
-    padding-top: 81px;
-    max-width: 1200px;
-    padding-left: 91px;
     margin-bottom: 200px;
     background-color: #0F141D;
 
-    @media screen and (min-width: 1200px){
-        width: 1200px;
-    }
-
-    @media screen and (max-width: 1199px){
-        width: 100%;
-    }
+    width: 100%;
+    max-width: 1040px;
 }
 
 .featured > h2 {

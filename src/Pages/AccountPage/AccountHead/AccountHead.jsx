@@ -10,7 +10,12 @@ import { api, axiosUnauthorized } from '../../../Components/App/App';
 
 export default function AccountHead (props) {
     const [subsCount, setSubsCount] = useState(0);
+    const [isImageExist, setIsImageExist] = useState(false);
+    const [cookies, setCookies] = useCookies(['accessToken', 'refreshToken', 'authorId', 'role', 'subscriptions', 'userId']);
     useEffect(() => {
+        axiosUnauthorized.get(api + `api/user/${cookies.userId}/logo?width=400&height=400`)
+        .then(setIsImageExist(true));
+        
         if (props.role === 'author' && props.authorId !== undefined) {
             axiosUnauthorized.get(api + `api/subscription/${props.authorId}/count`)
             .then(response => {
@@ -22,7 +27,8 @@ export default function AccountHead (props) {
     return (
         <div className="account-page-head">
             <button className="account-page-avatar-button">
-                <img alt='avatar' src={defaultAvatar}/>
+                <img alt='avatar' src={isImageExist ? 
+                api + `api/user/${cookies.userId}/logo?width=400&height=400` : defaultAvatar}/>
             </button>
             <span>
                 <h1 className="account-page-username">{props.userName}</h1>

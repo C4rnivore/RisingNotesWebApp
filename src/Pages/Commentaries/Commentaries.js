@@ -35,6 +35,7 @@ const Commentaries = (props) => {
                 let arr = response.data.commentList;
                 arr.reverse();
                 setComments(arr);
+                console.log(arr);
             })
             .catch(err=>{
                 console.log(err);
@@ -102,7 +103,7 @@ const Commentaries = (props) => {
 
                 <div className='stripe'></div>
 
-                {comments.map(e => (<div key={e.id}><Comment data={e} songId={params.id} setIsDataUpdated={setIsDataUpdated} isDataUpdated={isDataUpdated}/></div>))}
+                {comments.map(e => (<div key={e.id} className='comment-wrapper'><Comment data={e} songId={params.id} setIsDataUpdated={setIsDataUpdated} isDataUpdated={isDataUpdated}/></div>))}
 
             </div>
         </div>

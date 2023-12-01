@@ -18,7 +18,26 @@ function ArtistCard(props){
     const {subscriptions, setSubscriptions} = useContext(SubscriptionsContext);
     const [isSubscribed, setIsSubscribed] = useState(subscriptions.includes(params.id));
 
+    const handleSubscribe = () => {
+        axiosAuthorized.post(api + `api/subscription/${params.id}`)
+        .then( r => {
+            setSubscriptions(e => e = [...e, params.id])
+            setIsSubscribed(subscriptions.includes(params.id));
+            setIsLoaded(false);
+        });
+    }
+
+    const handleUnsubscribe = () => {
+        axiosAuthorized.delete(api + `api/subscription/${params.id}`)
+        .then( r => {
+            setSubscriptions(e => e = e.filter(el => el != params.id))
+            setIsSubscribed(subscriptions.includes(params.id));
+            setIsLoaded(false);
+        });
+    }
+
     useEffect(() => {
+        // axiosUnauthorized.get(api + `api/user/${params.id}/logo`)
         axiosUnauthorized.get(api + `api/subscription/${params.id}/count`)
         .then(resp => {
             axiosUnauthorized.get(api + `api/author/${params.id}`)
@@ -65,27 +84,11 @@ function ArtistCard(props){
             throw err;
         })
 
-    }, [])
+    }, [isLoaded])
 
     const handleBackBtnClick = () =>{
         navigate(-1)
-    };
-
-    const handleSubscribe = () => {
-        axiosAuthorized.post(api + `api/subscription/${params.id}`)
-        .then( r => {
-            setSubscriptions(e => e = [...e, params.id])
-            setIsSubscribed(subscriptions.includes(params.id));
-        });
-    }
-
-    const handleUnsubscribe = () => {
-        axiosAuthorized.delete(api + `api/subscription/${params.id}`)
-        .then( r => {
-            setSubscriptions(e => e = e.filter(el => el != params.id))
-            setIsSubscribed(subscriptions.includes(params.id));
-        });
-    }
+    };    
 
     if (isLoaded)
         return(
