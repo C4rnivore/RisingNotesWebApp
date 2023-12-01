@@ -2,8 +2,7 @@
 .sidebar{
     position: fixed;
     display: flex;
-    flex-direction: column;
-    gap:40px;
+    flex-direction: row;
     padding:78px 60px 0 60px;
     top:0;
     left: 0;
@@ -11,11 +10,17 @@
     height: 100dvh;
     background: rgb(25,30,40);
     background: linear-gradient(180deg, rgba(25,30,40,1) 50%, rgba(15,20,29,1) 100%);
-    z-index: 9;
+    z-index: 99;
     transition: 250ms ease-in-out;
 }
 .sidebar > * {
     transition: opacity 250ms ease-in-out;
+}
+
+.sidebar-content{
+    display: flex;
+    flex-direction: column;
+    gap:40px;
 }
 
 .bg-gradient{
@@ -162,33 +167,9 @@
 .collapse{
     padding: 0;
 }
-.collapse > *{
+.collapse > .sidebar-content{
     opacity:0;
     pointer-events: none;
-}
-
-.toggle-menu-btn{
-    width: 50px;
-    height: max-content;
-    display: flex;
-    gap:8px;
-    flex-direction: column;
-    background: transparent;
-    border:none;
-    user-select:none ;
-    pointer-events: all;
-    opacity:1 !important;
-    padding: 10px;
-    position: absolute;
-    top:calc(var(--header-height) + 40px);
-    right: 0;
-}
-
-.toggle-menu-btn > div{
-    height: 2px;
-    border-radius: 1px;
-    width: 100%;
-    background-color: #a6a6b3;
 }
 
 

@@ -31,7 +31,7 @@ import LK from "../LK/LK";
 import LKlistener from "../LKlistener/LKlistener";
 import InstallMusic from "../InstallMusic/InstallMusic";
 import InstallMusicMusician from '../InstallMusicMusician/InstallMusicMusician';
-import {Routes,Route, Link, createBrowserRouter, createRoutesFromElements, RouterProvider} from 'react-router-dom';
+import {Routes,Route, Link, createBrowserRouter, createRoutesFromElements, RouterProvider, useSubmit} from 'react-router-dom';
 import React, {Fragment, createContext} from "react";
 import Featured from '../../Pages/Featured/Featured';
 import Excluded from '../../Pages/Excluded/Excluded';
@@ -39,7 +39,8 @@ import Subscriptions from '../../Pages/Subsriptions/Subscriptions';
 import Commentaries from '../../Pages/Commentaries/Commentaries';
 import AdminPanel from '../../Pages/AdminPanel/AdminPanel';
 import MusicPlayer from '../MusicPlayer/MusicPlayer';
-import PlaylistWindow from '../../Pages/PlaylistWindow/PlaylistWindow';
+import PlaylistWindow from '../../Pages/PlaylistWindow/PlaylistWindow';import SearchResults from '../SearchResults/SearchResults';
+
 
 import {useState, useEffect} from 'react';
 import axios from 'axios';
@@ -144,7 +145,14 @@ function App() {
         localStorage.setItem('SUBS', JSON.stringify(subscriptions));
     }, [songs, currentSong, subscriptions]);
 
-    if (true)
+    // if (true)
+
+    const [searchInput, setSearchInput] = useState('')
+
+    function searchInputHandler(input) {
+        setSearchInput(input)
+    }
+
     return (
         <SubscriptionsContext.Provider value={{subscriptions, setSubscriptions}}>
             <CurrentSongContext.Provider value={{currentSong, setCurrentSong}}>
