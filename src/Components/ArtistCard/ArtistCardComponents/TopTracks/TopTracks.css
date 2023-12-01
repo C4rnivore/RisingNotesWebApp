@@ -16,7 +16,7 @@
     display: flex;
     height: max-content;
     justify-content: space-between;
-    align-items: center;
+    align-items: right;
     flex-direction: column;
 }
 .track-container{

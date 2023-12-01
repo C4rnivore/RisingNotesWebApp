@@ -23,12 +23,10 @@
 
 .subscriptions {
     display: flex;
-    gap: 27px;
     width: 100%;
     max-width: 1200px;
     flex-wrap: wrap;
-
-    margin-bottom: 120px;
+    
 }
 
 .subscription > img:hover {
@@ -42,3 +40,4 @@
 a {
     text-decoration: none;
 }
+

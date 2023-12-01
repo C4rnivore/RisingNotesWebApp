@@ -14,9 +14,9 @@ import '../../Pages/Featured/Featured.css';
 import '../LK/LK.css';
 import '../InstallMusic/InstallMusic.css';
 import '../../Pages/AdminPanel/AdminPanel.css';
-import '../../Components/PlaylistWindow/PlaylistWindow.css';
 import '../Player/FilterComponent/FilterComponent.css';
 import '../MusicPlayer/MusicPlayer.css';
+import '../../Pages/PlaylistWindow/PlaylistWindow.css';
 
 import Header from "../Header/Header";
 import Login from "../Login/Login"
@@ -37,9 +37,8 @@ import Excluded from '../../Pages/Excluded/Excluded';
 import Subscriptions from '../../Pages/Subsriptions/Subscriptions';
 import Commentaries from '../../Pages/Commentaries/Commentaries';
 import AdminPanel from '../../Pages/AdminPanel/AdminPanel';
-import AdminMessages from '../../Pages/AdminMessages/AdminMessages';
 import MusicPlayer from '../MusicPlayer/MusicPlayer';
-
+import PlaylistWindow from '../../Pages/PlaylistWindow/PlaylistWindow';
 
 import {useState, useEffect} from 'react';
 import axios from 'axios';
@@ -148,8 +147,8 @@ function App() {
               <Route path={'/subscriptions'} element={<Subscriptions/>}/>
               <Route path={'/commentaries/:id'} element={<Commentaries/>}/>
               <Route path={'/adminpanel'} element={<AdminPanel/>}/>
-              <Route  path={'/artistpage'} element={<ArtistPersonalPage/>}/>
-              <Route path={'/messages'} element={<AdminMessages/>}/>
+              <Route path={'/artistpage'} element={<ArtistPersonalPage/>}/>
+              <Route path={'/playlist'} element={<PlaylistWindow/>}/>
           </Routes>  
       </div>
     );

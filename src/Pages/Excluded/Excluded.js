@@ -11,10 +11,8 @@ class Excluded extends React.Component {
     render() {
         return (
             <div className='black-page'>
-                <Sidebar/>
                 <div className='featured'>
                     <BackButton/>
-
                     <h2>Все треки</h2>
                     <div className='tracks'>
                         <Song/>
