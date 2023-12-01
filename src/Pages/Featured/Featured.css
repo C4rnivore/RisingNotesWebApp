@@ -1,5 +1,6 @@
 .black-page{
     background-color: #0F141D;
+    
 }
 
 .featured {
@@ -9,6 +10,8 @@
 
     width: 100%;
     max-width: 1040px;
+    z-index: 5;
+    
 }
 
 .featured > h2 {

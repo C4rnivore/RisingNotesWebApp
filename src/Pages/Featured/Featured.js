@@ -11,7 +11,7 @@ import cover from '../../Images/image-placeholder/song-cover-default.png';
 import edit from '../../Images/controller/edit-2.svg';
 import Chevron from '../../Images/controller/chevron-left.svg';
 import del from '../../Images/controller/x.svg';
-import PlaylistWindow from '../../Components/PlaylistWindow/PlaylistWindow';
+
 
 class Featured extends React.Component {
     render() {

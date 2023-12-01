@@ -7,7 +7,7 @@ class BackButton extends React.Component {
     render() {
         return (
             <Link to='javascript:history.back()'>
-                <button className='back-button'><img alt='back' src={Chevron}/>Назад</button>
+                <button className='back-button'><img className='back-chervon' alt='back' src={Chevron}/>Назад</button>
             </Link> 
         )
     }

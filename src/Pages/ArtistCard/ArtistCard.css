@@ -47,6 +47,10 @@
     margin-top: 30px;
 }
 
+.back-chervon {
+    padding-right: 5px;
+}
+
 .card-head {
     display: flex;
     justify-content: space-between;

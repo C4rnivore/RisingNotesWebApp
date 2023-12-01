@@ -22,4 +22,27 @@
 
 .search-input::placeholder {
     background: url('../../Images/player/search-ico.svg') no-repeat scroll 160px 0px;
+
+}
+
+.admin-circle {
+  margin-left: 130px;
+  margin-top: 2px;
+}
+
+.admin-application {
+    color: #FFF;
+
+    font-family: Montserrat;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 200;
+    line-height: normal;
+    margin-left: 20px;
+    margin-top: -2px;
+}
+
+.pencil-for-admin {
+  margin-left: 50px;
+  margin-top: 2px;
 }

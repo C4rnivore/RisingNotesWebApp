@@ -13,7 +13,6 @@ class Excluded extends React.Component {
             <div className='black-page'>
                 <div className='featured'>
                     <BackButton/>
-
                     <h2>Все треки</h2>
                     <div className='tracks'>
                         <Song/>
