@@ -160,7 +160,8 @@ function App() {
                     <div className="App">
                         <Header/>
                         <MusicPlayer/>
-                        <Sidebar></Sidebar>
+                        <Sidebar searchHandler = {searchInputHandler} ></Sidebar>
+                        <SearchResults searchQuery={searchInput}/>
                         <Routes>
                             <Route path={'/'} element={<Player/>}/>
                             <Route path={'/login'} element={<Login/>}/>

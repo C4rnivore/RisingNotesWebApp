@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import BackButton from '../../Components/BackButton';
-import Subscription from '../../Components/Subscription';
+import RequestSong from './RequestSong';
 
 class AdminPanel extends React.Component {
     render() {
@@ -12,10 +12,8 @@ class AdminPanel extends React.Component {
                     <div className='search-element'>
                         <h2 className='sub-h2'>Уведомления</h2>
                     </div>
-                    <div className='subscriptions'>
-                       <Subscription/>
-                       <Subscription/>
-                       <Subscription/>
+                    <div className=''>
+                        <RequestSong/>
                     </div>
                 </div>
             </div>

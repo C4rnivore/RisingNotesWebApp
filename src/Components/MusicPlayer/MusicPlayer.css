@@ -1,5 +1,6 @@
 .music-player {
     position: fixed;
+    margin: 0 auto;
     z-index: 100;
 
     border-radius: 30px;
@@ -22,6 +23,8 @@
 .music-player-wrapper {
     width: 100%;
     margin: 0 auto;
+    display: flex;
+    justify-content: center;
 }
 
 .music-player-cover {
