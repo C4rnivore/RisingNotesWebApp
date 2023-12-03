@@ -4,7 +4,7 @@ import PlaylistCover from '../../Images/PlaylistWindowPhoto.png';
 import edit from '../../Images/controller/edit-2.svg';
 import Chevron from '../../Images/controller/chevron-left.svg';
 import del from '../../Images/controller/x.svg';
-import Song from '../../Components/Song';
+import Song from '../../Components/Song/Song';
 import BackButton from '../../Components/BackButton';
 import Playlist from '../../Components/Playlist';
 import pencil from '../../Images/pencil.svg';

@@ -1,0 +1,96 @@
+.song-modal {
+    width: 257px;
+
+    border-radius: 20px;
+    border: 1px #2C323D solid;
+
+    color: #787885;
+    background-color: #191E28;
+}
+
+.song-modal__title {
+    color: white;
+    font-size: 14px;
+    font-weight: 500;
+
+    padding: 16px 24px;
+}
+
+.song-modal__playlists {
+    overflow: scroll;
+
+    border-top: 1px #2C323D solid;
+    border-bottom: 1px #2C323D solid;
+
+    padding: 12px 0;
+    height: 154px;
+}
+
+.song-modal__playlist {
+    display: flex;
+    align-items: center;
+    padding: 4px 24px;
+}
+
+.song-modal__playlist:hover {
+    color: white;
+    background-color: #222832;
+}
+
+.song-modal__playlist-selected {
+    display: flex;
+    align-items: center;
+    padding: 4px 24px;
+    color: #FE1170;
+}
+
+.song-modal__playlist-selected:hover {
+    background-color: #222832;
+}
+
+
+.song-modal__playlist-thumb {
+    margin-right: 8px;
+}
+
+.song-modal__playlist-thumb-selected {
+    position: absolute;
+    background: linear-gradient(0deg, #191E28 0%, rgba(25, 30, 40, 0.00) 193.75%);  
+}
+
+.song-modal__playlist-name {
+    font-size: 14px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.song-modal__add-button {
+    margin: 16px 24px 24px;
+
+    font-size: 14px;
+}
+
+.song-modal__add-button:hover {
+    color: #FE1170;
+}
+
+/* Стили ниже должны быть в главном css файле, но побоялся туда их добавлять, чтобы ничего не сломать */
+
+button {
+  border: none;
+  background: none;
+  outline: none;
+  color: inherit;
+  font: inherit;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+li {
+    list-style-type: none;
+}

@@ -7,7 +7,7 @@ import ArtistInfo from "./ArtistCardComponents/ArtistInfo/ArtistInfo.jsx"
 import TopTracks from "./ArtistCardComponents/TopTracks/TopTracks.jsx"
 import { useContext, useEffect, useState } from "react"
 import { SubscriptionsContext, api, axiosAuthorized, axiosUnauthorized } from "../App/App.jsx"
-import Song from "../Song.js"
+import Song from "../Song/Song"
 
 function ArtistCard(props){
     const navigate = useNavigate();

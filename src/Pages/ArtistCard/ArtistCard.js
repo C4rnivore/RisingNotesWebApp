@@ -4,7 +4,7 @@ import SongCover from '../../Images/image-placeholder/song-cover-default.png';
 import MusicianCover from '../../Images/user-images/musician-cover.png';
 import menu from '../../Images/controller/menu.svg'
 import Playlist from '../../Components/Playlist';
-import Song from '../../Components/Song';
+import Song from '../../Components/Song/Song';
 import BackButton from '../../Components/BackButton'
 import TopSong from '../../Components/TopSong';
 import Sidebar from '../../Components/Sidebar/Sidebar';

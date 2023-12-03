@@ -1,5 +1,5 @@
 import Sidebar from "../../Components/Sidebar/Sidebar";
-import Song from "../../Components/Song";
+import Song from "../../Components/Song/Song";
 import ProfileImage from '../../Images/pfpimg.png'
 import {Link} from "react-router-dom";
 import logo from '../../Images/login/logo.svg'

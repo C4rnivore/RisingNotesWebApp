@@ -7,6 +7,7 @@ import  '../Sidebar/Sidebar.css';
 import '../../Pages/Subsriptions/Subscriptions.css';
 import '../../Pages/Commentaries/Commentaries.css';
 import '../ArtistCard/ArtistCard.css';
+import  '../Song/Song.css';
 
 import  '../../Pages/ArtistPersonalPage/ArtistPersonalPage.css';
 import '../../Pages/ArtistCard/ArtistCard.css';
