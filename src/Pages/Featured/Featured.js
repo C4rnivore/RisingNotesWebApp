@@ -16,7 +16,7 @@ import del from '../../Images/controller/x.svg';
 class Featured extends React.Component {
     render() {
         return (
-            <div className='black-page'>
+            <div className='comment-page-wrapper'>
                 <div className='featured'>
                     <BackButton/>
                     <div className='search-element'>
