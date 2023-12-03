@@ -4,6 +4,7 @@ import { useEffect, useState } from "react"
 function FilterElement(props){
     const [tags,setTags] = useState([]);
     const [switchState, setSwitchState] = useState('и')
+    const filtersList = props.filters
 
     const handleswitchStateClick = ()=>{
         const swt = document.getElementById(props.id)
@@ -20,16 +21,13 @@ function FilterElement(props){
 
     const handleInputClick = (e) =>{
         e.preventDefault()
-
         let inp = document.getElementById(props.id+"-input")
-
         if(!inp)
             return
-        else if(inp.value === '')
+        else if(inp.value == '')
             return
         else if(tags.includes(inp.value))
             return
-
         setTags(cur => cur = [...cur, inp.value])
     }
 
@@ -60,7 +58,12 @@ function FilterElement(props){
                     </div>
                 </div>
                 <form className="filters-form">
-                    <input className="filters-input" id={props.id + "-input"} list="options" type="text"  placeholder={'Начните вводить'}/>
+                    <input className="filters-input" id={props.id + "-input"} list={props.id+'-options'} type="text"  placeholder={'Начните вводить'}/>
+                    <datalist id={props.id+'-options'}>
+                    {props.filters.map(
+                        (opt, i) => <option key = {i}>{opt}</option>
+                    )}
+                    </datalist>
                     <button className="submit-tag-input" type="submit" onClick={handleInputClick}>&#10010;</button>
                 </form>
                 <div className="filter-tags">
