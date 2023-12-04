@@ -79,7 +79,7 @@ function FilterComponent(){
                     <span className="filters-title">Фильтры</span>
                     <FilterElement name="Жанр" id="genre" filters={genreFilters} function = {filtersUpdateFunction}/>
                     <FilterElement name="Язык" id="language" filters={langFilters} function = {filtersUpdateFunction}/>
-                    <FilterElement name="На что похоже?" id="similar" filters={[1,2]}  function = {filtersUpdateFunction}/>
+                    <FilterElement name="На что похоже?" id="similar" filters={[]}  function = {filtersUpdateFunction}/>
                     <FilterElement name="Настроение" id="mood" filters={moodFilters} function = {filtersUpdateFunction}/>
                     <FilterTimeElement  name="Длительность" id="duration" function = {filtersUpdateFunction}/>
                     <FilterChckboxElement name="Дополнительно" id="extra" function = {filtersUpdateFunction}/>

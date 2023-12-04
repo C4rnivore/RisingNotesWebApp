@@ -23,3 +23,24 @@
     letter-spacing: 0em;
     text-align: left;
 }
+
+.search-res-container{
+    display: flex;
+    flex-direction: column;
+    gap:50px;
+}
+.pink-highlight{
+    color: #FE1170;
+}
+.search-authors-content{
+    display: flex;
+    flex-direction: row;
+    gap:40px;
+    padding: 20px 0;
+}
+.search-artist-card{
+    text-align: start;
+    display: flex;
+    flex-direction: column;
+    gap:10px;
+}
