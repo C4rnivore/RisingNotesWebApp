@@ -1,5 +1,5 @@
 .music-player {
-    position: fixed;
+    position:relative;
     margin: 0 auto;
     z-index: 100;
 
@@ -21,10 +21,18 @@
 }
 
 .music-player-wrapper {
+    z-index: 100;
+    bottom: 30px;
+    height: 90px;
+    position: fixed;
+    padding: 0 20px;
     width: 100%;
-    margin: 0 auto;
     display: flex;
     justify-content: center;
+}
+
+.music-player-wrapper > audio {
+    display: none;
 }
 
 .music-player-cover {

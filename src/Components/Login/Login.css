@@ -1,8 +1,10 @@
 .login_wrapper {
-    background: #0F141D;
     height: 95.5vh;
     display: flex;
     justify-content: center;
+    align-items: center;
+    padding-left: var(--sidebar-width);
+    transition: padding 250ms ease-in-out;
 }
 
 .login__content-form {
@@ -20,7 +22,7 @@
 }
 
 .login__content {
-    margin-top: 220px;
+    /* margin-top: 220px; */
     z-index: 8;
 }
 
@@ -107,13 +109,13 @@
 }
 
 .headphones {
-    position: absolute;
-    margin-top: 600px;
-    margin-left: 25%;
+    position: fixed;
+    margin-top: 500px;
+    margin-left: 20%;
 }
 
 .decorative-stripe {
-    position: absolute;
+    position: fixed;
     bottom: 0;
     width: 100%;
 }

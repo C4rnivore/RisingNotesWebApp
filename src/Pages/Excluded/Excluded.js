@@ -10,7 +10,7 @@ import Sidebar from '../../Components/Sidebar/Sidebar';
 class Excluded extends React.Component {
     render() {
         return (
-            <div className='black-page'>
+            <div className='comment-page-wrapper'>
                 <div className='featured'>
                     <BackButton/>
                     <h2>Все треки</h2>
