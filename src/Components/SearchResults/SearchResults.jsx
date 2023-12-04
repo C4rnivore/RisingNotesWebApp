@@ -1,10 +1,15 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './SearchResults.css'
 import backIcon from '../../Images/artist-card/Chevron_Left.svg'
 import SearchContent from './SearchContent/SeacrhContent'
+import { fetchInput } from './APICallers/GetArtistData'
 
 function SearchResults(props){
     const [activeNav, setActiveNav] = useState('All')
+    const [isFetching, setIsFetching] = useState(false)
+    const [searchRes, setSearchRes] = useState(undefined)
+
+    const input = props.searchQuery
 
     const handleNavClick = (id) =>{
         if(id === activeNav)
@@ -14,8 +19,17 @@ function SearchResults(props){
         setActiveNav(id)
     }
 
+    useEffect(()=>{
+        async function fetchData(){
+            await setIsFetching(true)
+            await fetchInput(input).then(res=>setSearchRes(res))
+            await setIsFetching(false)
+        }
+        fetchData()
+    },[input])
 
-    if(props.searchQuery === ''){
+    
+    if(input == ''){
         return(<></>)
     }
     else{
@@ -38,7 +52,9 @@ function SearchResults(props){
                         <div id='Authors'className="search-nav-el" onClick={() =>handleNavClick('Authors')}>Исполнители</div>
                         <div id='Playlists' className="search-nav-el" onClick={() =>handleNavClick('Playlists')}>Плейлисты</div>
                     </nav>
-                    <SearchContent navType={activeNav} searchQuery={props.searchQuery}/>
+                    {isFetching? <div className="">Fetching data</div>:
+                    <SearchContent navType={activeNav} searchQuery={props.searchQuery} search={searchRes}/>
+                    }
                 </div>
             </section>
         )
