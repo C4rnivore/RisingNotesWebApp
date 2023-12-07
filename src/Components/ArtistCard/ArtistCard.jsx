@@ -8,6 +8,7 @@ import TopTracks from "./ArtistCardComponents/TopTracks/TopTracks.jsx"
 import { useContext, useEffect, useState } from "react"
 import { SubscriptionsContext, api, axiosAuthorized, axiosUnauthorized } from "../App/App.jsx"
 import Song from "../Song/Song"
+import BackButton from "../BackButton.js"
 
 function ArtistCard(props){
     const navigate = useNavigate();
@@ -94,10 +95,11 @@ function ArtistCard(props){
         return(
             <section className="artist-card-container">
                 <div className="content-container">
-                    <div className="back-btn" onClick={handleBackBtnClick}>
+                    {/* <div className="back-btn" onClick={handleBackBtnClick}>
                         <img src={backIcon} alt="" />
                         <span>Назад</span>
-                    </div>
+                    </div> */}
+                    <BackButton/>
                     <ArtistInfo artist={artist} 
                         handleSubscribe={handleSubscribe} 
                         handleUnsubscribe={handleUnsubscribe}/>

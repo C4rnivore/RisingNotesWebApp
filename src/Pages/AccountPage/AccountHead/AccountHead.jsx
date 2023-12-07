@@ -14,7 +14,11 @@ export default function AccountHead (props) {
     const [cookies, setCookies] = useCookies(['accessToken', 'refreshToken', 'authorId', 'role', 'subscriptions', 'userId']);
     useEffect(() => {
         axiosUnauthorized.get(api + `api/user/${cookies.userId}/logo?width=400&height=400`)
-        .then(setIsImageExist(true));
+        .then(setIsImageExist(true))
+        .catch(err => {
+            console.log(err);
+            setIsImageExist(false)
+        });
         
         if (props.role === 'author' && props.authorId !== undefined) {
             axiosUnauthorized.get(api + `api/subscription/${props.authorId}/count`)

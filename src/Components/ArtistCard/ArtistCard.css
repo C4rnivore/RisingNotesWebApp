@@ -8,9 +8,10 @@
 }
 .content-container{
     position: relative;
-    padding: var(--header-height) 40px;
+    padding: 0 40px;
+    padding-top: var(--header-height);
     width: 100%;
-    max-width: 1040px;
+    max-width: 1112px;
     max-height: 100vh;
     margin: 0 auto;
 }

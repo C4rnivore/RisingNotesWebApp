@@ -50,6 +50,7 @@ export default function AccountMusician (props) {
             <div className="tracks">
                 {songs.map(el => <Song key={el.id} id={el.id} name={el.name} duration={el.durationMs} artist={props.artist}/>)}
             </div>
+            {songs.length == 0 ? <p>Вы еще не загрузили ни одного трека</p> : <></>}
             
         </div>
     )
