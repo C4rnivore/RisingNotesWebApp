@@ -1,10 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import heart from '../../Images/controller/heart.svg';
+import redHeart from '../../Images/red-heart.svg';
 import message from '../../Images/controller/Chat_Dots.png';
 import dislike from '../../Images/controller/thumbs-down.svg';
 import list from '../../Images/list.svg'
-import { CurrentSongContext, PlayerContext, api, axiosAuthorized } from '../App/App';
+import { CurrentSongContext, ExcludedContext, FeaturedContext, PlayerContext, api, axiosAuthorized } from '../App/App';
 import thumb from '../../Images/sidebar/playlist_thumb.png';
 import check from '../../Images/check_big.svg';
 
@@ -13,6 +14,8 @@ function Song(props) {
     const [duration, setDuration] = useState(0);
     const {songs, setSongs} = useContext(PlayerContext);
     const {currentSong, setCurrentSong} = useContext(CurrentSongContext);
+    const {featured, setFeatured} = useContext(FeaturedContext);
+    const {excluded, setExcluded} = useContext(ExcludedContext);
 
     const changeModalState = () => {
         setModalIsHidden(modalIsHidden => modalIsHidden = !modalIsHidden);
@@ -34,11 +37,29 @@ function Song(props) {
     }, []);
 
     const handleToFavorite = () => {
-        axiosAuthorized.patch(api + `api/song/favorite/${props.id}`);
+        if (featured.includes(props.id)) {
+            setFeatured(e => e = e.filter(el => el != props.id));
+            axiosAuthorized.delete(api + `api/song/favorite/${props.id}`);
+        }
+        else {
+            setFeatured(e => e = [...e, props.id]);
+            axiosAuthorized.patch(api + `api/song/favorite/${props.id}`);
+        }
+    };
+
+    const handleToExcluded = () => {
+        if (excluded.includes(props.id)) {
+            setExcluded(e => e = e.filter(el => el != props.id));
+            axiosAuthorized.delete(api + `api/song/favorite/${props.id}`);
+        }
+        else {
+            setExcluded(e => e = [...e, props.id]);
+            axiosAuthorized.patch(api + `api/song/favorite/${props.id}`);
+        }
     };
 
     const handleAddToSongs = () => {
-        setSongs(e => e = [...e, props.id])
+        setSongs(e => e = [...e, props.id]);
         setCurrentSong(props.id);
     };
 
@@ -47,12 +68,12 @@ function Song(props) {
             <div className='track'>
                 <img onClick={handleAddToSongs} alt='cover' src={api + `api/song/${props.id}/logo?width=100&height=100`}/>
                 <p onClick={handleAddToSongs} className='song-title-t'>{props.name}<p className='songAuthor'>{props.artist}</p></p>
-                <p className='song-genre'>Джаз</p>
+                <p className='song-genre'>{props.genres[0]}</p>
                 <p className='song-duration'>{duration}</p>
                 <div className='track-buttons'>
                     <a><img alt='list' src={list} onClick={changeModalState}/></a>
                     <a><img alt='dislike' src={dislike}/></a>
-                    <a><img alt='like' src={heart}/></a>
+                    <a onClick={handleToFavorite}><img alt='like' src={featured.includes(props.id) ? redHeart : heart}/></a>
                     <Link to={`/commentaries/${props.id}`}><img alt='comment' src={message}/></Link>
                 </div>
                 

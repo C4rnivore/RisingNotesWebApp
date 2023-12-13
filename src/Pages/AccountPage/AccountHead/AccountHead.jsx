@@ -2,16 +2,20 @@ import defaultAvatar from '../../../Images/account-page/image-placeholder.png';
 import statsIcon from '../../../Images/account-page/stats-icon.svg';
 import subsIcon from '../../../Images/account-page/subs-icon.svg';
 import creditIcon from '../../../Images/account-page/credit-card-red-icon.svg';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import { useCookies, withCookies } from 'react-cookie';
 import { jwtDecode } from 'jwt-decode';
-import { api, axiosUnauthorized } from '../../../Components/App/App';
+import { api, axiosAuthorized, axiosUnauthorized } from '../../../Components/App/App';
 
 export default function AccountHead (props) {
+    const fileRef = useRef(null);
+    const imgRef = useRef(null);
     const [subsCount, setSubsCount] = useState(0);
     const [isImageExist, setIsImageExist] = useState(false);
     const [cookies, setCookies] = useCookies(['accessToken', 'refreshToken', 'authorId', 'role', 'subscriptions', 'userId']);
+
+
     useEffect(() => {
         axiosUnauthorized.get(api + `api/user/${cookies.userId}/logo?width=400&height=400`)
         .then(setIsImageExist(true))
@@ -26,12 +30,33 @@ export default function AccountHead (props) {
                 setSubsCount(response.data.count);
             })
         }
-    }, [props]);
+    }, [isImageExist, props]);
+
+    const handleFileInput = () => {
+        fileRef.current.click();
+    }
+
+    const changeLogo = (event) => {
+        event.preventDefault();
+        const formData = new FormData();
+        formData.append('File', event.target.files[0]);
+        formData.append('type', 'image/jpeg');
+
+        axiosAuthorized.patch(`api/user/logo`, formData, {
+            headers: {
+                "Content-Type": "multipart/form-data",
+            }
+        })
+        .then(response => {
+            setIsImageExist(!isImageExist);
+            imgRef.current.src= api + `api/user/${cookies.userId}/logo?width=400&height=400`;
+        });
+    }
 
     return (
         <div className="account-page-head">
-            <button className="account-page-avatar-button">
-                <img alt='avatar' src={isImageExist ? 
+            <button className="account-page-avatar-button" onClick={handleFileInput}>
+                <img alt='avatar' ref={imgRef} src={isImageExist ? 
                 api + `api/user/${cookies.userId}/logo?width=400&height=400` : defaultAvatar}/>
             </button>
             <span>
@@ -45,6 +70,8 @@ export default function AccountHead (props) {
                     </>
                 ) : <></>}
             </span>
+
+            <input type='file' className='input-file' ref={fileRef} onChange={changeLogo}></input>
         </div>
     );
 }

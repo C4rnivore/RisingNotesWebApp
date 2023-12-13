@@ -39,7 +39,7 @@ export default function Song (props) {
         <div className='track'>
             <img onClick={handleAddToSongs} alt='cover' src={api + `api/song/${props.id}/logo?width=100&height=100`}/>
             <p onClick={handleAddToSongs} className='song-title-t'>{props.name}<p className='songAuthor'>{props.artist}</p></p>
-            <p className='track-statistic'><img alt='stats' src={statsIcon}/>1456</p>
+            <p className='track-statistic'><img alt='stats' src={statsIcon}/>{props.auditionCount}</p>
             <p className='song-status'>
                 <div className='song-status-dot red'></div>
                 Опубликован

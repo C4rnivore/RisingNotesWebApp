@@ -8,7 +8,7 @@ import AccountMusician from "./AccountMusician/AccountMusician";
 import { useEffect, useState } from "react";
 import AccountPayment from "./AccountPayment/AccountPayment";
 import { useCookies, withCookies } from 'react-cookie';
-import { api, axiosUnauthorized } from '../../Components/App/App';
+import { api, axiosAuthorized, axiosUnauthorized } from '../../Components/App/App';
 import { jwtDecode } from 'jwt-decode';
 import AccountNonMusician from "./AccountMusician/AccountNonMusician";
 
@@ -28,22 +28,36 @@ export default function AccountPage () {
             setRole(cookies.role);
             const auth= jwtDecode(cookies.accessToken)?.authorId;
             if (auth) {
-                axiosUnauthorized.get(api + `api/author/${auth}`)
-                .then(response => {
-                    setUserName(response.data.name);
-                    setAbout(response.data.about);
-                    setVkLink(response.data.vkLink);
-                    setYaMusicLink(response.data.yaMusicLink);
-                    setWebSiteLink(response.data.webSiteLink);
-                    setAuthorId(auth);
-                })
+                getMusicianInfo(auth);
             }
         }
         catch (err) {
             window.location.replace('/login')
         }
         
-    }, [])
+    }, []);
+
+    const handleRefreshMusicianInfo = (newInfo) => {
+        axiosAuthorized.patch(api + `api/author/${authorId}`, {
+            about: newInfo.about,
+            vkLink: newInfo.vkLink,
+            yaMusicLink: newInfo.yaMusicLink,
+            webSiteLink: newInfo.webSiteLink
+        })
+        .then(getMusicianInfo(authorId));
+    }
+
+    const getMusicianInfo = (auth) => {
+        axiosAuthorized.get(api + `api/author/${auth}`)
+        .then(response => {
+            setUserName(response.data.name);
+            setAbout(response.data.about);
+            setVkLink(response.data.vkLink);
+            setYaMusicLink(response.data.yaMusicLink);
+            setWebSiteLink(response.data.webSiteLink);
+            setAuthorId(auth);
+        })
+    }
 
     const handleChangePage = (id) => {
         setCurrPage(id);
@@ -73,7 +87,14 @@ export default function AccountPage () {
                 </div>
 
                 {currPage === 0 ? <AccountUser userName={userName}/> : <></>}
-                {currPage === 1 ? <AccountMusician authorId={authorId} about={about} vkLink={vkLink} webSiteLink={webSiteLink} yaMusicLink={yaMusicLink} artist={userName}/> : <></>}
+                {currPage === 1 ? <AccountMusician 
+                    authorId={authorId} 
+                    about={about} 
+                    vkLink={vkLink} 
+                    webSiteLink={webSiteLink} 
+                    yaMusicLink={yaMusicLink} 
+                    artist={userName}
+                    handleRefreshMusicianInfo={handleRefreshMusicianInfo}/> : <></>}
                 {currPage === 2 ? <AccountPayment/> : <></>}
                 {currPage === 3 ? <AccountNonMusician/> : <></>}
             </div>
