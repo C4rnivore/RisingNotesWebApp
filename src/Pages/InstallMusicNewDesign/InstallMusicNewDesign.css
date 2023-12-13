@@ -1,0 +1,182 @@
+.glav-installmusic {
+    margin: 0 auto;
+    width: 100%;
+    max-width: 1040px;
+    
+}
+
+.song-information-1 {
+    display: flex;
+    text-align: start;
+    
+}
+
+.song-information-2 {
+    display: flex;
+    text-align: start;
+    width: 100%;
+    margin-top: 40px;
+   
+
+}
+
+.song-information-3 {
+    text-align: start;
+    margin-bottom: 200px;
+    margin-top: 1000px;
+    /* background-color: #0F141D; */
+
+    width: 100%;
+    max-width: 1040px;
+    z-index: 5;
+    
+}
+
+.newtrack-h1 {
+    color: #FFF;
+    width: 750px;
+    height: 42px;
+    position: fixed;
+
+    font-family: Montserrat;
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin-left: 255px;
+}
+
+.uploadtrack-div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    margin-top: 60px;
+    margin-left: 255px;
+    width: 750px;
+    height: 168px;
+    border-radius: 25px;
+    border: 3px dashed #787885;
+}
+
+.uploadtrack-p1 {
+    color: #FFF;
+
+    font-family: Montserrat;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}  
+
+.uploadtrack-p2 {
+    color: #787885;
+
+    font-family: Montserrat;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin-left: 39px;
+    margin-top: 5px;
+}
+
+.uploadtrack-div-inf {
+    justify-content: center;
+}
+
+.or {
+    color: #787885;
+
+    font-family: Montserrat;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    margin-left: 40px;
+}
+
+.upload-file-installmusic {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    width: 257px;
+    height: 48px;
+    margin-left: 40px;
+
+    border-radius: 15px;
+    background: #FE1170;
+
+    color: #FFF;
+
+    font-family: Montserrat;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 20px;
+}
+
+.uploadcloud {
+
+}
+
+.column1-h2 {
+    color: #FFF;
+
+    font-family: Montserrat;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    margin-bottom: 8px;
+}
+
+.column2-h2 {
+    color: #FFF;
+
+    font-family: Montserrat;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    margin-bottom: 8px;
+}
+
+.column1 {
+    
+}
+
+.inp-column1 {
+    width: 500px;
+    height: 40px;   
+    border: none;
+    border-radius: 10px;
+    background: #191E28;
+    color: #787885;
+    padding-left: 16px;
+
+    font-family: Montserrat;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    margin-bottom: 24px;
+}
+
+/* .filters-input {
+    width: 500px;
+    height: 40px;
+    border: none;
+    border-radius: 10px;
+    background: #191E28;
+    color: #787885;
+    padding-left: 16px;
+
+    font-family: Montserrat;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    margin-bottom: 24px;
+} */

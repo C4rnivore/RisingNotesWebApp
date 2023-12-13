@@ -18,6 +18,9 @@ import '../Player/FilterComponent/FilterComponent.css';
 import '../MusicPlayer/MusicPlayer.css';
 import '../../Pages/AccountPage/AccountPage.css';
 import '../../Pages/PlaylistWindow/PlaylistWindow.css';
+import '../../Pages/InstallMusicNewDesign/InstallMusicNewDesign.css';
+import '../../Pages/404Page/404Page.css';
+
 
 import Header from "../Header/Header";
 import Login from "../Login/Login"
@@ -39,7 +42,11 @@ import Subscriptions from '../../Pages/Subsriptions/Subscriptions';
 import Commentaries from '../../Pages/Commentaries/Commentaries';
 import AdminPanel from '../../Pages/AdminPanel/AdminPanel';
 import MusicPlayer from '../MusicPlayer/MusicPlayer';
-import PlaylistWindow from '../../Pages/PlaylistWindow/PlaylistWindow';import SearchResults from '../SearchResults/SearchResults';
+import PlaylistWindow from '../../Pages/PlaylistWindow/PlaylistWindow';
+import SearchResults from '../SearchResults/SearchResults';
+import InstallMusicNewDesign from '../../Pages/InstallMusicNewDesign/InstallMusicNewDesign';
+import ErrorPage from '../../Pages/404Page/404Page.js';
+
 
 
 import {useState, useEffect} from 'react';
@@ -177,6 +184,8 @@ function App() {
                             <Route path={'/adminpanel'} element={<AdminPanel/>}/>
                             <Route path={'/artistpage'} element={<ArtistPersonalPage/>}/>
                             <Route path={'/playlist'} element={<PlaylistWindow/>}/>
+                            <Route path={'/installmusic'} element={<InstallMusicNewDesign/>}/>
+                            <Route path={'*'} element={<ErrorPage/>}/>
                         </Routes>  
                     </div>
                 </PlayerContext.Provider>
