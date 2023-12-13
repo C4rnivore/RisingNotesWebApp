@@ -202,8 +202,8 @@ function App() {
                                     <Route path={'/adminpanel'} element={<AdminPanel/>}/>
                                     <Route path={'/artistpage'} element={<ArtistPersonalPage/>}/>
                                     <Route path={'/playlist'} element={<PlaylistWindow/>}/>
-                            <Route path={'/installmusic'} element={<InstallMusicNewDesign/>}/>
-                            <Route path={'*'} element={<ErrorPage/>}/>
+                                    <Route path={'/installmusic'} element={<InstallMusicNewDesign/>}/>
+                                    <Route path={'*'} element={<ErrorPage/>}/>
                                 </Routes>  
                             </div>
                         </PlayerContext.Provider>
