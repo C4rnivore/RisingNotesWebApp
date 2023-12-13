@@ -1,0 +1,66 @@
+.error1-page {
+    display: flex;
+    height: 100%;
+    justify-content: center;
+    margin-top: 200px;
+}
+
+.error2-page {
+    height: 300px;
+}
+
+.error-Vector{
+  width: 100%;
+  margin-top: 235px;
+}
+
+.backbutton-404 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #FFF;
+    font-family: Montserrat;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 55px;
+
+
+    width: 260px;
+    height: 55px;
+    border-radius: 15px;
+    background: #FE1170;
+    margin-top: 100px;
+    margin-left: 5px;
+    
+}
+
+.backbutton-404:hover {
+    cursor: pointer;
+}
+
+.arrow-icon-upright{
+    margin-right: 5px;
+}
+
+.button-menu-errorpage {
+    height: 150px;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+
+.div-notfound-text {
+    margin-top: 30px;
+}
+
+.notfound-text{
+    color: #FFF;
+
+    font-family: Montserrat;
+    font-size: 36px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
