@@ -15,7 +15,7 @@ import pencil from '../../Images/pencil.svg';
 class PlaylistWindow extends React.Component {
     render() {
         return (
-            <div className='black-page'>
+            <div className='comment-page-wrapper'>
                 <div className='featured'>
                     <BackButton/>
                     <div className='playlist-information'>

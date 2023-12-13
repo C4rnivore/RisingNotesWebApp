@@ -108,7 +108,7 @@ function ArtistCard(props){
                         <span className='top-tracks-title'>Все треки</span>
                         <div className="tracks">
                             {songs.map(el => (
-                                <Song key={el.id} id={el.id} name={el.name} duration={el.durationMs} artist={artist.artistName}/>
+                                <Song key={el.id} id={el.id} name={el.name} duration={el.durationMs} artist={artist.artistName} genres={el.genreList}/>
                             ))}
                             
                         </div>

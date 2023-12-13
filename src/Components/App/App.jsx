@@ -56,7 +56,6 @@ import { jwtDecode } from 'jwt-decode';
 import { useCookies } from 'react-cookie';
 import AccountPage from '../../Pages/AccountPage/AccountPage';
 
-
 export const api = 'https://2100237-gs89005.twc1.net/';
 
 export const axiosAuthorized = axios.create({
@@ -83,14 +82,22 @@ const axiosRefresh = axios.create({
 export const PlayerContext = createContext({});
 export const CurrentSongContext = createContext({});
 export const SubscriptionsContext = createContext({});
+export const FeaturedContext = createContext({});
+export const ExcludedContext = createContext({});
 
 function App() {
     const songsJSON = localStorage.getItem('SONGS');
     const currentSongJSON = localStorage.getItem('CURR_SONG');
     const subsJSON = localStorage.getItem('SUBS');
+    const featuredJSON = localStorage.getItem('FEATURED');
+    const excludedJSON = localStorage.getItem('EXCLUDED');
+
     const [subscriptions, setSubscriptions] = useState(subsJSON ? JSON.parse(subsJSON) : []);
+    const [featured, setFeatured] = useState(featuredJSON ? JSON.parse(featuredJSON): []);
     const [songs, setSongs] = useState(songsJSON ? JSON.parse(songsJSON) : []);
+    const [excluded, setExcluded] = useState(excludedJSON ? JSON.parse(excludedJSON) : []);
     const [currentSong, setCurrentSong] = useState(currentSongJSON ? JSON.parse(currentSongJSON) : '');
+
     const [isLoaded, setIsLoaded] = useState(false);
     const [cookies, setCookies] = useCookies(['accessToken', 'refreshToken', 'authorId', 'role', 'userId']);
   
@@ -114,6 +121,14 @@ function App() {
             setCookies('role', decoded.role, { path: '/' });
 
             config.headers['Authorization'] = 'Bearer ' + response.data.access_token;
+        })
+        .catch(err => {
+            document.cookie = 'accessToken=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT;';
+            document.cookie = 'refreshToken=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT;';
+            document.cookie = 'authorId=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT;';
+            document.cookie = 'role=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT;';
+            document.cookie = 'userId=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT;';
+            window.location.replace('login');
         })
     }
   
@@ -151,9 +166,9 @@ function App() {
         localStorage.setItem('SONGS', JSON.stringify(songs));
         localStorage.setItem('CURR_SONG', JSON.stringify(currentSong));
         localStorage.setItem('SUBS', JSON.stringify(subscriptions));
-    }, [songs, currentSong, subscriptions]);
-
-    // if (true)
+        localStorage.setItem('FEATURED', JSON.stringify(featured));
+        localStorage.setItem('EXCLUDED', JSON.stringify(excluded));
+    }, [songs, currentSong, subscriptions, featured, excluded]);
 
     const [searchInput, setSearchInput] = useState('')
 
@@ -162,36 +177,40 @@ function App() {
     }
 
     return (
-        <SubscriptionsContext.Provider value={{subscriptions, setSubscriptions}}>
-            <CurrentSongContext.Provider value={{currentSong, setCurrentSong}}>
-                <PlayerContext.Provider value={{songs, setSongs}}>
-                    <div className="App">
-                        <Header/>
-                        <MusicPlayer/>
-                        <Sidebar searchHandler = {searchInputHandler} ></Sidebar>
-                        <SearchResults searchQuery={searchInput}/>
-                        <Routes>
-                            <Route path={'/'} element={<Player/>}/>
-                            <Route path={'/login'} element={<Login/>}/>
-                            <Route path={'/registration'} element={<Registration/>}/>
-                            <Route path={'/artist/:id'} element={<ArtistCard/>}/>
-                            <Route path={'/featured'} element={<Featured/>}/>
-                            <Route path={'/excluded'} element={<Excluded/>}/>
-                            <Route path={'/account'} element={<AccountPage/>}/>
-                            {/* <Route path={'/LKlistener'} element={<LKlistener/>}/> */}
-                            <Route path={'/upload'} element={<InstallMusic/>}/>
-                            <Route path={'/subscriptions'} element={<Subscriptions/>}/>
-                            <Route path={'/commentaries/:id'} element={<Commentaries/>}/>
-                            <Route path={'/adminpanel'} element={<AdminPanel/>}/>
-                            <Route path={'/artistpage'} element={<ArtistPersonalPage/>}/>
-                            <Route path={'/playlist'} element={<PlaylistWindow/>}/>
+        <ExcludedContext.Provider value={{excluded, setExcluded}}>
+            <FeaturedContext.Provider value={{featured, setFeatured}}>
+                <SubscriptionsContext.Provider value={{subscriptions, setSubscriptions}}>
+                    <CurrentSongContext.Provider value={{currentSong, setCurrentSong}}>
+                        <PlayerContext.Provider value={{songs, setSongs}}>
+                            <div className="App">
+                                <Header/>
+                                <MusicPlayer/>
+                                <Sidebar searchHandler = {searchInputHandler} ></Sidebar>
+                                <SearchResults searchQuery={searchInput}/>
+                                <Routes>
+                                    <Route path={'/'} element={<Player/>}/>
+                                    <Route path={'/login'} element={<Login/>}/>
+                                    <Route path={'/registration'} element={<Registration/>}/>
+                                    <Route path={'/artist/:id'} element={<ArtistCard/>}/>
+                                    <Route path={'/featured'} element={<Featured/>}/>
+                                    <Route path={'/excluded'} element={<Excluded/>}/>
+                                    <Route path={'/account'} element={<AccountPage/>}/>
+                                    {/* <Route path={'/LKlistener'} element={<LKlistener/>}/> */}
+                                    <Route path={'/upload'} element={<InstallMusic/>}/>
+                                    <Route path={'/subscriptions'} element={<Subscriptions/>}/>
+                                    <Route path={'/commentaries/:id'} element={<Commentaries/>}/>
+                                    <Route path={'/adminpanel'} element={<AdminPanel/>}/>
+                                    <Route path={'/artistpage'} element={<ArtistPersonalPage/>}/>
+                                    <Route path={'/playlist'} element={<PlaylistWindow/>}/>
                             <Route path={'/installmusic'} element={<InstallMusicNewDesign/>}/>
                             <Route path={'*'} element={<ErrorPage/>}/>
-                        </Routes>  
-                    </div>
-                </PlayerContext.Provider>
-            </CurrentSongContext.Provider>
-        </SubscriptionsContext.Provider>
+                                </Routes>  
+                            </div>
+                        </PlayerContext.Provider>
+                    </CurrentSongContext.Provider>
+                </SubscriptionsContext.Provider>
+            </FeaturedContext.Provider>
+        </ExcludedContext.Provider>
     );
 }
 

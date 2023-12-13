@@ -3,6 +3,7 @@ import React, { useEffect, useState, useRef, useContext } from 'react';
 import {Link, NavLink} from "react-router-dom";
 
 import heart from '../../Images/controller/heart.svg';
+import redHeart from '../../Images/red-heart.svg';
 import message from '../../Images/controller/Chat_Dots.png';
 import play from '../../Images/play.svg';
 import pause from '../../Images/Pause.svg';
@@ -12,7 +13,7 @@ import dislike from '../../Images/controller/thumbs-down.svg';
 import cover from '../../Images/image-placeholder/song-cover-default.png';
 import vol from '../../Images/controller/volume-2.svg';
 
-import { CurrentSongContext, PlayerContext, api } from '../App/App';
+import { CurrentSongContext, FeaturedContext, PlayerContext, api } from '../App/App';
 import { axiosAuthorized, axiosUnauthorized } from '../App/App';
 
 const MusicPlayer = (props) => {
@@ -28,6 +29,7 @@ const MusicPlayer = (props) => {
 
     const {songs, setSongs} = useContext(PlayerContext);
     const {currentSong, setCurrentSong} = useContext(CurrentSongContext);
+    const {featured, setFeatured} = useContext(FeaturedContext);
     
     const volumeJSON = localStorage.getItem('VOL');
     const [volume, setVolume] = useState(volumeJSON ? JSON.parse(volumeJSON) : 1);
@@ -159,6 +161,17 @@ const MusicPlayer = (props) => {
         }
     };
 
+    const handleToFavorite = () => {
+        if (featured.includes(currentSong)) {
+            setFeatured(e => e = e.filter(el => el != currentSong));
+            axiosAuthorized.delete(api + `api/song/favorite/${currentSong}`);
+        }
+        else {
+            setFeatured(e => e = [...e, currentSong]);
+            axiosAuthorized.patch(api + `api/song/favorite/${currentSong}`);
+        }
+    };
+
     return (<div className="music-player-wrapper">
         <audio ref={audioRef} src={currentSong ? api + `api/song/${currentSong}/file` : ''}
             onEnded={handleNextSong} type="audio/mpeg" autoPlay={isPlaying} controls/>
@@ -185,7 +198,7 @@ const MusicPlayer = (props) => {
                 <Link to={currentSong === '' ? '' : `/commentaries/${currentSong}`}>
                     <img alt='comment' src={message}/>
                 </Link>
-                <button><img alt='add to featured' src={heart}/></button>
+                <a onClick={handleToFavorite}><img alt='like' src={featured.includes(currentSong) ? redHeart : heart}/></a>
             </div>
             
             <div className="track-range">

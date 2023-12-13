@@ -28,6 +28,7 @@ const Commentaries = (props) => {
     const [songName, setSongName] = useState('');
     const [songAuthor, setSongAuthor] = useState('');
     const [authorId, setAuthorId] = useState('');
+    const [genres, setGenres] = useState([]);
 
     useEffect(() => {
         axiosUnauthorized.get(`api/song/${params.id}/comment/list`)
@@ -44,6 +45,7 @@ const Commentaries = (props) => {
         axiosUnauthorized.get(`api/song/${params.id}`)
             .then(response => {
                 setSongName(response.data.name);
+                setGenres(response.data.genreList);
                 axiosUnauthorized.get(`api/author/${response.data.authorId}`)
                     .then(resp => {
                         setSongAuthor(resp.data.name);
@@ -87,8 +89,7 @@ const Commentaries = (props) => {
                         <h2 className='comm-page-h2'>{songName}</h2>
                         <Link to={`/artist/${authorId}`} className='comm-page-author'>{songAuthor}</Link>
                         <div className='comm-head-buttons'>
-                            <span className='song-tag'>Рок</span>
-                            <span className='song-tag'>Джаз</span>
+                            {genres.map(el => <span key={el} className='song-tag'>{el}</span>)}
                         </div>
                     </span>
                 </div>
