@@ -2,9 +2,10 @@ import FilterElement from './FilterElements/FilterElement'
 import FilterTimeElement from './FilterElements/FilterTimeElement'
 import FilterChckboxElement from './FilterElements/FilterCheckboxElement'
 
-import { useState, useEffect } from 'react'
+import { PlayerContext, CurrentSongContext } from '../../App/App'
+import { useState, useEffect, useContext } from 'react'
 import { getGenres, getLanguages, getMoods } from './APICallers/FiltersGetter'
-import { filtersInitial, filtersUpdater, filtersFormatter } from './FIlters/Filters'
+import { filtersInitial, filtersUpdater,songsByFiltersGetter, extractSongsIdsList } from './FIlters/Filters'
 
 function FilterComponent(){
     const [genreFilters,setGenreFilters] = useState(null)
@@ -12,6 +13,8 @@ function FilterComponent(){
     const [moodFilters,setMoodFilters] = useState(null)
     const [isLoading, setIsLoading] = useState(true)
     const [filters,setFilters] = useState(filtersInitial)
+    const {songs, setSongs} = useContext(PlayerContext);
+    const {currentSong, setCurrentSong} = useContext(CurrentSongContext);
 
     /**
     * Главная функция обновления фильров
@@ -24,6 +27,23 @@ function FilterComponent(){
     const filtersUpdateFunction = (filterId, filterValue, filterOrAnd = null) => {
         let updated = filtersUpdater(filterId, filterValue, filterOrAnd, filters)
         setFilters(cur=> cur = updated)
+        updateSongs()
+    }
+
+    /**
+    * Функция для обновления списка песен по фильтрам
+    * @function
+    */
+    function updateSongs(){
+        songsByFiltersGetter(filters)
+        .then(res=> {
+            const songs = extractSongsIdsList(res)
+            setSongs(curSongs => curSongs = songs)
+        })
+        .catch(err=> {
+            console.log('Error while getting songs by filters: \n')
+            console.log(err)
+        } )
     }
 
     useEffect(() => {
