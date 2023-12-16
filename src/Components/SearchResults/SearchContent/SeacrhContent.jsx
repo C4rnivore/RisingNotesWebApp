@@ -5,11 +5,18 @@ import { Link } from 'react-router-dom'
 import { api } from '../../App/App'
 import Song from '../../Song'
 import Playlist from '../../Playlist'
+import { useContext } from 'react'
+import { SearchQueryContext } from '../../App/App'
 
 function SearchContent(props){
+    const {searchInput, setSearchInput} = useContext(SearchQueryContext)
     const searchResult = props.search
     if(!searchResult.artists && !searchResult.tracks && !searchResult.playlists)
         return (<NotFoundPage/>)
+
+    function clearQuery(){
+        setSearchInput('')
+    }
 
     switch(props.navType){
         case 'All':
@@ -17,7 +24,7 @@ function SearchContent(props){
         case 'Tracks':
             return(<SearchTracks tracks={searchResult.tracks} artists={searchResult.artists}/>)
         case 'Authors':
-            return(<SearchAuthors artists={searchResult.artists}/>)
+            return(<SearchAuthors artists={searchResult.artists} clearFunc={clearQuery}/>)
         case 'Playlists':
             return(<SearchPlaylists playlists={searchResult.playlists}/>)
     }
@@ -61,6 +68,10 @@ function SearchAuthors(props){
     const frontend_url = 'http://localhost:3000/'
     const artists = props.artists
 
+    function clearQuery(){
+        props.clearFunc()
+    }
+
     if(artists.length == 0 || !artists)
         return(<div className="search-authors-top pink-highlight" >Не найдено исполнителей по запросу</div>)
 
@@ -76,7 +87,7 @@ function SearchAuthors(props){
                 <div className="search-authors-content">
                     {artists.map((artist, index) => (
                         <div key={index} className="search-artist-card">
-                            <Link to={`${frontend_url}artist/${artist.id}`}>
+                            <Link to={`${frontend_url}artist/${artist.id}`} onClick={clearQuery}>
                                 <img src={api + `api/author/${artist.id}/logo?width=200&height=200`} alt="" />
                             </Link>
                             <span className='search-artist-name'>{artist.name}</span>
