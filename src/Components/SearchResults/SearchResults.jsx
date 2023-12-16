@@ -1,15 +1,17 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState,useContext } from 'react'
 import './SearchResults.css'
 import backIcon from '../../Images/artist-card/Chevron_Left.svg'
 import SearchContent from './SearchContent/SeacrhContent'
 import { fetchInput } from './APICallers/GetArtistData'
+import { SearchQueryContext } from '../App/App'
 
 function SearchResults(props){
     const [activeNav, setActiveNav] = useState('All')
     const [isFetching, setIsFetching] = useState(false)
     const [searchRes, setSearchRes] = useState(undefined)
+    const {searchInput, setSearchInput} = useContext(SearchQueryContext)
 
-    const input = props.searchQuery
+    let input = searchInput
 
     const handleNavClick = (id) =>{
         if(id === activeNav)
@@ -21,14 +23,18 @@ function SearchResults(props){
 
     useEffect(()=>{
         async function fetchData(){
-            await setIsFetching(true)
+            setIsFetching(true)
             await fetchInput(input).then(res=>setSearchRes(res))
-            await setIsFetching(false)
+            setIsFetching(false)
         }
         fetchData()
     },[input])
 
-    
+    function clearQuery(){
+        setSearchInput('')
+    }
+
+      
     if(input == ''){
         return(<></>)
     }
@@ -37,13 +43,13 @@ function SearchResults(props){
             <section className="search-results">
                 <div className="search-results-container">
                     <div className="search-result-back">
-                        <button>
+                        <button onClick={clearQuery}>
                             <img src={backIcon} alt="" />
                             <span>Назад</span>
                         </button>
                     </div>
                     <div className="search-result-query">
-                        <span>Результаты запроса по запросу <span className='highlight'> «{props.searchQuery}»</span>
+                        <span>Результаты поиска по запросу <span className='highlight'> «{searchInput}»</span>
                         </span>
                     </div>
                     <nav className='search-results-nav'>

@@ -3,16 +3,18 @@ import wave from '../../Images/sidebar/vave.svg'
 import warning from '../../Images/sidebar/warning.svg'
 import like from '../../Images/sidebar/like.svg'
 import thumb from '../../Images/sidebar/playlist_thumb.png'
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import {Link, NavLink} from "react-router-dom";
 import player from "../Player/Player";
 import SidebarCollapser from './SidebarCollpaser/SidebarCollapser'
 import subsIcon from '../../Images/sidebar/subs-icon.svg';
+import { SearchQueryContext } from '../App/App'
 
 function Sidebar(props) {
    const [search, setSearch] = useState(searchIcon)
    const [collapsed, setCollapsed] = useState(false)
    const [searchQuery, setSearchQuery] = useState('')
+   const {searchInput, setSearchInput} = useContext(SearchQueryContext)
 
    // Подтягивать с бэка?
    const [playlists,setPlaylists] = useState([
@@ -27,7 +29,7 @@ function Sidebar(props) {
    }
 
    useEffect(()=>{
-      props.searchHandler(searchQuery)
+      setSearchInput(searchQuery)
    },[searchQuery])
 
    const handleToggleMenu = () =>{
@@ -61,7 +63,7 @@ function Sidebar(props) {
                className='searchbar' 
                type="text" 
                placeholder='Поиск'
-               value={searchQuery}
+               value={searchInput}
                onInput={handleQueryChange}/>
             </form>
          </div>
