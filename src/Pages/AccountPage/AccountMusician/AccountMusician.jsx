@@ -27,7 +27,7 @@ export default function AccountMusician (props) {
             about: about,
             vkLink: vkLink,
             yaMusicLink: yaMusicLink,
-            webSiteLink: webSiteLink
+            webSiteLink: webSiteLink,
         }
 
         props.handleRefreshMusicianInfo(newInfo);

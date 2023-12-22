@@ -10,10 +10,11 @@ import pause from '../../Images/Pause.svg';
 import rewind_forwrad from '../../Images/controller/rewind.svg';
 import rewind_backward from '../../Images/controller/rewind-1.svg';
 import dislike from '../../Images/controller/thumbs-down.svg';
+import redDislike from '../../Images/controller/dislike-red.svg';
 import cover from '../../Images/image-placeholder/song-cover-default.png';
 import vol from '../../Images/controller/volume-2.svg';
 
-import { CurrentSongContext, FeaturedContext, PlayerContext, api } from '../App/App';
+import { CurrentSongContext, ExcludedContext, FeaturedContext, PlayerContext, api } from '../App/App';
 import { axiosAuthorized, axiosUnauthorized } from '../App/App';
 
 const MusicPlayer = (props) => {
@@ -30,6 +31,8 @@ const MusicPlayer = (props) => {
     const {songs, setSongs} = useContext(PlayerContext);
     const {currentSong, setCurrentSong} = useContext(CurrentSongContext);
     const {featured, setFeatured} = useContext(FeaturedContext);
+    const {excluded, setExcluded} = useContext(ExcludedContext);
+
     
     const volumeJSON = localStorage.getItem('VOL');
     const [volume, setVolume] = useState(volumeJSON ? JSON.parse(volumeJSON) : 1);
@@ -161,14 +164,29 @@ const MusicPlayer = (props) => {
         }
     };
 
-    const handleToFavorite = () => {
+    async function handleToFavorite() {
         if (featured.includes(currentSong)) {
-            setFeatured(e => e = e.filter(el => el != currentSong));
-            axiosAuthorized.delete(api + `api/song/favorite/${currentSong}`);
+            await axiosAuthorized.delete(api + `api/song/favorite/${currentSong}`).then(resp => {
+                setFeatured(e => e = e.filter(el => el != currentSong));
+            });
         }
         else {
-            setFeatured(e => e = [...e, currentSong]);
-            axiosAuthorized.patch(api + `api/song/favorite/${currentSong}`);
+            await axiosAuthorized.patch(api + `api/song/favorite/${currentSong}`).then(resp => {
+                setFeatured(e => e = [...e, currentSong]);
+            });;
+        }
+    };
+
+    async function handleToExcluded() {
+        if (excluded.includes(currentSong)) {
+            await axiosAuthorized.delete(api + `api/excluded-track/${currentSong}`).then(resp => {
+                setExcluded(e => e = e.filter(el => el != currentSong));
+            });;
+        }
+        else {
+            await axiosAuthorized.post(api + `api/excluded-track/${currentSong}`).then(resp => {
+                setExcluded(e => e = [...e, currentSong]);
+            });;
         }
     };
 
@@ -176,7 +194,7 @@ const MusicPlayer = (props) => {
         <audio ref={audioRef} src={currentSong ? api + `api/song/${currentSong}/file` : ''}
             onEnded={handleNextSong} type="audio/mpeg" autoPlay={isPlaying} controls/>
         <div className="music-player">
-            <img className='music-player-cover' src={currentSong ?
+            <img className={isPlaying ? 'music-player-cover rotate' : 'music-player-cover'} src={currentSong ?
             (api + `api/song/${currentSong}/logo?width=100&height=100`) : cover} alt='cover'/>
 
             <span className='music-player-head'>
@@ -194,7 +212,7 @@ const MusicPlayer = (props) => {
             </div>
 
             <div className='music-player-buttons'>
-                <button><img alt='dislike' src={dislike}/></button>
+                <a onClick={handleToExcluded}><img alt='dislike' src={excluded.includes(currentSong) ? redDislike : dislike}/></a>
                 <Link to={currentSong === '' ? '' : `/commentaries/${currentSong}`}>
                     <img alt='comment' src={message}/>
                 </Link>

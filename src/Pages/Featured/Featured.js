@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import BackButton from '../../Components/BackButton';
 import Playlist from '../../Components/Playlist';
 import Song from '../../Components/Song/Song';
@@ -12,13 +12,20 @@ import edit from '../../Images/controller/edit-2.svg';
 import Chevron from '../../Images/controller/chevron-left.svg';
 import del from '../../Images/controller/x.svg';
 import { FeaturedContext, api, axiosUnauthorized } from '../../Components/App/App';
+import { useCookies } from 'react-cookie';
 
 
 export default function Featured() {
+    const navigate = useNavigate();
     const {featured, setFeatured} = useContext(FeaturedContext);
     const [songs, setSongs] = useState([]);
+    const [cookies, setCookies] = useCookies(['accessToken', 'refreshToken', 'authorId', 'role', 'userId']);
 
     useEffect(() => {
+        if (!cookies.role) {
+            navigate("/login");
+        }
+
         getSongs();
     }, []);
 

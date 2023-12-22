@@ -8,17 +8,22 @@ import headphones from '../../Images/login/headphones.png';
 import stripe from '../../Images/login/bottom-design-element.svg';
 import { jwtDecode } from 'jwt-decode';
 
-import { SubscriptionsContext, api, axiosAuthorized, axiosUnauthorized } from '../App/App';
+import { ExcludedContext, FeaturedContext, SubscriptionsContext, api, axiosAuthorized, axiosUnauthorized } from '../App/App';
 
 function Login() {
     const [cookies, setCookies] = useCookies(['accessToken', 'refreshToken', 'authorId', 'role', 'subscriptions', 'userId']);
     const [userName, setUserName] = useState(undefined);
     const [password, setPassword] = useState(undefined);
     const {subscriptions, setSubscriptions} = useContext(SubscriptionsContext);
+    const {featured, setFeatured} = useContext(FeaturedContext);
+    const {excluded, setExcluded} = useContext(ExcludedContext);
 
-    const handleLogin = () => {
+    async function handleLogin () {
+        let decoded = undefined;
+        let userId = undefined;
+        let access_token = undefined;
         if (!((userName === '' || userName === undefined) || (password === '' || password === undefined))) {
-            axiosUnauthorized.post(`connect/token`, {
+            await axiosUnauthorized.post(`connect/token`, {
                 client_id: 'Api',
                 client_secret: 'megaclientsecret',
                 grant_type: 'password',
@@ -31,31 +36,56 @@ function Login() {
                 }
             })
             .then(response => {
-                console.log(response);
+                access_token = response.data.access_token;
                 setCookies('accessToken', response.data.access_token, { path: '/' });
                 setCookies('refreshToken', response.data.refresh_token, { path: '/' });
-                let decoded = jwtDecode(response.data.access_token);
+                decoded = jwtDecode(response.data.access_token);
                 setCookies('authorId', decoded?.authorId, { path: '/' });
                 setCookies('role', decoded.role, { path: '/' });
-                const userId = jwtDecode(response.data.access_token)["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"];
+                userId = jwtDecode(response.data.access_token)["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"];
                 setCookies('userId', userId, { path: '/' });
-
-                axiosUnauthorized.get(api + `api/subscription/${userId}/list`, {
-                    headers: {
-                        "Content-Type": "application/json",
-                        'Authorization': 'Bearer ' + response.data.access_token
-                    },
-                })
-                .then(response => {
-                    let arr = [];
-                    response.data.subscriptionList.map(e => arr.push(e.authorId));
-                    setSubscriptions(arr);
-                    window.location.replace('/');
-                })
             })
             .catch(err => {
                 console.log(err);
             })
+
+            await axiosUnauthorized.get(api + `api/subscription/${userId}/list`, {
+                headers: {
+                    "Content-Type": "application/json",
+                    'Authorization': 'Bearer ' + access_token
+                },
+            })
+            .then(response => {
+                let arr = [];
+                response.data.subscriptionList.map(e => arr.push(e.authorId));
+                setSubscriptions(arr);
+            })
+
+            await axiosUnauthorized.get('api/song/favorite/list', {
+                headers: {
+                    "Content-Type": "application/json",
+                    'Authorization': 'Bearer ' + access_token
+                },
+            })
+            .then(response => {
+                let arr = []
+                response.data.songInfoList.map(el => arr.push(el.id));
+                setFeatured(arr);
+            })
+
+            await axiosUnauthorized.get('api/excluded-track/list', {
+                headers: {
+                    "Content-Type": "application/json",
+                    'Authorization': 'Bearer ' + access_token
+                },
+            })
+            .then(response => {
+                let arr = []
+                response.data.excludedTrackList.map(el => arr.push(el.id));
+                setExcluded(arr);
+            })
+
+            window.location.replace('/');
         }
     }
 

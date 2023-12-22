@@ -4,6 +4,7 @@ import heart from '../../Images/controller/heart.svg';
 import redHeart from '../../Images/red-heart.svg';
 import message from '../../Images/controller/Chat_Dots.png';
 import dislike from '../../Images/controller/thumbs-down.svg';
+import redDislike from '../../Images/controller/dislike-red.svg';
 import list from '../../Images/list.svg'
 import { CurrentSongContext, ExcludedContext, FeaturedContext, PlayerContext, api, axiosAuthorized } from '../App/App';
 import thumb from '../../Images/sidebar/playlist_thumb.png';
@@ -36,25 +37,29 @@ function Song(props) {
         setDuration(formatTime(props.duration))
     }, []);
 
-    const handleToFavorite = () => {
+    async function handleToFavorite() {
         if (featured.includes(props.id)) {
-            setFeatured(e => e = e.filter(el => el != props.id));
-            axiosAuthorized.delete(api + `api/song/favorite/${props.id}`);
+            await axiosAuthorized.delete(api + `api/song/favorite/${props.id}`).then(resp => {
+                setFeatured(e => e = e.filter(el => el != props.id));
+            });
         }
         else {
-            setFeatured(e => e = [...e, props.id]);
-            axiosAuthorized.patch(api + `api/song/favorite/${props.id}`);
+            await axiosAuthorized.patch(api + `api/song/favorite/${props.id}`).then(resp => {
+                setFeatured(e => e = [...e, props.id]);
+            });;
         }
     };
 
-    const handleToExcluded = () => {
+    async function handleToExcluded() {
         if (excluded.includes(props.id)) {
-            setExcluded(e => e = e.filter(el => el != props.id));
-            axiosAuthorized.delete(api + `api/song/favorite/${props.id}`);
+            await axiosAuthorized.delete(api + `api/excluded-track/${props.id}`).then(resp => {
+                setExcluded(e => e = e.filter(el => el != props.id));
+            });;
         }
         else {
-            setExcluded(e => e = [...e, props.id]);
-            axiosAuthorized.patch(api + `api/song/favorite/${props.id}`);
+            await axiosAuthorized.post(api + `api/excluded-track/${props.id}`).then(resp => {
+                setExcluded(e => e = [...e, props.id]);
+            });;
         }
     };
 
@@ -72,7 +77,7 @@ function Song(props) {
                 <p className='song-duration'>{duration}</p>
                 <div className='track-buttons'>
                     <a><img alt='list' src={list} onClick={changeModalState}/></a>
-                    <a><img alt='dislike' src={dislike}/></a>
+                    <a onClick={handleToExcluded}><img alt='dislike' src={excluded.includes(props.id) ? redDislike : dislike}/></a>
                     <a onClick={handleToFavorite}><img alt='like' src={featured.includes(props.id) ? redHeart : heart}/></a>
                     <Link to={`/commentaries/${props.id}`}><img alt='comment' src={message}/></Link>
                 </div>

@@ -30,7 +30,7 @@ export default function AccountHead (props) {
                 setSubsCount(response.data.count);
             })
         }
-    }, [isImageExist, props]);
+    }, [props]);
 
     const handleFileInput = () => {
         fileRef.current.click();
@@ -48,7 +48,8 @@ export default function AccountHead (props) {
             }
         })
         .then(response => {
-            setIsImageExist(!isImageExist);
+            if (!isImageExist)
+                setIsImageExist(!isImageExist);
             imgRef.current.src= api + `api/user/${cookies.userId}/logo?width=400&height=400`;
         });
     }

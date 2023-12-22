@@ -11,8 +11,10 @@ import { useCookies, withCookies } from 'react-cookie';
 import { api, axiosAuthorized, axiosUnauthorized } from '../../Components/App/App';
 import { jwtDecode } from 'jwt-decode';
 import AccountNonMusician from "./AccountMusician/AccountNonMusician";
+import { useNavigate } from "react-router-dom";
 
 export default function AccountPage () {
+    const navigate = useNavigate();
     const [currPage, setCurrPage] = useState(0);
     const [userName, setUserName] = useState(undefined);
     const [about, setAbout] = useState(undefined);
@@ -32,7 +34,7 @@ export default function AccountPage () {
             }
         }
         catch (err) {
-            window.location.replace('/login')
+            navigate("/login");
         }
         
     }, []);
@@ -96,7 +98,13 @@ export default function AccountPage () {
                     artist={userName}
                     handleRefreshMusicianInfo={handleRefreshMusicianInfo}/> : <></>}
                 {currPage === 2 ? <AccountPayment/> : <></>}
-                {currPage === 3 ? <AccountNonMusician/> : <></>}
+                {currPage === 3 ? <AccountNonMusician  
+                    authorId={authorId} 
+                    about={about} 
+                    vkLink={vkLink} 
+                    webSiteLink={webSiteLink} 
+                    yaMusicLink={yaMusicLink} 
+                    artist={userName}/> : <></>}
             </div>
         </div>
     );

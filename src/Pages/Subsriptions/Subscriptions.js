@@ -4,14 +4,16 @@ import Subscription from '../../Components/Subscription';
 import { useContext } from 'react';
 import { SubscriptionsContext } from '../../Components/App/App';
 import { useCookies } from 'react-cookie';
+import { useNavigate } from 'react-router-dom';
 
 function Subscriptions () {
+    const navigate = useNavigate();
     const {subscriptions, setSubscriptions} = useContext(SubscriptionsContext);
     const [cookies, setCookies] = useCookies(['accessToken', 'refreshToken', 'authorId', 'role', 'userId']);
 
     useEffect(() => {
-        if (!cookies.userId) {
-            window.location.replace('/login');
+        if (!cookies.role) {
+            navigate("/login");
         }
     }, []);
 

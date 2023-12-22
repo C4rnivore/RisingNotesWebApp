@@ -35,7 +35,7 @@ import LK from "../LK/LK";
 import LKlistener from "../LKlistener/LKlistener";
 import InstallMusic from "../InstallMusic/InstallMusic";
 import InstallMusicMusician from '../InstallMusicMusician/InstallMusicMusician';
-import {Routes,Route, Link, createBrowserRouter, createRoutesFromElements, RouterProvider, useSubmit} from 'react-router-dom';
+import {Routes,Route, Link, createBrowserRouter, createRoutesFromElements, RouterProvider, useSubmit, useNavigate} from 'react-router-dom';
 import React, {Fragment, createContext} from "react";
 import Featured from '../../Pages/Featured/Featured';
 import Excluded from '../../Pages/Excluded/Excluded';
@@ -72,7 +72,7 @@ export const axiosUnauthorized = axios.create({
     },
 });
 
-const axiosRefresh = axios.create({
+export const axiosRefresh = axios.create({
     baseURL: api,
     headers : {
         'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
@@ -86,6 +86,8 @@ export const FeaturedContext = createContext({});
 export const ExcludedContext = createContext({});
 
 function App() {
+    const navigate = useNavigate();
+
     const songsJSON = localStorage.getItem('SONGS');
     const currentSongJSON = localStorage.getItem('CURR_SONG');
     const subsJSON = localStorage.getItem('SUBS');
@@ -128,7 +130,7 @@ function App() {
             document.cookie = 'authorId=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT;';
             document.cookie = 'role=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT;';
             document.cookie = 'userId=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT;';
-            window.location.replace('login');
+            navigate("/login");
         })
     }
   
@@ -152,12 +154,12 @@ function App() {
                 await refreshTokens(config);
             }
             else {
-                window.location.replace('/login');
+                navigate("/login");
             }
             return config;
         },
         error => {
-            Promise.reject(error);
+            // Promise.reject(error);
             console.log(error);
         }
     );
@@ -195,7 +197,6 @@ function App() {
                                     <Route path={'/featured'} element={<Featured/>}/>
                                     <Route path={'/excluded'} element={<Excluded/>}/>
                                     <Route path={'/account'} element={<AccountPage/>}/>
-                                    {/* <Route path={'/LKlistener'} element={<LKlistener/>}/> */}
                                     <Route path={'/upload'} element={<InstallMusic/>}/>
                                     <Route path={'/subscriptions'} element={<Subscriptions/>}/>
                                     <Route path={'/commentaries/:id'} element={<Commentaries/>}/>
