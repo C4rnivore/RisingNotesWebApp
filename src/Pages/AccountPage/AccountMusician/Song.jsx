@@ -6,7 +6,17 @@ import message from '../../../Images/controller/Chat_Dots.png';
 import statsIcon from '../../../Images/account-page/stats-icon.svg';
 import { CurrentSongContext, PlayerContext, api, axiosAuthorized } from '../../../Components/App/App';
 
+const statusType = {
+    0: 'Неизвестно',
+    1: 'На проверке',
+    2: 'На доработке',
+    3: 'Опубликовано',
+    4: 'Отказано',
+    5: 'Отозвано'
+};
+
 export default function Song (props) {
+    const [songName, setSongName] = useState('');
     const [duration, setDuration] = useState(0);
     const {songs, setSongs} = useContext(PlayerContext);
     const {currentSong, setCurrentSong} = useContext(CurrentSongContext);
@@ -23,12 +33,12 @@ export default function Song (props) {
     };
 
     useEffect(() => {
-        setDuration(formatTime(props.duration))
+        axiosAuthorized.get(`api/song/upload-request/${props.id}`)
+        .then(response => {
+            setSongName(response.data.songName);
+        })
+        setDuration(formatTime(props.duration));
     }, []);
-
-    const handleToFavorite = () => {
-        axiosAuthorized.patch(api + `api/song/favorite/${props.id}`);
-    };
 
     const handleAddToSongs = () => {
         setSongs(e => e = [...e, props.id])
@@ -38,11 +48,11 @@ export default function Song (props) {
     return (
         <div className='track'>
             <img onClick={handleAddToSongs} alt='cover' src={api + `api/song/${props.id}/logo?width=100&height=100`}/>
-            <p onClick={handleAddToSongs} className='song-title-t'>{props.name}<p className='songAuthor'>{props.artist}</p></p>
+            <p onClick={handleAddToSongs} className='song-title-t'>{songName}<p className='songAuthor'>{props.artist}</p></p>
             <p className='track-statistic'><img alt='stats' src={statsIcon}/>{props.auditionCount}</p>
             <p className='song-status'>
                 <div className='song-status-dot red'></div>
-                Опубликован
+                {statusType[props.status]}
             </p>
             <p className='song-duration'>{duration}</p>
             <Link to={`/commentaries/${props.id}`}><img alt='comment' src={message}/></Link>

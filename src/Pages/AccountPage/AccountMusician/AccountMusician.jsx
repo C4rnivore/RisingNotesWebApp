@@ -5,19 +5,24 @@ import yandexIcon from '../../../Images/account-page/yandex-icon.svg';
 import plus from '../../../Images/account-page/plus-icon.svg';
 import React, { useContext, useEffect, useState } from 'react';
 import Song from './Song';
-import { api, axiosUnauthorized } from '../../../Components/App/App';
+import { api, axiosAuthorized, axiosUnauthorized } from '../../../Components/App/App';
+import { Link } from 'react-router-dom';
 
 export default function AccountMusician (props) {
-    const [songs, setSongs] = useState([]);
+    const [uploads, setUploads] = useState([]);
     const [about, setAbout] = useState(props.about);
     const [vkLink, setVkLink] = useState(props.vkLink);
     const [yaMusicLink, setYaMusicLink] = useState(props.yaMusicLink);
     const [webSiteLink, setWebSiteLink] = useState(props.webSiteLink);
 
     useEffect(() => {
-        axiosUnauthorized.get(api + `api/author/${props.authorId}/song/list`)
+        // axiosUnauthorized.get(api + `api/author/${props.authorId}/song/list`)
+        // .then(response => {
+        //     setSongs(response.data.songInfoList);
+        // })
+        axiosAuthorized.get(`api/song/upload-request/list`)
         .then(response => {
-            setSongs(response.data.songInfoList);
+            setUploads(response.data.publishRequestShortInfoList);
         })
     }, []);
 
@@ -66,12 +71,12 @@ export default function AccountMusician (props) {
             </button>
 
             <h2>Все треки</h2>
-            <a className='account-page-add-song'><img alt='icon' src={plus}/>Добавить трек</a>
+            <Link to={'/installmusic'} className='account-page-add-song'><img alt='icon' src={plus}/>Добавить трек</Link>
 
             <div className="tracks">
-                {songs.map(el => <Song key={el.id} id={el.id} name={el.name} duration={el.durationMs} artist={props.artist} auditionCount={el.auditionCount}/>)}
+                {uploads.map(el => <Song key={el.id} id={el.id} artist={props.artist} status={el.status}/>)}
             </div>
-            {songs.length == 0 ? <p>Вы еще не загрузили ни одного трека</p> : <></>}
+            {uploads.length == 0 ? <p>Вы еще не загрузили ни одного трека</p> : <></>}
             
         </div>
     )

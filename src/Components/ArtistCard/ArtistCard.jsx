@@ -44,6 +44,7 @@ function ArtistCard(props){
             axiosUnauthorized.get(api + `api/author/${params.id}`)
             .then(response => {
                 setArtist({
+                    userId: response.data.userId,
                     artistName: response.data.name,
                     artistImage: ArtistImage,
                     artistInfoText: response.data.about,
@@ -115,7 +116,7 @@ function ArtistCard(props){
                     </div>
                     
                 </div>
-                <img className="artist-bg-image" src={artist.artistImage}/>
+                <img className="artist-bg-image" src={api + `api/user/${artist.userId}/logo?width=400&height=400`}/>
             </section>
         )
 }

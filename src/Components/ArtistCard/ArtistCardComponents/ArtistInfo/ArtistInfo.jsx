@@ -16,7 +16,8 @@ function ArtistInfo(props) {
     const [subcribersCount, setSubscribersCount] = useState(props.artist.subscribersCount);
     const site = props.artist.socialLinks.site
     const vk = props.artist.socialLinks.vk
-    const yandex = props.artist.socialLinks.yandex
+    const yandex = props.artist.socialLinks.yandex;
+    const userId = props.artist.userId;
 
     const params = useParams();
     const {subscriptions, setSubscriptions} = useContext(SubscriptionsContext);
@@ -29,7 +30,7 @@ function ArtistInfo(props) {
 
     return(
         <div className="info-container">
-            <img src={artistImage} alt="" className="artist-img" draggable='false'/>
+            <img src={api + `api/user/${userId}/logo?width=400&height=400`} alt="" className="artist-img" draggable='false'/>
             <div className="artist-info">
                 <div className="row-top">
                     <span className="artist-name">{artistName}</span>
