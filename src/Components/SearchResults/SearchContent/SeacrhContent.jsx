@@ -11,6 +11,7 @@ import { SearchQueryContext } from '../../App/App'
 function SearchContent(props){
     const {searchInput, setSearchInput} = useContext(SearchQueryContext)
     const searchResult = props.search
+
     if(!searchResult.artists && !searchResult.tracks && !searchResult.playlists)
         return (<NotFoundPage/>)
 
@@ -20,13 +21,22 @@ function SearchContent(props){
 
     switch(props.navType){
         case 'All':
-            return(<SearchAll searchResult={searchResult}/>)
+            return(<SearchAll 
+                searchResult={searchResult}/>)
         case 'Tracks':
-            return(<SearchTracks tracks={searchResult.tracks} artists={searchResult.artists}/>)
+            return(<SearchTracks 
+                tracks={searchResult.tracks} 
+                artists={searchResult.artists} 
+                navType={props.navType}/>)
         case 'Authors':
-            return(<SearchAuthors artists={searchResult.artists} clearFunc={clearQuery}/>)
+            return(<SearchAuthors 
+                artists={searchResult.artists} 
+                clearFunc={clearQuery} 
+                navType={props.navType}/>)
         case 'Playlists':
-            return(<SearchPlaylists playlists={searchResult.playlists}/>)
+            return(<SearchPlaylists 
+                playlists={searchResult.playlists} 
+                navType={props.navType}/>)
     }
 }
 
@@ -43,8 +53,10 @@ function SearchAll(props){
 
 function SearchTracks(props){
     const tracks = props.tracks
+    if(tracks.length == 0 && props.navType == undefined)
+        return(<></>)
 
-    if(tracks.length == 0 || !tracks)
+    if(tracks.length == 0 && props.navType == 'Tracks')
         return(<div className="search-tracks-top pink-highlight">Не найдено треков по запросу</div>)
     
     return(
@@ -52,8 +64,13 @@ function SearchTracks(props){
             <div className="search-tracks-top">
                 <span>Треки</span>
                 <button className='search-show-more'>
-                    <span>Смотреть все</span>
-                    <img src={arrowRight} alt="" />
+                {tracks.length>5?
+                        <>
+                            <span>Смотреть все</span>
+                            <img src={arrowRight} alt="" />
+                        </>
+                        : <></>
+                }
                 </button>
             </div>
             <div className="search-tracks-content">
@@ -72,7 +89,10 @@ function SearchAuthors(props){
         props.clearFunc()
     }
 
-    if(artists.length == 0 || !artists)
+    if(artists.length == 0 && props.navType == undefined)
+    return(<></>)
+
+    if(artists.length == 0 && props.navType == 'Authors')
         return(<div className="search-authors-top pink-highlight" >Не найдено исполнителей по запросу</div>)
 
     return(
@@ -80,8 +100,13 @@ function SearchAuthors(props){
                     <div className="search-authors-top">
                     <span>Исполнители</span>
                     <button className='search-show-more'>
-                        <span>Смотреть все</span>
-                        <img src={arrowRight} alt="" />
+                        {artists.length>5?
+                        <>
+                            <span>Смотреть все</span>
+                            <img src={arrowRight} alt="" />
+                        </>
+                        : <></>
+                        }
                     </button>
                 </div>
                 <div className="search-authors-content">
@@ -100,7 +125,10 @@ function SearchAuthors(props){
 function SearchPlaylists(props){
     const playlists = props.playlists
 
-    if(playlists.length == 0 || !playlists){
+    if(playlists.length == 0 && props.navType == undefined)
+    return(<></>)
+
+    if(playlists.length == 0 && props.navType == 'Playlists'){
         return(<div className="search-playlists-top pink-highlight">Не найдено плейлистов по запросу</div>)
     }
     return(
@@ -108,8 +136,13 @@ function SearchPlaylists(props){
             <div className="search-playlists-top">
                 <span>Плейлисты</span>
                 <button className='search-show-more'>
-                    <span>Смотреть все</span>
-                    <img src={arrowRight} alt="" />
+                {playlists.length>5?
+                        <>
+                            <span>Смотреть все</span>
+                            <img src={arrowRight} alt="" />
+                        </>
+                        : <></>
+                }
                 </button>
             </div>
             <div className="search-playlists-content">

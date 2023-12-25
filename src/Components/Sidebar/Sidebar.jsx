@@ -49,6 +49,9 @@ function Sidebar(props) {
    const handleQueryChange = (e) =>{
       setSearchQuery(e.target.value)
    }
+   const clearQuery =(e)=>{
+      setSearchQuery('')
+   }
 
    return(
     <div className="sidebar" id='sidebar'>
@@ -72,7 +75,7 @@ function Sidebar(props) {
             <nav className='music-nav'>
                <ul className="nav-links">
                   <li>
-                     <NavLink className ={({ isActive }) => (isActive ? 'nav-link wave active' : 'nav-link wave' )} 
+                     <NavLink onClick={clearQuery} className ={({ isActive }) => (isActive ? 'nav-link wave active' : 'nav-link wave' )} 
                      to={'/'} 
                      style={({ isActive }) => (isActive ? {color: '#FE1170'} : {color: '#787885'})}>
                         <img src={wave} alt="" className="nav-icon" />
@@ -80,7 +83,7 @@ function Sidebar(props) {
                      </NavLink>
                   </li>
                   <li>
-                     <NavLink className ={({ isActive }) => (isActive ? 'nav-link fav active' : 'nav-link fav ' )}
+                     <NavLink onClick={clearQuery} className ={({ isActive }) => (isActive ? 'nav-link fav active' : 'nav-link fav ' )}
                      to={'/featured'} 
                      style={({ isActive }) => (isActive ? {color: '#FE1170'} : {color: '#787885'})}>
                         <img src={like} alt="" className="nav_icon" />
@@ -88,7 +91,7 @@ function Sidebar(props) {
                      </NavLink>
                   </li>
                   <li> 
-                     <NavLink className ={({ isActive }) => (isActive ? 'nav-link remove active' : 'nav-link remove ' )}
+                     <NavLink onClick={clearQuery} className ={({ isActive }) => (isActive ? 'nav-link remove active' : 'nav-link remove ' )}
                      to={'/excluded'} 
                      style={({ isActive }) => (isActive ? {color: '#FE1170'} : {color: '#787885'})}>
                         <img src={warning} alt="" className="nav-icon" />
@@ -96,7 +99,7 @@ function Sidebar(props) {
                      </NavLink>
                   </li>
                <li> 
-                  <NavLink className ={({ isActive }) => (isActive ? 'nav-link remove active' : 'nav-link remove ' )}
+                  <NavLink onClick={clearQuery} className ={({ isActive }) => (isActive ? 'nav-link remove active' : 'nav-link remove ' )}
                   to={'/subscriptions'} 
                   style={({ isActive }) => (isActive ? {color: '#FE1170'} : {color: '#787885'})}>
                      <img src={subsIcon} alt="" className="nav-icon" />
@@ -104,7 +107,7 @@ function Sidebar(props) {
                   </NavLink>
                </li>
                <li> 
-                  <NavLink className ={({ isActive }) => (isActive ? 'nav-link remove active' : 'nav-link remove ' )}
+                  <NavLink onClick={clearQuery} className ={({ isActive }) => (isActive ? 'nav-link remove active' : 'nav-link remove ' )}
                   to={'/login'} 
                   style={({ isActive }) => (isActive ? {color: '#FE1170'} : {color: '#787885'})}>
                      <img src={subsIcon} alt="" className="nav-icon" />
@@ -112,7 +115,7 @@ function Sidebar(props) {
                   </NavLink>
                </li>
                <li> 
-                  <NavLink className ={({ isActive }) => (isActive ? 'nav-link remove active' : 'nav-link remove ' )}
+                  <NavLink onClick={clearQuery} className ={({ isActive }) => (isActive ? 'nav-link remove active' : 'nav-link remove ' )}
                   to={'/registration'} 
                   style={({ isActive }) => (isActive ? {color: '#FE1170'} : {color: '#787885'})}>
                      <img src={subsIcon} alt="" className="nav-icon" />
@@ -120,7 +123,7 @@ function Sidebar(props) {
                   </NavLink>
                </li>
                <li> 
-                  <NavLink className ={({ isActive }) => (isActive ? 'nav-link remove active' : 'nav-link remove ' )}
+                  <NavLink onClick={clearQuery} className ={({ isActive }) => (isActive ? 'nav-link remove active' : 'nav-link remove ' )}
                   to={'/account'} 
                   style={({ isActive }) => (isActive ? {color: '#FE1170'} : {color: '#787885'})}>
                      <img src={subsIcon} alt="" className="nav-icon" />

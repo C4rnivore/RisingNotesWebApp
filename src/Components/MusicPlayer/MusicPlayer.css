@@ -22,6 +22,7 @@
 
 .music-player-wrapper {
     width: 100%;
+    height: 0;
     margin: 0 auto;
     display: flex;
     justify-content: center;

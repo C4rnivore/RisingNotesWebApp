@@ -20,7 +20,6 @@ function SearchResults(props){
         document.getElementById(id).classList.add('active')
         setActiveNav(id)
     }
-
     useEffect(()=>{
         async function fetchData(){
             setIsFetching(true)
@@ -34,7 +33,6 @@ function SearchResults(props){
         setSearchInput('')
     }
 
-      
     if(input == ''){
         return(<></>)
     }

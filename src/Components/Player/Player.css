@@ -171,6 +171,7 @@
 }
 .player-content-container{
     position: relative;
+    padding-top: var(--header-height);
     display: flex;
     align-items: start;
     flex-direction: row;
