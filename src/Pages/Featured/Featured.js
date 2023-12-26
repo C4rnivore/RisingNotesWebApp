@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState} from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
 import { useNavigate, redirect } from 'react-router-dom';
 import BackButton from '../../Components/BackButton';
 import Playlist from '../../Components/Playlist';
@@ -25,7 +24,6 @@ export default function Featured() {
     const [songs, setSongs] = useState([]);
     const [cookies, setCookies] = useCookies(['accessToken', 'refreshToken', 'authorId', 'role', 'userId']);
     const {playlists, setPlaylists} = useContext(PlaylistsContext);
-    const navigate = useNavigate();
 
     useEffect(() => {
         if (!cookies.role) {

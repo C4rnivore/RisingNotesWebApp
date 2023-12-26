@@ -86,13 +86,14 @@ function Login() {
                 setExcluded(arr);
             })
             
+            await getPlaylists(userId);
 
             window.location.replace('/');
         }
     }
 
-    function getPlaylists(userId) {
-        axiosUnauthorized.get(`api/playlist/list/${userId}`)
+    async function getPlaylists(userId) {
+        await axiosUnauthorized.get(`api/playlist/list/${userId}`)
         .then (
             response => {
                 let arr = [];

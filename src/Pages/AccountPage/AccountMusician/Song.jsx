@@ -81,7 +81,7 @@ export default function Song (props) {
                 <div className={'song-status-dot ' + statusColor[props.status]}></div>
                 {statusType[props.status]}
             </p>
-            <p className='song-duration'>{duration}</p>
+            <p className='song-duration'>{formatTime(duration)}</p>
             {songId ? 
                 <Link to={`/commentaries/${songId}`}><img alt='comment' src={message}/></Link> : 
                 <Link to={`/account`}><img alt='comment' src={message} style={{opacity: 0.2}}/></Link>}
