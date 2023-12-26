@@ -1,26 +1,36 @@
 import React from 'react';
-import BackButton from '../../Components/BackButton';
+import BackButton from '../BackButton';
 import PlaylistInstallSkin from '../../Images/installmusicimages/Group 67.png';
 import Cloud from '../../Images/installmusicimages/cloud.svg';
-import { useEffect, useState } from "react"
+import { useEffect, useState, useRef } from "react"
 
 
 
 function InstallMusicText(props){
+
+    
+   
+   
+    // toggleButton.onclick = function () {
+    //   if (targetDiv.style.display !== "none") {
+    //     targetDiv.style.display = "none";
+    //   } else {
+    //     targetDiv.style.display = "block";
+    //   }
+    // };
     // const [tags,setTags] = useState([]);
 
-
-    // const handleswitchStateClick = ()=>{
-    //     const swt = document.getElementById(props.id)
-    //     if(swt.classList.contains('filter-switch-toggled')){
-    //         swt.classList.remove('filter-switch-toggled')
-    //         swt.classList.add('filter-switch')
-    //     }
-    //     else{
-    //         swt.classList.add('filter-switch-toggled')
-    //         swt.classList.remove('filter-switch')
-    //     }
-    // }
+    const [toggleButton, setToggleButton] = useState(0);
+    const handleswitchStateClick = ()=>{
+        const targetDiv = document.getElementById("myDiv");
+        if (toggleButton === 0 & targetDiv.style.display !== "block") {
+            setToggleButton(1);
+            targetDiv.style.display = "block";
+        } else {
+            targetDiv.style.display = "none";
+            setToggleButton(0);
+        }
+    }
 
     // const handleInputClick = (e) =>{
     //     e.preventDefault()
@@ -53,6 +63,9 @@ function InstallMusicText(props){
     return (
         <div className='song-availability-text'>
             <h2 className='column1-h2'>Текст</h2>
+            <div onClick={handleswitchStateClick} className={toggleButton === 0 ? 'text-switch' : 'text-switch-toggled'}>
+                <div className="switch-ball"></div>
+            </div>
         </div>
     )
 }

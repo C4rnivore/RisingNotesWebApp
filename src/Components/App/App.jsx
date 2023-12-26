@@ -22,6 +22,7 @@ import '../../Pages/PlaylistWindow/PlaylistWindow.css';
 import '../../Pages/InstallMusicNewDesign/InstallMusicNewDesign.css';
 import '../../Pages/404Page/404Page.css';
 import '../../Components/FallDownMenu/FallDownMenu.css';
+import '../../Pages/EditingSong/EditingSong.css';
 
 
 import Header from "../Header/Header";
@@ -48,6 +49,8 @@ import PlaylistWindow from '../../Pages/PlaylistWindow/PlaylistWindow';
 import SearchResults from '../SearchResults/SearchResults';
 import InstallMusicNewDesign from '../../Pages/InstallMusicNewDesign/InstallMusicNewDesign';
 import ErrorPage from '../../Pages/404Page/404Page.js';
+import EditSong from '../../Pages/EditingSong/EditingSong.js';
+
 
 
 
@@ -85,6 +88,8 @@ export const CurrentSongContext = createContext({});
 export const SubscriptionsContext = createContext({});
 export const FeaturedContext = createContext({});
 export const ExcludedContext = createContext({});
+export const PlaylistsContext = createContext({});
+// ссылка на переменную
 
 function App() {
     const navigate = useNavigate();
@@ -94,14 +99,16 @@ function App() {
     const subsJSON = localStorage.getItem('SUBS');
     const featuredJSON = localStorage.getItem('FEATURED');
     const excludedJSON = localStorage.getItem('EXCLUDED');
+    const playlistsJSON = localStorage.getItem('PLAYLISTS');
+    // подгружаю из браузера
 
     const [subscriptions, setSubscriptions] = useState(subsJSON ? JSON.parse(subsJSON) : []);
     const [featured, setFeatured] = useState(featuredJSON ? JSON.parse(featuredJSON): []);
     const [songs, setSongs] = useState(songsJSON ? JSON.parse(songsJSON) : []);
     const [excluded, setExcluded] = useState(excludedJSON ? JSON.parse(excludedJSON) : []);
     const [currentSong, setCurrentSong] = useState(currentSongJSON ? JSON.parse(currentSongJSON) : '');
-
-    const [isLoaded, setIsLoaded] = useState(false);
+    // проверка на наличие
+    const [playlists, setPlaylists] = useState(playlistsJSON ? JSON.parse(playlistsJSON) : []);
     const [cookies, setCookies] = useCookies(['accessToken', 'refreshToken', 'authorId', 'role', 'userId']);
   
     //обновление токена
@@ -171,7 +178,9 @@ function App() {
         localStorage.setItem('SUBS', JSON.stringify(subscriptions));
         localStorage.setItem('FEATURED', JSON.stringify(featured));
         localStorage.setItem('EXCLUDED', JSON.stringify(excluded));
-    }, [songs, currentSong, subscriptions, featured, excluded]);
+        localStorage.setItem('PLAYLISTS', JSON.stringify(playlists));
+    }, [songs, currentSong, subscriptions, featured, excluded, playlists]);
+    // обновление переменных в браузере, только тогда когда чет поменялось
 
     const [searchInput, setSearchInput] = useState('')
 
@@ -180,39 +189,43 @@ function App() {
     }
 
     return (
-        <ExcludedContext.Provider value={{excluded, setExcluded}}>
-            <FeaturedContext.Provider value={{featured, setFeatured}}>
-                <SubscriptionsContext.Provider value={{subscriptions, setSubscriptions}}>
-                    <CurrentSongContext.Provider value={{currentSong, setCurrentSong}}>
-                        <PlayerContext.Provider value={{songs, setSongs}}>
-                            <div className="App">
-                                <Header/>
-                                <MusicPlayer/>
-                                <Sidebar searchHandler = {searchInputHandler} ></Sidebar>
-                                <SearchResults searchQuery={searchInput}/>
-                                <Routes>
-                                    <Route path={'/'} element={<Player/>}/>
-                                    <Route path={'/login'} element={<Login/>}/>
-                                    <Route path={'/registration'} element={<Registration/>}/>
-                                    <Route path={'/artist/:id'} element={<ArtistCard/>}/>
-                                    <Route path={'/featured'} element={<Featured/>}/>
-                                    <Route path={'/excluded'} element={<Excluded/>}/>
-                                    <Route path={'/account'} element={<AccountPage/>}/>
-                                    <Route path={'/upload'} element={<InstallMusic/>}/>
-                                    <Route path={'/subscriptions'} element={<Subscriptions/>}/>
-                                    <Route path={'/commentaries/:id'} element={<Commentaries/>}/>
-                                    <Route path={'/adminpanel'} element={<AdminPanel/>}/>
-                                    <Route path={'/artistpage'} element={<ArtistPersonalPage/>}/>
-                                    <Route path={'/playlist'} element={<PlaylistWindow/>}/>
-                                    <Route path={'/installmusic'} element={<InstallMusicNewDesign/>}/>
-                                    <Route path={'*'} element={<ErrorPage/>}/>
-                                </Routes>  
-                            </div>
-                        </PlayerContext.Provider>
-                    </CurrentSongContext.Provider>
-                </SubscriptionsContext.Provider>
-            </FeaturedContext.Provider>
-        </ExcludedContext.Provider>
+        <PlaylistsContext.Provider value={{playlists, setPlaylists}}>
+            <ExcludedContext.Provider value={{excluded, setExcluded}}>
+                <FeaturedContext.Provider value={{featured, setFeatured}}>
+                    <SubscriptionsContext.Provider value={{subscriptions, setSubscriptions}}>
+                        <CurrentSongContext.Provider value={{currentSong, setCurrentSong}}>
+                            <PlayerContext.Provider value={{songs, setSongs}}>
+                                <div className="App">
+                                    <Header/>
+                                    <MusicPlayer/>
+                                    <Sidebar searchHandler = {searchInputHandler} ></Sidebar>
+                                    <SearchResults searchQuery={searchInput}/>
+                                    <Routes>
+                                        <Route path={'/'} element={<Player/>}/>
+                                        <Route path={'/login'} element={<Login/>}/>
+                                        <Route path={'/registration'} element={<Registration/>}/>
+                                        <Route path={'/artist/:id'} element={<ArtistCard/>}/>
+                                        <Route path={'/featured'} element={<Featured/>}/>
+                                        <Route path={'/excluded'} element={<Excluded/>}/>
+                                        <Route path={'/account'} element={<AccountPage/>}/>
+                                        {/* <Route path={'/LKlistener'} element={<LKlistener/>}/> */}
+                                        <Route path={'/upload'} element={<InstallMusic/>}/>
+                                        <Route path={'/subscriptions'} element={<Subscriptions/>}/>
+                                        <Route path={'/commentaries/:id'} element={<Commentaries/>}/>
+                                        <Route path={'/adminpanel'} element={<AdminPanel/>}/>
+                                        <Route path={'/artistpage'} element={<ArtistPersonalPage/>}/>
+                                        <Route path={'/playlist/:id'} element={<PlaylistWindow/>}/>
+                                        <Route path={'/installmusic'} element={<InstallMusicNewDesign/>}/>
+                                        <Route path={'*'} element={<ErrorPage/>}/>
+                                        <Route path={'/edit'} element={<EditSong/>}/>
+                                    </Routes>  
+                                </div>
+                            </PlayerContext.Provider>
+                        </CurrentSongContext.Provider>
+                    </SubscriptionsContext.Provider>
+                </FeaturedContext.Provider>
+            </ExcludedContext.Provider>
+        </PlaylistsContext.Provider>
     );
 }
 

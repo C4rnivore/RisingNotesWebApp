@@ -1,5 +1,7 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState} from 'react';
+import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { useNavigate, redirect } from 'react-router-dom';
 import BackButton from '../../Components/BackButton';
 import Playlist from '../../Components/Playlist';
 import Song from '../../Components/Song/Song';
@@ -11,8 +13,10 @@ import cover from '../../Images/image-placeholder/song-cover-default.png';
 import edit from '../../Images/controller/edit-2.svg';
 import Chevron from '../../Images/controller/chevron-left.svg';
 import del from '../../Images/controller/x.svg';
-import { FeaturedContext, api, axiosUnauthorized } from '../../Components/App/App';
+import defaultSkin from '../../Images/Group 73.png'
+import { FeaturedContext, PlaylistsContext, api, axiosAuthorized, axiosUnauthorized} from '../../Components/App/App';
 import { useCookies } from 'react-cookie';
+
 
 
 export default function Featured() {
@@ -20,6 +24,8 @@ export default function Featured() {
     const {featured, setFeatured} = useContext(FeaturedContext);
     const [songs, setSongs] = useState([]);
     const [cookies, setCookies] = useCookies(['accessToken', 'refreshToken', 'authorId', 'role', 'userId']);
+    const {playlists, setPlaylists} = useContext(PlaylistsContext);
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (!cookies.role) {
@@ -28,6 +34,8 @@ export default function Featured() {
 
         getSongs();
     }, []);
+
+    
 
     async function getSongs() {
         let array = [];
@@ -40,6 +48,24 @@ export default function Featured() {
         setSongs(array);
     }
 
+    async function addNewPlaylist() {
+        let id = 0
+        let formData = new FormData();
+        formData.append('Name', 'Новый плейлист')
+        await axiosAuthorized.post(api + 'api/playlist', formData, { headers: {
+            "Content-Type": "multipart/form-data",
+        }})
+        .then (
+            response => {
+                id = response.data.id
+                setPlaylists(e => e = [...e, id])
+            }
+        )
+        navigate(`/playlist/${id}`)
+    };
+
+    
+
     return (
         <div className='comment-page-wrapper'>
             <div className='featured'>
@@ -48,10 +74,10 @@ export default function Featured() {
                     <h2 className='sub-h2'>Плейлисты</h2>
                 </div>
                 <div className='subscriptions'>
-                    <Playlist/>
-                    <Playlist/>
-                    <Playlist/>
-                    <img className='new-playlist' alt='add new playlist' src={newPlaylist}/>
+                    {playlists?.map(el => (
+                        <Playlist key={el} id={el}/>
+                    ))}
+                    <img className='new-playlist' alt='add new playlist' src={newPlaylist} onClick={addNewPlaylist}/>
                 </div>
                 <h3 className='sub-h2'>Все треки</h3>
                 <div className='tracks'>
