@@ -78,6 +78,7 @@
 }
 
 .music-player-buttons > *:hover {
+    cursor: pointer;
     transition: all .1s ease;
     transform: scale(0.95);
 }

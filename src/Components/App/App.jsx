@@ -21,6 +21,7 @@ import '../../Pages/AccountPage/AccountPage.css';
 import '../../Pages/PlaylistWindow/PlaylistWindow.css';
 import '../../Pages/InstallMusicNewDesign/InstallMusicNewDesign.css';
 import '../../Pages/404Page/404Page.css';
+import '../../Components/FallDownMenu/FallDownMenu.css';
 
 
 import Header from "../Header/Header";

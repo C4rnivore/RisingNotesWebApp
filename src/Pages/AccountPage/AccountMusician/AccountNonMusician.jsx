@@ -2,18 +2,19 @@ import { useCookies } from 'react-cookie';
 import { api, axiosAuthorized, axiosRefresh } from '../../../Components/App/App';
 import musicIcon from '../../../Images/account-page/music-icon.svg';
 import { jwtDecode } from 'jwt-decode';
+import { useState } from 'react';
 
 export default function AccountNonMusician(props) {
     const [cookies, setCookies] = useCookies(['accessToken', 'refreshToken', 'authorId', 'role', 'userId']);
 
     async function handleMakeArtist() {
         await axiosAuthorized.post('api/author', {
-            userid: props.userId,
-            name: props.artist,
-            about: props.about,
-            vkLink: props.vkLink,
-            webSiteLink: props.webSiteLink,
-            yaMusicLink: props.yaMusicLink
+            userId: cookies.userId,
+            name: "Автор я",
+            about: "",
+            vkLink: "",
+            webSiteLink: "",
+            yaMusicLink: ""
         })
         .catch(err => {throw err});
 

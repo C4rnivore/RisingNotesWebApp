@@ -2,6 +2,7 @@ import defaultAvatar from '../../../Images/account-page/image-placeholder.png';
 import statsIcon from '../../../Images/account-page/stats-icon.svg';
 import subsIcon from '../../../Images/account-page/subs-icon.svg';
 import creditIcon from '../../../Images/account-page/credit-card-red-icon.svg';
+import bigEdit from '../../../Images/account-page/edit-big.svg';
 import { useEffect, useRef, useState } from 'react';
 
 import { useCookies, withCookies } from 'react-cookie';
@@ -48,15 +49,17 @@ export default function AccountHead (props) {
             }
         })
         .then(response => {
-            if (!isImageExist)
-                setIsImageExist(!isImageExist);
-            imgRef.current.src= api + `api/user/${cookies.userId}/logo?width=400&height=400`;
+            // if (!isImageExist)
+            //     setIsImageExist(!isImageExist);
+            // imgRef.current.src= api + `api/user/${cookies.userId}/logo?width=400&height=400`;
+            window.location.reload();
         });
     }
 
     return (
         <div className="account-page-head">
             <button className="account-page-avatar-button" onClick={handleFileInput}>
+                <div className='account-page-avatar-change'><img src={bigEdit}/></div>
                 <img alt='avatar' ref={imgRef} src={isImageExist ? 
                 api + `api/user/${cookies.userId}/logo?width=400&height=400` : defaultAvatar}/>
             </button>

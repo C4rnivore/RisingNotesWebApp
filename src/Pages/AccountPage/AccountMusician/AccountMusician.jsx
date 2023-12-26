@@ -3,7 +3,7 @@ import linkIcon from '../../../Images/account-page/link-icon.svg';
 import vkIcon from '../../../Images/account-page/vk-icon.svg';
 import yandexIcon from '../../../Images/account-page/yandex-icon.svg';
 import plus from '../../../Images/account-page/plus-icon.svg';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import Song from './Song';
 import { api, axiosAuthorized, axiosUnauthorized } from '../../../Components/App/App';
 import { Link } from 'react-router-dom';
@@ -14,6 +14,8 @@ export default function AccountMusician (props) {
     const [vkLink, setVkLink] = useState(props.vkLink);
     const [yaMusicLink, setYaMusicLink] = useState(props.yaMusicLink);
     const [webSiteLink, setWebSiteLink] = useState(props.webSiteLink);
+    const audioRef = useRef(null);
+    const [isPlaying, setIsPlaying] = useState(false);
 
     useEffect(() => {
         // axiosUnauthorized.get(api + `api/author/${props.authorId}/song/list`)
@@ -71,10 +73,20 @@ export default function AccountMusician (props) {
             </button>
 
             <h2>Все треки</h2>
+            <audio ref={audioRef} type="audio/mpeg" autoPlay={true} style={{ display: 'none' }}/>
             <Link to={'/installmusic'} className='account-page-add-song'><img alt='icon' src={plus}/>Добавить трек</Link>
 
             <div className="tracks">
-                {uploads.map(el => <Song key={el.id} id={el.id} artist={props.artist} status={el.status}/>)}
+                {uploads.map(el => 
+                    <Song 
+                        key={el.id} 
+                        id={el.id} 
+                        artist={props.artist} 
+                        status={el.status} 
+                        audioRef={audioRef} 
+                        isPlaying={isPlaying}
+                        setIsPlaying={setIsPlaying}/>
+                )}
             </div>
             {uploads.length == 0 ? <p>Вы еще не загрузили ни одного трека</p> : <></>}
             

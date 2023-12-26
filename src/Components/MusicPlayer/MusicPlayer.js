@@ -165,34 +165,38 @@ const MusicPlayer = (props) => {
     };
 
     async function handleToFavorite() {
-        if (featured.includes(currentSong)) {
-            await axiosAuthorized.delete(api + `api/song/favorite/${currentSong}`).then(resp => {
-                setFeatured(e => e = e.filter(el => el != currentSong));
-            });
-        }
-        else {
-            await axiosAuthorized.patch(api + `api/song/favorite/${currentSong}`).then(resp => {
-                setFeatured(e => e = [...e, currentSong]);
-            });;
+        if (!currentSong === '' ) {
+            if (featured.includes(currentSong)) {
+                await axiosAuthorized.delete(api + `api/song/favorite/${currentSong}`).then(resp => {
+                    setFeatured(e => e = e.filter(el => el != currentSong));
+                });
+            }
+            else {
+                await axiosAuthorized.patch(api + `api/song/favorite/${currentSong}`).then(resp => {
+                    setFeatured(e => e = [...e, currentSong]);
+                });;
+            }
         }
     };
 
     async function handleToExcluded() {
-        if (excluded.includes(currentSong)) {
-            await axiosAuthorized.delete(api + `api/excluded-track/${currentSong}`).then(resp => {
-                setExcluded(e => e = e.filter(el => el != currentSong));
-            });;
-        }
-        else {
-            await axiosAuthorized.post(api + `api/excluded-track/${currentSong}`).then(resp => {
-                setExcluded(e => e = [...e, currentSong]);
-            });;
+        if (!currentSong === '' ) {
+            if (excluded.includes(currentSong)) {
+                await axiosAuthorized.delete(api + `api/excluded-track/${currentSong}`).then(resp => {
+                    setExcluded(e => e = e.filter(el => el != currentSong));
+                });;
+            }
+            else {
+                await axiosAuthorized.post(api + `api/excluded-track/${currentSong}`).then(resp => {
+                    setExcluded(e => e = [...e, currentSong]);
+                });;
+            }
         }
     };
 
     return (<div className="music-player-wrapper">
         <audio ref={audioRef} src={currentSong ? api + `api/song/${currentSong}/file` : ''}
-            onEnded={handleNextSong} type="audio/mpeg" autoPlay={isPlaying} controls/>
+            onEnded={handleNextSong} type="audio/mpeg" autoPlay={isPlaying} controls style={{ display: 'none' }}/>
         <div className="music-player">
             <img className={isPlaying ? 'music-player-cover rotate' : 'music-player-cover'} src={currentSong ?
             (api + `api/song/${currentSong}/logo?width=100&height=100`) : cover} alt='cover'/>

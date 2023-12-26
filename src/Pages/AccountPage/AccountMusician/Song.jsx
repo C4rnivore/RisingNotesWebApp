@@ -1,25 +1,34 @@
 import editIcon from '../../../Images/account-page/edit-icon.svg';
 import SongCover from '../../../Images/image-placeholder/songskin.png';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import message from '../../../Images/controller/Chat_Dots.png';
 import statsIcon from '../../../Images/account-page/stats-icon.svg';
-import { CurrentSongContext, PlayerContext, api, axiosAuthorized } from '../../../Components/App/App';
+import { CurrentSongContext, PlayerContext, api, axiosAuthorized, axiosUnauthorized } from '../../../Components/App/App';
 
 const statusType = {
     0: 'Неизвестно',
-    1: 'На проверке',
+    1: 'На модерации',
     2: 'На доработке',
     3: 'Опубликовано',
-    4: 'Отказано',
+    4: 'Отклонено',
     5: 'Отозвано'
 };
+
+const statusColor = {
+    0: 'yellow',
+    1: 'yellow',
+    2: 'yellow',
+    3: 'green',
+    4: 'red',
+    5: 'red'
+}
 
 export default function Song (props) {
     const [songName, setSongName] = useState('');
     const [duration, setDuration] = useState(0);
-    const {songs, setSongs} = useContext(PlayerContext);
-    const {currentSong, setCurrentSong} = useContext(CurrentSongContext);
+    const [songId, setSongId] = useState(undefined); 
+    const [auditionCount, setAuditionCount] = useState(0);
 
     const formatTime = (miliseconds) => {
         let seconds = miliseconds * 0.001
@@ -36,26 +45,47 @@ export default function Song (props) {
         axiosAuthorized.get(`api/song/upload-request/${props.id}`)
         .then(response => {
             setSongName(response.data.songName);
+            setDuration(response.data?.durationMs);
+            setSongId(response.data.publishedSongId);
+            if (response.data.publishedSongId) {
+                axiosUnauthorized.get(`api/song/${response.data.publishedSongId}`)
+                .then(response => {
+                    setAuditionCount(response.data.auditionCount);
+                })
+            }
         })
-        setDuration(formatTime(props.duration));
+        setDuration(formatTime(0));
     }, []);
 
-    const handleAddToSongs = () => {
-        setSongs(e => e = [...e, props.id])
-        setCurrentSong(props.id);
+    const handleAddToSongs = (event) => {
+        event.preventDefault();
+        if (props.isPlaying && 
+            props.audioRef.current?.src === api + `api/song/upload-request/${props.id}/file`) {
+            props.audioRef.current?.pause();
+            props.setIsPlaying(false);
+        }
+        else {
+            props.audioRef.current.src= api + `api/song/upload-request/${props.id}/file`;
+            props.audioRef.current?.play();
+            props.setIsPlaying(true);
+        }
+        
     };
 
     return (
         <div className='track'>
-            <img onClick={handleAddToSongs} alt='cover' src={api + `api/song/${props.id}/logo?width=100&height=100`}/>
+            <img onClick={handleAddToSongs} alt='cover' src={api + `api/song/upload-request/${props.id}/logo?width=100&height=100`}/>
             <p onClick={handleAddToSongs} className='song-title-t'>{songName}<p className='songAuthor'>{props.artist}</p></p>
-            <p className='track-statistic'><img alt='stats' src={statsIcon}/>{props.auditionCount}</p>
+            <p className='track-statistic'><img alt='stats' src={statsIcon}/>{auditionCount}</p>
             <p className='song-status'>
-                <div className='song-status-dot red'></div>
+                <div className={'song-status-dot ' + statusColor[props.status]}></div>
                 {statusType[props.status]}
             </p>
             <p className='song-duration'>{duration}</p>
-            <Link to={`/commentaries/${props.id}`}><img alt='comment' src={message}/></Link>
+            {songId ? 
+                <Link to={`/commentaries/${songId}`}><img alt='comment' src={message}/></Link> : 
+                <Link to={`/account`}><img alt='comment' src={message} style={{opacity: 0.2}}/></Link>}
+            
             <a><img alt='list' src={editIcon} /></a>
         </div>
     )

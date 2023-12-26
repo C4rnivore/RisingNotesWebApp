@@ -101,30 +101,6 @@ function Sidebar(props) {
                      <span>Подписки</span>
                   </NavLink>
                </li>
-               <li> 
-                  <NavLink className ={({ isActive }) => (isActive ? 'nav-link remove active' : 'nav-link remove ' )}
-                  to={'/login'} 
-                  style={({ isActive }) => (isActive ? {color: '#FE1170'} : {color: '#787885'})}>
-                     <img src={subsIcon} alt="" className="nav-icon" />
-                     <span>логин</span>
-                  </NavLink>
-               </li>
-               <li> 
-                  <NavLink className ={({ isActive }) => (isActive ? 'nav-link remove active' : 'nav-link remove ' )}
-                  to={'/registration'} 
-                  style={({ isActive }) => (isActive ? {color: '#FE1170'} : {color: '#787885'})}>
-                     <img src={subsIcon} alt="" className="nav-icon" />
-                     <span>рега</span>
-                  </NavLink>
-               </li>
-               <li> 
-                  <NavLink className ={({ isActive }) => (isActive ? 'nav-link remove active' : 'nav-link remove ' )}
-                  to={'/account'} 
-                  style={({ isActive }) => (isActive ? {color: '#FE1170'} : {color: '#787885'})}>
-                     <img src={subsIcon} alt="" className="nav-icon" />
-                     <span>аккаунт</span>
-                  </NavLink>
-               </li>
                </ul>
             </nav>
          </div>

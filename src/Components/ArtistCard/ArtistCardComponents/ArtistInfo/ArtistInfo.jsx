@@ -4,6 +4,7 @@ import subsIcon from '../../../../Images/artist-card/Users.svg'
 import linkIcon from '../../../../Images/artist-card/Link.svg'
 import vkIcon from '../../../../Images/artist-card/Social Icons.svg'
 import yandexIcon from '../../../../Images/artist-card/yandex.svg'
+import defaultAvatar from '../../../../Images/account-page/image-placeholder.png';
 import { useContext, useEffect, useState } from "react"
 import { SubscriptionsContext, api, axiosAuthorized, axiosUnauthorized } from "../../../App/App"
 import { useNavigate, useParams } from "react-router-dom"
@@ -22,15 +23,23 @@ function ArtistInfo(props) {
     const params = useParams();
     const {subscriptions, setSubscriptions} = useContext(SubscriptionsContext);
     const [isSubscribed, setIsSubscribed] = useState(subscriptions.includes(params.id));
+    const [isImageExist, setIsImageExist] = useState(false);
 
     useEffect(() => {
+        axiosUnauthorized.get(api + `api/user/${userId}/logo?width=400&height=400`)
+        .then(setIsImageExist(true))
+        .catch(err => {
+            console.log(err);
+            setIsImageExist(false)
+        });
+
         setIsSubscribed(subscriptions.includes(params.id));
         setSubscribersCount(props.artist.subscribersCount);
     }, [subscriptions]);
 
     return(
         <div className="info-container">
-            <img src={api + `api/user/${userId}/logo?width=400&height=400`} alt="" className="artist-img" draggable='false'/>
+            <img src={isImageExist ? api + `api/user/${userId}/logo?width=400&height=400` : defaultAvatar} alt="" className="artist-img" draggable='false'/>
             <div className="artist-info">
                 <div className="row-top">
                     <span className="artist-name">{artistName}</span>

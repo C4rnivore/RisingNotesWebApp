@@ -98,13 +98,7 @@ export default function AccountPage () {
                     artist={userName}
                     handleRefreshMusicianInfo={handleRefreshMusicianInfo}/> : <></>}
                 {currPage === 2 ? <AccountPayment/> : <></>}
-                {currPage === 3 ? <AccountNonMusician  
-                    authorId={authorId} 
-                    about={about} 
-                    vkLink={vkLink} 
-                    webSiteLink={webSiteLink} 
-                    yaMusicLink={yaMusicLink} 
-                    artist={userName}/> : <></>}
+                {currPage === 3 ? <AccountNonMusician/> : <></>}
             </div>
         </div>
     );
