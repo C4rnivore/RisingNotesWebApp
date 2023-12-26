@@ -16,7 +16,7 @@ function Song(props) {
     const {currentSong, setCurrentSong} = useContext(CurrentSongContext);
     const {featured, setFeatured} = useContext(FeaturedContext);
     const {excluded, setExcluded} = useContext(ExcludedContext);
-
+    console.log(props);
     const changeModalState = () => {
         setModalIsHidden(modalIsHidden => modalIsHidden = !modalIsHidden);
     }

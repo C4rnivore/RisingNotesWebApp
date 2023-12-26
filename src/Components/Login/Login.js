@@ -8,13 +8,14 @@ import headphones from '../../Images/login/headphones.png';
 import stripe from '../../Images/login/bottom-design-element.svg';
 import { jwtDecode } from 'jwt-decode';
 
-import { SubscriptionsContext, api, axiosAuthorized, axiosUnauthorized } from '../App/App';
+import { PlaylistsContext, SubscriptionsContext, api, axiosAuthorized, axiosUnauthorized } from '../App/App';
 
 function Login() {
     const [cookies, setCookies] = useCookies(['accessToken', 'refreshToken', 'authorId', 'role', 'subscriptions', 'userId']);
     const [userName, setUserName] = useState(undefined);
     const [password, setPassword] = useState(undefined);
     const {subscriptions, setSubscriptions} = useContext(SubscriptionsContext);
+    const {playlists, setPlaylists} = useContext(PlaylistsContext);
 
     const handleLogin = () => {
         if (!((userName === '' || userName === undefined) || (password === '' || password === undefined))) {
@@ -50,13 +51,24 @@ function Login() {
                     let arr = [];
                     response.data.subscriptionList.map(e => arr.push(e.authorId));
                     setSubscriptions(arr);
-                    window.location.replace('/');
+                    getPlaylists(userId);
                 })
             })
             .catch(err => {
                 console.log(err);
             })
         }
+    }
+
+    function getPlaylists(userId) {
+        axiosUnauthorized.get(`api/playlist/list/${userId}`)
+        .then (
+            response => {
+                let arr = [];
+                response.data.playlistInfoList.map(e => arr.push(e.id));
+                setPlaylists(arr);
+                window.location.replace('/');
+            })
     }
 
     return (

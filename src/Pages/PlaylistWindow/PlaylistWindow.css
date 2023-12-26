@@ -1,6 +1,6 @@
 .playlist-window {
     position: absolute;
-    width: 100%;
+    width: 1040px;
     max-width: 762px;
     height: fit-content;
     border-radius: 20px;
@@ -32,10 +32,31 @@
     /* background: url(<path-to-image>), lightgray 50% / cover no-repeat; */
 }
 
+.playlist-edit {
+    display: inline-flex;
+    width: 100%;
+    gap: 30px;
+    height: 22px;
+    margin-top: 80px;
+    margin-left: -760px;
+    align-items: center;
+}
+
 .delete-playlist {
+   
+    color: #787885;
+    
+    font-family: Montserrat;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    align-items: center;
     display: flex;
     align-items: center;
     justify-content: center;
+    gap: 4px;
+    
 }
 
 .delete-playlist:hover {
@@ -44,6 +65,7 @@
 
 .playlistname {
     color: #FFF;
+    width: 100%;
 
     font-family: Montserrat;
     font-size: 48px;
@@ -52,29 +74,78 @@
     line-height: normal;
     height: 62px;  
     margin-left: 40px;
-   
+}
+
+.rename-playlist:hover {
+    cursor: pointer;
 }
 
 .rename-playlist {
-    color: #FFF;
-
+    color: #787885;
+    
     font-family: Montserrat;
-    font-size: 20px;
+    font-size: 16px;
     font-style: normal;
-    font-weight: 200;
+    font-weight: 400;
     line-height: normal;
-    margin-top: 80px;
-    margin-left: -604px;
+    align-items: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+   
     
 }
 
 .playlist-information {
     display: flex;
-    width: 100%;
-    max-width: 1200px;
+    width: 1040px;
     
     margin-bottom: 106px;
 }
+
+.private-playlist {
+    color: #787885;
+    
+    font-family: Montserrat;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    align-items: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+}
+
+.private-playlist:hover {
+    cursor: pointer;
+}
+
+.private-checkbox{
+    display: flex;
+    gap: 6px;
+} 
+
+.input-name-playlist{
+    background-color: transparent;
+    width: 100%;
+    border: none;
+    box-shadow: none;
+    color: white;
+    font-family: Montserrat;
+    font-size: 48px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    height: 62px;  
+    margin-left: 40px;
+}
+
+
+
+
 
 
 
