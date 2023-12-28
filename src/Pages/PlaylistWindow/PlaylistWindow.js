@@ -12,6 +12,7 @@ import trash from '../../Images/trash.svg';
 import { useState, useContext, useRef } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { FeaturedContext, PlaylistsContext, api, axiosAuthorized, axiosUnauthorized} from '../../Components/App/App';
+import axios from 'axios';
 
 
 
@@ -27,6 +28,7 @@ function PlaylistWindow(){
     const [isEditing, setIsEditing] = useState(false);
     const navigate = useNavigate();
     const [logofile, setLogofile] = useState(undefined);
+    const [isPrivate, setIsPrivate] = useState(false);
     
 
     function reviewAvatar() {
@@ -86,10 +88,34 @@ function PlaylistWindow(){
         setNamePlaylist(event.target.value);
     };
 
-    const handleBlur = async () => {
+    const handleCheckboxChange = () => {
+        setIsPrivate(!isPrivate);
+     };
+
+     const handleBlur = async () => {
         const playlistId = params.id;
-        await axiosAuthorized.patch(`/api/playlist/${playlistId}`, { name: namePlaylist });
-    };
+        await axiosAuthorized.patch(`/api/playlist/${playlistId}`, { name: namePlaylist, isPrivate: isPrivate }).then(() => {
+            setIsEditing(false);
+        });
+     };
+
+    // useEffect(() => {
+    //     const playlistId = params.id;
+    //     axiosAuthorized.patch(`/api/playlist/${playlistId}`, { isPrivate: isPrivate }).then(() => {
+    //     });
+    // }, [isPrivate]);
+
+    // const handleCheckboxChange = async () => {
+    //     setIsChecked(!isChecked);
+    //     const playlistId = params.id;
+    //     try {
+    //       await axiosAuthorized.patch(`/api/playlists/${playlistId}`, {
+    //         isPrivate: !isChecked
+    //       });
+    //     } catch (error) {
+    //       console.error(error);
+    //     }
+    //    };
 
         return (
             <div className='comment-page-wrapper'>
@@ -99,25 +125,27 @@ function PlaylistWindow(){
                         <div className='image-playlistskin'>
                             <img className='playlistskin' alt='playlist cover' src={isreviewSkin ? (logofile ?? api + `api/playlist/${params.id}/logo?width=400&height=400`) : SongCover} onClick={handleImageInput}/>
                         </div>
-                        {isEditing ? (
-                            <input
-                            className='input-name-playlist'
-                            type="text"
-                            value={namePlaylist}
-                            placeholder={'Введите название...'}
-                            onChange={handleInputChange}
-                            onBlur={handleBlur}
-                            />
-                            ) : (
-                            <p className='playlistname' onClick={toggleEditMode}>{namePlaylist}</p>
-                        )}
-                        <div className='playlist-edit'>
-                            <div className="private-checkbox">
-                                <input type="checkbox" className='checkbox-button'/>
-                                <label className='private-playlist'>Приватный</label>
+                        <div className='nameplaylist-and-buttons'>
+                            {isEditing ? (
+                                <input
+                                className='input-name-playlist'
+                                type="text"
+                                value={namePlaylist}
+                                placeholder={'Введите название...'}
+                                onChange={handleInputChange}
+                                onBlur={handleBlur}
+                                />
+                                ) : (
+                                <p className='playlistname' onClick={toggleEditMode}>{namePlaylist}</p>
+                            )}
+                            <div className='playlist-edit'>
+                                <div className="private-checkbox">
+                                    <input type="checkbox" className='checkbox-button' checked={isPrivate} onChange={handleCheckboxChange}/>
+                                    <label className='private-playlist'>Приватный</label>
+                                </div>
+                                {/* <p className='rename-playlist'><img className='pencil-icon' alt='pencil' src={pencil} /> Переименовать</p> */}
+                                <p className='delete-playlist' onClick={() => deletePlaylist()}><img className='pencil-icon' alt='pencil' src={trash}/> Удалить плейлист</p>
                             </div>
-                            {/* <p className='rename-playlist'><img className='pencil-icon' alt='pencil' src={pencil} /> Переименовать</p> */}
-                            <p className='delete-playlist' onClick={() => deletePlaylist()}><img className='pencil-icon' alt='pencil' src={trash}/> Удалить плейлист</p>
                         </div>
                     </div>
                     <div className='tracks'>
@@ -126,7 +154,7 @@ function PlaylistWindow(){
                         ))}
                     </div>
                 </div>
-                <img className="player-bg-image" src={isreviewSkin ? (logofile ?? api + `api/playlist/${params.id}/logo?width=400&height=400`) : ''} alt="" />
+                <img className="playlist-bg-image" src={isreviewSkin ? (logofile ?? api + `api/playlist/${params.id}/logo?width=400&height=400`) : ''} alt="" />
                 <input type='file' accept="image/*" className='input-file' ref={imageSetterRef} onChange={uploadLogo}></input>
             </div>
         )

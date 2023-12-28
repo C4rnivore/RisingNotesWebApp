@@ -74,7 +74,7 @@ export default function AccountMusician (props) {
 
             <h2>Все треки</h2>
             <audio ref={audioRef} type="audio/mpeg" autoPlay={true} style={{ display: 'none' }}/>
-            <Link to={'/installmusic'} className='account-page-add-song'><img alt='icon' src={plus}/>Добавить трек</Link>
+            <Link to={'/uploadmusic'} className='account-page-add-song'><img alt='icon' src={plus}/>Добавить трек</Link>
 
             <div className="tracks">
                 {uploads.map(el => 

@@ -2,9 +2,9 @@ import React from 'react';
 import BackButton from '../../Components/BackButton';
 import PlaylistInstallSkin from '../../Images/installmusicimages/Group 67.png';
 import Cloud from '../../Images/installmusicimages/cloud.svg';
-import InstallMusicFilterComponent from '../../Components/EditAndCreateTrack/InstallMusicFilterComponent';
+import InstallMusicFilterComponent from '../InstallMusicNewDesign/InstallMusicFilterComponent';
 import { useState, useEffect } from 'react'
-import InstallMusicText from '../../Components/EditAndCreateTrack/InstallMusicText';
+import InstallMusicText from '../InstallMusicNewDesign/InstallMusicText';
 import Save from '../../Images/installmusicimages/save.svg';
 import { BsCloudArrowUp } from "react-icons/bs";
 

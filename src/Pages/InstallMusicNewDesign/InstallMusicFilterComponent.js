@@ -1,12 +1,16 @@
 import React from 'react';
-import BackButton from '../BackButton';
+import BackButton from '../../Components/BackButton';
 import PlaylistInstallSkin from '../../Images/installmusicimages/Group 67.png';
 import Cloud from '../../Images/installmusicimages/cloud.svg';
 import { useEffect, useState } from "react"
+import { useParams } from 'react-router-dom';
 
 
 
 function InstallMusicFilterComponent(props){
+    const params = useParams();
+    const [isLoaded, setIsLoaded] = useState(false)
+
     
     const [curVibe, setCurvibe] = useState('');
     const [vibe, setVibe] = useState(props.list);
@@ -25,15 +29,20 @@ function InstallMusicFilterComponent(props){
         props.setList(vibe);
     }
 
+    // useEffect(() => {
+    //     setVibe(props.list)
+    // }, [props]);
+
+
     return (
         <div>
-            <div className=''>
+            <div className='input-filtercomponent'>
                 <input className="input-installmusic" placeholder={props.placeholder} value={curVibe} onChange={e => setCurvibe(e.target.value)}/>
-                <button className="submit-tag-input" onClick={addCurVibe}>&#10010;</button>
+                <button className="submit-tag-input-track" onClick={addCurVibe}>&#10010;</button>
             </div>
             <div className="filter-tags">
                 {vibe.map((tag, index) => (
-                    <div className="tag-container" key={index} id={index.id}  >
+                    <div className="tag-container2" key={index} id={index.id}  >
                         <span className='tag'>{tag}</span>
                         <button className='tag-close' onClick={ e => deleteTag(tag)}>&#215;</button>
                     </div>

@@ -135,6 +135,7 @@
     padding: 3px 10px;
     background-color: #FE1170;
     border-radius: 50px;
+    align-items: center;
 }
 .tag{
     font-family: var(--text-font);

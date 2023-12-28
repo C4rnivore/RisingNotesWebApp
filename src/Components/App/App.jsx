@@ -210,13 +210,14 @@ function App() {
                                             <Route path={'/excluded'} element={<Excluded/>}/>
                                             <Route path={'/account'} element={<AccountPage/>}/>
                                             {/* <Route path={'/LKlistener'} element={<LKlistener/>}/> */}
-                                            <Route path={'/upload'} element={<InstallMusic/>}/>
+                                            {/* <Route path={'/upload'} element={<InstallMusic/>}/> */}
                                             <Route path={'/subscriptions'} element={<Subscriptions/>}/>
                                             <Route path={'/commentaries/:id'} element={<Commentaries/>}/>
                                             <Route path={'/adminpanel'} element={<AdminPanel/>}/>
                                             <Route path={'/artistpage'} element={<ArtistPersonalPage/>}/>
                                             <Route path={'/playlist/:id'} element={<PlaylistWindow/>}/>
-                                        <Route path={'/installmusic'} element={<InstallMusicNewDesign/>}/>
+                                        <Route path={'/uploadmusic'} element={<InstallMusicNewDesign/>}/>
+                                        <Route path={'/uploadmusic/:id'} element={<InstallMusicNewDesign/>}/>
                                         <Route path={'*'} element={<ErrorPage/>}/>
                                         <Route path={'/edit'} element={<EditSong/>}/>
                                         </Routes>  
