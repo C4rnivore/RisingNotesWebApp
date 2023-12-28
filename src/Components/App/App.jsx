@@ -184,18 +184,16 @@ function App() {
     }, [songs, currentSong, subscriptions, featured, excluded, playlists]);
     // обновление переменных в браузере, только тогда когда чет поменялось
 
-    const [searchInput, setSearchInput] = useState('')
-
     function searchInputHandler(input) {
         setSearchInput(input)
     }
 
     return (
-        <PlaylistsContext.Provider value={{playlists, setPlaylists}}>
-            <ExcludedContext.Provider value={{excluded, setExcluded}}>
-                <FeaturedContext.Provider value={{featured, setFeatured}}>
-                    <SearchQueryContext.Provider value={{searchInput, setSearchInput}}>
-            <SubscriptionsContext.Provider value={{subscriptions, setSubscriptions}}>
+        <SearchQueryContext.Provider value={{searchInput, setSearchInput}}>
+            <PlaylistsContext.Provider value={{playlists, setPlaylists}}>
+                <ExcludedContext.Provider value={{excluded, setExcluded}}>
+                    <FeaturedContext.Provider value={{featured, setFeatured}}>
+                        <SubscriptionsContext.Provider value={{subscriptions, setSubscriptions}}>
                             <CurrentSongContext.Provider value={{currentSong, setCurrentSong}}>
                                 <PlayerContext.Provider value={{songs, setSongs}}>
                                     <div className="App">
@@ -226,9 +224,9 @@ function App() {
                                 </PlayerContext.Provider>
                             </CurrentSongContext.Provider>
                         </SubscriptionsContext.Provider>
-                </FeaturedContext.Provider>
-            </ExcludedContext.Provider>
-        </PlaylistsContext.Provider>
+                    </FeaturedContext.Provider>
+                </ExcludedContext.Provider>
+            </PlaylistsContext.Provider>
         </SearchQueryContext.Provider>
     );
 }

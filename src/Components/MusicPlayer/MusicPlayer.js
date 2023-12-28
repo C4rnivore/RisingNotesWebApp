@@ -165,7 +165,8 @@ const MusicPlayer = (props) => {
     };
 
     async function handleToFavorite() {
-        if (!currentSong === '' ) {
+        if (currentSong !== '' ) {
+            
             if (featured.includes(currentSong)) {
                 await axiosAuthorized.delete(api + `api/song/favorite/${currentSong}`).then(resp => {
                     setFeatured(e => e = e.filter(el => el != currentSong));
@@ -180,7 +181,7 @@ const MusicPlayer = (props) => {
     };
 
     async function handleToExcluded() {
-        if (!currentSong === '' ) {
+        if (currentSong !== '' ) {
             if (excluded.includes(currentSong)) {
                 await axiosAuthorized.delete(api + `api/excluded-track/${currentSong}`).then(resp => {
                     setExcluded(e => e = e.filter(el => el != currentSong));
