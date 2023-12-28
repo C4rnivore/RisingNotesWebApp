@@ -1,5 +1,5 @@
 import React from 'react';
-import BackButton from '../BackButton';
+import BackButton from '../../Components/BackButton';
 import PlaylistInstallSkin from '../../Images/installmusicimages/Group 67.png';
 import Cloud from '../../Images/installmusicimages/cloud.svg';
 import { useEffect, useState, useRef } from "react"
@@ -7,18 +7,6 @@ import { useEffect, useState, useRef } from "react"
 
 
 function InstallMusicText(props){
-
-    
-   
-   
-    // toggleButton.onclick = function () {
-    //   if (targetDiv.style.display !== "none") {
-    //     targetDiv.style.display = "none";
-    //   } else {
-    //     targetDiv.style.display = "block";
-    //   }
-    // };
-    // const [tags,setTags] = useState([]);
 
     const [toggleButton, setToggleButton] = useState(0);
     const handleswitchStateClick = ()=>{
@@ -32,33 +20,6 @@ function InstallMusicText(props){
         }
     }
 
-    // const handleInputClick = (e) =>{
-    //     e.preventDefault()
-
-    //     let inp = document.getElementById(props.id+"-input")
-
-    //     if(!inp)
-    //         return
-    //     else if(inp.value === '')
-    //         return
-    //     else if(tags.includes(inp.value))
-    //         return
-
-    //     setTags(cur => cur = [...cur, inp.value])
-    // }
-
-    // const deleteTag = (value) => {
-    //     let updated = tags.filter(val => val != value)
-    //     setTags(updated)
-    // }
-
-    // function passToParent(filterId, filterValue = null){
-    //     props.function(filterId, filterValue)
-    // }
-
-    // useEffect(()=>{
-    //     passToParent(props.id, tags)
-    // }, [tags])
 
     return (
         <div className='song-availability-text'>

@@ -115,7 +115,7 @@ function Sidebar(props) {
                ))}
                <li className='add-playlist' onClick={handleCreatePlaylistBtn}>
                   <span className="add-playlist-icon">+</span>
-                  <span className='sidebar-playlist-name'>Добавить плейлист</span>
+                  <span className='sidebar-playlist-name'> Добавить плейлист</span>
                </li>
             </ul>
          </div>

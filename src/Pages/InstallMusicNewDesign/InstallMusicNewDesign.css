@@ -92,6 +92,69 @@
     margin-left: 40px;
 }
 
+.submit-tag-input-track {
+    width: max-content;
+    position: absolute;
+    padding-inline: 7px;
+    background: none;
+    border: none;
+    right: 0;
+    
+    color: #787885;
+    margin-top: 5px;
+    
+}   
+
+.tag-container2{
+    display: flex;
+    flex-direction: row;
+    gap:5px;
+    padding: 3px 10px;
+    background-color: #cb115e;
+    border-radius: 50px;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.input-filtercomponent {
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column; 
+}
+
+.input-installmusic {
+    
+    width: 100%;
+    height: 40px;
+    border: none;
+    border-radius: 10px;
+    background: #191E28;
+    color: #787885;
+
+    font-family: Montserrat;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    margin-bottom: 24px;
+    padding:5px 40px 5px 16px;
+
+}
+
+.div-track {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    gap: 20px;
+}
+
+.name-new-song {
+    text-align: center;
+    justify-content: center;
+    max-width: 400px;
+}
+
 .upload-file-installmusic {
     display: flex;
     justify-content: center;
@@ -99,7 +162,7 @@
     gap: 10px;
     width: 257px;
     height: 48px;
-    margin-left: 40px;
+    /* margin-left: 40px; */
 
     border-radius: 15px;
     background: #FE1170;
@@ -165,25 +228,6 @@
     margin-bottom: 24px;
 }
 
-.input-installmusic {
-    width: 100%;
-    height: 40px;
-    border: none;
-    border-radius: 10px;
-    background: #191E28;
-    color: #787885;
-    padding-left: 16px;
-
-    font-family: Montserrat;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
-    margin-bottom: 24px;
-    padding:5px 16px 5px 16px;
-
-}
-
 .filters-select {
     width: 500px;
     height: 40px;
@@ -222,7 +266,7 @@
     height: 20px;
     width: 41px;
     background-color: #787885;
-    margin-left: 920px;
+    margin-left: 945px;
 }
 
 .text-switch-toggled {
@@ -235,7 +279,7 @@
     height: 20px;
     width: 41px;
     background-color: #FE1170;
-    margin-left: 920px;
+    margin-left: 945px;
 }
 
 .text-switch:hover,
@@ -249,7 +293,7 @@
     width: 12px;
     background-color: #fff;
     border-radius: 50%;
-    left: 4px;
+    left: 6px;
     transform: translateX(0);
     transition: 250ms ease-in-out;
 }
