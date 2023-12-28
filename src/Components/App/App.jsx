@@ -216,10 +216,10 @@ function App() {
                                             <Route path={'/adminpanel'} element={<AdminPanel/>}/>
                                             <Route path={'/artistpage'} element={<ArtistPersonalPage/>}/>
                                             <Route path={'/playlist/:id'} element={<PlaylistWindow/>}/>
-                                        <Route path={'/uploadmusic'} element={<InstallMusicNewDesign/>}/>
-                                        <Route path={'/uploadmusic/:id'} element={<InstallMusicNewDesign/>}/>
-                                        <Route path={'*'} element={<ErrorPage/>}/>
-                                        <Route path={'/edit'} element={<EditSong/>}/>
+                                            <Route path={'/uploadmusic'} element={<InstallMusicNewDesign/>}/>
+                                            <Route path={'/uploadmusic/:id'} element={<InstallMusicNewDesign/>}/>
+                                            <Route path={'*'} element={<ErrorPage/>}/>
+                                            <Route path={'/edit'} element={<EditSong/>}/>
                                         </Routes>  
                                     </div>
                                 </PlayerContext.Provider>
