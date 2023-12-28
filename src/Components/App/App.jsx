@@ -90,6 +90,7 @@ export const FeaturedContext = createContext({});
 export const ExcludedContext = createContext({});
 export const PlaylistsContext = createContext({});
 // ссылка на переменную
+export const SearchQueryContext = createContext({});
 
 function App() {
     const navigate = useNavigate();
@@ -110,6 +111,7 @@ function App() {
     // проверка на наличие
     const [playlists, setPlaylists] = useState(playlistsJSON ? JSON.parse(playlistsJSON) : []);
     const [cookies, setCookies] = useCookies(['accessToken', 'refreshToken', 'authorId', 'role', 'userId']);
+    const [searchInput, setSearchInput] = useState('')
   
     //обновление токена
     async function refreshTokens (config) {
@@ -192,40 +194,42 @@ function App() {
         <PlaylistsContext.Provider value={{playlists, setPlaylists}}>
             <ExcludedContext.Provider value={{excluded, setExcluded}}>
                 <FeaturedContext.Provider value={{featured, setFeatured}}>
-                    <SubscriptionsContext.Provider value={{subscriptions, setSubscriptions}}>
-                        <CurrentSongContext.Provider value={{currentSong, setCurrentSong}}>
-                            <PlayerContext.Provider value={{songs, setSongs}}>
-                                <div className="App">
-                                    <Header/>
-                                    <MusicPlayer/>
-                                    <Sidebar searchHandler = {searchInputHandler} ></Sidebar>
-                                    <SearchResults searchQuery={searchInput}/>
-                                    <Routes>
-                                        <Route path={'/'} element={<Player/>}/>
-                                        <Route path={'/login'} element={<Login/>}/>
-                                        <Route path={'/registration'} element={<Registration/>}/>
-                                        <Route path={'/artist/:id'} element={<ArtistCard/>}/>
-                                        <Route path={'/featured'} element={<Featured/>}/>
-                                        <Route path={'/excluded'} element={<Excluded/>}/>
-                                        <Route path={'/account'} element={<AccountPage/>}/>
-                                        {/* <Route path={'/LKlistener'} element={<LKlistener/>}/> */}
-                                        <Route path={'/upload'} element={<InstallMusic/>}/>
-                                        <Route path={'/subscriptions'} element={<Subscriptions/>}/>
-                                        <Route path={'/commentaries/:id'} element={<Commentaries/>}/>
-                                        <Route path={'/adminpanel'} element={<AdminPanel/>}/>
-                                        <Route path={'/artistpage'} element={<ArtistPersonalPage/>}/>
-                                        <Route path={'/playlist/:id'} element={<PlaylistWindow/>}/>
+                    <SearchQueryContext.Provider value={{searchInput, setSearchInput}}>
+            <SubscriptionsContext.Provider value={{subscriptions, setSubscriptions}}>
+                            <CurrentSongContext.Provider value={{currentSong, setCurrentSong}}>
+                                <PlayerContext.Provider value={{songs, setSongs}}>
+                                    <div className="App">
+                                        <Header/>
+                                        <MusicPlayer/>
+                                        <Sidebar></Sidebar>
+                                        <SearchResults/>
+                                        <Routes>
+                                            <Route path={'/'} element={<Player/>}/>
+                                            <Route path={'/login'} element={<Login/>}/>
+                                            <Route path={'/registration'} element={<Registration/>}/>
+                                            <Route path={'/artist/:id'} element={<ArtistCard/>}/>
+                                            <Route path={'/featured'} element={<Featured/>}/>
+                                            <Route path={'/excluded'} element={<Excluded/>}/>
+                                            <Route path={'/account'} element={<AccountPage/>}/>
+                                            {/* <Route path={'/LKlistener'} element={<LKlistener/>}/> */}
+                                            <Route path={'/upload'} element={<InstallMusic/>}/>
+                                            <Route path={'/subscriptions'} element={<Subscriptions/>}/>
+                                            <Route path={'/commentaries/:id'} element={<Commentaries/>}/>
+                                            <Route path={'/adminpanel'} element={<AdminPanel/>}/>
+                                            <Route path={'/artistpage'} element={<ArtistPersonalPage/>}/>
+                                            <Route path={'/playlist/:id'} element={<PlaylistWindow/>}/>
                                         <Route path={'/installmusic'} element={<InstallMusicNewDesign/>}/>
                                         <Route path={'*'} element={<ErrorPage/>}/>
                                         <Route path={'/edit'} element={<EditSong/>}/>
-                                    </Routes>  
-                                </div>
-                            </PlayerContext.Provider>
-                        </CurrentSongContext.Provider>
-                    </SubscriptionsContext.Provider>
+                                        </Routes>  
+                                    </div>
+                                </PlayerContext.Provider>
+                            </CurrentSongContext.Provider>
+                        </SubscriptionsContext.Provider>
                 </FeaturedContext.Provider>
             </ExcludedContext.Provider>
         </PlaylistsContext.Provider>
+        </SearchQueryContext.Provider>
     );
 }
 

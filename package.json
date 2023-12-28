@@ -10,6 +10,7 @@
     "dependencies": "^0.0.1",
     "jsonwebtoken": "^9.0.2",
     "jwt-decode": "^4.0.0",
+    "qs": "^6.11.2",
     "react": "^18.2.0",
     "react-cookie": "^6.1.1",
     "react-dom": "^18.2.0",

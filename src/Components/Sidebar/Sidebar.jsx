@@ -3,16 +3,18 @@ import wave from '../../Images/sidebar/vave.svg'
 import warning from '../../Images/sidebar/warning.svg'
 import like from '../../Images/sidebar/like.svg'
 import thumb from '../../Images/sidebar/playlist_thumb.png'
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import {Link, NavLink} from "react-router-dom";
 import player from "../Player/Player";
 import SidebarCollapser from './SidebarCollpaser/SidebarCollapser'
 import subsIcon from '../../Images/sidebar/subs-icon.svg';
+import { SearchQueryContext } from '../App/App'
 
 function Sidebar(props) {
    const [search, setSearch] = useState(searchIcon)
    const [collapsed, setCollapsed] = useState(false)
    const [searchQuery, setSearchQuery] = useState('')
+   const {searchInput, setSearchInput} = useContext(SearchQueryContext)
 
    // Подтягивать с бэка?
    const [playlists,setPlaylists] = useState([
@@ -27,7 +29,7 @@ function Sidebar(props) {
    }
 
    useEffect(()=>{
-      props.searchHandler(searchQuery)
+      setSearchInput(searchQuery)
    },[searchQuery])
 
    const handleToggleMenu = () =>{
@@ -47,6 +49,9 @@ function Sidebar(props) {
    const handleQueryChange = (e) =>{
       setSearchQuery(e.target.value)
    }
+   const clearQuery =(e)=>{
+      setSearchQuery('')
+   }
 
    return(
     <div className="sidebar" id='sidebar'>
@@ -61,7 +66,7 @@ function Sidebar(props) {
                className='searchbar' 
                type="text" 
                placeholder='Поиск'
-               value={searchQuery}
+               value={searchInput}
                onInput={handleQueryChange}/>
             </form>
          </div>
@@ -70,7 +75,7 @@ function Sidebar(props) {
             <nav className='music-nav'>
                <ul className="nav-links">
                   <li>
-                     <NavLink className ={({ isActive }) => (isActive ? 'nav-link wave active' : 'nav-link wave' )} 
+                     <NavLink onClick={clearQuery} className ={({ isActive }) => (isActive ? 'nav-link wave active' : 'nav-link wave' )} 
                      to={'/'} 
                      style={({ isActive }) => (isActive ? {color: '#FE1170'} : {color: '#787885'})}>
                         <img src={wave} alt="" className="nav-icon" />
@@ -78,7 +83,7 @@ function Sidebar(props) {
                      </NavLink>
                   </li>
                   <li>
-                     <NavLink className ={({ isActive }) => (isActive ? 'nav-link fav active' : 'nav-link fav ' )}
+                     <NavLink onClick={clearQuery} className ={({ isActive }) => (isActive ? 'nav-link fav active' : 'nav-link fav ' )}
                      to={'/featured'} 
                      style={({ isActive }) => (isActive ? {color: '#FE1170'} : {color: '#787885'})}>
                         <img src={like} alt="" className="nav_icon" />
@@ -86,7 +91,7 @@ function Sidebar(props) {
                      </NavLink>
                   </li>
                   <li> 
-                     <NavLink className ={({ isActive }) => (isActive ? 'nav-link remove active' : 'nav-link remove ' )}
+                     <NavLink onClick={clearQuery} className ={({ isActive }) => (isActive ? 'nav-link remove active' : 'nav-link remove ' )}
                      to={'/excluded'} 
                      style={({ isActive }) => (isActive ? {color: '#FE1170'} : {color: '#787885'})}>
                         <img src={warning} alt="" className="nav-icon" />
@@ -94,7 +99,7 @@ function Sidebar(props) {
                      </NavLink>
                   </li>
                <li> 
-                  <NavLink className ={({ isActive }) => (isActive ? 'nav-link remove active' : 'nav-link remove ' )}
+                  <NavLink onClick={clearQuery} className ={({ isActive }) => (isActive ? 'nav-link remove active' : 'nav-link remove ' )}
                   to={'/subscriptions'} 
                   style={({ isActive }) => (isActive ? {color: '#FE1170'} : {color: '#787885'})}>
                      <img src={subsIcon} alt="" className="nav-icon" />

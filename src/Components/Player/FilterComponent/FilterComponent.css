@@ -46,7 +46,7 @@
     width: 15px;
     height: 15px;
     border-radius: 50%;;
-    background-color: #cb115e;
+    background-color: #FE1170;
 }
 .filter-name{
     font-family: var(--text-font);
@@ -75,7 +75,7 @@
     justify-content: center;
     height: 20px;
     width: 70px;
-    background-color: #cb115e;
+    background-color: #FE1170;
 }
 .filter-switch:hover,
 .filter-switch-toggled{
@@ -133,7 +133,7 @@
     flex-direction: row;
     gap:5px;
     padding: 3px 10px;
-    background-color: #cb115e;
+    background-color: #FE1170;
     border-radius: 50px;
 }
 .tag{

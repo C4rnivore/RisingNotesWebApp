@@ -1,87 +1,80 @@
 import axios from "axios";
 import { api } from "../../App/App";
 
-
 export async function fetchInput(input){
     let searchResult = {
-        artists: undefined,
+        artists:{
+            id:undefined,
+            name: undefined,
+            about: undefined,
+            vkLink: undefined,
+            yaMusicLink: undefined,
+            webSiteLink: undefined,
+            pfp:undefined
+        },
         tracks: undefined,
         playlists: undefined
     }
 
-    await Promise.all([
-        fetchArtists(input)
-        .then(res=>{
-            console.log(res)
-            searchResult.artists = res
-            fetchTracks(res)
-            .then(res=>{
-                console.log(res)
-                searchResult.tracks = res
-            })
-        })
-    ])
+    searchResult.artists = await fetchArtists(input)
+    searchResult.tracks = await fetchTracks(input)
+    searchResult.playlists = await fetchPlaylists(input)
+
+    console.log(searchResult)
     return searchResult
 }
 
-async function fetchArtists(input){
-    if(input == ''){
+ async function fetchArtists(input){
+    if(input == '')
         return
-    }
-    else{
-        try{
-            const response = await axios({
-                method:'GET',
-                url: api + 'api/author/list/?NameWildcard='+input,
-                responseType: 'application/json',
-            })
-            const result = JSON.parse(response.data).authorList
-            return result
-        }
-        catch(err){
-            console.log('error fetchArtist');
-        }
-    }
-}
-
-async function fetchTracks(artists){
-    const results = {}
-    if(!artists)
-        return
-
-    await artists.forEach(artist => {
-        fetchTrack(artist.id).then(res=> results[artist.id] = res)
-    })
-    return results
-}
-async function fetchTrack(authorId){
+    
     try{
         const response = await axios({
             method:'GET',
-            url: api + 'api/author/'+authorId+'/song/list',
+            url: api + 'api/author/list/?NameWildcard='+input,
             responseType: 'application/json',
         })
-        const result = JSON.parse(response.data)
+        return JSON.parse(response.data).authorList
+    }
+    catch(err){
+        console.log('Something wrong occured when trying to fetch artist data');
+    }
+}
+
+async function fetchTracks(input){
+    if(input == '')
+        return 
+
+    try{
+        const response = await axios({
+            method:'GET',
+            url: api + `api/song/list?NamePart=${input}`,
+            responseType: 'application/json',
+        })
+        const result = JSON.parse(response.data).songList
         return result
     }
     catch(err){
-        console.log('error fetchtrack');
+        console.log('Something wrong occured when trying to fetch songs data');
+    }
+}
+
+async function fetchPlaylists(input){
+    if(input == '')
+        return 
+
+    try{
+        const response = await axios({
+            method:'GET',
+            url: api + `api/playlist/list?NamePart=${input}`,
+            responseType: 'application/json',
+        })
+        const result = JSON.parse(response.data).playlistList
+        return result
+    }
+    catch(err){
+        console.log('Something wrong occured when trying to fetch playlists data');
     }
 }
 
 
-
-// async function fetchPlaylists(input){
-//     try{
-//         const response = await axios({
-//             method:'GET',
-//             url: api + 'api/author/' + name,
-//             responseType: 'application/json',
-//         })
-//         return JSON.parse(response.data)
-//     }
-//     catch(err){
-//         searchResult.artist = {}
-//         return {}
-//     }
-// }

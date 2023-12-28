@@ -232,7 +232,7 @@
     text-align: start;
 
     text-overflow:ellipsis;
-    overflow:scroll;
+    overflow:hidden;
 
     display: flex;
     flex-direction: column;
