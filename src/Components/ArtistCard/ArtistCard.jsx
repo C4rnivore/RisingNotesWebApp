@@ -104,7 +104,7 @@ function ArtistCard(props){
                     <ArtistInfo artist={artist} 
                         handleSubscribe={handleSubscribe} 
                         handleUnsubscribe={handleUnsubscribe}/>
-                    <TopTracks artist={artist}/>
+                    {/* <TopTracks artist={artist}/> */}
                     <div className="top-tracks-container">
                         <span className='top-tracks-title'>Все треки</span>
                         <div className="tracks">

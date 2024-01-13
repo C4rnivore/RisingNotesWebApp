@@ -4,33 +4,54 @@ import warning from '../../Images/sidebar/warning.svg'
 import like from '../../Images/sidebar/like.svg'
 import thumb from '../../Images/sidebar/playlist_thumb.png'
 import { useContext, useEffect, useState } from 'react';
-import {Link, NavLink} from "react-router-dom";
+import {Link, NavLink, useNavigate} from "react-router-dom";
 import player from "../Player/Player";
 import SidebarCollapser from './SidebarCollpaser/SidebarCollapser'
 import subsIcon from '../../Images/sidebar/subs-icon.svg';
-import { SearchQueryContext } from '../App/App'
+import { PlaylistsContext, SearchQueryContext, axiosAuthorized, axiosUnauthorized } from '../App/App'
+import { useCookies } from 'react-cookie'
 
 function Sidebar(props) {
    const [search, setSearch] = useState(searchIcon)
    const [collapsed, setCollapsed] = useState(false)
    const [searchQuery, setSearchQuery] = useState('')
-   const {searchInput, setSearchInput} = useContext(SearchQueryContext)
+   const {searchInput, setSearchInput} = useContext(SearchQueryContext);
+   const {playlists, setPlaylists} = useContext(PlaylistsContext);
+   const [playlistsInfo, setPlaylistsInfo] = useState([]); 
+   const navigate = useNavigate();
+   const [cookies, setCookies] = useCookies(['accessToken', 'refreshToken', 'authorId', 'role', 'userId']);
 
    // Подтягивать с бэка?
-   const [playlists,setPlaylists] = useState([
-      {name:'Лучшие треки', thumb: thumb },
-      {name:'Подборка trash metal', thumb: thumb },
-      {name:'Треки для вечеринки', thumb: thumb },
-      {name:'Для поездок под дождем', thumb: thumb },
-   ])
-
-   const handleCreatePlaylistBtn = () =>{
-      return
-   }
+   // const [playlists,setPlaylists] = useState([
+   //    {name:'Лучшие треки', thumb: thumb },
+   //    {name:'Подборка trash metal', thumb: thumb },
+   //    {name:'Треки для вечеринки', thumb: thumb },
+   //    {name:'Для поездок под дождем', thumb: thumb },
+   // ])
 
    useEffect(()=>{
-      setSearchInput(searchQuery)
-   },[searchQuery])
+      setSearchInput(searchQuery);
+      getPlaylistsInfo();
+   },[searchQuery, playlists])
+
+   function getPlaylistsInfo () {
+      let arr = []
+
+      playlists.map(el => {
+         axiosUnauthorized.get(`api/playlist/${el}`)
+         .then(
+            response => {
+               arr.push({
+                  name: response.data.name,
+                  id: el
+               });
+               setPlaylistsInfo(arr);
+            }
+         );
+      });
+
+      
+   }
 
    const handleToggleMenu = () =>{
       const sidebar = document.getElementById('sidebar')
@@ -52,6 +73,25 @@ function Sidebar(props) {
    const clearQuery =(e)=>{
       setSearchQuery('')
    }
+
+   async function addNewPlaylist() {
+      if (!cookies?.role) {
+         navigate('/login');
+      }
+      let id = 0
+      let formData = new FormData();
+      formData.append('Name', 'Новый плейлист')
+      await axiosAuthorized.post('api/playlist', formData, { headers: {
+          "Content-Type": "multipart/form-data",
+      }})
+      .then (
+         response => {
+            id = response.data.id
+            setPlaylists(e => e = [...e, id])
+         }
+      )
+      navigate(`/playlist/${id}`)
+  };
 
    return(
     <div className="sidebar" id='sidebar'>
@@ -112,13 +152,13 @@ function Sidebar(props) {
          <div className="playlists-container">
             <span className="section-title">Плейлисты</span>
             <ul className="sidebar-playlists">
-               {playlists.map((pl => 
-                  <li className='sidebar-playlist' key={pl.name.toString()}>
-                     <img className='sidebar-playlist-thumb' src={pl.thumb} alt="" />
-                     <span className='sidebar-playlist-name'> {pl.name} </span>
+               {playlistsInfo.map((pl => 
+                  <li className='sidebar-playlist' key={pl.id}>
+                     {/* <img className='sidebar-playlist-thumb' alt="" /> */}
+                     <NavLink to={`/playlist/${pl.id}`} className='sidebar-playlist-name' style={({ isActive }) => (isActive ? {color: '#FE1170'} : {color: '#787885'})}>{pl.name}</NavLink>
                   </li>
                ))}
-               <li className='add-playlist' onClick={handleCreatePlaylistBtn}>
+               <li className='add-playlist' onClick={addNewPlaylist}>
                   <span className="add-playlist-icon">+</span>
                   <span className='sidebar-playlist-name'> Добавить плейлист</span>
                </li>

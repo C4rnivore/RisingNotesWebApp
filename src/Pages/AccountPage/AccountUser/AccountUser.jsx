@@ -1,14 +1,22 @@
 import saveIcon from '../../../Images/account-page/save-icon.svg';
 import editIcon from '../../../Images/account-page/edit-icon.svg';
+import { useState } from 'react';
 
-export default function AccountUser () {
+export default function AccountUser (props) {
+    const [userName, setUserName] = useState(props.userName);
+
+    const handleSave = () => {
+        props.changeUserName(userName);
+    }
+
     return (
         <div className="account-page-user">
             <h2>Основная информация</h2>
             <div className="account-page-user-inputs">
                 <span className='account-page-user-input'>
                     <p>Имя пользователя</p>
-                    <input placeholder="Введите ваш никнейм или имя" className='account-page-link'></input>
+                    <input placeholder="Введите ваш никнейм или имя" className='account-page-link'
+                    value={userName} onChange={e => setUserName(e.target.value)}></input>
                 </span>
                 <span className='account-page-user-input'>
                     <p>Почта</p>
@@ -16,7 +24,7 @@ export default function AccountUser () {
                 </span>
             </div>
             <div className="account-page-user-buttons">
-                <button className='account-page-filled-button'>
+                <button className='account-page-filled-button' onClick={handleSave}>
                     <img src={saveIcon}/>
                     Сохранить
                 </button>

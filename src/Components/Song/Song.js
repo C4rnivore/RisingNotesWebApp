@@ -73,7 +73,7 @@ function Song(props) {
             <div className='track'>
                 <img onClick={handleAddToSongs} alt='cover' src={api + `api/song/${props.id}/logo?width=100&height=100`}/>
                 <p onClick={handleAddToSongs} className='song-title-t'>{props.name}<p className='songAuthor'>{props.artist}</p></p>
-                <p className='song-genre'>{props.genres[0]}</p>
+                {props?.genres ? <p className='song-genre'>{props?.genres[0]}</p> : <></>}
                 <p className='song-duration'>{duration}</p>
                 <div className='track-buttons'>
                     <a><img alt='list' src={list} onClick={changeModalState}/></a>

@@ -118,7 +118,9 @@ function InstallMusicNewDesign(){
                 setGender(response.data.vocalGenderList[0])
                 setGenre(response.data.genreList)
                 setVibe(response.data.vibeList)
-                setRole('authoredit')
+                if (cookies?.role !== 'admin'){
+                    setRole('authoredit')
+                }
                 setComment('текст комментария')
                 console.log(response.data)
                 setIsLoaded(true)
@@ -221,7 +223,7 @@ function InstallMusicNewDesign(){
                             </div>
                             <div className='column2'>
                                 <h2 className='column2-h2'>Жанры</h2>
-                                <InstallMusicFilterComponent placeholder={"Введите настроение..."} list={genre} setList={setGenre}/>
+                                <InstallMusicFilterComponent placeholder={"Введите жанр..."} list={genre} setList={setGenre}/>
                                 <h2 className='column2-h2'>Пол исполнителя</h2>
                                 <select className="filters-select" onChange={e => setGender(e.target.value)}>
                                     <option value={0}>-</option>

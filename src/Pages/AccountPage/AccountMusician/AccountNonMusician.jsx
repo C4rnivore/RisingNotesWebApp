@@ -10,7 +10,7 @@ export default function AccountNonMusician(props) {
     async function handleMakeArtist() {
         await axiosAuthorized.post('api/author', {
             userId: cookies.userId,
-            name: "Автор я",
+            name: props.userName,
             about: "",
             vkLink: "",
             webSiteLink: "",

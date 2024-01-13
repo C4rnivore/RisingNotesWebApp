@@ -24,20 +24,37 @@ export default function AccountPage () {
     const [role, setRole] = useState(undefined);
     const [cookies, setCookies] = useCookies(['accessToken', 'refreshToken', 'authorId', 'role', 'userId']);
     const [authorId, setAuthorId] = useState(undefined);
+    const [isLoaded, setIsLoaded] = useState(false);
 
     useEffect(() => {
         try {
-            setRole(cookies.role);
-            const auth= jwtDecode(cookies.accessToken)?.authorId;
-            if (auth) {
-                getMusicianInfo(auth);
-            }
+            loadInfo();
         }
         catch (err) {
             navigate("/login");
         }
         
     }, []);
+
+    async function loadInfo () {
+        setRole(cookies.role);
+        const auth= jwtDecode(cookies.accessToken)?.authorId;
+        if (auth) {
+            await getMusicianInfo(auth);
+        }
+        await getUserName();
+        setIsLoaded(true);
+    }
+
+    async function getUserName () {
+        await axiosAuthorized.get('/api/user')
+        .then(response => {
+            setUserName(response.data.userName);
+        })
+        .catch(err =>{
+            console.log(err)
+        })
+    }
 
     const handleRefreshMusicianInfo = (newInfo) => {
         axiosAuthorized.patch(api + `api/author/${authorId}`, {
@@ -49,10 +66,10 @@ export default function AccountPage () {
         .then(getMusicianInfo(authorId));
     }
 
-    const getMusicianInfo = (auth) => {
-        axiosAuthorized.get(api + `api/author/${auth}`)
+    async function getMusicianInfo (auth) {
+        await axiosAuthorized.get(api + `api/author/${auth}`)
         .then(response => {
-            setUserName(response.data.name);
+            // setUserName(response.data.name);
             setAbout(response.data.about);
             setVkLink(response.data.vkLink);
             setYaMusicLink(response.data.yaMusicLink);
@@ -61,10 +78,18 @@ export default function AccountPage () {
         })
     }
 
+    const changeUserName = (name) => {
+        axiosAuthorized.patch('api/user', {
+            userName: name
+        })
+        setUserName(name);
+    }
+
     const handleChangePage = (id) => {
         setCurrPage(id);
     };
 
+    if (isLoaded)
     return (
         <div className="account-page-wrapper">
             <div className="account-page">
@@ -88,7 +113,9 @@ export default function AccountPage () {
                     
                 </div>
 
-                {currPage === 0 ? <AccountUser userName={userName}/> : <></>}
+                {currPage === 0 ? <AccountUser 
+                    userName={userName}
+                    changeUserName={changeUserName}/> : <></>}
                 {currPage === 1 ? <AccountMusician 
                     authorId={authorId} 
                     about={about} 
@@ -98,7 +125,8 @@ export default function AccountPage () {
                     artist={userName}
                     handleRefreshMusicianInfo={handleRefreshMusicianInfo}/> : <></>}
                 {currPage === 2 ? <AccountPayment/> : <></>}
-                {currPage === 3 ? <AccountNonMusician/> : <></>}
+                {currPage === 3 ? <AccountNonMusician
+                    userName={userName}/> : <></>}
             </div>
         </div>
     );

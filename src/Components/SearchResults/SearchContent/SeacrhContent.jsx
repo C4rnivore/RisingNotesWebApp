@@ -72,7 +72,7 @@ function SearchContent(props){
                 </div>
                 <div className="search-tracks-content">
                     {tracks.map(track =>(
-                        <Song key={track.id} id={track.id} name={track.name} duration={track.durationMs} artist={track.artistName}/>
+                        <Song key={track.id} id={track.id} name={track.name} duration={track.durationMs} artist={track.artistName} />
                     ))}
                 </div>
             </div>)
@@ -103,14 +103,16 @@ function SearchContent(props){
                         </button>
                     </div>
                     <div className="search-authors-content">
+                    <div className='playlists'>
                         {artists.map((artist, index) => (
                             <div key={index} className="search-artist-card">
                                 <Link to={`${frontend_url}artist/${artist.id}`} onClick={clearQuery}>
-                                    <img src={api + `api/author/${artist.id}/logo?width=200&height=200`} alt="" />
+                                    <img src={api + `api/author/${artist.id}/logo?width=200&height=200`} alt={"нет картинки"} />
                                 </Link>
                                 <span className='search-artist-name'>{artist.name}</span>
                             </div>
                         ))}
+                    </div>
                     </div>
                 </div>
     )}
@@ -139,9 +141,11 @@ function SearchContent(props){
                     </button>
                 </div>
                 <div className="search-playlists-content">
+                <div className='playlists'>
                 {playlists.map(playlist =>(
                             <Playlist key={playlist.id} id={playlist.id} />
                         ))}
+                </div>
                 </div>
             </div>)
     }
