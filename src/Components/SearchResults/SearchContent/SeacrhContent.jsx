@@ -79,7 +79,7 @@ function SearchContent(props){
     }
     
     function SearchAuthors(props){
-        const frontend_url = 'http://localhost:3000/'
+        // const frontend_url = 'http://localhost:3000/'
         const artists = props.artists
     
         if(artists.length == 0 && props.navType == undefined)
@@ -106,7 +106,7 @@ function SearchContent(props){
                     <div className='playlists'>
                         {artists.map((artist, index) => (
                             <div key={index} className="search-artist-card">
-                                <Link to={`${frontend_url}artist/${artist.id}`} onClick={clearQuery}>
+                                <Link to={`/artist/${artist.id}`} onClick={clearQuery}>
                                     <img src={api + `api/author/${artist.id}/logo?width=200&height=200`} alt={"нет картинки"} />
                                 </Link>
                                 <span className='search-artist-name'>{artist.name}</span>

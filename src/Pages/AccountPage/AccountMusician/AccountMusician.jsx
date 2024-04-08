@@ -44,7 +44,7 @@ export default function AccountMusician (props) {
         <div className="account-page-user">
             <h2>Информация о музыканте</h2>
             <p>Описание</p>
-            <textarea placeholder='Введите информация о вас или вашей группе... ' 
+            <textarea placeholder='Введите информацию о вас или вашей группе... ' 
                 className='account-page-textarea' onChange={e => setAbout(e.target.value)}>
                 {about}
             </textarea>

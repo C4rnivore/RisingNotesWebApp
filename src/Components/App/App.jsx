@@ -60,7 +60,7 @@ import { jwtDecode } from 'jwt-decode';
 import { useCookies } from 'react-cookie';
 import AccountPage from '../../Pages/AccountPage/AccountPage';
 
-export const api = 'https://2100237-gs89005.twc1.net/';
+export const api = 'https://rising-notes.tw1.su/';
 
 export const axiosAuthorized = axios.create({
     baseURL: api,
@@ -173,6 +173,30 @@ function App() {
             console.log(error);
         }
     );
+
+    axiosAuthorized.interceptors.response.use(
+        config => {
+            return config;
+        },
+        error => {
+            if (error.response.status === 404) {
+                window.location.replace('/404');
+                return Promise.reject(error.response);
+            }
+        }
+    );
+
+    axiosUnauthorized.interceptors.response.use(
+        config => {
+            return config;
+        },
+        error => {
+            if (error.response.status === 404) {
+                window.location.replace('/404');
+                return Promise.reject(error.response);
+            }
+        }
+    )
 
     useEffect(() => {
         localStorage.setItem('SONGS', JSON.stringify(songs));
