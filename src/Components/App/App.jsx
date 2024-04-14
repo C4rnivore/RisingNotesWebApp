@@ -50,6 +50,7 @@ import SearchResults from '../SearchResults/SearchResults';
 import InstallMusicNewDesign from '../../Pages/InstallMusicNewDesign/InstallMusicNewDesign';
 import ErrorPage from '../../Pages/404Page/404Page.js';
 import EditSong from '../../Pages/EditingSong/EditingSong.js';
+import { FiltersProvider } from '../../Hooks/useFilters/useFilters.js';
 
 
 
@@ -61,6 +62,7 @@ import { useCookies } from 'react-cookie';
 import AccountPage from '../../Pages/AccountPage/AccountPage';
 
 export const api = 'https://rising-notes.tw1.su/';
+export const pfpPlaceholder = 'https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg'
 
 export const axiosAuthorized = axios.create({
     baseURL: api,
@@ -213,6 +215,7 @@ function App() {
     }
 
     return (
+        <FiltersProvider>
         <SearchQueryContext.Provider value={{searchInput, setSearchInput}}>
             <PlaylistsContext.Provider value={{playlists, setPlaylists}}>
                 <ExcludedContext.Provider value={{excluded, setExcluded}}>
@@ -253,6 +256,7 @@ function App() {
                 </ExcludedContext.Provider>
             </PlaylistsContext.Provider>
         </SearchQueryContext.Provider>
+    </FiltersProvider>
     );
 }
 

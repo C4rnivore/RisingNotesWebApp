@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react"
+import { useFilters } from "../../../../Hooks/useFilters/useFilters";
 
 
 function FilterElement(props){
-    const [tags,setTags] = useState([]);
-    const [switchState, setSwitchState] = useState('и')
-    const filtersList = props.filters
+    const [tags, setTags] = useState(props.tags);
+    const [switchState, setSwitchState] = useState(props.switch === 'and'? 'и':'или')
 
-    const handleswitchStateClick = ()=>{
+    const handleSwitchStateClick = ()=>{
         const swt = document.getElementById(props.id)
         if(swt.classList.contains('filter-switch-toggled')){
             swt.classList.remove('filter-switch-toggled')
@@ -24,7 +24,7 @@ function FilterElement(props){
         let inp = document.getElementById(props.id+"-input")
         if(!inp)
             return
-        else if(inp.value == '')
+        else if(inp.value === '')
             return
         else if(tags.includes(inp.value))
             return
@@ -32,7 +32,7 @@ function FilterElement(props){
     }
 
     const deleteTag = (value) => {
-        let updated = tags.filter(val => val != value)
+        let updated = tags.filter(val => val !== value)
         setTags(updated)
     }
 
@@ -45,6 +45,7 @@ function FilterElement(props){
         passToParent(props.id, tags, stateToPass )
     }, [tags, switchState])
 
+
     return(     
             <div className="filterOption">
                 <div className="filter-top">
@@ -52,7 +53,7 @@ function FilterElement(props){
                         <div className="filter-dot"></div>
                         <span className="filter-name">{props.name}</span>
                     </div>
-                    <div id={props.id} className="filter-switch" onClick={handleswitchStateClick}>
+                    <div id={props.id} className={props.switch === 'and'? "filter-switch":'filter-switch-toggled'} onClick={handleSwitchStateClick}>
                         <div className="switch-ball"></div>
                         <span className="switch-state-name">{switchState}</span>
                     </div>

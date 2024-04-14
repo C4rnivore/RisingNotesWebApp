@@ -57,6 +57,10 @@
 
     border-bottom: 4px solid #191E28;
 }
+
+.search-results-nav > div{
+    transform: translateY(4px);
+}
 .search-nav-el{
     cursor: pointer;
     padding-inline:40px;

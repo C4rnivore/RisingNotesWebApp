@@ -1,8 +1,7 @@
 import './SearchContent.css'
 import arrowRight from '../../../Images/artist-card/Chevron_Right.svg'
-import pfpTemplate from '../../../Images/artist-card/artist-template.png'
 import { Link } from 'react-router-dom'
-import { api } from '../../App/App'
+import { api, pfpPlaceholder } from '../../App/App'
 import Song from '../../Song/Song'
 import Playlist from '../../Playlist'
 import { useContext } from 'react'
@@ -48,6 +47,7 @@ function SearchContent(props){
                 <SearchPlaylists playlists={searchResult.playlists}/>
             </div>)
     }
+
     function SearchTracks(props){
         const tracks = props.tracks
         if(tracks.length == 0 && props.navType == undefined)
@@ -81,6 +81,10 @@ function SearchContent(props){
     function SearchAuthors(props){
         // const frontend_url = 'http://localhost:3000/'
         const artists = props.artists
+
+        function addDefaultSrc(ev){
+            ev.target.src = pfpPlaceholder
+        }
     
         if(artists.length == 0 && props.navType == undefined)
         return(<></>)
@@ -107,7 +111,7 @@ function SearchContent(props){
                         {artists.map((artist, index) => (
                             <div key={index} className="search-artist-card">
                                 <Link to={`/artist/${artist.id}`} onClick={clearQuery}>
-                                    <img src={api + `api/author/${artist.id}/logo?width=200&height=200`} alt={"нет картинки"} />
+                                    <img onError={addDefaultSrc} src={api + `api/author/${artist.id}/logo?width=200&height=200`? api + `api/author/${artist.id}/logo?width=200&height=200`:'12'} alt={"нет картинки"} />
                                 </Link>
                                 <span className='search-artist-name'>{artist.name}</span>
                             </div>
@@ -117,6 +121,8 @@ function SearchContent(props){
                 </div>
     )}
     
+
+
     function SearchPlaylists(props){
         const playlists = props.playlists
     

@@ -1,6 +1,7 @@
 import FilterElement from './FilterElements/FilterElement'
 import FilterTimeElement from './FilterElements/FilterTimeElement'
 import FilterChckboxElement from './FilterElements/FilterCheckboxElement'
+import { useFilters } from '../../../Hooks/useFilters/useFilters'
 
 import { PlayerContext, CurrentSongContext } from '../../App/App'
 import { useState, useEffect, useContext } from 'react'
@@ -12,9 +13,8 @@ function FilterComponent(){
     const [langFilters,setLangFilters] = useState(null)
     const [moodFilters,setMoodFilters] = useState(null)
     const [isLoading, setIsLoading] = useState(true)
-    const [filters,setFilters] = useState(filtersInitial)
+    const {filters, updateFilters} = useFilters()
     const {songs, setSongs} = useContext(PlayerContext);
-    const {currentSong, setCurrentSong} = useContext(CurrentSongContext);
 
     /**
     * Главная функция обновления фильров
@@ -26,7 +26,7 @@ function FilterComponent(){
     */
     const filtersUpdateFunction = (filterId, filterValue, filterOrAnd = null) => {
         let updated = filtersUpdater(filterId, filterValue, filterOrAnd, filters)
-        setFilters(cur=> cur = updated)
+        updateFilters(updated)
         updateSongs()
     }
 
@@ -47,14 +47,15 @@ function FilterComponent(){
     }
 
     useEffect(() => {
+        console.log(filters)
         async function fetchFilters() {
-            await setIsLoading(true);
+            setIsLoading(true);
             await Promise.all([
                 getGenres().then(res=>setGenreFilters(res)).catch(err=>console.log(err)),
                 getLanguages().then(res=>setLangFilters(res)).catch(err=>console.log(err)),
                 getMoods().then(res=>setMoodFilters(res)).catch(err=>console.log(err))
              ])
-            await setIsLoading(false);
+            setIsLoading(false);
         }
         fetchFilters();
     }, []); 
@@ -64,12 +65,12 @@ function FilterComponent(){
             <div className="filters-container">
                 <div className="filters">
                     <span className="filters-title">Фильтры</span>
-                    <FilterElement name="Жанр" id="genre" filters={genreFilters} function = {filtersUpdateFunction}/>
-                    <FilterElement name="Язык" id="language" filters={langFilters} function = {filtersUpdateFunction}/>
-                    <FilterElement name="На что похоже?" id="similar" filters={[]}  function = {filtersUpdateFunction}/>
-                    <FilterElement name="Настроение" id="mood" filters={moodFilters} function = {filtersUpdateFunction}/>
+                    <FilterElement name="Жанр" id="genre" switch={filters.genreOrAnd} tags={filters.genre} filters={genreFilters} function = {filtersUpdateFunction}/>
+                    <FilterElement name="Язык" id="language" switch={filters.languageOrAnd} tags={filters.language} filters={langFilters} function = {filtersUpdateFunction}/>
+                    <FilterElement name="На что похоже?" id="similar" switch={filters.similarOrAnd} tags={filters.similar} filters={[]}  function = {filtersUpdateFunction}/>
+                    <FilterElement name="Настроение" id="mood" switch={filters.moodOrAnd} tags={filters.mood} filters={moodFilters} function = {filtersUpdateFunction}/>
                     <FilterTimeElement  name="Длительность" id="duration" function = {filtersUpdateFunction}/>
-                    <FilterChckboxElement name="Дополнительно" id="extra" function = {filtersUpdateFunction}/>
+                    <FilterChckboxElement name="Дополнительно" id="extra"  function = {filtersUpdateFunction}/>
                 </div>
             </div>
         )    
