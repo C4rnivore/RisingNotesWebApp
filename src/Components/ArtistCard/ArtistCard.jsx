@@ -9,6 +9,8 @@ import { useContext, useEffect, useState } from "react"
 import { SubscriptionsContext, api, axiosAuthorized, axiosUnauthorized } from "../App/App.jsx"
 import Song from "../Song/Song"
 import BackButton from "../BackButton.js"
+import Songs from "./ArtistCardComponents/Songs/Songs.jsx"
+import Blog from "./ArtistCardComponents/Blog/Blog.jsx"
 
 function ArtistCard(props){
     const navigate = useNavigate();
@@ -18,6 +20,8 @@ function ArtistCard(props){
     const [songs, setSongs] = useState([]);
     const {subscriptions, setSubscriptions} = useContext(SubscriptionsContext);
     const [isSubscribed, setIsSubscribed] = useState(subscriptions.includes(params.id));
+
+    const [currPage, setCurrPage] = useState(0);
 
     const handleSubscribe = () => {
         axiosAuthorized.post(api + `api/subscription/${params.id}`)
@@ -69,13 +73,6 @@ function ArtistCard(props){
                     }]
                 });
 
-                axiosUnauthorized.get(api + `api/author/${params.id}/song/list`)
-                    .then(response => {
-                        setSongs(response.data.songInfoList);
-                    })
-                    .catch(err => {
-                        throw err;
-                    })
                 setIsLoaded(true);
             })
             .catch(err => {
@@ -86,34 +83,44 @@ function ArtistCard(props){
             throw err;
         })
 
-    }, [isLoaded])
+    }, [isLoaded])   
 
-    const handleBackBtnClick = () =>{
-        navigate(-1)
-    };    
+    const handleChangePage = (id) => {
+        // смена страницы в лк
+        setCurrPage(id);
+    };
 
     if (isLoaded)
         return(
             <section className="artist-card-container">
                 <div className="content-container">
-                    {/* <div className="back-btn" onClick={handleBackBtnClick}>
-                        <img src={backIcon} alt="" />
-                        <span>Назад</span>
-                    </div> */}
                     <BackButton/>
                     <ArtistInfo artist={artist} 
                         handleSubscribe={handleSubscribe} 
                         handleUnsubscribe={handleUnsubscribe}/>
-                    {/* <TopTracks artist={artist}/> */}
-                    <div className="top-tracks-container">
-                        <span className='top-tracks-title'>Все треки</span>
-                        <div className="tracks">
-                            {songs.map(el => (
-                                <Song key={el.id} id={el.id} name={el.name} duration={el.durationMs} artist={artist.artistName} genres={el.genreList}/>
-                            ))}
-                            
-                        </div>
+
+                    <div className="artist-card-menu">
+                        <a onClick={() => handleChangePage(0)} 
+                            className={currPage === 0 ? 'artist-card-menu-item account-page-active' : 'artist-card-menu-item'}>
+                            Главная
+                        </a>
+                        <a onClick={() => handleChangePage(1)} 
+                            className={currPage === 1 ? 'artist-card-menu-item account-page-active' : 'artist-card-menu-item'}>
+                            Треки
+                        </a>
+                        <a onClick={() => handleChangePage(2)} 
+                            className={currPage === 2 ? 'artist-card-menu-item account-page-active' : 'artist-card-menu-item'}>
+                            Клипы
+                        </a>
+                        <a onClick={() => handleChangePage(3)} 
+                            className={currPage === 3 ? 'artist-card-menu-item account-page-active' : 'artist-card-menu-item'}>
+                            Блог
+                        </a>
                     </div>
+
+                    {currPage === 0 ? <Songs artist={artist}/> : <></>}
+                    {currPage === 1 ? <Songs artist={artist}/> : <></>}
+                    {currPage === 3 ? <Blog/> : <></>}
                     
                 </div>
                 <img className="artist-bg-image" src={api + `api/user/${artist.userId}/logo?width=400&height=400`}/>

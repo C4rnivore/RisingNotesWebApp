@@ -1,0 +1,38 @@
+.custom-button {
+    border-radius: 15px;
+    background: #FE1170;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+
+    padding: 13px 40px;
+
+    color: #FFF;
+    font-family: Montserrat;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+
+    border-style: none;
+    margin-bottom: 40px;
+}
+
+.custom-button:hover {
+    background: #fd418c;
+    transition: all .2s ease;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.loading {
+    animation: spin  1s linear infinite;
+}

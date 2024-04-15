@@ -7,6 +7,7 @@ import Chevron from '../../Images/controller/chevron-left.svg';
 import { api, axiosUnauthorized } from '../App/App';
 import { useCookies } from 'react-cookie';
 import defaultAvatar from '../../Images/account-page/image-placeholder.png';
+import axios from 'axios';
 
 function Header() {
     const [pfp,setPfp] = useState(pfp_placeholder);
@@ -20,10 +21,12 @@ function Header() {
         if (cookies.userId) {
             setIsUserAuthorized(true);
             axiosUnauthorized.get(api + `api/user/${cookies.userId}/logo?width=400&height=400`)
-            .then(setIsImageExist(true))
+            .then(() => {
+                setIsImageExist(true);
+            })
             .catch(err => {
-                console.log(err);
-                setIsImageExist(false)
+                console.log(1111);
+                setIsImageExist(false);
             });
         }
     }, [])

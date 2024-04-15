@@ -1,16 +1,15 @@
-import SongCover from '../Images/image-placeholder/song-cover-default.png';
 import React from 'react';
-import { Link } from 'react-router-dom';
 import Chevron from '../Images/controller/chevron-left.svg';
+import { useNavigate } from 'react-router-dom';
 
-class BackButton extends React.Component {
-    render() {
-        return (
-            <Link to='javascript:history.back()'>
-                <button className='back-button'><img className='back-chervon' alt='back' src={Chevron}/>Назад</button>
-            </Link> 
-        )
-    }
+function BackButton(params) {
+    const navigate = useNavigate();
+
+    return (
+        <button className='back-button' onClick={() => navigate(-1)}>
+            <img className='back-chervon' alt='back' src={Chevron}/>Назад
+        </button>
+    )
 }
 
 export default BackButton

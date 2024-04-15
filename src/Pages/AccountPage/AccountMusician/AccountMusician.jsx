@@ -7,6 +7,7 @@ import React, { useContext, useEffect, useRef, useState } from 'react';
 import Song from './Song';
 import { api, axiosAuthorized, axiosUnauthorized } from '../../../Components/App/App';
 import { Link } from 'react-router-dom';
+import CustomButton from '../../../Components/CustomButton/CustomButton';
 
 export default function AccountMusician (props) {
     const [uploads, setUploads] = useState([]);
@@ -18,26 +19,27 @@ export default function AccountMusician (props) {
     const [isPlaying, setIsPlaying] = useState(false);
 
     useEffect(() => {
-        // axiosUnauthorized.get(api + `api/author/${props.authorId}/song/list`)
-        // .then(response => {
-        //     setSongs(response.data.songInfoList);
-        // })
+        // получение списка заявок
         axiosAuthorized.get(`api/song/upload-request/list`)
         .then(response => {
             setUploads(response.data.publishRequestShortInfoList);
         })
     }, []);
 
-    const handleSave = (event) => {
-        event.preventDefault();
-        let newInfo = {
-            about: about,
-            vkLink: vkLink,
-            yaMusicLink: yaMusicLink,
-            webSiteLink: webSiteLink,
+    const handleSave = async (event) => {
+        // вызов обновления информации о музыканте
+        try {
+            let newInfo = {
+                about: about,
+                vkLink: vkLink,
+                yaMusicLink: yaMusicLink,
+                webSiteLink: webSiteLink,
+            }
+            await props.handleRefreshMusicianInfo(newInfo);
         }
-
-        props.handleRefreshMusicianInfo(newInfo);
+        catch (err) {
+            return Promise.reject(err);
+        }
     }
 
     return (
@@ -67,10 +69,12 @@ export default function AccountMusician (props) {
                     value={yaMusicLink} onChange={e => setYaMusicLink(e.target.value)}></input>
             </div>
 
-            <button className='account-page-filled-button' onClick={handleSave}>
+            <CustomButton func={handleSave} icon={saveIcon} text={'Сохранить'} success={'Сохранено'}/>
+
+            {/* <button className='account-page-filled-button' onClick={handleSave}>
                 <img alt='icon' src={saveIcon}/>
                 Сохранить
-            </button>
+            </button> */}
 
             <h2>Все треки</h2>
             <audio ref={audioRef} type="audio/mpeg" autoPlay={true} style={{ display: 'none' }}/>

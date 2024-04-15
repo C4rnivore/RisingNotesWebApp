@@ -59,6 +59,7 @@ import axios from 'axios';
 import { jwtDecode } from 'jwt-decode';
 import { useCookies } from 'react-cookie';
 import AccountPage from '../../Pages/AccountPage/AccountPage';
+import BlogVideo from '../../Pages/BlogVideo/BlogVideo.jsx';
 
 export const api = 'https://rising-notes.tw1.su/';
 
@@ -183,6 +184,9 @@ function App() {
                 window.location.replace('/404');
                 return Promise.reject(error.response);
             }
+            else {
+                return Promise.reject(error);
+            }
         }
     );
 
@@ -194,6 +198,9 @@ function App() {
             if (error.response.status === 404) {
                 window.location.replace('/404');
                 return Promise.reject(error.response);
+            }
+            else {
+                return Promise.reject(error);
             }
         }
     )
@@ -244,6 +251,7 @@ function App() {
                                             <Route path={'/uploadmusic/:id'} element={<InstallMusicNewDesign/>}/>
                                             <Route path={'*'} element={<ErrorPage/>}/>
                                             <Route path={'/edit'} element={<EditSong/>}/>
+                                            <Route path={'/verticalvideo'} element={<BlogVideo/>}/>
                                         </Routes>  
                                     </div>
                                 </PlayerContext.Provider>

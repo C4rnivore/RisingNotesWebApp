@@ -8,8 +8,11 @@ import { useEffect, useRef, useState } from 'react';
 import { useCookies, withCookies } from 'react-cookie';
 import { jwtDecode } from 'jwt-decode';
 import { api, axiosAuthorized, axiosUnauthorized } from '../../../Components/App/App';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 export default function AccountHead (props) {
+    const navigate = useNavigate();
     const fileRef = useRef(null);
     const imgRef = useRef(null);
     const [subsCount, setSubsCount] = useState(0);
@@ -18,6 +21,7 @@ export default function AccountHead (props) {
 
 
     useEffect(() => {
+        // получение аватарки и количества прослушиваний музыканта, количество подписчиков
         axiosUnauthorized.get(api + `api/user/${cookies.userId}/logo?width=400&height=400`)
         .then(setIsImageExist(true))
         .catch(err => {
@@ -38,6 +42,7 @@ export default function AccountHead (props) {
     }
 
     const changeLogo = (event) => {
+        // изменение аватарки
         event.preventDefault();
         const formData = new FormData();
         formData.append('File', event.target.files[0]);
@@ -49,10 +54,9 @@ export default function AccountHead (props) {
             }
         })
         .then(response => {
-            // if (!isImageExist)
-            //     setIsImageExist(!isImageExist);
-            // imgRef.current.src= api + `api/user/${cookies.userId}/logo?width=400&height=400`;
             window.location.reload();
+            // const currentPath = window.location.pathname;
+            // navigate(currentPath);
         });
     }
 
