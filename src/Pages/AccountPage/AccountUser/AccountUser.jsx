@@ -1,12 +1,18 @@
 import saveIcon from '../../../Images/account-page/save-icon.svg';
 import editIcon from '../../../Images/account-page/edit-icon.svg';
 import { useState } from 'react';
+import CustomButton from '../../../Components/CustomButton/CustomButton';
 
 export default function AccountUser (props) {
     const [userName, setUserName] = useState(props.userName);
 
-    const handleSave = () => {
-        props.changeUserName(userName);
+    async function handleSave() {
+        try {
+            await props.changeUserName(userName);
+        }
+        catch (err) {
+            return Promise.reject(err);
+        }
     }
 
     return (
@@ -24,10 +30,7 @@ export default function AccountUser (props) {
                 </span>
             </div>
             <div className="account-page-user-buttons">
-                <button className='account-page-filled-button' onClick={handleSave}>
-                    <img src={saveIcon}/>
-                    Сохранить
-                </button>
+                <CustomButton func={handleSave} icon={saveIcon} text={'Сохранить'} success={'Сохранено'}/>
 
                 <button className='account-page-unfilled-button'>
                     <img src={editIcon}/>

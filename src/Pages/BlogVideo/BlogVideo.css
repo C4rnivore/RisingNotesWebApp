@@ -1,0 +1,112 @@
+.blog-video-wrapper {
+    position: absolute;
+    z-index: 400;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    display: flex;
+    justify-content: center;
+}
+
+.blog-video-wrapper > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: blur(10px);
+}
+
+.blog-video {
+    position: absolute;
+    display: flex;
+    /* width: 1220px; */
+    justify-content: flex-start;
+}
+
+.vertical-wrapper {
+    width: 56.25vh;
+    height: 100vh;
+    height: 0;
+    right: 0;
+}
+
+.vertical-wrapper > video {
+    position: absolute;
+    width: 56.25vh;
+    height: 100vh;
+    border-radius: 24px;
+    object-fit: cover;
+    z-index: 402;
+    top: 0;
+    left: 0;
+}
+
+.blog-text {
+    width: 56.25vh;
+    height: 100vh;
+    /* margin-left: 56.25vh; */
+    background-color: #0F141D;
+    border-radius: 24px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+
+    padding: 48px;
+    align-items: flex-end;
+
+}
+
+.blog-text > button {
+    margin-bottom: 71px;
+}
+
+.blog-text > span {
+    display: flex;
+    gap: 7px;
+    align-items: center;
+    font-size: 28px;
+    font-style: regular;
+    width: 100%;
+}
+
+.blog-text > span > img {
+    width: 32px;
+    height: 32px;
+    border-radius: 100px;
+}
+
+.blog-text > p {
+    font-size: 14px;
+    font-style: regular;
+    text-align: start;
+    width: 100%;
+}
+
+.blog-song {
+    border: 0px;
+    border-radius: 24px;
+    
+    box-shadow: 0px 4px 24.9px 0px rgba(0, 0, 0, 0.25);
+    background: linear-gradient(90.00deg, rgb(104, 107, 113),rgb(23, 28, 37) 100%);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: start;
+    gap: 27px;
+    padding: 10px;
+    width: 100%;
+}
+
+.blog-song > img {
+    width: 50px;
+    height: 50px;
+    border-radius: 100px;
+}
+
+.blog-artist-name {
+    font-family: Montserrat;
+    font-size: 16px;
+    font-weight: 400;
+    color: rgb(197, 197, 197);
+}

@@ -27,6 +27,7 @@ export default function AccountPage () {
     const [isLoaded, setIsLoaded] = useState(false);
 
     useEffect(() => {
+        // попытка загрузки информации и перенаправление
         try {
             loadInfo();
         }
@@ -37,6 +38,7 @@ export default function AccountPage () {
     }, []);
 
     async function loadInfo () {
+        // загрузка информации: роль, информация о музыканте, имя пользователя
         setRole(cookies.role);
         const auth= jwtDecode(cookies.accessToken)?.authorId;
         if (auth) {
@@ -47,6 +49,7 @@ export default function AccountPage () {
     }
 
     async function getUserName () {
+        // получение имени пользователя
         await axiosAuthorized.get('/api/user')
         .then(response => {
             setUserName(response.data.userName);
@@ -56,17 +59,24 @@ export default function AccountPage () {
         })
     }
 
-    const handleRefreshMusicianInfo = (newInfo) => {
-        axiosAuthorized.patch(api + `api/author/${authorId}`, {
-            about: newInfo.about,
-            vkLink: newInfo.vkLink,
-            yaMusicLink: newInfo.yaMusicLink,
-            webSiteLink: newInfo.webSiteLink
-        })
-        .then(getMusicianInfo(authorId));
+    const handleRefreshMusicianInfo = async (newInfo) => {
+        // обновление информации о музыканте
+        try {
+            await axiosAuthorized.patch(api + `api/author/${authorId}`, {
+                about: newInfo.about,
+                vkLink: newInfo.vkLink,
+                yaMusicLink: newInfo.yaMusicLink,
+                webSiteLink: newInfo.webSiteLink
+            })
+            await getMusicianInfo(authorId);
+        }
+        catch (err) {
+            return Promise.reject(err);
+        }
     }
 
     async function getMusicianInfo (auth) {
+        // получение информации о музыканте
         await axiosAuthorized.get(api + `api/author/${auth}`)
         .then(response => {
             // setUserName(response.data.name);
@@ -78,14 +88,21 @@ export default function AccountPage () {
         })
     }
 
-    const changeUserName = (name) => {
-        axiosAuthorized.patch('api/user', {
-            userName: name
-        })
-        setUserName(name);
+    const changeUserName = async (name) => {
+        // обновление имени пользователя
+        try {
+            await axiosAuthorized.patch('api/user', {
+                userName: name
+            })
+            setUserName(name);
+        }
+        catch (err) {
+            return Promise.reject(err);
+        }
     }
 
     const handleChangePage = (id) => {
+        // смена страницы в лк
         setCurrPage(id);
     };
 
