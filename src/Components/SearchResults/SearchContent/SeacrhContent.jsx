@@ -14,8 +14,42 @@ function SearchContent(props){
     if(!searchResult.artists && !searchResult.tracks && !searchResult.playlists)
         return (<NotFoundPage/>)
 
+    const stockCover='https://products.ls.graphics/mesh-gradients/images/29.-Pale-Cornflower-Blue_1.jpg'
+    const clipsPlaceholder=[
+        {
+            name:'Clip 1',
+            duration:'2.00',
+            authorName:'Author',
+            cover:undefined
+        },
+        {
+            name:'Clip 2',
+            duration:'2.00',
+            authorName:'Author',
+            cover:undefined
+        },
+        {
+            name:'Clip 3',
+            duration:'2.00',
+            authorName:'Author',
+            cover:undefined
+        },
+        {
+            name:'Clip 4',
+            duration:'2.00',
+            authorName:'Author',
+            cover:undefined
+        },
+    ]
+
+
+
     function clearQuery(){
         setSearchInput('')
+    }
+
+    function updateNavType(type){
+        props.navChanger(type)
     }
 
     switch(props.navType){
@@ -36,6 +70,12 @@ function SearchContent(props){
             return(<SearchPlaylists 
                 playlists={searchResult.playlists} 
                 navType={props.navType}/>)
+        case 'Clips':
+            return (<SearchClips
+                    clips={clipsPlaceholder}
+                    navType={props.navType}
+                    firstThree={false}
+            />)
     }
 
     function SearchAll(props){
@@ -43,6 +83,7 @@ function SearchContent(props){
         return(
             <div className='search-res-container'>
                 <SearchTracks tracks={searchResult.tracks} artists={searchResult.artists}/>
+                <SearchClips clips={clipsPlaceholder} firstThree={true}/>
                 <SearchAuthors artists={searchResult.artists}/>
                 <SearchPlaylists playlists={searchResult.playlists}/>
             </div>)
@@ -77,6 +118,54 @@ function SearchContent(props){
                 </div>
             </div>)
     }
+
+    function SearchClips(props){
+        const clips = props.clips
+        const clipsToShow = props.firstThree? clips.slice(0,3):clips
+
+        if (clips.length === 0){
+            if(props.navType === undefined)
+                return(<></>)
+
+            if(props.navType === 'Clips')
+                return(<div className="search-clips-top pink-highlight" >Не найдено исполнителей по запросу</div>)
+        }
+
+        return(
+                <div>
+                    <div className="search-clips-top">
+                        <span>Клипы</span>
+                        <button className='search-show-more' onClick={()=>updateNavType('Clips')}>
+                            {clips.length>3?
+                            <>
+                                <span>Смотреть все</span>
+                                <img src={arrowRight} alt="" />
+                            </>
+                            : <></>
+                            }
+                        </button>
+                    </div>
+                    <div className="search-clips-content">
+                        <div className='clips'>
+                            {clipsToShow.map((clip, index) => (
+                                <div key={index} className="clip-wrapper">
+                                    <div className="cover-wrapper">
+                                        <img draggable='false' className="clip-cover" src={clip.cover?clip.cover:stockCover}/>
+                                        <span className="clip-duration">{clip.duration}</span>
+                                    </div>
+                                    <div className="clip-song"> 
+                                        <div className="song-img-placeholder"></div>
+                                        <div className="song-info-wrapper">
+                                            <span className="clip-song-name">{clip.name}</span>
+                                            <span className="clip-song-author">{clip.authorName}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            )}
     
     function SearchAuthors(props){
         // const frontend_url = 'http://localhost:3000/'
@@ -121,8 +210,6 @@ function SearchContent(props){
                 </div>
     )}
     
-
-
     function SearchPlaylists(props){
         const playlists = props.playlists
     

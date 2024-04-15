@@ -19,8 +19,6 @@ export async function fetchInput(input){
     searchResult.artists = await fetchArtists(input)
     searchResult.tracks = await fetchTracks(input)
     searchResult.playlists = await fetchPlaylists(input)
-
-    console.log(searchResult)
     return searchResult
 }
 
