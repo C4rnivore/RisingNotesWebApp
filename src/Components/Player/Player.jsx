@@ -4,6 +4,7 @@ import songCoverTemplate from '../../Images/player/coverTemplate.png'
 import FilterComponent from './FilterComponent/FilterComponent.jsx'
 import SongCover from './PlayerComponents/SongCover.jsx'
 import SongLyrics from './PlayerComponents/SongLyrics.jsx'
+import FilterBtn from '../../Images/player/FilterBtn.svg'
 
 
 function Player() {
@@ -41,14 +42,26 @@ I guess I will survive in spite of being in a bad view.
 `
     })
 
+    const toggleFilters = () =>{
+        let filters = document.getElementById('filters-container-id')
+        let btn = document.getElementById('f-toggle-btn')
+        if(!filters) return
+        filters.classList.toggle('filters-toggled')
+        btn.classList.toggle('f-btn-active')
+    }
+
     return (
-        <section className="player-area">
-        <div className="player-content-container">
+        <section className="player-area">           
             <SongCover track = {currentTrack}/>
-            <SongLyrics track = {currentTrack}/>
+            <div className="player-filters-toggle">
+                <button id='f-toggle-btn' onClick={toggleFilters} className="player-filters-toggle-btn">
+                    <img src={FilterBtn} alt="" />
+                </button>
+                <span>Настроить волну</span>
+            </div>
+            
             <FilterComponent/>
-        </div>
-        <img className="player-bg-image" src={currentTrack.trackCover} alt="" />
+            <img className="player-bg-image" src={currentTrack.trackCover} alt="" />
         </section>
     );
 }

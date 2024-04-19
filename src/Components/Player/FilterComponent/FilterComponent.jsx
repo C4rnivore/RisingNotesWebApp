@@ -62,7 +62,7 @@ function FilterComponent(){
 
     if(!isLoading)
         return(
-            <div className="filters-container">
+            <div id='filters-container-id' className="filters-container"> 
                 <div className="filters">
                     <span className="filters-title">Фильтры</span>
                     <FilterElement name="Жанр" id="genre" switch={filters.genreOrAnd} tags={filters.genre} filters={genreFilters} function = {filtersUpdateFunction}/>

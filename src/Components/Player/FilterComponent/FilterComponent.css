@@ -1,7 +1,15 @@
 /* FILTERS */
 .filters-container{
-    display: flex;
+    
     max-height: 100%;
+    position: absolute;
+    right: 60px;
+    bottom: 50%;
+    transform: translateY(50%);
+    display: none;
+}
+.filters-toggled{
+    display: flex;
 }
 .filters{
     display: flex;
