@@ -21,13 +21,6 @@ function Sidebar(props) {
    const navigate = useNavigate();
    const [cookies, setCookies] = useCookies(['accessToken', 'refreshToken', 'authorId', 'role', 'userId']);
 
-   // Подтягивать с бэка?
-   // const [playlists,setPlaylists] = useState([
-   //    {name:'Лучшие треки', thumb: thumb },
-   //    {name:'Подборка trash metal', thumb: thumb },
-   //    {name:'Треки для вечеринки', thumb: thumb },
-   //    {name:'Для поездок под дождем', thumb: thumb },
-   // ])
 
    useEffect(()=>{
       setSearchInput(searchQuery);
@@ -154,7 +147,6 @@ function Sidebar(props) {
             <ul className="sidebar-playlists">
                {playlistsInfo.map((pl => 
                   <li className='sidebar-playlist' key={pl.id}>
-                     {/* <img className='sidebar-playlist-thumb' alt="" /> */}
                      <NavLink to={`/playlist/${pl.id}`} className='sidebar-playlist-name' style={({ isActive }) => (isActive ? {color: '#FE1170'} : {color: '#787885'})}>{pl.name}</NavLink>
                   </li>
                ))}

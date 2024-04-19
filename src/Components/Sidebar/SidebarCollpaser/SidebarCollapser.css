@@ -7,10 +7,32 @@
     margin-right: 20px;
     border-right: 1px solid #2C323D;
     padding-top: calc(var(--header-height) + 27px);
+    background: linear-gradient(180deg, rgba(25,30,40,1) 50%, rgba(15,20,29,1) 100%);
+    z-index: 100;
 }
 .collapser>button{
     background: none;
     border:none;
     font-size: 50px;
     color: #787885; 
+    transition: transform 350ms ease;
+}
+
+.nav-links-collapser{
+    display: flex;
+    align-items: start;
+    flex-direction: column;
+    gap:26px;
+    list-style-type:none ;
+    width: max-content;
+    margin: 85px auto 0 auto;
+    transform: translateX(0);
+    opacity: 1;
+    transition: 150ms ease-out;
+}
+.music-nav-collapser-colapsed > 
+.nav-links-collapser{
+    opacity: 0;
+    pointer-events: none;
+    transform: translateX(50px);
 }

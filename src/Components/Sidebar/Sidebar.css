@@ -3,10 +3,10 @@
     position: fixed;
     display: flex;
     flex-direction: row;
-    padding:78px 60px 0 60px;
+    padding:78px 20px 0 60px;
     top:0;
     left: 0;
-    max-width: var(--sidebar-width);
+    width: 400px;
     height: 100dvh;
     background: rgb(25,30,40);
     background: linear-gradient(180deg, rgba(25,30,40,1) 50%, rgba(15,20,29,1) 100%);
@@ -21,6 +21,9 @@
     display: flex;
     flex-direction: column;
     gap:40px;
+    transform: translateX(0);
+    transition: transform 250ms ease-in-out;
+    width: 100%;
 }
 
 .bg-gradient{
@@ -35,8 +38,8 @@
 
 .searchbar-container{
     position: relative;
-    width: max-content;
-    margin: 40px auto 0 auto;
+    width: 100%;
+    margin-top: 40px;
 }
 
 .searchbar{
@@ -48,7 +51,7 @@
     padding:10px 15px 10px 50px;
     border-radius: 10px;
     border:1px solid #787885;
-    width: calc(var(--sidebar-width) - 120px);
+    width: 100%;
     margin: 0 auto;
 }
 
@@ -165,11 +168,13 @@
     cursor: pointer;
 }
 .collapse{
-    padding: 0;
+    padding: 70px 0 60px 0;
+    width: 40px;
 }
 .collapse > .sidebar-content{
-    opacity:0;
     pointer-events: none;
+    transform: translateX(-400px);
+    
 }
 
 
