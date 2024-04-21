@@ -6,7 +6,9 @@ import { useFilters } from '../../../Hooks/useFilters/useFilters'
 import { PlayerContext, CurrentSongContext } from '../../App/App'
 import { useState, useEffect, useContext } from 'react'
 import { getGenres, getLanguages, getMoods } from './APICallers/FiltersGetter'
-import { filtersInitial, filtersUpdater,songsByFiltersGetter, extractSongsIdsList } from './FIlters/Filters'
+import { filtersInitial, filtersUpdater,songsByFiltersGetter, extractSongsIdsList } from './FIlters/Filters';
+
+import './FilterComponent.css';
 
 function FilterComponent(){
     const [genreFilters,setGenreFilters] = useState(null)

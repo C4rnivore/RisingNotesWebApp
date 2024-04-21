@@ -1,42 +1,12 @@
 import './App.css';
-import '../Header/Header.css';
-import '../Login/Login.css';
-import '../Registration/Registration.css';
-import  '../Player/Player.css';
-import  '../Sidebar/Sidebar.css';
-import '../../Pages/Subsriptions/Subscriptions.css';
-import '../../Pages/Commentaries/Commentaries.css';
-import '../ArtistCard/ArtistCard.css';
-import  '../Song/Song.css';
-
-import  '../../Pages/ArtistPersonalPage/ArtistPersonalPage.css';
-import '../../Pages/ArtistCard/ArtistCard.css';
-import '../../Pages/Featured/Featured.css';
-import '../LK/LK.css';
-import '../InstallMusic/InstallMusic.css';
-import '../../Pages/AdminPanel/AdminPanel.css';
-import '../Player/FilterComponent/FilterComponent.css';
-import '../MusicPlayer/MusicPlayer.css';
-import '../../Pages/AccountPage/AccountPage.css';
-import '../../Pages/PlaylistWindow/PlaylistWindow.css';
-import '../../Pages/InstallMusicNewDesign/InstallMusicNewDesign.css';
-import '../../Pages/404Page/404Page.css';
-import '../../Components/FallDownMenu/FallDownMenu.css';
-import '../../Pages/EditingSong/EditingSong.css';
-
 
 import Header from "../Header/Header";
 import Login from "../Login/Login"
 import Registration from "../Registration/Registration";
 import Sidebar from "../Sidebar/Sidebar";
 import Player from "../Player/Player";
-import ArtistPersonalPage from "../../Pages/ArtistPersonalPage/ArtistPersonalPage";
 
-import ArtistCard from '../ArtistCard/ArtistCard'
-import LK from "../LK/LK";
-import LKlistener from "../LKlistener/LKlistener";
-import InstallMusic from "../InstallMusic/InstallMusic";
-import InstallMusicMusician from '../InstallMusicMusician/InstallMusicMusician';
+import ArtistCard from '../../Pages/ArtistCard/ArtistCard.jsx'
 import {Routes,Route, Link, createBrowserRouter, createRoutesFromElements, RouterProvider, useSubmit, useNavigate} from 'react-router-dom';
 import React, {Fragment, createContext} from "react";
 import Featured from '../../Pages/Featured/Featured';
@@ -48,12 +18,9 @@ import MusicPlayer from '../MusicPlayer/MusicPlayer';
 import PlaylistWindow from '../../Pages/PlaylistWindow/PlaylistWindow';
 import SearchResults from '../SearchResults/SearchResults';
 import InstallMusicNewDesign from '../../Pages/InstallMusicNewDesign/InstallMusicNewDesign';
-import ErrorPage from '../../Pages/404Page/404Page.js';
-import EditSong from '../../Pages/EditingSong/EditingSong.js';
-import { FiltersProvider } from '../../Hooks/useFilters/useFilters.js';
-
-
-
+import ErrorPage from '../../Pages/404Page/404Page';
+import EditSong from '../../Pages/EditingSong/EditingSong';
+import { FiltersProvider } from '../../Hooks/useFilters/useFilters';
 
 import {useState, useEffect} from 'react';
 import axios from 'axios';
@@ -63,7 +30,6 @@ import AccountPage from '../../Pages/AccountPage/AccountPage';
 import BlogVideo from '../../Pages/BlogVideo/BlogVideo.jsx';
 
 export const api = 'https://rising-notes.tw1.su/';
-export const pfpPlaceholder = 'https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg'
 
 export const axiosAuthorized = axios.create({
     baseURL: api,
@@ -248,7 +214,6 @@ function App() {
                                             <Route path={'/subscriptions'} element={<Subscriptions/>}/>
                                             <Route path={'/commentaries/:id'} element={<Commentaries/>}/>
                                             <Route path={'/adminpanel'} element={<AdminPanel/>}/>
-                                            <Route path={'/artistpage'} element={<ArtistPersonalPage/>}/>
                                             <Route path={'/playlist/:id'} element={<PlaylistWindow/>}/>
                                             <Route path={'/uploadmusic'} element={<InstallMusicNewDesign/>}/>
                                             <Route path={'/uploadmusic/:id'} element={<InstallMusicNewDesign/>}/>

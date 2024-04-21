@@ -4,6 +4,8 @@ import settingsIcon from '../../Images/account-page/settings-icon.svg';
 import exitIcon from '../../Images/account-page/exit-icon.svg';
 import { useCookies } from "react-cookie";
 
+import './FallDownMenu.css';
+
 export default function FallDownMenu () {
     const [cookies, setCookies] = useCookies(['accessToken', 'refreshToken', 'authorId', 'role', 'subscriptions', 'userId']);
 

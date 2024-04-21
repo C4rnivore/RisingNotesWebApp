@@ -1,10 +1,12 @@
 import { useState } from 'react';
-import songCoverTemplate from '../../Images/player/coverTemplate.png'
+import songCoverTemplate from '../../Images/main-placeholder.png';
 
 import FilterComponent from './FilterComponent/FilterComponent.jsx'
 import SongCover from './PlayerComponents/SongCover.jsx'
 import SongLyrics from './PlayerComponents/SongLyrics.jsx'
-import FilterBtn from '../../Images/player/FilterBtn.svg'
+import FilterBtn from '../../Images/player/FilterBtn.svg';
+
+import './Player.css';
 
 
 function Player() {

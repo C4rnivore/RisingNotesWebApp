@@ -1,16 +1,16 @@
 import { useEffect, useState } from 'react'
-import pfp_placeholder from '../../Images/image-placeholder/pfp_placeholder.jpg'
 import logotype from '../../Images/logo.svg'
 import {Link, NavLink} from "react-router-dom";
 import FallDownMenu from '../FallDownMenu/FallDownMenu';
 import Chevron from '../../Images/controller/chevron-left.svg';
 import { api, axiosUnauthorized } from '../App/App';
 import { useCookies } from 'react-cookie';
-import defaultAvatar from '../../Images/account-page/image-placeholder.png';
+import defaultAvatar from '../../Images/main-placeholder.png';
 import axios from 'axios';
 
+import './Header.css';
+
 function Header() {
-    const [pfp,setPfp] = useState(pfp_placeholder);
     const [logo, setLogo] = useState(logotype);
     const [isMenuOpened, setIsMenuOpened] = useState(false);
     const [isImageExist, setIsImageExist] = useState(false);

@@ -1,8 +1,10 @@
-import placeholder from '../../Images/Group 73.png';
+import placeholder from '../../Images/main-placeholder.png';
 import './BlogVideo.css';
 import x from '../../Images/controller/x_red.svg';
 import heart from '../../Images/controller/heart.svg';
 import { useNavigate } from 'react-router-dom';
+
+import './BlogVideo.css';
 
 function BlogVideo(params) {
     const navigate = useNavigate();

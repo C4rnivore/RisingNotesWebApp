@@ -1,11 +1,12 @@
 import './SearchContent.css'
 import arrowRight from '../../../Images/artist-card/Chevron_Right.svg'
 import { Link } from 'react-router-dom'
-import { api, pfpPlaceholder } from '../../App/App'
+import { api } from '../../App/App'
 import Song from '../../Song/Song'
 import Playlist from '../../Playlist'
 import { useContext } from 'react'
-import { SearchQueryContext } from '../../App/App'
+import { SearchQueryContext } from '../../App/App';
+import pfpPlaceholder from '../../../Images/main-placeholder.png';
 
 function SearchContent(props){
     const {searchInput, setSearchInput} = useContext(SearchQueryContext)

@@ -1,0 +1,94 @@
+/* artist info */
+.info-container{
+    display: flex;
+    flex-direction: row;
+    gap:40px;
+    width: 100%;
+    justify-content: space-between;
+}
+.artist-info{
+    display: flex;
+    flex-direction: column;
+    max-width: 100%;
+    justify-content: space-between;
+}
+.row-top{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between
+}
+.artist-name{
+    font-size: 36px;
+}
+.subscribe-btn, .subscribe-btn-red{
+    display: flex;
+    align-items: center;
+    gap:10px;
+
+    background: none;
+    border: 1px solid #FE1170;
+    border-radius: 15px;
+
+    color:#fff;
+    font-family: var(--text-font);
+    font-size: 16px;
+    padding: 5px 20px;
+
+    transition: all .2s ease;
+}
+.subscribe-btn:hover, .subscribe-btn-red:hover{
+    transition: all .2s ease;
+    background: rgba(218, 114, 156, 0.493);
+}
+
+.subscribe-btn-red {
+    background: #FE1170;
+}
+
+.artist-info-p{
+    font-family: var(--text-font);
+    font-size: 16px;
+    font-weight: 300;
+    text-align: start;
+}
+
+.row-bottom{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 50px;
+}
+.left{
+    display: flex;
+    align-items: center;
+    gap:10px;
+}
+.right{
+    display: flex;
+    flex-direction: row;
+    gap:20px;
+    align-items: center;
+}
+.right > div{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap:5px;
+}
+
+.right > div > a{
+    text-decoration: none;
+    color:#fff;
+}
+.right > div > a:hover{
+    opacity: 0.7;
+}
+
+.artist-img {
+    max-width: 250px;
+    width: 100%;
+    height: auto;
+    border-radius: 19px;
+}

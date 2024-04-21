@@ -11,7 +11,7 @@ button:hover{
 }
 :root{
   --text-font: 'Montserrat',sans-serif;
-  --sidebar-width:400px;
+  --sidebar-width: 0px;
   --header-height:78px;
 }
 

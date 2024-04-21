@@ -9,20 +9,20 @@
     /* background-color: #0F141D; */
 
     width: 100%;
-    max-width: 1040px;
+    max-width: 1220px;
     z-index: 5;
     
 }
 
-.featured > h2 {
+/* .featured > h2 {
     font-size: 20px;
     font-style: normal;
     font-weight: 600;
 
-    margin-bottom: 20px;
+    margin-bottom: 20px; */
     /* justify-self: start; */
-    text-align: start;
-}
+    /* text-align: start;
+} */
 
 .new-playlist {
     width: 230px;
