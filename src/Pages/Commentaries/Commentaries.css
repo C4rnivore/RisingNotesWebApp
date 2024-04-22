@@ -55,7 +55,7 @@ h2 {
     background: radial-gradient(228.74% 144.12% at 0.9% 2.98%, rgba(255, 255, 255, 0.40) 0%, rgba(255, 255, 255, 0.16) 60.52%, rgba(255, 255, 255, 0.00) 100%);
     backdrop-filter: blur(21px);
 
-    width: 980px;
+    width: 100%;
     height: fit-content;
     padding: 16px 20px;
 }
@@ -113,7 +113,6 @@ h2 {
 
 .stripe {
     width: 100%;
-    max-width: 1040px;
     border-top: 2px solid #2C323D;
     margin-bottom: 27px;
 }
@@ -179,7 +178,7 @@ h2 {
     border-radius: 10px;
     border: 1px solid #2C323D;
     background: #191E28;
-    width: 860px;
+    width: 100%;
     height: 48px;
     color: #787885;
 
@@ -219,7 +218,7 @@ h2 {
 
     padding: 10px 24px;
     margin-top: -60px;
-    /* margin-left: 780px; */
+    /* margin-left: 880px; */
 
     margin-bottom: 37px;
 }

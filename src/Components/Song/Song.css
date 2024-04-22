@@ -51,6 +51,8 @@
 
 .song-modal__playlist-thumb {
     margin-right: 8px;
+    width: 20px;
+    height: auto;
 }
 
 .song-modal__playlist-thumb-selected {

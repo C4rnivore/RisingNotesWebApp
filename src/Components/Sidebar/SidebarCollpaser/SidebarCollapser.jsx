@@ -7,6 +7,8 @@ import { useContext, useState, useEffect } from 'react';
 import { SearchQueryContext } from '../../App/App'
 import subsIcon from '../../../Images/sidebar/subs-icon.svg';
 
+import './SidebarCollapser.css';
+
 function SidebarCollapser(props){
     const handleToggle = () => {
         props.collapseFunc()

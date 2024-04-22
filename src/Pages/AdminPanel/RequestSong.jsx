@@ -1,7 +1,6 @@
 import React from 'react';
-import SongCover from '../../Images/Group 73.png';
+import SongCover from '../../Images/main-placeholder.png';
 import applicationID from '../../Images/admin-circle.svg';
-import pencil from '../../Images/pencil.svg';
 import { Link } from 'react-router-dom';
 
 const statusType = {

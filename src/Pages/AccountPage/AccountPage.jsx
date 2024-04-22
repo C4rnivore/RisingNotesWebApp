@@ -13,6 +13,8 @@ import { jwtDecode } from 'jwt-decode';
 import AccountNonMusician from "./AccountMusician/AccountNonMusician";
 import { useNavigate } from "react-router-dom";
 
+import './AccountPage.css';
+
 export default function AccountPage () {
     const navigate = useNavigate();
     const [currPage, setCurrPage] = useState(0);

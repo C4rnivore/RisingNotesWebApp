@@ -1,5 +1,4 @@
 import editIcon from '../../../Images/account-page/edit-icon.svg';
-import SongCover from '../../../Images/image-placeholder/songskin.png';
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import message from '../../../Images/controller/Chat_Dots.png';

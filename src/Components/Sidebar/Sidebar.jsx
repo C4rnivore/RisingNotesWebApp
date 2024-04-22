@@ -2,14 +2,15 @@ import searchIcon from '../../Images/sidebar/Vector.svg'
 import wave from '../../Images/sidebar/vave.svg'
 import warning from '../../Images/sidebar/warning.svg'
 import like from '../../Images/sidebar/like.svg'
-import thumb from '../../Images/sidebar/playlist_thumb.png'
 import { useContext, useEffect, useState } from 'react';
 import {Link, NavLink, useNavigate} from "react-router-dom";
 import player from "../Player/Player";
 import SidebarCollapser from './SidebarCollpaser/SidebarCollapser'
 import subsIcon from '../../Images/sidebar/subs-icon.svg';
 import { PlaylistsContext, SearchQueryContext, axiosAuthorized, axiosUnauthorized } from '../App/App'
-import { useCookies } from 'react-cookie'
+import { useCookies } from 'react-cookie';
+
+import './Sidebar.css';
 
 function Sidebar(props) {
    const [search, setSearch] = useState(searchIcon)
@@ -50,12 +51,12 @@ function Sidebar(props) {
       const sidebar = document.getElementById('sidebar')
       if(sidebar.classList.contains('collapse')){
          sidebar.classList.remove('collapse')
-         document.documentElement.style.setProperty('--sidebar-width', '400px');
+         // document.documentElement.style.setProperty('--sidebar-width', '400px');
          setCollapsed(false)
       }
       else{
          sidebar.classList.add('collapse')
-         document.documentElement.style.setProperty('--sidebar-width', '40px');
+         // document.documentElement.style.setProperty('--sidebar-width', '40px');
          setCollapsed(true)
       }
    }
