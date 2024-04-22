@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import { api, pfpPlaceholder } from '../../App/App'
 import Song from '../../Song/Song'
 import Playlist from '../../Playlist'
+import Clip from '../../Clip/Clip'
 import { useContext } from 'react'
 import { SearchQueryContext } from '../../App/App'
 
@@ -14,7 +15,7 @@ function SearchContent(props){
     if(!searchResult.artists && !searchResult.tracks && !searchResult.playlists)
         return (<NotFoundPage/>)
 
-    const stockCover='https://products.ls.graphics/mesh-gradients/images/29.-Pale-Cornflower-Blue_1.jpg'
+    
     const clipsPlaceholder=[
         {
             name:'Clip 1',
@@ -148,19 +149,7 @@ function SearchContent(props){
                     <div className="search-clips-content">
                         <div className='clips'>
                             {clipsToShow.map((clip, index) => (
-                                <div key={index} className="clip-wrapper">
-                                    <div className="cover-wrapper">
-                                        <img draggable='false' className="clip-cover" src={clip.cover?clip.cover:stockCover}/>
-                                        <span className="clip-duration">{clip.duration}</span>
-                                    </div>
-                                    <div className="clip-song"> 
-                                        <div className="song-img-placeholder"></div>
-                                        <div className="song-info-wrapper">
-                                            <span className="clip-song-name">{clip.name}</span>
-                                            <span className="clip-song-author">{clip.authorName}</span>
-                                        </div>
-                                    </div>
-                                </div>
+                                <Clip key={index} cover={clip.cover} duration={clip.duration} name={clip.name} authorName={clip.authorName}/>
                             ))}
                         </div>
                     </div>
