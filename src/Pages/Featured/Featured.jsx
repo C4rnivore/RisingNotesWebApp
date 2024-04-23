@@ -66,13 +66,14 @@ export default function Featured() {
                     {playlists?.map(el => (
                         <Playlist key={el} id={el}/>
                     ))}
-                    <img className='new-playlist' alt='add new playlist' src={newPlaylist} onClick={addNewPlaylist}/>
+                    <img className='new-playlist' alt='add new playlist' src={newPlaylist} onClick={addNewPlaylist} draggable='false' />
                 </div>
-                <h3 className='sub-h2'>Все треки</h3>
+                <h3 className='sub-h2'>Избранные треки</h3>
                 <div className='tracks'>
                     {songs.map(el => (
                         <Song key={el.id} id={el.id} name={el.name} duration={el.durationMs} artist={el.authorName} genres={el.genreList}/>
                     ))}
+                    {songs.length === 0 ? <p style={{color: '#FE1170'}}>Список пуст</p> : <></>}
                 </div>
             </div>
         </div>

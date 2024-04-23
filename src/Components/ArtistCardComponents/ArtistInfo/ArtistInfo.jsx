@@ -26,16 +26,16 @@ function ArtistInfo(props) {
     const [isImageExist, setIsImageExist] = useState(false);
 
     useEffect(() => {
+        // проверка наличия картинки и подписки
         axiosUnauthorized.get(api + `api/user/${userId}/logo?width=400&height=400`)
         .then(setIsImageExist(true))
         .catch(err => {
-            console.log(err);
             setIsImageExist(false)
         });
 
         setIsSubscribed(subscriptions.includes(params.id));
         setSubscribersCount(props.artist.subscribersCount);
-    }, [subscriptions]);
+    }, [subscriptions, props.artist]);
 
     return(
         <div className="info-container">
@@ -67,18 +67,27 @@ function ArtistInfo(props) {
                         <span>Подписчиков: {subcribersCount}</span>
                     </div>
                     <div className="right">
-                        <div className="site">
-                            <img src={linkIcon} alt="" draggable='false'/>
-                            <a href={site} target="_blank">Сайт</a>
-                        </div>
-                        <div className="vk">
-                            <img src={vkIcon} alt="" draggable='false'/>
-                            <a href={vk} target="_blank">Вконтакте</a>
-                        </div>
-                        <div className="yandex">
-                            <img src={yandexIcon} alt="" draggable='false'/>
-                            <a href={yandex} target="_blank">Я.Музыка</a>
-                        </div>
+                        {site.length > 0 ? 
+                            <div className="site">
+                                <img src={linkIcon} alt="" draggable='false'/>
+                                <a href={site} target="_blank">Сайт</a>
+                            </div> : 
+                        <></>}
+                        {vk.length > 0 ? 
+                            <div className="vk">
+                                <img src={vkIcon} alt="" draggable='false'/>
+                                <a href={vk} target="_blank">Вконтакте</a>
+                            </div> : 
+                        <></>}
+                        {yandex.length > 0 ? 
+                            <div className="yandex">
+                                <img src={yandexIcon} alt="" draggable='false'/>
+                                <a href={yandex} target="_blank">Я.Музыка</a>
+                            </div>: 
+                        <></>}
+                        
+                        
+                        
                     </div>
                 </div>
             </div>

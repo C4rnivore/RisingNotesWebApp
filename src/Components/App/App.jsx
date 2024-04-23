@@ -167,6 +167,10 @@ function App() {
                 window.location.replace('/404');
                 return Promise.reject(error.response);
             }
+            else if (error.response.status === 401) {
+                window.location.replace('/login');
+                return Promise.reject(error.response);
+            }
             else {
                 return Promise.reject(error);
             }
@@ -209,8 +213,6 @@ function App() {
                                             <Route path={'/featured'} element={<Featured/>}/>
                                             <Route path={'/excluded'} element={<Excluded/>}/>
                                             <Route path={'/account'} element={<AccountPage/>}/>
-                                            {/* <Route path={'/LKlistener'} element={<LKlistener/>}/> */}
-                                            {/* <Route path={'/upload'} element={<InstallMusic/>}/> */}
                                             <Route path={'/subscriptions'} element={<Subscriptions/>}/>
                                             <Route path={'/commentaries/:id'} element={<Commentaries/>}/>
                                             <Route path={'/adminpanel'} element={<AdminPanel/>}/>

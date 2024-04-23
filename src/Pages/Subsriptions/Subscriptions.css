@@ -30,7 +30,7 @@
     grid-template-columns: repeat(auto-fill,minmax(200px, 1fr));
     gap: 39px;
     width: 100%;
-    max-width: 1040px;
+    max-width: 1220px;
 
     margin-bottom: 120px;
 }

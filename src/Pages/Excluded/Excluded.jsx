@@ -38,11 +38,12 @@ function Excluded () {
         <div className='comment-page-wrapper'>
             <div className='featured'>
                 <BackButton/>
-                <h2 className='sub-h2'>Все треки</h2>
+                <h2 className='sub-h2'>Исключенные треки</h2>
                 <div className='tracks'>
                     {songs.map(el => (
                         <Song key={el.id} id={el.id} name={el.name} duration={el.durationMs} artist={el.authorName} genres={el.genreList}/>
                     ))}
+                    {songs.length === 0 ? <p style={{color: '#FE1170'}}>Список пуст</p> : <></>}
                 </div>
             </div>
         </div>

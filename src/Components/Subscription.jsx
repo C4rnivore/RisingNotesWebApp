@@ -11,7 +11,6 @@ function Subscription (props) {
     useEffect(() => {
         axiosUnauthorized.get(api + `api/author/${props.authorId}`)
         .then(response => {
-            console.log(response)
             setName(response.data.name);
             setUserId(response.data.userId);
 

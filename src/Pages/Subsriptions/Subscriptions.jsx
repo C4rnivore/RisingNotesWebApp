@@ -26,14 +26,11 @@ function Subscriptions () {
                 <div className='search-element'>
                     <h2 className='sub-h2'>Мои подписки</h2>
                 </div>
-
-                {/* <div className='subs-wrapper'>
-
-                </div> */}
                 <div className='subscriptions'>
                     {subscriptions.map(el => (
                         <Subscription key={el} authorId={el}/>
                     ))}
+                    {subscriptions.length === 0 ? <p style={{color: '#FE1170'}}>Список пуст</p> : <></>}
                 </div>
             </div>
         </div>

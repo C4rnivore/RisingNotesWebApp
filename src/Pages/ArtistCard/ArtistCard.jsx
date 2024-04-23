@@ -15,32 +15,35 @@ function ArtistCard(props){
     const params = useParams();
     const [artist, setArtist] = useState(undefined);
     const [isLoaded, setIsLoaded] = useState(false);
-    const [songs, setSongs] = useState([]);
     const {subscriptions, setSubscriptions} = useContext(SubscriptionsContext);
     const [isSubscribed, setIsSubscribed] = useState(subscriptions.includes(params.id));
 
     const [currPage, setCurrPage] = useState(0);
 
-    const handleSubscribe = () => {
-        axiosAuthorized.post(api + `api/subscription/${params.id}`)
+    const handleSubscribe = async () => {
+        // подписка
+        await axiosAuthorized.post(api + `api/subscription/${params.id}`)
         .then( r => {
             setSubscriptions(e => e = [...e, params.id])
             setIsSubscribed(subscriptions.includes(params.id));
             setIsLoaded(false);
-        });
+        })
+        .catch(err => {console.log(err)});
     }
 
-    const handleUnsubscribe = () => {
-        axiosAuthorized.delete(api + `api/subscription/${params.id}`)
+    const handleUnsubscribe = async () => {
+        // отписка
+        await axiosAuthorized.delete(api + `api/subscription/${params.id}`)
         .then( r => {
             setSubscriptions(e => e = e.filter(el => el != params.id))
             setIsSubscribed(subscriptions.includes(params.id));
             setIsLoaded(false);
-        });
+        })
+        .catch(err => {console.log(err)});
     }
 
     useEffect(() => {
-        // axiosUnauthorized.get(api + `api/user/${params.id}/logo`)
+        // обновление информации об авторе
         axiosUnauthorized.get(api + `api/subscription/${params.id}/count`)
         .then(resp => {
             axiosUnauthorized.get(api + `api/author/${params.id}`)
@@ -55,22 +58,8 @@ function ArtistCard(props){
                         site: response.data.webSiteLink,
                         vk: response.data.vkLink,
                         yandex:response.data.yaMusicLink
-                    },
-                    topTracks:[{
-                        trackName:'Deconstructive Achievements',
-                        trackCover: TrackTemplate
-                    },{
-                        trackName:'Infinite Rove',
-                        trackCover: TrackTemplate
-                    },{
-                        trackName:'Noir Clouds',
-                        trackCover: TrackTemplate
-                    },{
-                        trackName:'Meanwhile',
-                        trackCover: TrackTemplate
-                    }]
+                    }
                 });
-
                 setIsLoaded(true);
             })
             .catch(err => {
@@ -88,10 +77,10 @@ function ArtistCard(props){
         setCurrPage(id);
     };
 
-    if (isLoaded)
+    if (isLoaded || artist?.userId)
         return(
-            <section className="artist-card-container">
-                <div className="content-container">
+            <section className="comment-page-wrapper">
+                <div className="featured">
                     <BackButton/>
                     <ArtistInfo artist={artist} 
                         handleSubscribe={handleSubscribe} 

@@ -19,7 +19,6 @@ function Song(props) {
     const {currentSong, setCurrentSong} = useContext(CurrentSongContext);
     const {featured, setFeatured} = useContext(FeaturedContext);
     const {excluded, setExcluded} = useContext(ExcludedContext);
-    console.log(props);
     const changeModalState = () => {
         setModalIsHidden(modalIsHidden => modalIsHidden = !modalIsHidden);
     }
@@ -73,9 +72,9 @@ function Song(props) {
     return (
         <>
             <div className='track'>
-                <img onClick={handleAddToSongs} alt='cover' src={api + `api/song/${props.id}/logo?width=100&height=100`}/>
+                <img onClick={handleAddToSongs} alt='cover' src={api + `api/song/${props.id}/logo?width=100&height=100`} draggable='false'/>
                 <p onClick={handleAddToSongs} className='song-title-t'>{props.name}<p className='songAuthor'>{props.artist}</p></p>
-                {props?.genres?.length > 0 ? <p className='song-genre'>{props?.genres[0]}</p> : <></>}
+                {props?.genres?.length > 0 ? <p className='song-genre'>{props?.genres[0]}</p> : <p className='song-genre'>Без жанра</p>}
                 <p className='song-duration'>{duration}</p>
                 <div className='track-buttons'>
                     <a><img alt='list' src={list} onClick={changeModalState}/></a>

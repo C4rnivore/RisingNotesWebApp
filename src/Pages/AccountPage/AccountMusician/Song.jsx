@@ -73,7 +73,7 @@ export default function Song (props) {
 
     return (
         <div className='track'>
-            <img onClick={handleAddToSongs} alt='cover' src={api + `api/song/upload-request/${props.id}/logo?width=100&height=100`}/>
+            <img draggable='false' onClick={handleAddToSongs} alt='cover' src={api + `api/song/upload-request/${props.id}/logo?width=100&height=100`}/>
             <p onClick={handleAddToSongs} className='song-title-t'>{songName}<p className='songAuthor'>{props.artist}</p></p>
             <p className='track-statistic'><img alt='stats' src={statsIcon}/>{auditionCount}</p>
             <p className='song-status'>
@@ -82,8 +82,8 @@ export default function Song (props) {
             </p>
             <p className='song-duration'>{formatTime(duration)}</p>
             {songId ? 
-                <Link to={`/commentaries/${songId}`}><img alt='comment' src={message}/></Link> : 
-                <Link to={`/account`}><img alt='comment' src={message} style={{opacity: 0.2}}/></Link>}
+                <Link draggable='false' to={`/commentaries/${songId}`}><img draggable='false' alt='comment' src={message}/></Link> : 
+                <Link draggable='false' to={`/account`}><img alt='comment' draggable='false' src={message} style={{opacity: 0.2}}/></Link>}
             
             <a href={`/uploadmusic/${props.id}`}><img alt='list' src={editIcon} /></a>
         </div>

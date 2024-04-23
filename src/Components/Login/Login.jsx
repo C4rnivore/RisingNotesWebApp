@@ -120,12 +120,12 @@ function Login() {
                         <button className="login-submit-button"
                             onClick={handleLogin}>Войти</button>
                         <span className="login-form-subtext">
-                            Еще нет аккаунта? <Link to="/registration" className='reg-a'>Регистрация</Link>
+                            Еще нет аккаунта? <Link draggable='false' to="/registration" className='reg-a'>Регистрация</Link>
                     </span>
                 </div>
             </div>
-            <img src={headphones} className='headphones' alt=""/>
-            <img src={stripe} className='decorative-stripe' alt=""/>
+            <img draggable='false' src={headphones} className='headphones' alt=""/>
+            <img draggable='false' src={stripe} className='decorative-stripe' alt=""/>
         </div>
     );
 }

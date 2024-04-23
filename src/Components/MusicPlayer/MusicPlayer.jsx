@@ -201,7 +201,7 @@ const MusicPlayer = (props) => {
         <audio ref={audioRef} src={currentSong ? api + `api/song/${currentSong}/file` : ''}
             onEnded={handleNextSong} type="audio/mpeg" autoPlay={isPlaying} controls style={{ display: 'none' }}/>
         <div className="music-player">
-            <img className={isPlaying ? 'music-player-cover rotate' : 'music-player-cover'} src={currentSong ?
+            <img className={isPlaying ? 'music-player-cover rotate' : 'music-player-cover'} draggable='false' src={currentSong ?
             (api + `api/song/${currentSong}/logo?width=100&height=100`) : cover} alt='cover'/>
 
             <span className='music-player-head'>
@@ -211,19 +211,19 @@ const MusicPlayer = (props) => {
 
             <div className='music-player-buttons'>
                 <button onClick={handlePrevSong} disabled={songs.length < 1}>
-                    <img alt='previous track' src={rewind_backward}/></button>
+                    <img alt='previous track' src={rewind_backward} draggable='false'/></button>
                 <button onClick={handlePlayPause} disabled={currentSong === ''}
-                    className='play-button'><img alt='play' src={isPlaying? pause : play}/></button>
+                    className='play-button'><img alt='play' src={isPlaying? pause : play} draggable='false'/></button>
                 <button onClick={handleNextSong} disabled={songs.length < 1}>
-                    <img alt='next track' src={rewind_forwrad}/></button>
+                    <img alt='next track' src={rewind_forwrad} draggable='false'/></button>
             </div>
 
             <div className='music-player-buttons'>
-                <a onClick={handleToExcluded}><img alt='dislike' src={excluded.includes(currentSong) ? redDislike : dislike}/></a>
+                <a onClick={handleToExcluded}><img alt='dislike' draggable='false' src={excluded.includes(currentSong) ? redDislike : dislike}/></a>
                 <Link to={currentSong === '' ? '' : `/commentaries/${currentSong}`}>
-                    <img alt='comment' src={message}/>
+                    <img alt='comment' src={message} draggable='false'/>
                 </Link>
-                <a onClick={handleToFavorite}><img alt='like' src={featured.includes(currentSong) ? redHeart : heart}/></a>
+                <a onClick={handleToFavorite}><img alt='like' draggable='false' src={featured.includes(currentSong) ? redHeart : heart}/></a>
             </div>
             
             <div className="track-range">
@@ -234,11 +234,11 @@ const MusicPlayer = (props) => {
                 <span className="header-text header__track-duration">{formatTime(trackDuration)}</span>
             </div>
 
-            <div className="volume-container">
-                <div id='volume-modal' className="volume-modal volume-modal-hidden" onMouseLeave={hideModal}>
+            <div className="volume-container" onMouseLeave={hideModal}>
+                <div id='volume-modal' className="volume-modal volume-modal-hidden" >
                     <input type="range" className='track-range-input' min="0" max="100" onChange={handleVolumeChange} value={volume*100}/>
                 </div>
-                <img className="header-volume-btn" src={vol} onMouseOver={showModal} ></img>
+                <img className="header-volume-btn" src={vol} onMouseOver={showModal} draggable='false'></img>
             </div>
         </div>
     </div>)

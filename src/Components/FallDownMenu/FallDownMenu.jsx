@@ -15,23 +15,24 @@ export default function FallDownMenu () {
         document.cookie = 'authorId=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT;';
         document.cookie = 'role=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT;';
         document.cookie = 'userId=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT;';
+        localStorage.clear();
         window.location.replace('/');
     }
 
     return (
         <div className="fall-down-menu">
-            <NavLink to='/account' className={'fall-down-menu-ref'}
+            <NavLink draggable='false' to='/account' className={'fall-down-menu-ref'}
             style={({ isActive }) => (isActive ? {color: '#FE1170'} : {color: '#787885'})}>
-                <img src={userIcon}/>Личный кабинет</NavLink>
+                <img draggable='false'src={userIcon}/>Личный кабинет</NavLink>
             {cookies.role === 'admin' ? (
-                 <NavLink to='/adminpanel' className={'fall-down-menu-ref'}
+                 <NavLink draggable='false' to='/adminpanel' className={'fall-down-menu-ref'}
                  style={({ isActive }) => (isActive ? {color: '#FE1170'} : {color: '#787885'})}>
-                     <img src={settingsIcon}/>Админ панель</NavLink>
+                     <img draggable='false'src={settingsIcon}/>Админ панель</NavLink>
                  
             ) : <></>}
 
             <button className="logout-button" onClick={logoutUser}>
-                     <img src={exitIcon}/>Выход</button>
+                     <img draggable='false'src={exitIcon}/>Выход</button>
            
         </div>
     )

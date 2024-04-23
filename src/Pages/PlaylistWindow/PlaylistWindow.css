@@ -68,10 +68,10 @@
     gap: 4px;
 }
 
-
 .private-playlist {
     color: #787885;
-    
+    animation-name: textColor;
+    animation-duration: 0s;
     font-family: Montserrat;
     font-size: 16px;
     font-style: normal;
@@ -139,10 +139,52 @@
     transition: 250ms ease-in-out;
 }
 
+.playlist-image {
+    width: 250px;
+    height: 250px;
+    border-radius: 25px;
+}
 
+.image-playlistskin {
+    width: 250px;
+    height: 250px;
+}
 
+.playlist-image-change {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    width: 100%;
+    max-width: 250px;
+    height:100%;
+    max-height: 250px;
+    border-radius: 25px;
+    visibility: hidden;
+}
 
+.playlist-image-wrapper:hover .playlist-image-change {
+    cursor: pointer;
+    visibility: visible;
+    border-radius: 25px;
+    background: linear-gradient(0deg, #191E28 0%, rgba(25, 30, 40, 0.00) 193.75%);
+}
 
+.checkbox {
+    display: none;
+}
+
+.checkbox-icon {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background-image: url('/src/Images/controller/checkbox.svg');
+    background-size: cover;
+}
+
+.checkbox:checked + .checkbox-icon {
+    background-image: url('/src/Images/controller/checkbox-check.svg');
+}
 
 
 

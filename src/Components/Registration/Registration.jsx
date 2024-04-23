@@ -53,12 +53,12 @@ function Registration() {
                         <button className="login-submit-button reg-button"
                             onClick={handleRegistration} >Зарегистрироваться</button>
                         <span className="login-form-subtext">
-                            Уже зарегистрированы? <Link to="/login" className='reg-a'>Войти</Link>
+                            Уже зарегистрированы? <Link draggable='false' to="/login" className='reg-a'>Войти</Link>
                     </span>
                 </div>
             </div>
-            <img src={headphones} className='headphones' alt=""/>
-            <img src={stripe} className='decorative-stripe' alt=""/>
+            <img draggable='false' src={headphones} className='headphones' alt=""/>
+            <img draggable='false' src={stripe} className='decorative-stripe' alt=""/>
         </div>
     );
 }

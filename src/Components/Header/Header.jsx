@@ -34,7 +34,7 @@ function Header() {
     return (
         <header className='header'>
             <div className="header_logo">
-                <img src={logo} alt="" />
+                <img draggable='false' src={logo} alt="" />
                 <span className='logo_txt'><Link to={'/'} className='logo_link'>RISING NOTES</Link></span>
             </div>
             {isUserAuthorized ? (
@@ -42,10 +42,10 @@ function Header() {
                     <div className='header_pfp'>
                         <span className={isMenuOpened ? "pfp_dropdown-down" : "pfp_dropdown-up"} 
                             onClick={() => setIsMenuOpened(!isMenuOpened)}>
-                            <img src={Chevron}/>
+                            <img draggable='false' src={Chevron}/>
                         </span>
                         
-                        <img className="pfp_image" src={isImageExist ? 
+                        <img draggable='false' className="pfp_image" src={isImageExist ? 
                             api + `api/user/${cookies.userId}/logo?width=400&height=400` : defaultAvatar} alt="avatar"  
                             onClick={() => setIsMenuOpened(!isMenuOpened)}/>
                     </div>
@@ -53,10 +53,10 @@ function Header() {
                 </>
             ) : (
                 <div className='unauth-header'>
-                    <NavLink to='/login' className={'header-menu-ref'}
+                    <NavLink draggable='false' to='/login' className={'header-menu-ref'}
                     style={({ isActive }) => (isActive ? {color: '#FE1170'} : {color: '#787885'})}>
                         Войти</NavLink>/
-                    <NavLink to='/registration' className={'header-menu-ref'}
+                    <NavLink draggable='false' to='/registration' className={'header-menu-ref'}
                     style={({ isActive }) => (isActive ? {color: '#FE1170'} : {color: '#787885'})}>
                         Зарегистрироваться</NavLink>
                 </div>

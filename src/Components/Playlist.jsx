@@ -29,8 +29,8 @@ function Playlist(props) {
     }, []) 
 
     return (
-        <Link to={`/playlist/${props.id}`} className='playlist'>
-            <img className='playlistskin' alt='cover' src={isreviewSkin ? api + `api/playlist/${props.id}/logo?width=400&height=400` : SongCover}/>
+        <Link draggable='false' to={`/playlist/${props.id}`} className='playlist'>
+            <img draggable='false' className='playlistskin' alt='cover' src={isreviewSkin ? api + `api/playlist/${props.id}/logo?width=400&height=400` : SongCover}/>
             <p className='labelplaylist'>{namePlaylist}</p>
         </Link>
     )

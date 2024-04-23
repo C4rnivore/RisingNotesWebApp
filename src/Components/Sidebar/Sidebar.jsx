@@ -1,13 +1,14 @@
-import searchIcon from '../../Images/sidebar/Vector.svg'
-import wave from '../../Images/sidebar/vave.svg'
-import warning from '../../Images/sidebar/warning.svg'
-import like from '../../Images/sidebar/like.svg'
+import searchIcon from '../../Images/sidebar/Vector.svg';
+import wave from '../../Images/sidebar/vave.svg';
+import warning from '../../Images/sidebar/warning.svg';
+import like from '../../Images/sidebar/like.svg';
+import placeholder from '../../Images/main-placeholder.png';
 import { useContext, useEffect, useState } from 'react';
 import {Link, NavLink, useNavigate} from "react-router-dom";
 import player from "../Player/Player";
 import SidebarCollapser from './SidebarCollpaser/SidebarCollapser'
 import subsIcon from '../../Images/sidebar/subs-icon.svg';
-import { PlaylistsContext, SearchQueryContext, axiosAuthorized, axiosUnauthorized } from '../App/App'
+import { PlaylistsContext, SearchQueryContext, api, axiosAuthorized, axiosUnauthorized } from '../App/App'
 import { useCookies } from 'react-cookie';
 
 import './Sidebar.css';
@@ -25,27 +26,31 @@ function Sidebar(props) {
 
    useEffect(()=>{
       setSearchInput(searchQuery);
-      getPlaylistsInfo();
-   },[searchQuery, playlists])
-
-   function getPlaylistsInfo () {
-      let arr = []
-
-      playlists.map(el => {
-         axiosUnauthorized.get(`api/playlist/${el}`)
-         .then(
-            response => {
-               arr.push({
-                  name: response.data.name,
-                  id: el
-               });
-               setPlaylistsInfo(arr);
-            }
-         );
-      });
-
       
-   }
+   },[searchQuery]);
+
+   useEffect(() => {
+      getPlaylistsInfo();
+   }, [playlists])
+
+   async function getPlaylistsInfo() {
+      // Получить или обновить информацию о плейлистах
+      const arr = await Promise.all(playlists.map(async (el) => {
+         const response = await axiosAuthorized.get(`api/playlist/${el}`);
+         let img = true;
+         await axiosUnauthorized.get(api + `api/playlist/${el}/logo?width=400&height=400`)
+         .catch(err => {
+            img = false;
+         })
+         return {
+           name: response.data.name,
+           id: el,
+           img: img
+         };
+      }));
+     
+      setPlaylistsInfo(arr);
+   }     
 
    const handleToggleMenu = () =>{
       const sidebar = document.getElementById('sidebar')
@@ -69,6 +74,7 @@ function Sidebar(props) {
    }
 
    async function addNewPlaylist() {
+      // Добавить новый плейлист
       if (!cookies?.role) {
          navigate('/login');
       }
@@ -94,7 +100,7 @@ function Sidebar(props) {
          <div className="searchbar-container">
             <form action="" method='GET'>
                <button className='searchbar-submit' type='submit'>
-                  <img src={search} alt="" />
+                  <img src={search} alt="" draggable='false' />
                </button>
                <input 
                className='searchbar' 
@@ -109,46 +115,51 @@ function Sidebar(props) {
             <nav className='music-nav'>
                <ul className="nav-links">
                   <li>
-                     <NavLink onClick={clearQuery} className ={({ isActive }) => (isActive ? 'nav-link wave active' : 'nav-link wave' )} 
+                     <NavLink draggable='false' onClick={clearQuery} className ={({ isActive }) => (isActive ? 'nav-link wave active' : 'nav-link wave' )} 
                      to={'/'} 
                      style={({ isActive }) => (isActive ? {color: '#FE1170'} : {color: '#787885'})}>
-                        <img src={wave} alt="" className="nav-icon" />
+                        <img src={wave} alt="" className="nav-icon" draggable='false' />
                         <span>Моя волна</span>
                      </NavLink>
                   </li>
                   <li>
-                     <NavLink onClick={clearQuery} className ={({ isActive }) => (isActive ? 'nav-link fav active' : 'nav-link fav ' )}
+                     <NavLink draggable='false' onClick={clearQuery} className ={({ isActive }) => (isActive ? 'nav-link fav active' : 'nav-link fav ' )}
                      to={'/featured'} 
                      style={({ isActive }) => (isActive ? {color: '#FE1170'} : {color: '#787885'})}>
-                        <img src={like} alt="" className="nav_icon" />
+                        <img src={like} alt="" className="nav_icon" draggable='false' />
                         <span >Избранное</span>
                      </NavLink>
                   </li>
                   <li> 
-                     <NavLink onClick={clearQuery} className ={({ isActive }) => (isActive ? 'nav-link remove active' : 'nav-link remove ' )}
+                     <NavLink draggable='false' onClick={clearQuery} className ={({ isActive }) => (isActive ? 'nav-link remove active' : 'nav-link remove ' )}
                      to={'/excluded'} 
                      style={({ isActive }) => (isActive ? {color: '#FE1170'} : {color: '#787885'})}>
-                        <img src={warning} alt="" className="nav-icon" />
+                        <img src={warning} alt="" className="nav-icon" draggable='false' />
                         <span >Исключенное</span>
                      </NavLink>
                   </li>
                <li> 
-                  <NavLink onClick={clearQuery} className ={({ isActive }) => (isActive ? 'nav-link remove active' : 'nav-link remove ' )}
+                  <NavLink draggable='false' onClick={clearQuery} className ={({ isActive }) => (isActive ? 'nav-link remove active' : 'nav-link remove ' )}
                   to={'/subscriptions'} 
                   style={({ isActive }) => (isActive ? {color: '#FE1170'} : {color: '#787885'})}>
-                     <img src={subsIcon} alt="" className="nav-icon" />
+                     <img src={subsIcon} alt="" className="nav-icon" draggable='false' />
                      <span>Подписки</span>
                   </NavLink>
                </li>
                </ul>
             </nav>
          </div>
-         <div className="playlists-container">
+         {cookies.accessToken !== undefined || cookies.role !== undefined || cookies.userId !== undefined ? 
+            <div className="playlists-container">
             <span className="section-title">Плейлисты</span>
             <ul className="sidebar-playlists">
                {playlistsInfo.map((pl => 
                   <li className='sidebar-playlist' key={pl.id}>
-                     <NavLink to={`/playlist/${pl.id}`} className='sidebar-playlist-name' style={({ isActive }) => (isActive ? {color: '#FE1170'} : {color: '#787885'})}>{pl.name}</NavLink>
+                     <NavLink draggable='false' to={`/playlist/${pl.id}`} className='sidebar-playlist-name' 
+                        style={({ isActive }) => (isActive ? {color: '#FE1170'} : {color: '#787885'})}>
+                           <img draggable='false' src={pl.img ? api + `api/playlist/${pl.id}/logo?width=400&height=400` : placeholder}/>
+                           {pl.name}
+                     </NavLink>
                   </li>
                ))}
                <li className='add-playlist' onClick={addNewPlaylist}>
@@ -156,7 +167,9 @@ function Sidebar(props) {
                   <span className='sidebar-playlist-name'> Добавить плейлист</span>
                </li>
             </ul>
-         </div>
+         </div> :
+         <></>}
+         
       </div>
     </div>
    )

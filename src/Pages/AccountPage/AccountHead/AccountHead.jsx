@@ -55,15 +55,13 @@ export default function AccountHead (props) {
         })
         .then(response => {
             window.location.reload();
-            // const currentPath = window.location.pathname;
-            // navigate(currentPath);
         });
     }
 
     return (
         <div className="account-page-head">
             <button className="account-page-avatar-button" onClick={handleFileInput}>
-                <div className='account-page-avatar-change'><img src={bigEdit}/></div>
+                <div className='account-page-avatar-change'><img draggable='false' src={bigEdit}/></div>
                 <img alt='avatar' ref={imgRef} src={isImageExist ? 
                 api + `api/user/${cookies.userId}/logo?width=400&height=400` : defaultAvatar}/>
             </button>

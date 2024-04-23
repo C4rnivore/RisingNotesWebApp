@@ -76,7 +76,7 @@ const Commentaries = (props) => {
                 <BackButton/>
 
                 <div className='comm-head'>
-                    <img alt='cover' src={(api + `api/song/${params.id}/logo?width=500&height=500`)}/>
+                    <img alt='cover' src={(api + `api/song/${params.id}/logo?width=500&height=500`)} draggable='false'/>
                     <span>
                         <h2 className='comm-page-h2'>{songName}</h2>
                         <Link to={`/artist/${authorId}`} className='comm-page-author'>{songAuthor}</Link>

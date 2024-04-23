@@ -27,8 +27,8 @@ function CustomButton({func, text, icon, success}) {
         <button className={`custom-button ${isSent ? 'sent' : ''}`}
             onClick={() => handleFunc()}>
             {isSending ? 
-                <img alt='loading' src={refresh} className='loading'/> : 
-                <img alt='icon' src={isSent ? ok : icon}/>
+                <img draggable='false' alt='loading' src={refresh} className='loading'/> : 
+                <img draggable='false' alt='icon' src={isSent ? ok : icon}/>
             }
             {verifiedText}
         </button>
