@@ -152,6 +152,14 @@ function App() {
                 window.location.replace('/404');
                 return Promise.reject(error.response);
             }
+            else if (error.response.status === 500) {
+                return Promise.reject(error.response);
+                console.log("Ошибка на сервере");
+            }
+            else if (error.response.status === 401) {
+                window.location.replace('/login');
+                return Promise.reject(error.response);
+            }
             else {
                 return Promise.reject(error);
             }
@@ -164,8 +172,12 @@ function App() {
         },
         error => {
             if (error.response.status === 404) {
-                window.location.replace('/404');
+                // window.location.replace('/404');
                 return Promise.reject(error.response);
+            }
+            else if (error.response.status === 500) {
+                return Promise.reject(error.response);
+                console.log("Ошибка на сервере");
             }
             else if (error.response.status === 401) {
                 window.location.replace('/login');

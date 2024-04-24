@@ -93,10 +93,10 @@ function SearchContent(props){
 
     function SearchTracks(props){
         const tracks = props.tracks
-        if(tracks.length == 0 && props.navType == undefined)
+        if(tracks?.length == 0 && props.navType == undefined)
             return(<></>)
     
-        if(tracks.length == 0 && props.navType == 'Tracks')
+        if(tracks?.length == 0 && props.navType == 'Tracks')
             return(<div className="search-tracks-top pink-highlight">Не найдено треков по запросу</div>)
         
         return(
@@ -104,7 +104,7 @@ function SearchContent(props){
                 <div className="search-tracks-top">
                     <span>Треки</span>
                     <button className='search-show-more'>
-                    {tracks.length>5?
+                    {tracks?.length>5?
                             <>
                                 <span>Смотреть все</span>
                                 <img src={arrowRight} alt="" />
@@ -114,7 +114,7 @@ function SearchContent(props){
                     </button>
                 </div>
                 <div className="search-tracks-content">
-                    {tracks.map(track =>(
+                    {tracks?.map(track =>(
                         <Song key={track.id} id={track.id} name={track.name} duration={track.durationMs} artist={track.artistName} />
                     ))}
                 </div>
@@ -125,7 +125,7 @@ function SearchContent(props){
         const clips = props.clips
         const clipsToShow = props.firstThree? clips.slice(0,3):clips
 
-        if (clips.length === 0){
+        if (clips?.length === 0){
             if(props.navType === undefined)
                 return(<></>)
 
@@ -138,7 +138,7 @@ function SearchContent(props){
                     <div className="search-clips-top">
                         <span>Клипы</span>
                         <button className='search-show-more' onClick={()=>updateNavType('Clips')}>
-                            {clips.length>3?
+                            {clips?.length>3?
                             <>
                                 <span>Смотреть все</span>
                                 <img src={arrowRight} alt="" />
@@ -149,7 +149,7 @@ function SearchContent(props){
                     </div>
                     <div className="search-clips-content">
                         <div className='clips'>
-                            {clipsToShow.map((clip, index) => (
+                            {clipsToShow?.map((clip, index) => (
                                 <Clip key={index} cover={clip.cover} duration={clip.duration} name={clip.name} authorName={clip.authorName}/>
                             ))}
                         </div>
@@ -165,10 +165,10 @@ function SearchContent(props){
             ev.target.src = pfpPlaceholder
         }
     
-        if(artists.length == 0 && props.navType == undefined)
+        if(artists?.length == 0 && props.navType == undefined)
         return(<></>)
     
-        if(artists.length == 0 && props.navType == 'Authors')
+        if(artists?.length == 0 && props.navType == 'Authors')
             return(<div className="search-authors-top pink-highlight" >Не найдено исполнителей по запросу</div>)
     
         return(
@@ -176,7 +176,7 @@ function SearchContent(props){
                         <div className="search-authors-top">
                         <span>Исполнители</span>
                         <button className='search-show-more'>
-                            {artists.length>5?
+                            {artists?.length>5?
                             <>
                                 <span>Смотреть все</span>
                                 <img src={arrowRight} alt="" />
@@ -187,7 +187,7 @@ function SearchContent(props){
                     </div>
                     <div className="search-authors-content">
                     <div className='playlists'>
-                        {artists.map((artist, index) => (
+                        {artists?.map((artist, index) => (
                             <div key={index} className="search-artist-card">
                                 <Link to={`/artist/${artist.id}`} onClick={clearQuery}>
                                     <img onError={addDefaultSrc} src={api + `api/author/${artist.id}/logo?width=200&height=200`? api + `api/author/${artist.id}/logo?width=200&height=200`:'12'} alt={"нет картинки"} />
@@ -203,10 +203,10 @@ function SearchContent(props){
     function SearchPlaylists(props){
         const playlists = props.playlists
     
-        if(playlists.length == 0 && props.navType == undefined)
+        if(playlists?.length == 0 && props.navType == undefined)
         return(<></>)
     
-        if(playlists.length == 0 && props.navType == 'Playlists'){
+        if(playlists?.length == 0 && props.navType == 'Playlists'){
             return(<div className="search-playlists-top pink-highlight">Не найдено плейлистов по запросу</div>)
         }
         return(
@@ -214,7 +214,7 @@ function SearchContent(props){
                 <div className="search-playlists-top">
                     <span>Плейлисты</span>
                     <button className='search-show-more'>
-                    {playlists.length>5?
+                    {playlists?.length>5?
                             <>
                                 <span>Смотреть все</span>
                                 <img src={arrowRight} alt="" />
@@ -225,7 +225,7 @@ function SearchContent(props){
                 </div>
                 <div className="search-playlists-content">
                 <div className='playlists'>
-                {playlists.map(playlist =>(
+                {playlists?.map(playlist =>(
                             <Playlist key={playlist.id} id={playlist.id} />
                         ))}
                 </div>

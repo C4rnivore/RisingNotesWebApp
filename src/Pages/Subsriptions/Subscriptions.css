@@ -1,7 +1,7 @@
 .subscription > img {
-    max-width: 230px;
-    width: 100%;
-    height: auto;
+    width: 230px;
+    height: 230px;
+    object-fit: cover;
     border-radius: 28px;
 }
 

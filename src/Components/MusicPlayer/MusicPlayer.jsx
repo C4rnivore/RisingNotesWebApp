@@ -57,12 +57,14 @@ const MusicPlayer = (props) => {
                     })
                     .catch(err => {
                         console.log(err);
-                        throw err;
+                        setSongs(arr => arr.filter(e => e !== currentSong));
+                        setCurrentSong('');
                     })
             })
             .catch(err => {
                 console.log(err);
-                throw err;
+                setSongs(arr => arr.filter(e => e !== currentSong));
+                setCurrentSong('');
             })
         }
         else if (songs.length > 0){

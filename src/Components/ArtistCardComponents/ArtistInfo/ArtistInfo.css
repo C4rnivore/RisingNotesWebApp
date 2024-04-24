@@ -88,6 +88,8 @@
 
 .artist-img {
     max-width: 250px;
+    max-height: 250px;
+    object-fit: cover;
     width: 100%;
     height: auto;
     border-radius: 19px;

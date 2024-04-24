@@ -10,29 +10,34 @@ import stripe from '../../Images/login/bottom-design-element.svg';
 import { axiosAuthorized, axiosUnauthorized } from '../App/App';
 
 import './Registration.css';
+import CustomButton from '../CustomButton/CustomButton';
 
 function Registration() {
     const [userName, setUserName] = useState(undefined);
     const [mail, setMail] = useState(undefined);
     const [password, setPassword] = useState(undefined);
 
-    const handleRegistration = () => {
+    const handleRegistration = async () => {
         if (!((userName === '' || userName === undefined) || 
             (password === '' || password === undefined) ||
             (mail === '' || mail === undefined))) {
-                axiosUnauthorized.post('api/profile/registration', {
-                    userName:userName,
-                    email: mail,
-                    password: password
-                })
-                .then(response => {
+                try {
+                    await axiosUnauthorized.post('api/profile/registration', {
+                        userName:userName,
+                        email: mail,
+                        password: password
+                    });
+                    
                     window.location.replace('/login');
-                })
-                .catch(err => {
+                }
+                catch(err) {
                     console.log(err);
-                    throw err;
-                })
+                    return Promise.reject(err);
+                }
             }
+        else {
+            throw ErrorEvent;
+        }
     }
 
     return (
@@ -50,8 +55,9 @@ function Registration() {
                         <input type="password" placeholder="Пароль" className="login-input"
                             onChange={(e) => setPassword(e.target.value)} value={password}/>
                         {password == '' ? (<p className='warning-login'>*Обязательное поле</p>) : (<p className='warning-login'> </p>)}
-                        <button className="login-submit-button reg-button"
-                            onClick={handleRegistration} >Зарегистрироваться</button>
+                        {/* <button className="login-submit-button reg-button"
+                            onClick={handleRegistration} >Зарегистрироваться</button> */}
+                        <CustomButton text={'Зарегистрироваться'} func={handleRegistration} success={'Вы зарегистрированы!'}/>
                         <span className="login-form-subtext">
                             Уже зарегистрированы? <Link draggable='false' to="/login" className='reg-a'>Войти</Link>
                     </span>

@@ -28,8 +28,10 @@ function CustomButton({func, text, icon, success}) {
             onClick={() => handleFunc()}>
             {isSending ? 
                 <img draggable='false' alt='loading' src={refresh} className='loading'/> : 
-                <img draggable='false' alt='icon' src={isSent ? ok : icon}/>
+                <></>
             }
+            {!isSending && icon ? 
+                <img draggable='false' alt='icon' src={isSent ? ok : icon}/> : <></>}
             {verifiedText}
         </button>
     )

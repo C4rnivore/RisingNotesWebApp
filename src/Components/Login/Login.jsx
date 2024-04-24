@@ -11,6 +11,7 @@ import { jwtDecode } from 'jwt-decode';
 import { PlaylistsContext, ExcludedContext, FeaturedContext, SubscriptionsContext, api, axiosAuthorized, axiosUnauthorized } from '../App/App';
 
 import './Login.css';
+import CustomButton from '../CustomButton/CustomButton';
 
 function Login() {
     const [cookies, setCookies] = useCookies(['accessToken', 'refreshToken', 'authorId', 'role', 'subscriptions', 'userId']);
@@ -25,72 +26,75 @@ function Login() {
         let decoded = undefined;
         let userId = undefined;
         let access_token = undefined;
-        if (!((userName === '' || userName === undefined) || (password === '' || password === undefined))) {
-            await axiosUnauthorized.post(`connect/token`, {
-                client_id: 'Api',
-                client_secret: 'megaclientsecret',
-                grant_type: 'password',
-                scope: 'Api offline_access',
-                username: userName,
-                password: password
-            }, {
-                headers : {
-                    'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
-                }
-            })
-            .then(response => {
-                access_token = response.data.access_token;
-                setCookies('accessToken', response.data.access_token, { path: '/' });
-                setCookies('refreshToken', response.data.refresh_token, { path: '/' });
-                decoded = jwtDecode(response.data.access_token);
-                setCookies('authorId', decoded?.authorId, { path: '/' });
-                setCookies('role', decoded.role, { path: '/' });
-                userId = jwtDecode(response.data.access_token)["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"];
-                setCookies('userId', userId, { path: '/' });
-            })
-            .catch(err => {
-                console.log(err);
-            })
+        try {
+            if (!((userName === '' || userName === undefined) || (password === '' || password === undefined))) {
+                await axiosUnauthorized.post(`connect/token`, {
+                    client_id: 'Api',
+                    client_secret: 'megaclientsecret',
+                    grant_type: 'password',
+                    scope: 'Api offline_access',
+                    username: userName,
+                    password: password
+                }, {
+                    headers : {
+                        'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+                    }
+                })
+                .then(response => {
+                    access_token = response.data.access_token;
+                    setCookies('accessToken', response.data.access_token, { path: '/' });
+                    setCookies('refreshToken', response.data.refresh_token, { path: '/' });
+                    decoded = jwtDecode(response.data.access_token);
+                    setCookies('authorId', decoded?.authorId, { path: '/' });
+                    setCookies('role', decoded.role, { path: '/' });
+                    userId = jwtDecode(response.data.access_token)["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"];
+                    setCookies('userId', userId, { path: '/' });
+                })
+                .catch(err => {
+                    console.log(err);
+                })
 
-            await axiosUnauthorized.get(api + `api/subscription/${userId}/list`, {
-                headers: {
-                    "Content-Type": "application/json",
-                    'Authorization': 'Bearer ' + access_token
-                },
-            })
-            .then(response => {
-                let arr = [];
-                response.data.subscriptionList.map(e => arr.push(e.authorId));
-                setSubscriptions(arr);
-            })
+                await axiosUnauthorized.get(api + `api/subscription/${userId}/list`, {
+                    headers: {
+                        "Content-Type": "application/json",
+                        'Authorization': 'Bearer ' + access_token
+                    },
+                })
+                .then(response => {
+                    let arr = [];
+                    response.data.subscriptionList.map(e => arr.push(e.authorId));
+                    setSubscriptions(arr);
+                })
 
-            await axiosUnauthorized.get('api/song/favorite/list', {
-                headers: {
-                    "Content-Type": "application/json",
-                    'Authorization': 'Bearer ' + access_token
-                },
-            })
-            .then(response => {
-                let arr = []
-                response.data.songInfoList.map(el => arr.push(el.id));
-                setFeatured(arr);
-            })
+                await axiosUnauthorized.get('api/song/favorite/list', {
+                    headers: {
+                        "Content-Type": "application/json",
+                        'Authorization': 'Bearer ' + access_token
+                    },
+                })
+                .then(response => {
+                    let arr = []
+                    response.data.songInfoList.map(el => arr.push(el.id));
+                    setFeatured(arr);
+                })
 
-            await axiosUnauthorized.get('api/excluded-track/list', {
-                headers: {
-                    "Content-Type": "application/json",
-                    'Authorization': 'Bearer ' + access_token
-                },
-            })
-            .then(response => {
-                let arr = []
-                response.data.excludedTrackList.map(el => arr.push(el.id));
-                setExcluded(arr);
-            })
-            
-            await getPlaylists(userId);
-
-            window.location.replace('/');
+                await axiosUnauthorized.get('api/excluded-track/list', {
+                    headers: {
+                        "Content-Type": "application/json",
+                        'Authorization': 'Bearer ' + access_token
+                    },
+                })
+                .then(response => {
+                    let arr = []
+                    response.data.excludedTrackList.map(el => arr.push(el.id));
+                    setExcluded(arr);
+                })
+                
+                await getPlaylists(userId);
+            }
+        }
+        catch (err) {
+            return Promise.reject(err);
         }
     }
 
@@ -117,8 +121,9 @@ function Login() {
                         <input type="password" placeholder="Пароль" className="login-input"
                             onChange={(e) => setPassword(e.target.value)} value={password}/>
                         {password == '' ? (<p className='warning-login'>*Обязательное поле</p>) : (<p className='warning-login'> </p>)}
-                        <button className="login-submit-button"
-                            onClick={handleLogin}>Войти</button>
+                        {/* <button className="login-submit-button"
+                            onClick={handleLogin}>Войти</button> */}
+                        <CustomButton text={'Войти'} func={handleLogin} success={'Вы вошли в аккаунт!'}/>
                         <span className="login-form-subtext">
                             Еще нет аккаунта? <Link draggable='false' to="/registration" className='reg-a'>Регистрация</Link>
                     </span>
