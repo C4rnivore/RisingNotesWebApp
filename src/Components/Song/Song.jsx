@@ -9,6 +9,7 @@ import list from '../../Images/list.svg'
 import { CurrentSongContext, ExcludedContext, FeaturedContext, PlayerContext, api, axiosAuthorized } from '../App/App';
 import thumb from '../../Images/main-placeholder.png';
 import check from '../../Images/check_big.svg';
+import useSearchClean from '../../Hooks/useSearchClean/useSearchClean';
 
 import './Song.css';
 
@@ -19,6 +20,7 @@ function Song(props) {
     const {currentSong, setCurrentSong} = useContext(CurrentSongContext);
     const {featured, setFeatured} = useContext(FeaturedContext);
     const {excluded, setExcluded} = useContext(ExcludedContext);
+    const {cleanQuery} = useSearchClean()
     const changeModalState = () => {
         setModalIsHidden(modalIsHidden => modalIsHidden = !modalIsHidden);
     }
@@ -80,7 +82,7 @@ function Song(props) {
                     <a><img alt='list' src={list} onClick={changeModalState}/></a>
                     <a onClick={handleToExcluded}><img alt='dislike' src={excluded.includes(props.id) ? redDislike : dislike}/></a>
                     <a onClick={handleToFavorite}><img alt='like' src={featured.includes(props.id) ? redHeart : heart}/></a>
-                    <Link to={`/commentaries/${props.id}`}><img alt='comment' src={message}/></Link>
+                    <Link to={`/commentaries/${props.id}`} onClick={cleanQuery}><img alt='comment' src={message}/></Link>
                 </div>
                 
             </div>

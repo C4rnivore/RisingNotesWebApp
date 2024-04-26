@@ -14,7 +14,6 @@ function SearchResults(props){
     let input = searchInput
 
     const handleNavClick = (id) =>{
-        console.log(1);
         if(id === activeNav)
             return
         document.getElementById(activeNav).classList.remove('active')

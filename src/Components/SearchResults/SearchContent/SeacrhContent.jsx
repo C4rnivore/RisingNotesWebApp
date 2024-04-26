@@ -1,54 +1,18 @@
 import './SearchContent.css'
 import arrowRight from '../../../Images/artist-card/Chevron_Right.svg'
-import { Link } from 'react-router-dom'
-import { api } from '../../App/App'
 import Song from '../../Song/Song'
 import Playlist from '../../Playlist'
 import Clip from '../../Clip/Clip'
-import { useContext } from 'react'
-import { SearchQueryContext } from '../../App/App';
 import pfpPlaceholder from '../../../Images/main-placeholder.png';
+import SearchArtistCard from '../../SearchArtistCard/SearchArtistCard'
+import useSearchClean from '../../../Hooks/useSearchClean/useSearchClean'
 
 function SearchContent(props){
-    const {searchInput, setSearchInput} = useContext(SearchQueryContext)
     const searchResult = props.search
 
-    if(!searchResult.artists && !searchResult.tracks && !searchResult.playlists)
+    if(searchResult.artists?.length === 0 && searchResult.tracks?.length === 0 && !searchResult.playlists && !searchResult.clips)
         return (<NotFoundPage/>)
 
-    
-    const clipsPlaceholder=[
-        {
-            name:'Clip 1',
-            duration:'2.00',
-            authorName:'Author',
-            cover:undefined
-        },
-        {
-            name:'Clip 2',
-            duration:'2.00',
-            authorName:'Author',
-            cover:undefined
-        },
-        {
-            name:'Clip 3',
-            duration:'2.00',
-            authorName:'Author',
-            cover:undefined
-        },
-        {
-            name:'Clip 4',
-            duration:'2.00',
-            authorName:'Author',
-            cover:undefined
-        },
-    ]
-
-
-
-    function clearQuery(){
-        setSearchInput('')
-    }
 
     function updateNavType(type){
         props.navChanger(type)
@@ -66,7 +30,6 @@ function SearchContent(props){
         case 'Authors':
             return(<SearchAuthors 
                 artists={searchResult.artists} 
-                clearFunc={clearQuery} 
                 navType={props.navType}/>)
         case 'Playlists':
             return(<SearchPlaylists 
@@ -74,7 +37,7 @@ function SearchContent(props){
                 navType={props.navType}/>)
         case 'Clips':
             return (<SearchClips
-                    clips={clipsPlaceholder}
+                    clips={searchResult.clips}
                     navType={props.navType}
                     firstThree={false}
             />)
@@ -85,7 +48,7 @@ function SearchContent(props){
         return(
             <div className='search-res-container'>
                 <SearchTracks tracks={searchResult.tracks} artists={searchResult.artists}/>
-                <SearchClips clips={clipsPlaceholder} firstThree={true}/>
+                <SearchClips clips={searchResult.clips} firstThree={true}/>
                 <SearchAuthors artists={searchResult.artists}/>
                 <SearchPlaylists playlists={searchResult.playlists}/>
             </div>)
@@ -93,11 +56,8 @@ function SearchContent(props){
 
     function SearchTracks(props){
         const tracks = props.tracks
-        if(tracks?.length == 0 && props.navType == undefined)
-            return(<></>)
-    
-        if(tracks?.length == 0 && props.navType == 'Tracks')
-            return(<div className="search-tracks-top pink-highlight">Не найдено треков по запросу</div>)
+        const validation = validateResult(tracks, props.navType, 'Tracks', 'Не найдено треков по запросу')
+        if (!validation.valid) return validation.return
         
         return(
             <div>
@@ -123,16 +83,10 @@ function SearchContent(props){
 
     function SearchClips(props){
         const clips = props.clips
+        const validation = validateResult(clips, props.navType, 'Clips', 'Не найдено клипов по запросу')
+        if (!validation.valid) return validation.return
+    
         const clipsToShow = props.firstThree? clips.slice(0,3):clips
-
-        if (clips?.length === 0){
-            if(props.navType === undefined)
-                return(<></>)
-
-            if(props.navType === 'Clips')
-                return(<div className="search-clips-top pink-highlight" >Не найдено исполнителей по запросу</div>)
-        }
-
         return(
                 <div>
                     <div className="search-clips-top">
@@ -158,22 +112,17 @@ function SearchContent(props){
             )}
     
     function SearchAuthors(props){
-        // const frontend_url = 'http://localhost:3000/'
         const artists = props.artists
+        const validation = validateResult(artists, props.navType, 'Authors', 'Не найдено исполнителей по запросу')
+        if (!validation.valid) return validation.return
 
         function addDefaultSrc(ev){
             ev.target.src = pfpPlaceholder
         }
     
-        if(artists?.length == 0 && props.navType == undefined)
-        return(<></>)
-    
-        if(artists?.length == 0 && props.navType == 'Authors')
-            return(<div className="search-authors-top pink-highlight" >Не найдено исполнителей по запросу</div>)
-    
         return(
                 <div>
-                        <div className="search-authors-top">
+                    <div className="search-authors-top">
                         <span>Исполнители</span>
                         <button className='search-show-more'>
                             {artists?.length>5?
@@ -186,58 +135,68 @@ function SearchContent(props){
                         </button>
                     </div>
                     <div className="search-authors-content">
-                    <div className='playlists'>
-                        {artists?.map((artist, index) => (
-                            <div key={index} className="search-artist-card">
-                                <Link to={`/artist/${artist.id}`} onClick={clearQuery}>
-                                    <img onError={addDefaultSrc} src={api + `api/author/${artist.id}/logo?width=200&height=200`? api + `api/author/${artist.id}/logo?width=200&height=200`:'12'} alt={"нет картинки"} />
-                                </Link>
-                                <span className='search-artist-name'>{artist.name}</span>
-                            </div>
-                        ))}
-                    </div>
+                        <div className='playlists'>
+                            {artists?.map((artist, index) => (
+                                <SearchArtistCard key={index} artist={artist} srcErrHandler={addDefaultSrc}/>
+                            ))}
+                        </div>
                     </div>
                 </div>
     )}
     
     function SearchPlaylists(props){
         const playlists = props.playlists
-    
-        if(playlists?.length == 0 && props.navType == undefined)
-        return(<></>)
-    
-        if(playlists?.length == 0 && props.navType == 'Playlists'){
-            return(<div className="search-playlists-top pink-highlight">Не найдено плейлистов по запросу</div>)
-        }
+        const validation = validateResult(playlists, props.navType, 'Playlists','Не найдено плейлистов по запросу')
+        if (!validation.valid) return validation.return
+
         return(
             <div>
                 <div className="search-playlists-top">
                     <span>Плейлисты</span>
                     <button className='search-show-more'>
                     {playlists?.length>5?
-                            <>
-                                <span>Смотреть все</span>
-                                <img src={arrowRight} alt="" />
-                            </>
-                            : <></>
+                        <>
+                            <span>Смотреть все</span>
+                            <img src={arrowRight} alt="" />
+                        </>
+                        : <></>
                     }
                     </button>
                 </div>
                 <div className="search-playlists-content">
-                <div className='playlists'>
-                {playlists?.map(playlist =>(
+                    <div className='playlists'>
+                        {playlists?.map(playlist =>(
                             <Playlist key={playlist.id} id={playlist.id} />
                         ))}
-                </div>
+                    </div>
                 </div>
             </div>)
     }
     
     function NotFoundPage(props){
         return(
-            <div>
+            <div style={{display:'flex', height:300, alignItems:'center', justifyContent:'center'}}>
                 Ничего не найдено
             </div>)
+    }
+
+    function validateResult(data, navType, correspondingType, errMessage){
+        const response = {
+            valid: false,
+            return: <></>
+        }
+
+        if (data === undefined || data.length === 0){
+            if(navType === undefined) return response
+            if(navType === correspondingType){
+                response.return = <div className = { `search-${correspondingType.toLowerCase()}-top pink-highlight`}>{errMessage}</div>
+                return response
+            }
+        }
+        else{
+            response.valid = true
+            return response
+        }
     }
 }
 

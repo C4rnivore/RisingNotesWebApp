@@ -223,7 +223,8 @@
 }
 .player-watch-clip-btn:hover{
     cursor: pointer;
-    box-shadow: 0 0 3px #FE1170;
+    
+    animation: 250ms infinite;
 }
 .player-filters-toggle{
     position:absolute ;
@@ -237,6 +238,7 @@
     z-index: 9;
 }
 .player-filters-toggle-btn{
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -245,15 +247,40 @@
     border-radius: 50%;
     background-color: #FE1170;
     box-shadow: 0 0 0 #FE1170;
-    transition: box-shadow 250ms ease-in-out;
 }
 .player-filters-toggle > span{
     font-family: var(--text-font);
     font-size: 16px;
 }
-.player-filters-toggle-btn:hover{
-    box-shadow: 0 4px 12px #FE1170;
+.player-filters-toggle-img{
+    pointer-events: none;
+    position: absolute;
+    top: 33px;
+    transform: translate(-2px,-50%); 
 }
+
 .f-btn-active{
-    box-shadow: 0 0 12px #FE1170;
+    filter: blur(1.5px);
+    animation: 1.5s infinite linear shadow-spin;
+    transition: 250ms ease-in;
 }
+
+
+@keyframes shadow-spin {
+    0% {
+        box-shadow: 1px -1px 15px #FE1170;
+    }
+    25% {
+        box-shadow: 1px 1px 15px #f00bd5;
+    }
+    50% {
+        box-shadow: -1px 1px 15px #ca08ca;
+    }
+    75% {
+        box-shadow: -1px -1px 15px #f00bd5;
+    }
+    100% {
+        box-shadow: 1px -1px 15px #FE1170;
+    }
+  }
+  

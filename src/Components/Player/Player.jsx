@@ -58,14 +58,13 @@ I guess I will survive in spite of being in a bad view.
                     <SongCover track = {currentTrack}/>
                     <div className="player-filters-toggle">
                         <button id='f-toggle-btn' onClick={toggleFilters} className="player-filters-toggle-btn">
-                            <img src={FilterBtn} alt="" />
+                            
                         </button>
+                        <img className='player-filters-toggle-img' src={FilterBtn} alt="" />
                         <span>Настроить волну</span>
-                    </div>
-                    
-                    <FilterComponent/>
-                    
+                    </div>  
             </section>
+            <FilterComponent/>
             <img className="player-bg-image" src={currentTrack.trackCover} alt="" />
         </>
     );

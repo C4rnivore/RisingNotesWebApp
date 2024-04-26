@@ -13,7 +13,7 @@ function SidebarCollapser(props){
     const handleToggle = () => {
         props.collapseFunc()
     }
-    const {searchInput, setSearchInput} = useContext(SearchQueryContext);
+    const { setSearchInput} = useContext(SearchQueryContext);
     const [searchQuery, setSearchQuery] = useState('')
 
     const clearQuery =(e)=>{
@@ -21,7 +21,7 @@ function SidebarCollapser(props){
     }
 
     useEffect(()=>{
-        setSearchInput(searchQuery);
+         setSearchInput(searchQuery);
      },[searchQuery])
 
 
@@ -50,6 +50,13 @@ function SidebarCollapser(props){
                      to={'/excluded'} 
                      style={({ isActive }) => (isActive ? {color: '#FE1170'} : {color: '#787885'})}>
                         <img src={warning} alt="" className="nav-icon" />
+                     </NavLink>
+                  </li>
+                  <li> 
+                     <NavLink onClick={clearQuery} className ={({ isActive }) => (isActive ? 'nav-link remove active' : 'nav-link remove ' )}
+                     to={'/subscriptions'} 
+                     style={({ isActive }) => (isActive ? {color: '#FE1170'} : {color: '#787885'})}>
+                        <img src={subsIcon} alt="" className="nav-icon" />
                      </NavLink>
                   </li>
                </ul>
