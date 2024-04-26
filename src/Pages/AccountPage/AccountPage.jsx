@@ -12,6 +12,7 @@ import { api, axiosAuthorized, axiosUnauthorized } from '../../Components/App/Ap
 import { jwtDecode } from 'jwt-decode';
 import AccountNonMusician from "./AccountMusician/AccountNonMusician";
 import { useNavigate } from "react-router-dom";
+import Loader from "../../Components/Loader/Loader";
 
 import './AccountPage.css';
 
@@ -108,45 +109,56 @@ export default function AccountPage () {
         setCurrPage(id);
     };
 
-    if (isLoaded)
-    return (
-        <div className="account-page-wrapper">
-            <div className="account-page">
-                <BackButton/>
-                <AccountHead role={role} userName={userName} authorId={authorId}/>
-                <div className="account-page-menu">
-                    <a onClick={() => handleChangePage(0)} 
-                        className={currPage === 0 ? 'account-page-menu-item account-page-active' : 'account-page-menu-item'}>
-                            <img alt='icon' src={userIcon}/>Аккаунт
-                    </a>
-                    <a onClick={() => handleChangePage(role ==='author' ? 1 : 3)} 
-                        className={currPage === 1 || currPage === 3 ? 'account-page-menu-item account-page-active' : 'account-page-menu-item'}>
-                            <img alt='icon' src={musicIcon}/>Профиль музыканта
-                    </a>
-                    {role === 'author' ? (
-                        <a onClick={() => handleChangePage(2)} 
-                            className={currPage === 2 ? 'account-page-menu-item account-page-active' : 'account-page-menu-item'}>
-                                <img alt='icon' src={creditCard}/>Оплата
+    if (isLoaded) {
+        return (
+            <div className="account-page-wrapper">
+                <div className="account-page">
+                    <BackButton/>
+                    <AccountHead role={role} userName={userName} authorId={authorId}/>
+                    <div className="account-page-menu">
+                        <a onClick={() => handleChangePage(0)} 
+                            className={currPage === 0 ? 'account-page-menu-item account-page-active' : 'account-page-menu-item'}>
+                                <img alt='icon' src={userIcon}/>Аккаунт
                         </a>
-                    ) : (<></>)}
-                    
-                </div>
+                        <a onClick={() => handleChangePage(role ==='author' ? 1 : 3)} 
+                            className={currPage === 1 || currPage === 3 ? 'account-page-menu-item account-page-active' : 'account-page-menu-item'}>
+                                <img alt='icon' src={musicIcon}/>Профиль музыканта
+                        </a>
+                        {role === 'author' ? (
+                            <a onClick={() => handleChangePage(2)} 
+                                className={currPage === 2 ? 'account-page-menu-item account-page-active' : 'account-page-menu-item'}>
+                                    <img alt='icon' src={creditCard}/>Оплата
+                            </a>
+                        ) : (<></>)}
+                        
+                    </div>
 
-                {currPage === 0 ? <AccountUser 
-                    userName={userName}
-                    changeUserName={changeUserName}/> : <></>}
-                {currPage === 1 ? <AccountMusician 
-                    authorId={authorId} 
-                    about={about} 
-                    vkLink={vkLink} 
-                    webSiteLink={webSiteLink} 
-                    yaMusicLink={yaMusicLink} 
-                    artist={userName}
-                    handleRefreshMusicianInfo={handleRefreshMusicianInfo}/> : <></>}
-                {currPage === 2 ? <AccountPayment/> : <></>}
-                {currPage === 3 ? <AccountNonMusician
-                    userName={userName}/> : <></>}
+                    {currPage === 0 ? <AccountUser 
+                        userName={userName}
+                        changeUserName={changeUserName}/> : <></>}
+                    {currPage === 1 ? <AccountMusician 
+                        authorId={authorId} 
+                        about={about} 
+                        vkLink={vkLink} 
+                        webSiteLink={webSiteLink} 
+                        yaMusicLink={yaMusicLink} 
+                        artist={userName}
+                        handleRefreshMusicianInfo={handleRefreshMusicianInfo}/> : <></>}
+                    {currPage === 2 ? <AccountPayment/> : <></>}
+                    {currPage === 3 ? <AccountNonMusician
+                        userName={userName}/> : <></>}
+                </div>
             </div>
-        </div>
-    );
+        )
+    }
+    else {
+        return (
+            <div className="account-page-wrapper">
+                <div className="account-page">
+                    <BackButton/>
+                    <Loader/>
+                </div>
+            </div> 
+        )  
+    }
 }

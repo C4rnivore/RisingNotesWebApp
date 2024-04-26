@@ -159,6 +159,7 @@
     height: 24px;
     width: 24px;
     border-radius: 5px;
+    object-fit: cover;
 }
 
 .add-playlist:hover > span,
@@ -182,6 +183,10 @@
 .collapse{
     padding: 70px 0 60px 0;
     width: 40px;
+
+    @media screen and (max-width: 720px){ 
+        width: 0;
+    }
 }
 .collapse > .sidebar-content{
     pointer-events: none;

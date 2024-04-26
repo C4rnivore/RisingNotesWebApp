@@ -1,0 +1,11 @@
+.artist-clips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px 3.3%;
+    justify-content: start;
+
+    @media screen and (max-width: 720px){ 
+        flex-direction: column;
+        flex-wrap: wrap;
+    }
+}

@@ -43,6 +43,7 @@ function PlaylistWindow(){
                 reviewAvatar();
             }
         )
+        .catch(err => {navigate(-1)});
     }, [params]) 
 
     async function deletePlaylist() {

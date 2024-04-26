@@ -26,6 +26,7 @@ function Playlist(props) {
                 reviewAvatar();
             }
         )
+        .catch(err => {console.log(err)});
     }, []) 
 
     return (

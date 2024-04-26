@@ -21,6 +21,7 @@ function Subscription (props) {
                 setIsImageExist(false)
             });
         })
+        .catch(err =>{console.log(err)});
     }, []);
 
     return (

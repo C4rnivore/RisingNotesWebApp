@@ -28,6 +28,7 @@ import { jwtDecode } from 'jwt-decode';
 import { useCookies } from 'react-cookie';
 import AccountPage from '../../Pages/AccountPage/AccountPage';
 import BlogVideo from '../../Pages/BlogVideo/BlogVideo.jsx';
+import ErrorMessage from '../ErrorMessage/ErrorMessage.jsx';
 
 export const api = 'https://rising-notes.tw1.su/';
 
@@ -60,16 +61,20 @@ export const ExcludedContext = createContext({});
 export const PlaylistsContext = createContext({});
 // ссылка на переменную
 export const SearchQueryContext = createContext({});
+export const ResizeContext = createContext({});
 
 function App() {
     const navigate = useNavigate();
-
+    const [errorVisibility, setErrorVisibility] = useState(false);
+    const [errorText, setErrorText] = useState('');
+ 
     const songsJSON = localStorage.getItem('SONGS');
     const currentSongJSON = localStorage.getItem('CURR_SONG');
     const subsJSON = localStorage.getItem('SUBS');
     const featuredJSON = localStorage.getItem('FEATURED');
     const excludedJSON = localStorage.getItem('EXCLUDED');
     const playlistsJSON = localStorage.getItem('PLAYLISTS');
+    const resizeJSON = localStorage.getItem('RESIZE');
     // подгружаю из браузера
 
     const [subscriptions, setSubscriptions] = useState(subsJSON ? JSON.parse(subsJSON) : []);
@@ -80,7 +85,24 @@ function App() {
     // проверка на наличие
     const [playlists, setPlaylists] = useState(playlistsJSON ? JSON.parse(playlistsJSON) : []);
     const [cookies, setCookies] = useCookies(['accessToken', 'refreshToken', 'authorId', 'role', 'userId']);
-    const [searchInput, setSearchInput] = useState('')
+    const [resize, setResize] = useState(resizeJSON ? JSON.parse(resizeJSON) : 'standart');
+    const [searchInput, setSearchInput] = useState('');
+
+    useEffect(() => {
+        // изменение со стандартной на мобильную версию
+        function handleResize() {
+            if (window.innerWidth <= 720) {
+                setResize('mobile');
+            }
+            else {
+                setResize('standart');
+            }
+        }
+        window.addEventListener('resize', handleResize);
+        handleResize();
+    
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
   
     //обновление токена
     async function refreshTokens (config) {
@@ -149,18 +171,31 @@ function App() {
         },
         error => {
             if (error.response.status === 404) {
-                window.location.replace('/404');
-                return Promise.reject(error.response);
+                setErrorText('Указанного объекта не существует');
+                setErrorVisibility(true);  
+                // window.location.replace('/404');
+                // return Promise.reject(error.response);
             }
             else if (error.response.status === 500) {
-                return Promise.reject(error.response);
                 console.log("Ошибка на сервере");
+                setErrorText('Ошибка 500 на сервере');
+                setErrorVisibility(true);      
+                return Promise.reject(error.response);
             }
             else if (error.response.status === 401) {
+                setErrorText('Вы не авторизированы');
+                setErrorVisibility(true); 
                 window.location.replace('/login');
                 return Promise.reject(error.response);
             }
+            else if (error.response.status === 400) {
+                setErrorText(error.message);
+                setErrorVisibility(true); 
+                return Promise.reject(error);
+            }
             else {
+                setErrorText(error.message);
+                setErrorVisibility(true); 
                 return Promise.reject(error);
             }
         }
@@ -172,38 +207,65 @@ function App() {
         },
         error => {
             if (error.response.status === 404) {
+                setErrorText('Указанного объекта не существует');
+                setErrorVisibility(true);  
                 // window.location.replace('/404');
-                return Promise.reject(error.response);
+                // return Promise.reject(error.response);
             }
             else if (error.response.status === 500) {
-                return Promise.reject(error.response);
+                setErrorText('Ошибка 500 на сервере');
+                setErrorVisibility(true);               
                 console.log("Ошибка на сервере");
+                return Promise.reject(error.response);
             }
             else if (error.response.status === 401) {
+                setErrorText('Вы не авторизированы');
+                setErrorVisibility(true);   
                 window.location.replace('/login');
                 return Promise.reject(error.response);
             }
+            else if (error.response.status === 400) {
+                setErrorText(error.message);
+                setErrorVisibility(true); 
+                return Promise.reject(error);
+            }
             else {
+                setErrorText(error.message);
+                setErrorVisibility(true); 
                 return Promise.reject(error);
             }
         }
     )
 
     useEffect(() => {
+        // логика появления ошибки
+        if (errorVisibility) {
+            const timer = setTimeout(() => {
+                setErrorText('');
+                setErrorVisibility(false);   
+            }, 5000);
+
+            return () => clearTimeout(timer);
+        }
+    }, [errorVisibility])
+
+    useEffect(() => {
+        // обновление переменных в браузере, только тогда когда чет поменялось
         localStorage.setItem('SONGS', JSON.stringify(songs));
         localStorage.setItem('CURR_SONG', JSON.stringify(currentSong));
         localStorage.setItem('SUBS', JSON.stringify(subscriptions));
         localStorage.setItem('FEATURED', JSON.stringify(featured));
         localStorage.setItem('EXCLUDED', JSON.stringify(excluded));
         localStorage.setItem('PLAYLISTS', JSON.stringify(playlists));
-    }, [songs, currentSong, subscriptions, featured, excluded, playlists]);
-    // обновление переменных в браузере, только тогда когда чет поменялось
+        localStorage.setItem('RESIZE', JSON.stringify(resize));
+    }, [songs, currentSong, subscriptions, featured, excluded, playlists, resize]);
 
     function searchInputHandler(input) {
         setSearchInput(input)
     }
 
     return (
+        <ResizeContext.Provider value={{resize, setResize}}>
         <FiltersProvider>
         <SearchQueryContext.Provider value={{searchInput, setSearchInput}}>
             <PlaylistsContext.Provider value={{playlists, setPlaylists}}>
@@ -217,6 +279,7 @@ function App() {
                                         <MusicPlayer/>
                                         <Sidebar></Sidebar>
                                         <SearchResults/>
+                                        <ErrorMessage text={errorText} visibility={errorVisibility}/>
                                         <Routes>
                                             <Route path={'/'} element={<Player/>}/>
                                             <Route path={'/login'} element={<Login/>}/>
@@ -244,6 +307,7 @@ function App() {
             </PlaylistsContext.Provider>
         </SearchQueryContext.Provider>
     </FiltersProvider>
+    </ResizeContext.Provider>
     );
 }
 

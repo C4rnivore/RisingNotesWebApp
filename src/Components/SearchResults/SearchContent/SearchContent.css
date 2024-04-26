@@ -26,6 +26,10 @@
     text-align: left;
 }
 
+.search-show-more > span {
+    font-size: 16px;
+}
+
 .search-res-container{
     display: flex;
     flex-direction: column;
