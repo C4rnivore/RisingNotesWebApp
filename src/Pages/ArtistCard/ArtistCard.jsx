@@ -8,9 +8,10 @@ import { SubscriptionsContext, api, axiosAuthorized, axiosUnauthorized } from ".
 import BackButton from "../../Components/BackButton.jsx";
 import Songs from "../../Components/ArtistCardComponents/Songs/Songs.jsx"
 import Blog from "../../Components/ArtistCardComponents/Blog/Blog.jsx"
-import './ArtistCard.css';
 import Clips from "../../Components/ArtistCardComponents/Clips/Clips.jsx";
 import arrowRight from '../../Images/artist-card/Chevron_Right.svg'
+
+import './ArtistCard.css';
 
 function ArtistCard(props){
     const navigate = useNavigate();
@@ -112,21 +113,21 @@ function ArtistCard(props){
                     {currPage === 0 ? 
                     <>
                         <p className='top-tracks-title'>Треки
-                        <button className='search-show-more'>
+                        <button className='search-show-more' onClick={() => handleChangePage(1)}>
                             <span>Смотреть все</span>
                             <img src={arrowRight} alt="" />
                         </button>
                         </p>
                         <Songs artist={artist}/> 
                         <p className='top-tracks-title'>Клипы
-                        <button className='search-show-more'>
+                        <button className='search-show-more' onClick={() => handleChangePage(2)}>
                             <span>Смотреть все</span>
                             <img src={arrowRight} alt="" />
                         </button>
                         </p>
                         <Clips/> 
                         <p className='top-tracks-title'>Блог
-                        <button className='search-show-more'>
+                        <button className='search-show-more' onClick={() => handleChangePage(3)}>
                             <span>Смотреть все</span>
                             <img src={arrowRight} alt="" />
                         </button>

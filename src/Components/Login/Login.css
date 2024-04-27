@@ -19,15 +19,24 @@
 
     display: grid;
     align-items: start;
+
+    @media screen and (max-width: 720px) {
+        width: 100%;
+        padding: 40px 40px;
+    }
 }
 
 .login__content {
     /* margin-top: 220px; */
     z-index: 8;
+    margin: 0 24px;
 }
 
 .login-logo {
     margin-bottom: 70px;
+    @media screen and (max-width: 720px) {
+        width: 100%;
+    }
 }
 
 .login-auth-form__label {
@@ -35,17 +44,20 @@
     text-align: start;
 
     font-family: Montserrat;
-    font-size: 36.291px;
+    font-size: 36px;
     font-style: normal;
     font-weight: 600;
     margin-bottom: 30px;
+
+    @media screen and (max-width: 720px) {
+        font-size: 24px;
+    }
 }
 
 .login-input {
     margin: 0;
     margin-bottom: 25px;
     border-style: none;
-    width: 359px;
     height: 47px;
 
     border-radius: 10px;
@@ -55,11 +67,15 @@
     color: #FFF;
 
     font-family: Montserrat;
-    font-size: 18.145px;
+    font-size: 18px;
     font-style: normal;
     font-weight: 300;
 
     padding: 0 14px;
+
+    @media screen and (max-width: 720px) {
+        font-size: 16px;
+    }
 }
 
 .login-input::placeholder {
@@ -91,13 +107,20 @@
     color: #FFF;
 
     font-family: Montserrat;
-    font-size: 18.145px;
+    font-size: 18px;
     font-style: normal;
     font-weight: 400; 
+
+    @media screen and (max-width: 720px) {
+        font-size: 14px;
+    }
 }
 
 .reg-a {
     color: #FE1170;
+    @media screen and (max-width: 720px) {
+        font-size: 14px;
+    }
 }
 
 .warning-login {
@@ -105,7 +128,10 @@
     margin-top: -20px;
     color: #fe1111;
     text-align: start;
-    font-size: 15px;
+    font-size: 14px;
+    @media screen and (max-width: 720px) {
+        font-size: 12px;
+    }
 }
 
 .headphones {

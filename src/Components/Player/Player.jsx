@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import songCoverTemplate from '../../Images/main-placeholder.png';
 
 import FilterComponent from './FilterComponent/FilterComponent.jsx'
@@ -7,42 +7,59 @@ import SongLyrics from './PlayerComponents/SongLyrics.jsx'
 import FilterBtn from '../../Images/player/FilterBtn.svg';
 
 import './Player.css';
+import { CurrentSongContext, api, axiosUnauthorized } from '../App/App.jsx';
 
 
 function Player() {
+    const {currentSong, setCurrentSong} = useContext(CurrentSongContext);
     const [currentTrack,setCurrentTrack] = useState({
-        trackName: 'Deconstructive Achievements',
+        trackName: 'Нет треков',
         trackCover: songCoverTemplate,
-        authors: ['Francis Owens','ZIA'],
-        tags: ['Рок','Джаз','Техно','Диско','Rock\'n Roll','Электро', 'Классика'],
-        lyrcs: `
-I feel so lonely in a lonely world.
-When man is screaming on a metal sword.
-And when another man is shouting all aboard.
-I feel a little tired saying
+        authors: [],
+        tags: [],
+        lyrcs: ``
+    });
+    const [isLoaded, setIsLoaded] = useState(false);
 
-Oh, Lord.
-My faith and love will die within my new fault.
-And when I broke my last chord
-I'll say it all again
+    const getCurrentTrackInfo = async () => {
+        setIsLoaded(false);
+        let isImageExist = false;
+        let info = {};
 
-Some dreams are not becoming true, but other do. 
-I guess I will survive in spite of being in a bad view.
+        await axiosUnauthorized.get(`api/song/` + currentSong + `/logo`)
+        .then(response => {
+            isImageExist = true;
+        })
+        .catch(err => {console.log(err)});
 
-I feel so lonely in a lonely world.
-When man is screaming on a metal sword.
-And when another man is shouting all aboard.
-I feel a little tired saying
+        await axiosUnauthorized.get(`api/song/` + currentSong)
+        .then(response => {
+            info = {
+                authorId: response.data.authorId,
+                trackName: response.data.name,
+                authors: [response.data.authorName],
+                tags: response.data.genreList,
+                trackCover: isImageExist ? api + `api/song/` + currentSong + `/logo` : songCoverTemplate
+            }
+        })
+        .catch(err => {console.log(err)});
 
-Oh, Lord.
-My faith and love will die within my new fault.
-And when I broke my last chord
-I'll say it all again
+        await axiosUnauthorized.get(`api/user/` + info.authorId + `/logo`)
+        .then(response => {
+            info.authorLogo = api + `api/user/` + info.authorId + `/logo`
+        })
+        .catch(err => {
+            info.authorLogo = songCoverTemplate
+        });
 
-Some dreams are not becoming true, but other do. 
-I guess I will survive in spite of being in a bad view.
-`
-    })
+        setCurrentTrack(info);
+
+        setIsLoaded(true);
+    }
+
+    useEffect(() => {
+        getCurrentTrackInfo();
+    }, [currentSong])
 
     const toggleFilters = () =>{
         let filters = document.getElementById('filters-container-id')
@@ -52,17 +69,17 @@ I guess I will survive in spite of being in a bad view.
         btn.classList.toggle('f-btn-active')
     }
 
+    if (isLoaded)
     return (
         <>
-            <section className="player-area">           
-                    <SongCover track = {currentTrack}/>
-                    <div className="player-filters-toggle">
-                        <button id='f-toggle-btn' onClick={toggleFilters} className="player-filters-toggle-btn">
-                            
-                        </button>
-                        <img className='player-filters-toggle-img' src={FilterBtn} alt="" />
-                        <span>Настроить волну</span>
-                    </div>  
+            <section className="comment-page-wrapper">           
+                <SongCover track = {currentTrack}/>
+                <div className="player-filters-toggle">
+                    <button id='f-toggle-btn' onClick={toggleFilters} className="player-filters-toggle-btn">
+                        
+                    </button>
+                    <img className='player-filters-toggle-img' src={FilterBtn} alt="" />
+                </div>  
             </section>
             <FilterComponent/>
             <img className="player-bg-image" src={currentTrack.trackCover} alt="" />

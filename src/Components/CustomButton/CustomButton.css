@@ -17,6 +17,10 @@
 
     border-style: none;
     margin-bottom: 40px;
+
+    @media screen and (max-width: 720px){ 
+        font-size: 14px;
+    }
 }
 
 .custom-button:hover {

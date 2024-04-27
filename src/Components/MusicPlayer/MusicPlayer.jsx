@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState, useRef, useContext } from 'react';
-import {Link, NavLink} from "react-router-dom";
+import {Link, NavLink, useLocation} from "react-router-dom";
 
 import heart from '../../Images/controller/heart.svg';
 import redHeart from '../../Images/red-heart.svg';
@@ -30,6 +30,8 @@ const MusicPlayer = (props) => {
     const [songName, setSongName] = useState('');
     const [songAuthor, setSongAuthor] = useState('');
     const [authorId, setAuthorId] = useState('');
+    const location = useLocation();
+    const [hiddenTag, setHiddenTag] = useState('');
 
     const {songs, setSongs} = useContext(PlayerContext);
     const {currentSong, setCurrentSong} = useContext(CurrentSongContext);
@@ -40,6 +42,15 @@ const MusicPlayer = (props) => {
     
     const volumeJSON = localStorage.getItem('VOL');
     const [volume, setVolume] = useState(volumeJSON ? JSON.parse(volumeJSON) : 1);
+
+    useEffect(() => {
+        if (location.pathname.includes('login') || location.pathname.includes('registration')) {
+            setHiddenTag('hidden');
+        } 
+        else {
+            setHiddenTag('');
+        }
+    }, [location]);
 
     useEffect(() => {
         let audio = document.querySelector('audio');
@@ -205,7 +216,7 @@ const MusicPlayer = (props) => {
         return (<div className="music-player-wrapper">
             <audio ref={audioRef} src={currentSong ? api + `api/song/${currentSong}/file` : ''}
                 onEnded={handleNextSong} type="audio/mpeg" autoPlay={isPlaying} controls style={{ display: 'none' }}/>
-            <div className="music-player">
+            <div className={`music-player-1 ` + hiddenTag}>
                 <img className={isPlaying ? 'music-player-cover rotate' : 'music-player-cover'} draggable='false' src={currentSong ?
                 (api + `api/song/${currentSong}/logo?width=100&height=100`) : cover} alt='cover'/>
 
@@ -252,10 +263,10 @@ const MusicPlayer = (props) => {
         return (<div className="music-player-wrapper">
             <audio ref={audioRef} src={currentSong ? api + `api/song/${currentSong}/file` : ''}
                 onEnded={handleNextSong} type="audio/mpeg" autoPlay={isPlaying} controls style={{ display: 'none' }}/>
-            <input className='track-range-input mobile-player-input' value={trackCurrentDuration} 
+            <input className={'track-range-input mobile-player-input ' + hiddenTag} value={trackCurrentDuration} 
                         onChange={handleCurrentDurationChange}
                         type="range" id="time" name="volume" min="0" max={trackDuration}/>
-            <div className='mobile-music-player'>
+            <div className={`mobile-music-player ` + hiddenTag}>
                 <div className='mobile-music-player-song'>
                     <img className={isPlaying ? 'mobile-music-player-img rotate' : 'mobile-music-player-img'} draggable='false' src={currentSong ?
                 (api + `api/song/${currentSong}/logo?width=100&height=100`) : cover} alt='cover'/>
