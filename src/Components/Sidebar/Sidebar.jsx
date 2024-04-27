@@ -175,7 +175,7 @@ function Sidebar(props) {
             <ul className="sidebar-playlists">
                {playlistsInfo.map((pl => 
                   <li className='sidebar-playlist' key={pl.id}>
-                     <NavLink draggable='false' to={`/playlist/${pl.id}`} className='sidebar-playlist-name' 
+                     <NavLink onClick={()=>cleanQuery()} draggable='false' to={`/playlist/${pl.id}`} className='sidebar-playlist-name' 
                         style={({ isActive }) => (isActive ? {color: '#FE1170'} : {color: '#787885'})}>
                            <img draggable='false' src={pl.img ? api + `api/playlist/${pl.id}/logo?width=400&height=400` : placeholder}/>
                            {pl.name}

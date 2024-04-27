@@ -70,7 +70,7 @@ async function fetchPlaylists(input){
             url: api + `api/playlist/list?NamePart=${input}`,
             responseType: 'application/json',
         })
-        const result = JSON.parse(response.data).musicClipList
+        const result = JSON.parse(response.data).playlistList
         return result
     }
     catch(err){
@@ -88,7 +88,7 @@ async function fetchClips(input){
             url: api + `api/music-clip/list?nameWildcard=${input}`,
             responseType: 'application/json',
         })
-        const result = JSON.parse(response.data).playlistList
+        const result = JSON.parse(response.data).musicClipList
         return result
     }
     catch(err){

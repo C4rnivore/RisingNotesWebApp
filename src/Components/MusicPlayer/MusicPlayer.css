@@ -195,7 +195,7 @@
     height: 10px;
     -webkit-appearance: none;
     margin-top: -4px;
-    box-shadow: -200px 0 0 200px #FE1170;
+    box-shadow: -480px 0 0 480px #FE1170;
 }
 
 .track-range-input:hover {

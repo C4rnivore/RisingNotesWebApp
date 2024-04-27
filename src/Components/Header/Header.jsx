@@ -8,6 +8,7 @@ import { useCookies } from 'react-cookie';
 import defaultAvatar from '../../Images/main-placeholder.png';
 import burderImg from '../../Images/burger.svg';
 import axios from 'axios';
+import useSearchClean from '../../Hooks/useSearchClean/useSearchClean';
 
 import './Header.css';
 
@@ -19,6 +20,7 @@ function Header() {
     const [isUserAuthorized, setIsUserAuthorized] = useState(false);
     const {resize, setResize} = useContext(ResizeContext);
     const [collapsed, setCollapsed] = useState(false)
+    const {cleanQuery} = useSearchClean()
 
     useEffect(() => {
         if (cookies.userId) {
@@ -76,11 +78,11 @@ function Header() {
                 </>
             ) : (
                 <div className='unauth-header'>
-                    <NavLink draggable='false' to='/login' className={'header-menu-ref'}
+                    <NavLink onClick={()=>cleanQuery()} draggable='false' to='/login' className={'header-menu-ref'}
                     style={({ isActive }) => (isActive ? {color: '#FE1170'} : {color: '#787885'})}>
                         Войти</NavLink>
                     {resize === 'standart' ?(
-                        <NavLink draggable='false' to='/registration' className={'header-menu-ref'}
+                        <NavLink  onClick={()=>cleanQuery()} draggable='false' to='/registration' className={'header-menu-ref'}
                         style={({ isActive }) => (isActive ? {color: '#FE1170'} : {color: '#787885'})}>
                             Зарегистрироваться</NavLink>
                     ) : (<></>)}
