@@ -1,24 +1,45 @@
 .vertical-video-preview {
-    width: 224.8px;
+    width: 100%;
+    aspect-ratio: 9/16;
     color: white;
 }
 
 .vertical-video-preview > img {
-    width: 225px;
-    height: 391px;
+    max-width: 225px;
+    max-height: 391px;
+    height: 100%;
+    width: 100%;
     object-fit: cover;
     border-radius: 24px;
+    @media screen and (max-width: 720px){ 
+        border-radius: 12px;
+    }
 }
 
 .vertical-video-preview > p {
     font-size: 14px;
-    margin-top: -72px;
+    margin-top: -107px;
     text-align: start;
     padding: 16px;
+    @media screen and (max-width: 720px){ 
+        font-size: 12px;
+    }
 }
 
 .blog {
     display: flex;
     flex-wrap: wrap;
-    gap: 24px;
+    gap: 24px 2.5%;
+    justify-content: start;
+    @media screen and (max-width: 890px){ 
+        gap: 24px 3.3%;
+    }
+}
+
+.vertical-video-preview-wrapper {
+    aspect-ratio: 9/16;
+    width: 18%;
+    @media screen and (max-width: 890px){ 
+        width: 30%;
+    }
 }

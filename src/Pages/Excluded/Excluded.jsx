@@ -29,7 +29,8 @@ function Excluded () {
             await axiosUnauthorized.get(`api/song/${id}`)
             .then(response => {
                 array.push(response.data);
-            });
+            })
+            .catch(err => {console.log(err)});
         }
         setSongs(array);
     }

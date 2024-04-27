@@ -12,6 +12,9 @@
     max-width: 1220px;
     z-index: 5;
     
+    @media screen and (max-width: 720px){ 
+        margin-top: 40px;
+    }
 }
 
 /* .featured > h2 {
@@ -59,6 +62,7 @@
     width: 230px;
     height: 230px;
     border-radius: 25px;
+    object-fit: cover;
 }
 
 

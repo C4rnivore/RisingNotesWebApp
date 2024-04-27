@@ -8,6 +8,7 @@ import { FeaturedContext, PlaylistsContext, api, axiosAuthorized, axiosUnauthori
 import { useCookies } from 'react-cookie';
 
 import './Featured.css';
+import Loader from '../../Components/Loader/Loader';
 
 export default function Featured() {
     const navigate = useNavigate();
@@ -15,6 +16,7 @@ export default function Featured() {
     const [songs, setSongs] = useState([]);
     const [cookies, setCookies] = useCookies(['accessToken', 'refreshToken', 'authorId', 'role', 'userId']);
     const {playlists, setPlaylists} = useContext(PlaylistsContext);
+    const [isLoaded, setIsLoaded] = useState(false);
 
     useEffect(() => {
         if (!cookies.role) {
@@ -32,9 +34,11 @@ export default function Featured() {
             await axiosUnauthorized.get(api + `api/song/${id}`)
             .then(response => {
                 array.push(response.data);
-            });
+            })
+            .catch(err => {console.log(err)});
         }
         setSongs(array);
+        setIsLoaded(true);
     }
 
     async function addNewPlaylist() {
@@ -55,6 +59,16 @@ export default function Featured() {
 
     
 
+    if (!isLoaded) {
+        return(
+            <div className='comment-page-wrapper'>
+                <div className='featured'>
+                    <BackButton/>
+                    <Loader/>
+                </div>
+            </div>
+        )
+    }
     return (
         <div className='comment-page-wrapper'>
             <div className='featured'>

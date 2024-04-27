@@ -54,21 +54,29 @@ function Sidebar(props) {
 
 
    async function getPlaylistsInfo() {
-      const arr = await Promise.all(playlists.map(async (el) => {
-         const response = await axiosAuthorized.get(`api/playlist/${el}`);
-         let img = true;
-         await axiosUnauthorized.get(api + `api/playlist/${el}/logo?width=400&height=400`)
-         .catch(err => {
-            img = false;
-         })
-         return {
-           name: response.data.name,
-           id: el,
-           img: img
-         };
-      }));
-     
-      setPlaylistsInfo(arr);
+      // Получить или обновить информацию о плейлистах
+      try {
+         const arr = await Promise.all(playlists.map(async (el) => {
+            const response = await axiosAuthorized.get(`api/playlist/${el}`)
+            .catch(err => console.log(err));
+            let img = true;
+            await axiosUnauthorized.get(api + `api/playlist/${el}/logo?width=400&height=400`)
+            .catch(err => {
+               img = false;
+            });
+
+            return {
+               name: response?.data?.name,
+               id: el,
+               img: img
+            };
+         }));
+      
+         setPlaylistsInfo(arr);
+      }
+      catch (err) {
+         console.log(err);
+      }
    }     
 
    const handleToggleMenu = () =>{
@@ -150,14 +158,14 @@ function Sidebar(props) {
                         <span >Исключенное</span>
                      </NavLink>
                   </li>
-               <li> 
-                  <NavLink draggable='false' onClick={cleanQuery} className ={({ isActive }) => (isActive ? 'nav-link remove active' : 'nav-link remove ' )}
-                  to={'/subscriptions'} 
-                  style={({ isActive }) => (isActive ? {color: '#FE1170'} : {color: '#787885'})}>
-                     <img src={subsIcon} alt="" className="nav-icon" draggable='false' />
-                     <span>Подписки</span>
-                  </NavLink>
-               </li>
+                  <li> 
+                     <NavLink draggable='false' onClick={clearQuery} className ={({ isActive }) => (isActive ? 'nav-link remove active' : 'nav-link remove ' )}
+                     to={'/subscriptions'} 
+                     style={({ isActive }) => (isActive ? {color: '#FE1170'} : {color: '#787885'})}>
+                        <img src={subsIcon} alt="" className="nav-icon" draggable='false' />
+                        <span>Подписки</span>
+                     </NavLink>
+                  </li>
                </ul>
             </nav>
          </div>

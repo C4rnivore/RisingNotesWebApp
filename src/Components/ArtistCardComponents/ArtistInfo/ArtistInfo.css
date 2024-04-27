@@ -5,22 +5,32 @@
     gap:40px;
     width: 100%;
     justify-content: space-between;
+
+    @media screen and (max-width: 720px){ 
+        flex-direction: column;
+        align-items: center;
+    }
 }
 .artist-info{
     display: flex;
     flex-direction: column;
     max-width: 100%;
     justify-content: space-between;
+    gap: 12px;
 }
 .row-top{
     width: 100%;
     display: flex;
-    align-items: center;
+    align-items: baseline;
     flex-direction: row;
-    justify-content: space-between
+    justify-content: space-between;
+    gap: 20px;
 }
 .artist-name{
     font-size: 36px;
+    @media screen and (max-width: 720px){ 
+        font-size: 24px;
+    }
 }
 .subscribe-btn, .subscribe-btn-red{
     display: flex;
@@ -37,6 +47,10 @@
     padding: 5px 20px;
 
     transition: all .2s ease;
+
+    @media screen and (max-width: 720px){ 
+        padding: 1px 9px;
+    }
 }
 .subscribe-btn:hover, .subscribe-btn-red:hover{
     transition: all .2s ease;
@@ -52,6 +66,10 @@
     font-size: 16px;
     font-weight: 300;
     text-align: start;
+
+    @media screen and (max-width: 720px){ 
+        font-size: 12px;
+    }
 }
 
 .row-bottom{
@@ -59,6 +77,12 @@
     display: flex;
     justify-content: space-between;
     margin-top: 50px;
+    flex-wrap: wrap;
+    gap: 20px;
+
+    @media screen and (max-width: 720px){ 
+        margin-top: 24px;
+    }
 }
 .left{
     display: flex;
@@ -68,29 +92,39 @@
 .right{
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     gap:20px;
     align-items: center;
+
+    text-decoration: none;
+    color:#fff;
 }
-.right > div{
+.right > a {
     display: flex;
     flex-direction: row;
     align-items: center;
     gap:5px;
 }
 
-.right > div > a{
+.right > a > p {
     text-decoration: none;
     color:#fff;
 }
-.right > div > a:hover{
+.right > a > p:hover{
     opacity: 0.7;
 }
 
 .artist-img {
     max-width: 250px;
-    max-height: 250px;
+    /* max-height: 250px; */
     object-fit: cover;
     width: 100%;
     height: auto;
     border-radius: 19px;
+
+    @media screen and (max-width: 720px){ 
+        max-width: 165px;
+        max-height: 165px;
+        border-radius: 12px;
+    }
 }

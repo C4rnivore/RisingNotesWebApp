@@ -12,10 +12,12 @@ function VerticalVideoPreview(params) {
     }, []);
 
     return(
-        <a className='vertical-video-preview' href={'/verticalvideo'}>
-            <img alt='preview' src={placeholder}/>
-            <p>{verifiedText}</p>
-        </a>
+        <div className='vertical-video-preview-wrapper'>
+            <a className='vertical-video-preview' href={'/verticalvideo'}>
+                <img alt='preview' src={placeholder}/>
+                <p>{verifiedText}</p>
+            </a>
+        </div>
     )
 }
 
