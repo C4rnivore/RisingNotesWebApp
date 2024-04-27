@@ -2,7 +2,7 @@
     position:relative;
     margin: 0 auto;
     z-index: 100;
-    padding: 0 20px;
+    /* padding: 0 20px; */
 
     border-radius: 30px;
     border: 0px solid;
