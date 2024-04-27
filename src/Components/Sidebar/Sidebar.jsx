@@ -159,7 +159,7 @@ function Sidebar(props) {
                      </NavLink>
                   </li>
                   <li> 
-                     <NavLink draggable='false' onClick={clearQuery} className ={({ isActive }) => (isActive ? 'nav-link remove active' : 'nav-link remove ' )}
+                     <NavLink draggable='false' onClick={cleanQuery} className ={({ isActive }) => (isActive ? 'nav-link remove active' : 'nav-link remove ' )}
                      to={'/subscriptions'} 
                      style={({ isActive }) => (isActive ? {color: '#FE1170'} : {color: '#787885'})}>
                         <img src={subsIcon} alt="" className="nav-icon" draggable='false' />
