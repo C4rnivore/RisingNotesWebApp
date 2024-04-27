@@ -61,6 +61,12 @@ function Player() {
         getCurrentTrackInfo();
     }, [currentSong])
 
+    const bgLoaded = () =>{
+        const img = document.querySelector('.player-bg-image')
+        img.classList.add('bg-loaded')
+    }
+
+
     const toggleFilters = () =>{
         let filters = document.getElementById('filters-container-id')
         let btn = document.getElementById('f-toggle-btn')
@@ -76,13 +82,12 @@ function Player() {
                 <SongCover track = {currentTrack}/>
                 <div className="player-filters-toggle">
                     <button id='f-toggle-btn' onClick={toggleFilters} className="player-filters-toggle-btn">
-                        
                     </button>
                     <img className='player-filters-toggle-img' src={FilterBtn} alt="" />
                 </div>  
             </section>
             <FilterComponent/>
-            <img className="player-bg-image" src={currentTrack.trackCover} alt="" />
+            <img className="player-bg-image" onLoad={bgLoaded} src={currentTrack.trackCover} alt="" />
         </>
     );
 }

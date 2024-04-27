@@ -13,13 +13,18 @@ function SongCover(props) {
         return
     }
 
+    const coverLoaded = ()=>{
+        const img = document.querySelector('.track-cover')
+        img.classList.add('track-loaded')
+    }
+
     return(
         <div className="main-player-container">
             <div className="current-song-title">
                 <img src={currentSongIcon} alt="" className="current-song-img" />
                 <span className="current-song-span">Сейчас играет</span>
             </div>
-            <img draggable='false' src={currentTrack.trackCover} alt="cover" className="track-cover"/>
+            <img draggable='false' src={currentTrack.trackCover} alt="cover" className="track-cover" onLoad={coverLoaded}/>
             <h2 className='player-track-name' style={{marginBottom:12}}>{currentTrack.trackName}</h2>
             <div className="player-authors">
                 <img draggable='false' src={currentTrack.authorLogo} alt="artist cover" className="player-authors-pfp" />

@@ -30,6 +30,7 @@
 
 /* BG-IMAGE */
 .player-bg-image{
+    opacity: 0;
     pointer-events: none;
     position: absolute;
     top:0;
@@ -41,6 +42,10 @@
     object-fit: cover;
     mask-image: linear-gradient(to left, rgb(0, 0, 0)-60%, rgba(0,0,0,0)80%);
     filter: blur(.5em);
+    transition: opacity 500ms ease-in-out;
+}
+.bg-loaded{
+    opacity: 1;
 }
 
 /* PLAYER */
@@ -72,6 +77,7 @@
         margin-bottom: 24px;
     }
 }
+
 .current-song-span{
     user-select: none;
     font-family: var(--text-font);
@@ -186,6 +192,7 @@
 }
 ::-webkit-scrollbar { display: none; }
 .track-cover{
+    opacity: 0;
     max-width: 370px;
     min-width: 50px;
     width: 100%;
@@ -193,6 +200,7 @@
     align-self: self-start;
     border-radius: 30px;
     margin-bottom: 40px;
+    transition: opacity 500ms ease-in-out;
 
     @media screen and (max-width: 1300px) { 
         max-width: 343px;
@@ -208,6 +216,9 @@
     @media screen and (max-width: 720px){ 
         margin-bottom: 14px;
     }
+}
+.track-loaded{
+    opacity: 1;
 }
 .player-content-container{
     padding-top: var(--header-height);
