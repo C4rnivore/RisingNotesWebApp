@@ -1,0 +1,275 @@
+
+.video-information-1 {
+    display: flex;
+    text-align: start;
+    width: 100%;
+
+}
+
+.column1-2 {
+    width: 100%;
+}
+
+.video-information-2 {
+    display: flex;
+    text-align: start;
+    width: 100%;
+    margin-top: 40px;
+    margin-bottom: 48px;
+
+}
+
+.video-inf-in{
+    margin-left: 40px;
+    width: 100%;
+    
+}
+
+.video-information-3 {
+    text-align: start;
+    margin-top: 24px;
+    width: 100%; 
+}
+
+.newмvertvideo-h1 {
+    color: #FFF;
+    width: 750px;
+    height: 42px;
+    position: absolute;
+
+    font-family: Montserrat;
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    /* margin-left: 230px; */
+}
+
+.uploadvideo-div-inf{
+    width: 257px;
+}
+
+.uploadvideo-div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 75px;
+    width: 100%;
+    min-width: 750px;
+    height: 168px;
+    border-radius: 25px;
+    border: 3px dashed #787885;
+    gap: 60px;
+}
+
+.uploadvideo-p1 {
+    color: #FFF;
+
+    font-family: Montserrat;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    text-align: center;
+}  
+
+.uploadvideo-p2 {
+    color: #787885;
+
+    font-family: Montserrat;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin-top: 5px;
+    text-align: center;
+}
+
+
+.or2 {
+    color: #787885;
+
+    font-family: Montserrat;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    /* margin-left: 40px; */
+}
+
+
+
+.tag-container2{
+    display: flex;
+    flex-direction: row;
+    gap:5px;
+    padding: 3px 10px;
+    background-color: #cb115e;
+    border-radius: 50px;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.input-filtercomponent {
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column; 
+}
+
+
+
+.div-video {
+    display: flex;
+    /* justify-content: center; */
+    /* width: 100%; */
+    
+}
+
+
+.upload-video-button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    width: 257px;
+    height: 48px;
+    /* margin-left: 40px; */
+
+    border-radius: 15px;
+    background: #FE1170;
+
+    color: #FFF;
+
+    font-family: Montserrat;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 20px;
+}
+
+.upload-video-button:hover {
+    background: none; 
+    border: 3px solid #FE1170;
+    cursor: pointer;
+}
+
+
+.uploadvideo-h2 {
+    color: #FFF;
+
+    font-family: Montserrat;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin-bottom: 16px;
+}
+
+.column2-h2 {
+    color: #FFF;
+
+    font-family: Montserrat;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    margin-bottom: 8px;
+}
+
+
+
+.choose-track-for-video{
+    width: 100%;
+    height: 68px;
+    border: none;
+    border-radius: 10px;
+    background: #191E28;
+    color: #787885;
+    padding-left: 16px;
+
+    font-family: Montserrat;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    
+    padding:5px 16px 5px 16px;
+    /* transform: rotate(-180.00deg); */
+   
+}
+
+.inp-column1 {
+    width: 100%;
+    height: 40px;   
+    border: none;
+    border-radius: 10px;
+    background: #191E28;
+    color: #787885;
+    padding-left: 16px;
+
+    font-family: Montserrat;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    margin-bottom: 24px;
+}
+
+.filters-select {
+    width: 500px;
+    height: 40px;
+    border: none;
+    border-radius: 10px;
+    background: #191E28;
+    color: #787885;
+    padding-left: 16px;
+
+    font-family: Montserrat;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    margin-bottom: 24px;
+    padding:5px 16px 5px 16px;
+}
+
+.song-availability-text {
+    display: flex;
+    width: 1040px;
+    height: 30px;
+    margin-bottom: 24px;
+    border-bottom: 3px solid #191E28;
+}
+
+
+
+.publication-video-button {
+    width: 256px;
+    height: 48px;  
+    border-radius: 15px;
+    background: #FE1170; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    line-height: 48px;
+    gap: 10px;
+    margin-bottom: 24px;
+    
+}
+
+.publication-video-button:hover {
+    background: none; 
+    border: 3px solid #FE1170;
+    transition: border 0.4s ease-in;
+    cursor: pointer;
+}
+
+.video-skin2{
+
+}
+

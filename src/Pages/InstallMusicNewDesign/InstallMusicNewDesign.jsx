@@ -183,8 +183,6 @@ function InstallMusicNewDesign(){
             err => {throw err}
         )
     }
-
-
     
     if (isLoaded)
     return (

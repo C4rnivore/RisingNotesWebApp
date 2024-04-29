@@ -18,6 +18,8 @@ import MusicPlayer from '../MusicPlayer/MusicPlayer';
 import PlaylistWindow from '../../Pages/PlaylistWindow/PlaylistWindow';
 import SearchResults from '../SearchResults/SearchResults';
 import InstallMusicNewDesign from '../../Pages/InstallMusicNewDesign/InstallMusicNewDesign';
+import InstallVideo from '../../Pages/InstallVideo/InstallVideo';
+import InstallVerticalVideo from '../../Pages/InstallVerticalVideo/InstallVerticalVideo';
 import ErrorPage from '../../Pages/404Page/404Page';
 import EditSong from '../../Pages/EditingSong/EditingSong';
 import { FiltersProvider } from '../../Hooks/useFilters/useFilters';
@@ -230,6 +232,8 @@ function App() {
                                             <Route path={'/adminpanel'} element={<AdminPanel/>}/>
                                             <Route path={'/playlist/:id'} element={<PlaylistWindow/>}/>
                                             <Route path={'/uploadmusic'} element={<InstallMusicNewDesign/>}/>
+                                            <Route path={'/uploadvideo'} element={<InstallVideo/>}/>
+                                            <Route path={'/uploadvertvideo'} element={<InstallVerticalVideo/>}/>
                                             <Route path={'/uploadmusic/:id'} element={<InstallMusicNewDesign/>}/>
                                             <Route path={'*'} element={<ErrorPage/>}/>
                                             <Route path={'/edit'} element={<EditSong/>}/>

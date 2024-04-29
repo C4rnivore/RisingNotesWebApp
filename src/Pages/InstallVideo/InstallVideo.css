@@ -1,33 +1,41 @@
-.glav-installmusic {
+.glav-installvideo {
     margin: 0 auto;
     width: 100%;
     max-width: 1220px;
     
 }
 
-.song-information-1 {
+.video-information-1 {
     display: flex;
     text-align: start;
     
 }
 
-.song-information-2 {
+.column1-2 {
+    width: 100%;
+}
+
+.video-information-2 {
     display: flex;
     text-align: start;
-    width: 1040px;
+    width: 100%;
     margin-top: 40px;
-   
+    margin-bottom: 48px;
 
 }
 
-.song-information-3 {
+.video-inf-in{
+    margin-left: 40px;
+    
+}
+
+.video-information-3 {
     text-align: start;
-    margin-bottom: 200px;
     margin-top: 24px;
     width: 100%; 
 }
 
-.newtrack-h1 {
+.newvideo-h1 {
     color: #FFF;
     width: 750px;
     height: 42px;
@@ -38,23 +46,27 @@
     font-style: normal;
     font-weight: 400;
     line-height: normal;
-    margin-left: 255px;
+    /* margin-left: 230px; */
 }
 
-.uploadtrack-div {
+.uploadvideo-div-inf{
+    width: 257px;
+}
+
+.uploadvideo-div {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: 60px;
-    margin-left: 28px;
+    margin-top: 75px;
     width: 100%;
-    min-width: 780px;
+    min-width: 750px;
     height: 168px;
     border-radius: 25px;
     border: 3px dashed #787885;
+    gap: 60px;
 }
 
-.uploadtrack-p1 {
+.uploadvideo-p1 {
     color: #FFF;
 
     font-family: Montserrat;
@@ -65,7 +77,7 @@
     text-align: center;
 }  
 
-.uploadtrack-p2 {
+.uploadvideo-p2 {
     color: #787885;
 
     font-family: Montserrat;
@@ -77,11 +89,8 @@
     text-align: center;
 }
 
-.uploadtrack-div-inf {
-    justify-content: center;
-}
 
-.or {
+.or2 {
     color: #787885;
 
     font-family: Montserrat;
@@ -89,21 +98,10 @@
     font-style: normal;
     font-weight: 500;
     line-height: normal;
-    margin-left: 40px;
+    /* margin-left: 40px; */
 }
 
-.submit-tag-input-track {
-    width: max-content;
-    position: absolute;
-    padding-inline: 7px;
-    background: none;
-    border: none;
-    right: 0;
-    
-    color: #787885;
-    margin-top: 5px;
-    
-}   
+
 
 .tag-container2{
     display: flex;
@@ -123,39 +121,17 @@
     flex-direction: column; 
 }
 
-.input-installmusic {
-    
-    width: 100%;
-    height: 40px;
-    border: none;
-    border-radius: 10px;
-    background: #191E28;
-    color: #787885;
 
-    font-family: Montserrat;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
-    margin-bottom: 24px;
-    padding:5px 40px 5px 16px;
 
-}
-
-.div-track {
+.div-video {
     display: flex;
-    justify-content: center;
-    width: 100%;
-    gap: 20px;
+    /* justify-content: center; */
+    /* width: 100%; */
+    
 }
 
-.name-new-song {
-    text-align: center;
-    justify-content: center;
-    max-width: 400px;
-}
 
-.upload-file-installmusic {
+.upload-video-button{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -176,19 +152,22 @@
     line-height: 20px;
 }
 
-.uploadcloud {
-
+.upload-video-button:hover {
+    background: none; 
+    border: 3px solid #FE1170;
+    cursor: pointer;
 }
 
-.column1-h2 {
+
+.uploadvideo-h2 {
     color: #FFF;
 
     font-family: Montserrat;
     font-size: 18px;
     font-style: normal;
-    font-weight: 500;
+    font-weight: 400;
     line-height: normal;
-    margin-bottom: 8px;
+    margin-bottom: 16px;
 }
 
 .column2-h2 {
@@ -202,13 +181,26 @@
     margin-bottom: 8px;
 }
 
-.column2 {
-    margin-left: 40px;
-    width: 100%;
-}
 
-.column1 {
+
+.choose-track-for-video{
     width: 100%;
+    height: 68px;
+    border: none;
+    border-radius: 10px;
+    background: #191E28;
+    color: #787885;
+    padding-left: 16px;
+
+    font-family: Montserrat;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    
+    padding:5px 16px 5px 16px;
+    /* transform: rotate(-180.00deg); */
+   
 }
 
 .inp-column1 {
@@ -254,82 +246,9 @@
     border-bottom: 3px solid #191E28;
 }
 
-/* Switch */
 
-.text-switch{
-    display: flex;
-    position: relative;
-    border-radius: 10px;
-    
-    align-items: center;
-    justify-content: center;
-    height: 20px;
-    width: 41px;
-    background-color: #787885;
-    margin-left: 945px;
-}
 
-.text-switch-toggled {
-    display: flex;
-    position: relative;
-    border-radius: 10px;
-    
-    align-items: center;
-    justify-content: center;
-    height: 20px;
-    width: 41px;
-    background-color: #FE1170;
-    margin-left: 945px;
-}
-
-.text-switch:hover,
-.text-switch-toggled{
-    cursor: pointer;
-}
-
-.switch-ball{
-    position: absolute;
-    height: 12px;
-    width: 12px;
-    background-color: #fff;
-    border-radius: 50%;
-    left: 6px;
-    transform: translateX(0);
-    transition: 250ms ease-in-out;
-}
-.text-switch-toggled > .switch-ball{
-    transform: translateX(150%);
-}
-
-.div-text {
-    display: none;
-    width: 1040px;
-}
-
-.text-checkbox-container {
-    display: flex;
-    flex-direction: column;
-    align-items: start;
-   
-   
-}
-
-.checkbox-button {
-    
-}
-
-.label-checkbox {
-    margin-left: 8px;
-    color: #787885;
-
-    font-family: Montserrat;
-    font-size: 18px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
-}
-
-.upload-track-installmusic {
+.publication-video-button {
     width: 256px;
     height: 48px;  
     border-radius: 15px;
@@ -343,49 +262,23 @@
     line-height: normal;
     line-height: 48px;
     gap: 10px;
+    margin-bottom: 24px;
     
 }
 
-.upload-track-installmusic:hover {
+.publication-video-button:hover {
+    background: none; 
+    border: 3px solid #FE1170;
+    transition: border 0.4s ease-in;
     cursor: pointer;
 }
 
-.save-installmusic {
-    width: 256px;
-    height: 48px;  
-    border-radius: 15px;
-    border: 1px solid #FE1170;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 18px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-    line-height: 48px;
-    gap: 5px;
-    margin-left: 24px;
+.video-prewiew{
+    width: 430px;
+    height: 250px;
 }
 
-.save-installmusic {
-    cursor: pointer;
-}
-
-.button-and-text {
-    display: flex;
-    margin-top: 24px;
-    text-align: start;
-    width: 536px;
-    margin-bottom: 24px;
-}
-
-.warning-upload {
-    color: #787885;
-
-    font-family: Montserrat;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-    width: 1040px;
+.video-skin{
+    width: 430px;
+    height: 250px;
 }
