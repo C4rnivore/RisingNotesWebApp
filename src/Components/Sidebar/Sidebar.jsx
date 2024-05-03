@@ -113,12 +113,16 @@ function Sidebar(props) {
       navigate(`/playlist/${id}`)
   };
 
+  function handleQuerySubmit(e){
+      e.preventDefault()
+  }
+
    return(
     <div className={collapsed ? "sidebar collapse" : "sidebar"} id='sidebar'>
       <SidebarCollapser collapseFunc={handleToggleMenu} collapsed={collapsed}/>
       <div className="sidebar-content">
          <div className="searchbar-container">
-            <form action="" method='GET'>
+            <form>
                <button className='searchbar-submit' type='submit'>
                   <img src={search} alt="" draggable='false' />
                </button>
@@ -126,7 +130,7 @@ function Sidebar(props) {
                className='searchbar' 
                type="text" 
                placeholder='Поиск'
-               value={searchInput}
+               onSubmit={handleQuerySubmit}
                onInput={handleQueryChange}/>
             </form>
          </div>

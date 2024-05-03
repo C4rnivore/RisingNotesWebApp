@@ -7,6 +7,7 @@ const useSearchClean = () =>{
 
     function cleanQuery(){
         setSearchInput('')
+        console.log('clean')
     }
     return {cleanQuery}
 }

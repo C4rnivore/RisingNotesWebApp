@@ -9,7 +9,6 @@ import useSearchClean from '../../../Hooks/useSearchClean/useSearchClean'
 
 function SearchContent(props){
     const searchResult = props.search
-    console.log(searchResult);
 
     if(searchResult.artists?.length === 0 && searchResult.tracks?.length === 0 && !searchResult.playlists && !searchResult.clips)
         return (<NotFoundPage/>)
