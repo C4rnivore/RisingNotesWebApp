@@ -6,8 +6,8 @@ import vkIcon from '../../../Images/artist-card/Social Icons.svg'
 import yandexIcon from '../../../Images/artist-card/yandex.svg'
 import defaultAvatar from '../../../Images/main-placeholder.png';
 import { useContext, useEffect, useState } from "react"
-import { ResizeContext, SubscriptionsContext, api, axiosAuthorized, axiosUnauthorized } from "../../App/App"
-import { useNavigate, useParams } from "react-router-dom"
+import { ResizeContext, SubscriptionsContext, api, axiosPictures } from "../../App/App"
+import { useParams } from "react-router-dom"
 
 function ArtistInfo(props) {
     
@@ -28,7 +28,7 @@ function ArtistInfo(props) {
 
     useEffect(() => {
         // проверка наличия картинки и подписки
-        axiosUnauthorized.get(api + `api/user/${userId}/logo?width=400&height=400`)
+        axiosPictures.get(api + `api/user/${userId}/logo?width=400&height=400`)
         .then(setIsImageExist(true))
         .catch(err => {
             setIsImageExist(false)

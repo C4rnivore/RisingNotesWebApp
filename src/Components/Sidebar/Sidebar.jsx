@@ -4,11 +4,10 @@ import warning from '../../Images/sidebar/warning.svg';
 import like from '../../Images/sidebar/like.svg';
 import placeholder from '../../Images/main-placeholder.png';
 import { useContext, useEffect, useState } from 'react';
-import {Link, NavLink, useNavigate} from "react-router-dom";
-import player from "../Player/Player";
+import {NavLink, useNavigate} from "react-router-dom";
 import SidebarCollapser from './SidebarCollpaser/SidebarCollapser'
 import subsIcon from '../../Images/sidebar/subs-icon.svg';
-import { PlaylistsContext, SearchQueryContext, api, axiosAuthorized, axiosUnauthorized } from '../App/App'
+import { PlaylistsContext, SearchQueryContext, api, axiosAuthorized, axiosPictures } from '../App/App'
 import { useCookies } from 'react-cookie';
 import useSearchClean from '../../Hooks/useSearchClean/useSearchClean';
 
@@ -60,7 +59,7 @@ function Sidebar(props) {
             const response = await axiosAuthorized.get(`api/playlist/${el}`)
             .catch(err => console.log(err));
             let img = true;
-            await axiosUnauthorized.get(api + `api/playlist/${el}/logo?width=400&height=400`)
+            await axiosPictures.get(api + `api/playlist/${el}/logo?width=400&height=400`)
             .catch(err => {
                img = false;
             });
@@ -95,6 +94,7 @@ function Sidebar(props) {
    }
 
    async function addNewPlaylist() {
+      // Добавить новый плейлист
       if (!cookies?.role) {
          navigate('/login');
       }

@@ -75,7 +75,7 @@ function ArtistCard(props){
             navigate(-1);
         })
 
-    }, [isLoaded])   
+    }, [isLoaded, params])   
 
     const handleChangePage = (id) => {
         // смена страницы в лк

@@ -6,7 +6,7 @@ import trash from '../../Images/trash.svg';
 import bigEdit from '../../Images/account-page/edit-big.svg';
 import { useState, useContext, useRef } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { FeaturedContext, PlaylistsContext, api, axiosAuthorized, axiosUnauthorized} from '../../Components/App/App';
+import { FeaturedContext, PlaylistsContext, api, axiosAuthorized, axiosPictures, axiosUnauthorized} from '../../Components/App/App';
 
 import './PlaylistWindow.css';
 
@@ -25,7 +25,7 @@ function PlaylistWindow(){
 
     function reviewAvatar() {
         // проверка на наличие картинки
-        axiosUnauthorized.get(api + `api/playlist/${params.id}/logo?width=400&height=400`)
+        axiosPictures.get(api + `api/playlist/${params.id}/logo?width=400&height=400`)
         .then (
             setReviewSkin(true)
         )

@@ -7,7 +7,7 @@ import SongLyrics from './PlayerComponents/SongLyrics.jsx'
 import FilterBtn from '../../Images/player/FilterBtn.svg';
 
 import './Player.css';
-import { CurrentSongContext, api, axiosUnauthorized } from '../App/App.jsx';
+import { CurrentSongContext, api, axiosPictures, axiosUnauthorized } from '../App/App.jsx';
 
 
 function Player() {
@@ -22,6 +22,7 @@ function Player() {
     const [isLoaded, setIsLoaded] = useState(false);
 
     const getCurrentTrackInfo = async () => {
+        // подгрузка информации о текущем треке
         setIsLoaded(false);
         let isImageExist = false;
         let info = {};
@@ -44,7 +45,7 @@ function Player() {
         })
         .catch(err => {console.log(err)});
 
-        await axiosUnauthorized.get(`api/user/` + info.authorId + `/logo`)
+        await axiosPictures.get(`api/user/` + info.authorId + `/logo`)
         .then(response => {
             info.authorLogo = api + `api/user/` + info.authorId + `/logo`
         })
