@@ -3,11 +3,10 @@ import logotype from '../../Images/logo.svg'
 import {Link, NavLink} from "react-router-dom";
 import FallDownMenu from '../FallDownMenu/FallDownMenu';
 import Chevron from '../../Images/controller/chevron-left.svg';
-import { ResizeContext, api, axiosUnauthorized } from '../App/App';
+import { ResizeContext, api, axiosPictures } from '../App/App';
 import { useCookies } from 'react-cookie';
 import defaultAvatar from '../../Images/main-placeholder.png';
 import burderImg from '../../Images/burger.svg';
-import axios from 'axios';
 import useSearchClean from '../../Hooks/useSearchClean/useSearchClean';
 
 import './Header.css';
@@ -23,9 +22,10 @@ function Header() {
     const {cleanQuery} = useSearchClean()
 
     useEffect(() => {
+        // проверка картинки
         if (cookies.userId) {
             setIsUserAuthorized(true);
-            axiosUnauthorized.get(api + `api/user/${cookies.userId}/logo?width=400&height=400`)
+            axiosPictures.get(api + `api/user/${cookies.userId}/logo?width=400&height=400`)
             .then(() => {
                 setIsImageExist(true);
             })
@@ -36,7 +36,7 @@ function Header() {
         }
     }, []);
 
-    const handleToggleMenu = () =>{
+    const handleToggleMenu = () => {
         const sidebar = document.getElementById('sidebar')
         if(sidebar.classList.contains('collapse')){
            sidebar.classList.remove('collapse')

@@ -25,14 +25,25 @@
     margin-bottom: 30px;
 }
 
-.subscriptions {
-    display: grid;
-    grid-template-columns: repeat(auto-fill,minmax(200px, 1fr));
-    gap: 39px;
+.subscriptions, .playlists {
+    display: flex;
+    flex-wrap: wrap;
+    /* display: grid; */
+    /* grid-template-columns: repeat(auto-fill,minmax(200px, 1fr)); */
+    gap: 40px 2%;
     width: 100%;
     max-width: 1220px;
 
     margin-bottom: 120px;
+    @media screen and (max-width: 1300px) and (min-width: 901px){ 
+        gap: 40px 5%;
+    }
+    @media screen and (max-width: 900px) and (min-width: 721px){ 
+        gap: 40px 5%;
+    }
+    @media screen and (max-width: 720px){ 
+        gap: 40px 4%;
+    }
 }
 
 .subscription > img:hover {

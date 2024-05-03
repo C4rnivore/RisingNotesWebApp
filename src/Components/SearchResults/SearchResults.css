@@ -9,6 +9,9 @@
     background-color: #0F141D;
     z-index: 10;
 
+    padding-left: 60px;
+    padding-right: 60px;
+
     transition: padding 250ms ease-in-out;
 }
 .search-result-back{
@@ -16,7 +19,7 @@
 }
 .search-results-container{
     width: 100%;
-    max-width: 1040px;
+    max-width: 1220px;
     margin: 0 auto;
 }
 .search-result-back > button{

@@ -19,6 +19,7 @@ import { CurrentSongContext, ExcludedContext, FeaturedContext, PlayerContext, Re
 import { axiosAuthorized, axiosUnauthorized } from '../App/App';
 
 import './MusicPlayer.css';
+import useSearchClean from '../../Hooks/useSearchClean/useSearchClean';
 
 const MusicPlayer = (props) => {
     const [isPlaying, setIsPlaying] = useState(false);  
@@ -38,12 +39,14 @@ const MusicPlayer = (props) => {
     const {featured, setFeatured} = useContext(FeaturedContext);
     const {excluded, setExcluded} = useContext(ExcludedContext);
     const {resize, setResize} = useContext(ResizeContext);
+    const {cleanQuery} = useSearchClean();
 
     
     const volumeJSON = localStorage.getItem('VOL');
     const [volume, setVolume] = useState(volumeJSON ? JSON.parse(volumeJSON) : 1);
 
     useEffect(() => {
+        // скрытие плеера
         if (location.pathname.includes('login') || location.pathname.includes('registration')) {
             setHiddenTag('hidden');
         } 
@@ -53,12 +56,14 @@ const MusicPlayer = (props) => {
     }, [location]);
 
     useEffect(() => {
+        // сохранение громкости плеера 
         let audio = document.querySelector('audio');
         audio.volume = volume;
         localStorage.setItem('VOL', JSON.stringify(audio.volume));
     }, [volume])
 
     useEffect(() => {
+        // обновление информации о текущей песне и сброс плеера
         if(currentSong !== ''){
             axiosUnauthorized.get(`api/song/${currentSong}`)
             .then(response => {
@@ -87,6 +92,7 @@ const MusicPlayer = (props) => {
     }, [songs, currentSong])
 
     const handlePlayPause = () => { 
+        // Пауза в плеере
         clearInterval(handleRef.current);
         let audio = audioRef.current;
         if (isPlaying && audioRef.current) {
@@ -105,6 +111,7 @@ const MusicPlayer = (props) => {
     };
 
     const handleNextSong = () => {
+        // следующая песня или первая в очереди
         clearInterval(handleRef.current);
         const songsCount = songs.length;
         if (nextSongIndex + 1 == songsCount)
@@ -122,6 +129,7 @@ const MusicPlayer = (props) => {
     };
 
     const handlePrevSong = () => {
+        // предыдущая песня или последняя в очереди
         clearInterval(handleRef.current);
         if (nextSongIndex - 1 == -1)
             setNextSongIndex(songs.length - 1);
@@ -138,6 +146,7 @@ const MusicPlayer = (props) => {
     };
 
     const handleCurrentDurationChange = (event) => {
+        // привязка времени трека к шкале
         clearInterval(handleRef.current);
 
         const newTrackDuration = event.target.value;
@@ -152,12 +161,14 @@ const MusicPlayer = (props) => {
     };
 
     const handleVolumeChange = (event) => {
+        // изменеие громкости
         let audio = document.querySelector('audio');
         audio.volume = event.target.value*0.01;
         setVolume(audio.volume);
     };
 
     function formatTime(seconds) {
+        // форматирование времени
         if (seconds === undefined || seconds === NaN || seconds === null) {
             return '00:00';
         }
@@ -168,6 +179,7 @@ const MusicPlayer = (props) => {
     };
 
     function showModal() {
+        // отображение окна громкости
         const vl_md = document.getElementById('volume-modal')
         if(vl_md.classList.contains('volume-modal-hidden')){
             vl_md.classList.remove('volume-modal-hidden');
@@ -175,6 +187,7 @@ const MusicPlayer = (props) => {
     };
 
     function hideModal() {
+        // скрытие окна громкости
         const vl_md = document.getElementById('volume-modal')
         if(!vl_md.classList.contains('volume-modal-hidden')){
             vl_md.classList.add('volume-modal-hidden');
@@ -182,6 +195,7 @@ const MusicPlayer = (props) => {
     };
 
     async function handleToFavorite() {
+        // добавление в избранное
         if (currentSong !== '' ) {
             
             if (featured.includes(currentSong)) {
@@ -192,22 +206,23 @@ const MusicPlayer = (props) => {
             else {
                 await axiosAuthorized.patch(api + `api/song/favorite/${currentSong}`).then(resp => {
                     setFeatured(e => e = [...e, currentSong]);
-                });;
+                });
             }
         }
     };
 
     async function handleToExcluded() {
+        // добавление в исключенное
         if (currentSong !== '' ) {
             if (excluded.includes(currentSong)) {
                 await axiosAuthorized.delete(api + `api/excluded-track/${currentSong}`).then(resp => {
                     setExcluded(e => e = e.filter(el => el != currentSong));
-                });;
+                });
             }
             else {
                 await axiosAuthorized.post(api + `api/excluded-track/${currentSong}`).then(resp => {
                     setExcluded(e => e = [...e, currentSong]);
-                });;
+                });
             }
         }
     };
@@ -236,7 +251,7 @@ const MusicPlayer = (props) => {
 
                 <div className='music-player-buttons'>
                     <a onClick={handleToExcluded}><img alt='dislike' draggable='false' src={excluded.includes(currentSong) ? redDislike : dislike}/></a>
-                    <Link to={currentSong === '' ? '' : `/commentaries/${currentSong}`}>
+                    <Link to={currentSong === '' ? '' : `/commentaries/${currentSong}`} onClick={cleanQuery}>
                         <img alt='comment' src={message} draggable='false'/>
                     </Link>
                     <a onClick={handleToFavorite}><img alt='like' draggable='false' src={featured.includes(currentSong) ? redHeart : heart}/></a>

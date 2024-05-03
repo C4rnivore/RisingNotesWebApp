@@ -80,7 +80,11 @@ export default function Featured() {
                     {playlists?.map(el => (
                         <Playlist key={el} id={el}/>
                     ))}
-                    <img className='new-playlist' alt='add new playlist' src={newPlaylist} onClick={addNewPlaylist} draggable='false' />
+                    <div draggable='false' className='playlist'>
+                        <img draggable='false' className='new-playlist' alt='add new playlist' src={newPlaylist} onClick={addNewPlaylist}/>
+                        {/* <img draggable='false' className='playlistskin' alt='cover' src={isreviewSkin ? api + `api/playlist/${props.id}/logo?width=400&height=400` : SongCover}/> */}
+                    </div>
+                    
                 </div>
                 <h3 className='sub-h2'>Избранные треки</h3>
                 <div className='tracks'>

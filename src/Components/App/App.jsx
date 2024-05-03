@@ -53,6 +53,13 @@ export const axiosRefresh = axios.create({
     }
 });
 
+export const axiosPictures= axios.create({
+    baseURL: api,
+    headers: {
+        "Content-Type": "application/json",
+    },
+});
+
 export const PlayerContext = createContext({});
 export const CurrentSongContext = createContext({});
 export const SubscriptionsContext = createContext({});

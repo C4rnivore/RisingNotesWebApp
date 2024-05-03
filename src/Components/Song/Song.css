@@ -160,6 +160,8 @@ li {
 
     @media screen and (max-width: 720px){ 
         font-size: 16px;
+        max-width: 300px;
+        margin-right: 26px;
     }
 }
 
