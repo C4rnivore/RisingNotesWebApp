@@ -1,9 +1,9 @@
 import editIcon from '../../../Images/account-page/edit-icon.svg';
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import message from '../../../Images/controller/Chat_Dots.png';
 import statsIcon from '../../../Images/account-page/stats-icon.svg';
-import { CurrentSongContext, PlayerContext, api, axiosAuthorized, axiosUnauthorized } from '../../../Components/App/App';
+import { api, axiosAuthorized, axiosUnauthorized } from '../../../Components/App/App';
 
 const statusType = {
     0: 'Неизвестно',
@@ -81,11 +81,14 @@ export default function Song (props) {
                 {statusType[props.status]}
             </p>
             <p className='song-duration'>{formatTime(duration)}</p>
-            {songId ? 
-                <Link draggable='false' to={`/commentaries/${songId}`}><img draggable='false' alt='comment' src={message}/></Link> : 
-                <Link draggable='false' to={`/account`}><img alt='comment' draggable='false' src={message} style={{opacity: 0.2}}/></Link>}
+            <div className='track-buttons'>
+                {songId ? 
+                    <Link draggable='false' to={`/commentaries/${songId}`}><img draggable='false' alt='comment' src={message}/></Link> : 
+                    <Link draggable='false' to={`/account`}><img alt='comment' draggable='false' src={message} style={{opacity: 0.2}}/></Link>
+                }
+                <a href={`/uploadmusic/${props.id}`}><img alt='list' src={editIcon} /></a>
+            </div>
             
-            <a href={`/uploadmusic/${props.id}`}><img alt='list' src={editIcon} /></a>
         </div>
     )
 }

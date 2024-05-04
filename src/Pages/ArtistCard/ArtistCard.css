@@ -211,7 +211,7 @@
     width: 100%;
     text-align: center;
     padding: 5px;
-    max-width: 100px;   
+    max-width: 150px;   
     border-radius: 36.135px;
     border: 2.286px solid #FE1170;
     color: #FFF;
@@ -221,22 +221,6 @@
     font-style: normal;
     font-weight: 400;
     line-height: normal;
-}
-
-
-.song-duration {
-    width: 100%;
-    max-width: 150px;
-    margin-left: 10px;
-    text-align: end;
-    color: #FFF;
-
-    font-family: Montserrat;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-    padding-right: 10px;
 }
 
 .track > a {

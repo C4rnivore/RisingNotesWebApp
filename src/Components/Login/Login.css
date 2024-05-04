@@ -110,6 +110,7 @@
     font-size: 18px;
     font-style: normal;
     font-weight: 400; 
+    margin-top: 40px;
 
     @media screen and (max-width: 720px) {
         font-size: 14px;

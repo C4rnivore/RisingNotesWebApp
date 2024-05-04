@@ -108,6 +108,7 @@
 
 .account-page-user {
     text-align: start;
+    margin-bottom: 140px;
 }
 
 .account-page-user > h2 {
@@ -116,6 +117,10 @@
     font-weight: 500;
 
     margin-bottom: 24px;
+}
+
+.account-page-user > h2:nth-child(9) {
+    padding-top: 40px;
 }
 
 .account-page-user-inputs {
@@ -161,6 +166,7 @@
 .account-page-user-buttons {
     display: flex;
     gap: 24px;
+    height: 52px;
 }
 
 .account-page-filled-button {
@@ -206,8 +212,6 @@
     font-size: 18px;
     font-style: normal;
     font-weight: 500;
-
-    margin-bottom: 40px;
 }
 
 .account-page-unfilled-button:hover {
@@ -243,6 +247,10 @@
     width: 100%;
     gap: 40px;
     margin-bottom: 16px;
+}
+
+.account-page-link-wrapper:nth-child(7) {
+    margin-bottom: 48px;
 }
 
 .account-page-link-wrapper > span {
@@ -308,7 +316,11 @@
 }
 
 .song-status {
-    margin-left: 100px;
+    width: fit-content;
+    text-wrap: nowrap;
+    @media screen and (max-width: 720px){ 
+        display: none;
+    }
 }
 
 .song-status-dot {

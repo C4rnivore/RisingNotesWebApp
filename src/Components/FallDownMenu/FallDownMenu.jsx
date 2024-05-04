@@ -21,15 +21,20 @@ export default function FallDownMenu () {
 
     return (
         <div className="fall-down-menu">
-            <NavLink draggable='false' to='/account' className={'fall-down-menu-ref'}
-            style={({ isActive }) => (isActive ? {color: '#FE1170'} : {color: '#787885'})}>
-                <img draggable='false'src={userIcon}/>Личный кабинет</NavLink>
+            
             {cookies.role === 'admin' ? (
-                 <NavLink draggable='false' to='/adminpanel' className={'fall-down-menu-ref'}
-                 style={({ isActive }) => (isActive ? {color: '#FE1170'} : {color: '#787885'})}>
-                     <img draggable='false'src={settingsIcon}/>Админ панель</NavLink>
-                 
-            ) : <></>}
+                <NavLink draggable='false' to='/adminpanel' className={'fall-down-menu-ref'}
+                    style={({ isActive }) => (isActive ? {color: '#FE1170'} : {color: '#787885'})}>
+                    <img draggable='false'src={settingsIcon}/>
+                    Админ панель
+                </NavLink>   
+            ) : (
+                <NavLink draggable='false' to='/account' className={'fall-down-menu-ref'}
+                    style={({ isActive }) => (isActive ? {color: '#FE1170'} : {color: '#787885'})}>
+                    <img draggable='false'src={userIcon}/>
+                    Личный кабинет
+                </NavLink>)
+            }
 
             <button className="logout-button" onClick={logoutUser}>
                      <img draggable='false'src={exitIcon}/>Выход</button>

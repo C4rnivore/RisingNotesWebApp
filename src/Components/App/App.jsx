@@ -17,9 +17,8 @@ import AdminPanel from '../../Pages/AdminPanel/AdminPanel';
 import MusicPlayer from '../MusicPlayer/MusicPlayer';
 import PlaylistWindow from '../../Pages/PlaylistWindow/PlaylistWindow';
 import SearchResults from '../SearchResults/SearchResults';
-import InstallMusicNewDesign from '../../Pages/InstallMusicNewDesign/InstallMusicNewDesign';
+import UploadMusic from '../../Pages/UploadMusic/UploadMusic.jsx';
 import ErrorPage from '../../Pages/404Page/404Page';
-import EditSong from '../../Pages/EditingSong/EditingSong';
 import { FiltersProvider } from '../../Hooks/useFilters/useFilters';
 
 import {useState, useEffect} from 'react';
@@ -284,26 +283,40 @@ function App() {
                                     <div className="App">
                                         <Header/>
                                         <MusicPlayer/>
-                                        <Sidebar></Sidebar>
+                                        {cookies.role === 'admin' ? <></> : <Sidebar></Sidebar>}
                                         <SearchResults/>
                                         <ErrorMessage text={errorText} visibility={errorVisibility}/>
                                         <Routes>
-                                            <Route path={'/'} element={<Player/>}/>
-                                            <Route path={'/login'} element={<Login/>}/>
-                                            <Route path={'/registration'} element={<Registration/>}/>
-                                            <Route path={'/artist/:id'} element={<ArtistCard/>}/>
-                                            <Route path={'/featured'} element={<Featured/>}/>
-                                            <Route path={'/excluded'} element={<Excluded/>}/>
-                                            <Route path={'/account'} element={<AccountPage/>}/>
-                                            <Route path={'/subscriptions'} element={<Subscriptions/>}/>
-                                            <Route path={'/commentaries/:id'} element={<Commentaries/>}/>
-                                            <Route path={'/adminpanel'} element={<AdminPanel/>}/>
-                                            <Route path={'/playlist/:id'} element={<PlaylistWindow/>}/>
-                                            <Route path={'/uploadmusic'} element={<InstallMusicNewDesign/>}/>
-                                            <Route path={'/uploadmusic/:id'} element={<InstallMusicNewDesign/>}/>
-                                            <Route path={'*'} element={<ErrorPage/>}/>
-                                            <Route path={'/edit'} element={<EditSong/>}/>
-                                            <Route path={'/verticalvideo'} element={<BlogVideo/>}/>
+                                            {cookies.role === 'admin' ? (<>
+                                                <Route path={'/login'} element={<Login/>}/>
+                                                <Route path={'/registration'} element={<Registration/>}/>
+                                                <Route path={'/artist/:id'} element={<ArtistCard/>}/>
+                                                <Route path={'/commentaries/:id'} element={<Commentaries/>}/>
+                                                <Route path={'/adminpanel'} element={<AdminPanel/>}/>
+                                                <Route path={'/playlist/:id'} element={<PlaylistWindow/>}/>
+                                                <Route path={'/uploadmusic/:id'} element={<UploadMusic/>}/>
+                                                <Route path={'*'} element={<ErrorPage/>}/>
+                                                <Route path={'/verticalvideo'} element={<BlogVideo/>}/>
+                                            </>) : (
+                                            <>
+                                                <Route path={'/'} element={<Player/>}/>
+                                                <Route path={'/login'} element={<Login/>}/>
+                                                <Route path={'/registration'} element={<Registration/>}/>
+                                                <Route path={'/artist/:id'} element={<ArtistCard/>}/>
+                                                <Route path={'/featured'} element={<Featured/>}/>
+                                                <Route path={'/excluded'} element={<Excluded/>}/>
+                                                <Route path={'/account'} element={<AccountPage/>}/>
+                                                <Route path={'/subscriptions'} element={<Subscriptions/>}/>
+                                                <Route path={'/commentaries/:id'} element={<Commentaries/>}/>
+                                                <Route path={'/adminpanel'} element={<AdminPanel/>}/>
+                                                <Route path={'/playlist/:id'} element={<PlaylistWindow/>}/>
+                                                <Route path={'/uploadmusic'} element={<UploadMusic/>}/>
+                                                <Route path={'/uploadmusic/:id'} element={<UploadMusic/>}/>
+                                                <Route path={'*'} element={<ErrorPage/>}/>
+                                                <Route path={'/verticalvideo'} element={<BlogVideo/>}/>
+                                            </>
+                                            )}
+                                            
                                         </Routes>  
                                     </div>
                                 </PlayerContext.Provider>

@@ -47,7 +47,8 @@ const MusicPlayer = (props) => {
 
     useEffect(() => {
         // скрытие плеера
-        if (location.pathname.includes('login') || location.pathname.includes('registration')) {
+        if (location.pathname.includes('login') || location.pathname.includes('registration') ||
+            location.pathname.includes('uploadmusic') || location.pathname.includes('adminpanel')) {
             setHiddenTag('hidden');
         } 
         else {
