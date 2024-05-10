@@ -96,3 +96,105 @@ ul {
 li {
     list-style-type: none;
 }
+
+.track {
+    display: flex;
+    border-radius: 15px;
+    gap: 24px;
+    background: radial-gradient(228.74% 144.12% at 0.9% 2.98%, rgba(255, 255, 255, 0.40) 0%, rgba(255, 255, 255, 0.00) 100%);
+   
+    width: 100%;
+    height: 68px;
+    /* max-width: 1040px; */
+    align-items: center;
+
+    margin-bottom: 33px;
+    padding-left: 24px;
+    padding-right: 24px;
+
+    justify-content: space-around;
+}
+
+.track:hover {
+    filter: brightness(90%)
+}
+
+.track > img {
+    border-radius: 55px;
+    width: 55px;
+    height: 55px;
+    /* margin-left: 15px;
+    margin-right: 26px; */
+    object-fit: cover;
+
+    @media screen and (max-width: 720px){ 
+        width: 50px;
+        height: 50px;
+    }
+}
+
+.track > img:hover {
+    cursor: pointer;
+}
+
+.song-title-t {
+    width: 100%;
+    max-width: 328px;
+    /* margin-right: 67px; */
+    height: 67px;
+
+    color: #FFF;
+
+    font-family: Montserrat;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    text-align: start;
+
+    text-overflow:ellipsis;
+    overflow:hidden;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    @media screen and (max-width: 720px){ 
+        font-size: 16px;
+        max-width: 300px;
+        margin-right: 26px;
+    }
+}
+
+.song-duration {
+    width: 100%;
+    max-width: 150px;
+    /* margin-left: 10px; */
+    text-align: end;
+    color: #FFF;
+
+    font-family: Montserrat;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    /* padding-right: 10px; */
+
+    @media screen and (max-width: 930px){ 
+        display: none;
+    }
+}
+
+.songAuthor{
+    color: #C5C5C5;
+
+    font-family: Montserrat;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+
+    @media screen and (max-width: 720px){ 
+        font-size: 14px;
+    }
+}

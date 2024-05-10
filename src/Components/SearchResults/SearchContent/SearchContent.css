@@ -26,6 +26,10 @@
     text-align: left;
 }
 
+.search-show-more > span {
+    font-size: 16px;
+}
+
 .search-res-container{
     display: flex;
     flex-direction: column;
@@ -41,17 +45,5 @@
     gap:40px;
     padding: 20px 0;
 }
-.search-artist-card{
-    text-align: start;
-    display: flex;
-    flex-direction: column;
-    gap:10px;
-}
-.search-artist-card > a > img{
-    background-color: black;
-    width: 200px;
-    height: 200px;
-    border-radius: 10px;
-    object-fit: cover;
-}
+
 

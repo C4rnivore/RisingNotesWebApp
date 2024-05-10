@@ -1,5 +1,6 @@
 import axios from "axios";
 import { api } from "../../App/App";
+import SearchResults from "../SearchResults";
 
 export async function fetchInput(input){
     let searchResult = {
@@ -13,12 +14,14 @@ export async function fetchInput(input){
             pfp:undefined
         },
         tracks: undefined,
-        playlists: undefined
+        playlists: undefined,
+        clips: undefined
     }
 
     searchResult.artists = await fetchArtists(input)
     searchResult.tracks = await fetchTracks(input)
     searchResult.playlists = await fetchPlaylists(input)
+    searchResult.clips = await fetchClips(input)
     return searchResult
 }
 
@@ -68,6 +71,24 @@ async function fetchPlaylists(input){
             responseType: 'application/json',
         })
         const result = JSON.parse(response.data).playlistList
+        return result
+    }
+    catch(err){
+        console.log('Something wrong occured when trying to fetch clips data');
+    }
+}
+
+async function fetchClips(input){
+    if(input == '')
+        return 
+
+    try{
+        const response = await axios({
+            method:'GET',
+            url: api + `api/music-clip/list?nameWildcard=${input}`,
+            responseType: 'application/json',
+        })
+        const result = JSON.parse(response.data).musicClipList
         return result
     }
     catch(err){

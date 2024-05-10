@@ -14,7 +14,10 @@
 
     padding: 0 60px;
     z-index: 100;
-    
+
+    @media screen and (max-width: 720px){ 
+        padding: 16px;
+    }    
 }
 .logo_txt{
     font-family: var(--text-font);
@@ -26,6 +29,9 @@
 }
 .logo_link{
     color:white;
+    @media screen and (max-width: 720px){ 
+        font-size: 20px;
+    }
 }
 
 .header_logo{

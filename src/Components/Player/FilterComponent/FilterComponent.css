@@ -1,10 +1,9 @@
 /* FILTERS */
 .filters-container{
-    
     max-height: 100%;
     position: absolute;
     right: 60px;
-    bottom: 50%;
+    top: -225px;
     transform: translateY(50%);
     display: none;
 }

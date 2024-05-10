@@ -6,8 +6,8 @@ import vkIcon from '../../../Images/artist-card/Social Icons.svg'
 import yandexIcon from '../../../Images/artist-card/yandex.svg'
 import defaultAvatar from '../../../Images/main-placeholder.png';
 import { useContext, useEffect, useState } from "react"
-import { SubscriptionsContext, api, axiosAuthorized, axiosUnauthorized } from "../../App/App"
-import { useNavigate, useParams } from "react-router-dom"
+import { ResizeContext, SubscriptionsContext, api, axiosPictures } from "../../App/App"
+import { useParams } from "react-router-dom"
 
 function ArtistInfo(props) {
     
@@ -24,10 +24,11 @@ function ArtistInfo(props) {
     const {subscriptions, setSubscriptions} = useContext(SubscriptionsContext);
     const [isSubscribed, setIsSubscribed] = useState(subscriptions.includes(params.id));
     const [isImageExist, setIsImageExist] = useState(false);
+    const {resize, setResize} = useContext(ResizeContext);
 
     useEffect(() => {
         // проверка наличия картинки и подписки
-        axiosUnauthorized.get(api + `api/user/${userId}/logo?width=400&height=400`)
+        axiosPictures.get(api + `api/user/${userId}/logo?width=400&height=400`)
         .then(setIsImageExist(true))
         .catch(err => {
             setIsImageExist(false)
@@ -68,22 +69,22 @@ function ArtistInfo(props) {
                     </div>
                     <div className="right">
                         {site.length > 0 ? 
-                            <div className="site">
+                            <a className="site" href={site} target="_blank">
                                 <img src={linkIcon} alt="" draggable='false'/>
-                                <a href={site} target="_blank">Сайт</a>
-                            </div> : 
+                                <p>{resize === 'standart' ? 'Сайт' : ''}</p>
+                            </a> : 
                         <></>}
                         {vk.length > 0 ? 
-                            <div className="vk">
+                            <a className="vk" href={vk} target="_blank">
                                 <img src={vkIcon} alt="" draggable='false'/>
-                                <a href={vk} target="_blank">Вконтакте</a>
-                            </div> : 
+                                <p>{resize === 'standart' ? 'Вконтакте' : ''}</p>
+                            </a> : 
                         <></>}
                         {yandex.length > 0 ? 
-                            <div className="yandex">
+                            <a className="yandex" href={yandex} target="_blank">
                                 <img src={yandexIcon} alt="" draggable='false'/>
-                                <a href={yandex} target="_blank">Я.Музыка</a>
-                            </div>: 
+                                <p>{resize === 'standart' ? 'Я.Музыка' : ''}</p>
+                            </a>: 
                         <></>}
                         
                         

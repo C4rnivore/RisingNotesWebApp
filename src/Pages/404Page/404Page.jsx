@@ -18,7 +18,7 @@ class ErrorPage extends React.Component {
                     <div className='div-notfound-text'>
                         <text className='notfound-text'>Страница не найдена</text>
                     </div>
-                    <Link to='javascript:history.back()'>
+                    <Link to='/'>
                         <div className='button-menu-errorpage'>
                             <button className='backbutton-404'>
                                 <GoArrowUpRight className='arrow-icon-upright'/> 

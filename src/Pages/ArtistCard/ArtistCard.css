@@ -145,7 +145,7 @@
     padding-left: 30px;
     margin-bottom: 25px;
 }
-
+/* 
 .playlists {
     display: flex;
     gap: 40px;
@@ -153,12 +153,21 @@
     max-width: 1200px;
     flex-wrap: wrap;
     margin-bottom: 106px;
-}
+} */
 
 .playlist {
     display: grid;
     justify-items: left;
-    width: 230px;
+    width: 18.4%;
+    @media screen and (max-width: 1300px) and (min-width: 901px){ 
+        width: 21.25%;
+    }
+    @media screen and (max-width: 900px) and (min-width: 721px){ 
+        width: 30%;
+    }
+    @media screen and (max-width: 720px){ 
+        width: 48%;
+    }
 }
 
 .playlist:hover {
@@ -167,39 +176,10 @@
     transform: scale(0.98);
 }
 
-.playlist > p {
+/* .playlist > p {
     width: 170px;
     height: fit-content;
-}
-
-.track {
-    display: flex;
-    border-radius: 15px;
-    background: radial-gradient(228.74% 144.12% at 0.9% 2.98%, rgba(255, 255, 255, 0.40) 0%, rgba(255, 255, 255, 0.00) 100%);
-   
-    width: 100%;
-    height: 68px;
-    /* max-width: 1040px; */
-    align-items: center;
-
-    margin-bottom: 33px;
-    padding-left: 10px;
-    padding-right: 10px;
-
-    justify-content: space-around;
-}
-
-.track:hover {
-    filter: brightness(90%)
-}
-
-.track > img {
-    border-radius: 55px;
-    width: 55px;
-    height: 55px;
-    margin-left: 15px;
-    margin-right: 26px;
-}
+} */
 
 .song-title {
     width: 100%;
@@ -215,45 +195,12 @@
     line-height: normal;
 }
 
-.song-title-t {
-    width: 100%;
-    max-width: 300px;
-    margin-right: 67px;
-    height: 67px;
-
-    color: #FFF;
-
-    font-family: Montserrat;
-    font-size: 18px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-    text-align: start;
-
-    text-overflow:ellipsis;
-    overflow:hidden;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
 .track-buttons {
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 5px;
     margin-top: 5px;
-}
-
-.songAuthor{
-    color: #C5C5C5;
-
-    font-family: Montserrat;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
 }
 
 .song-title:hover {
@@ -264,7 +211,7 @@
     width: 100%;
     text-align: center;
     padding: 5px;
-    max-width: 100px;   
+    max-width: 150px;   
     border-radius: 36.135px;
     border: 2.286px solid #FE1170;
     color: #FFF;
@@ -274,22 +221,6 @@
     font-style: normal;
     font-weight: 400;
     line-height: normal;
-}
-
-
-.song-duration {
-    width: 100%;
-    max-width: 150px;
-    margin-left: 10px;
-    text-align: end;
-    color: #FFF;
-
-    font-family: Montserrat;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-    padding-right: 10px;
 }
 
 .track > a {
@@ -423,6 +354,13 @@
 
     margin-bottom: 40px;
     margin-top: 40px;
+
+    @media screen and (max-width: 720px){ 
+        border-bottom: #191E28 solid 1px;
+        margin-top: 10px;
+        height: 45px;
+        margin-bottom: 24px;
+    }
 }
 
 .artist-card-menu-item {
@@ -439,6 +377,12 @@
     font-weight: 500;
 
     border-bottom: #191E28 solid 4px;
+
+    @media screen and (max-width: 720px){ 
+        font-size: 14px;
+        border-bottom: #191E28 solid 1px;
+        height: 45px;
+    }
 }
 
 .artist-card-menu-item:hover {

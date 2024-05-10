@@ -7,7 +7,7 @@ import { useEffect, useRef, useState } from 'react';
 
 import { useCookies, withCookies } from 'react-cookie';
 import { jwtDecode } from 'jwt-decode';
-import { api, axiosAuthorized, axiosUnauthorized } from '../../../Components/App/App';
+import { api, axiosAuthorized, axiosPictures, axiosUnauthorized } from '../../../Components/App/App';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
@@ -22,7 +22,7 @@ export default function AccountHead (props) {
 
     useEffect(() => {
         // получение аватарки и количества прослушиваний музыканта, количество подписчиков
-        axiosUnauthorized.get(api + `api/user/${cookies.userId}/logo?width=400&height=400`)
+        axiosPictures.get(api + `api/user/${cookies.userId}/logo?width=400&height=400`)
         .then(setIsImageExist(true))
         .catch(err => {
             console.log(err);

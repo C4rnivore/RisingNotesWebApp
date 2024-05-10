@@ -12,6 +12,9 @@
     max-width: 1220px;
     z-index: 5;
     
+    @media screen and (max-width: 720px){ 
+        margin-top: 40px;
+    }
 }
 
 /* .featured > h2 {
@@ -25,8 +28,11 @@
 } */
 
 .new-playlist {
-    width: 230px;
-    height: 230px;
+    /* width: 230px;
+    height: 230px; */
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1/1;
 }
 
 .new-playlist:hover {
@@ -56,9 +62,12 @@
 }
 
 .playlistskin {
-    width: 230px;
-    height: 230px;
+    /* width: 230px;
+    height: 230px; */
     border-radius: 25px;
+    object-fit: cover;
+    width: 100%;
+    aspect-ratio: 1/1;
 }
 
 
@@ -71,5 +80,5 @@
     line-height: normal;
     padding-top: 10px;
     text-align: start;
-    width: 230px;
+    width: 100%;
 }

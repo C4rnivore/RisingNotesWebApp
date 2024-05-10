@@ -4,73 +4,93 @@ import warning from '../../Images/sidebar/warning.svg';
 import like from '../../Images/sidebar/like.svg';
 import placeholder from '../../Images/main-placeholder.png';
 import { useContext, useEffect, useState } from 'react';
-import {Link, NavLink, useNavigate} from "react-router-dom";
-import player from "../Player/Player";
+import {NavLink, useNavigate} from "react-router-dom";
 import SidebarCollapser from './SidebarCollpaser/SidebarCollapser'
 import subsIcon from '../../Images/sidebar/subs-icon.svg';
-import { PlaylistsContext, SearchQueryContext, api, axiosAuthorized, axiosUnauthorized } from '../App/App'
+import { PlaylistsContext, SearchQueryContext, api, axiosAuthorized, axiosPictures } from '../App/App'
 import { useCookies } from 'react-cookie';
+import useSearchClean from '../../Hooks/useSearchClean/useSearchClean';
 
 import './Sidebar.css';
 
+
+
 function Sidebar(props) {
    const [search, setSearch] = useState(searchIcon)
-   const [collapsed, setCollapsed] = useState(false)
+   const [collapsed, setCollapsed] = useState(true)
    const [searchQuery, setSearchQuery] = useState('')
    const {searchInput, setSearchInput} = useContext(SearchQueryContext);
    const {playlists, setPlaylists} = useContext(PlaylistsContext);
    const [playlistsInfo, setPlaylistsInfo] = useState([]); 
    const navigate = useNavigate();
    const [cookies, setCookies] = useCookies(['accessToken', 'refreshToken', 'authorId', 'role', 'userId']);
-
+   const {cleanQuery} = useSearchClean()
 
    useEffect(()=>{
       setSearchInput(searchQuery);
-      
    },[searchQuery]);
 
    useEffect(() => {
       getPlaylistsInfo();
    }, [playlists])
 
+   useEffect(()=>{
+      setCollapsed(getInitState())
+   },[])
+
+   const updateLocalState = (value) =>{
+      localStorage.setItem('SIDEBAR_STATE',value)
+   }
+
+   const getInitState = () =>{
+      const collapsed = localStorage.getItem('SIDEBAR_STATE')
+      if(!collapsed){
+         localStorage.setItem('SIDEBAR_STATE','1')
+         return true
+      }
+      return collapsed==='1' ? true : false  
+   }
+
+
    async function getPlaylistsInfo() {
       // Получить или обновить информацию о плейлистах
-      const arr = await Promise.all(playlists.map(async (el) => {
-         const response = await axiosAuthorized.get(`api/playlist/${el}`);
-         let img = true;
-         await axiosUnauthorized.get(api + `api/playlist/${el}/logo?width=400&height=400`)
-         .catch(err => {
-            img = false;
-         })
-         return {
-           name: response.data.name,
-           id: el,
-           img: img
-         };
-      }));
-     
-      setPlaylistsInfo(arr);
+      try {
+         const arr = await Promise.all(playlists.map(async (el) => {
+            const response = await axiosAuthorized.get(`api/playlist/${el}`)
+            .catch(err => console.log(err));
+            let img = true;
+            await axiosPictures.get(api + `api/playlist/${el}/logo?width=400&height=400`)
+            .catch(err => {
+               img = false;
+            });
+
+            return {
+               name: response?.data?.name,
+               id: el,
+               img: img
+            };
+         }));
+      
+         setPlaylistsInfo(arr);
+      }
+      catch (err) {
+         console.log(err);
+      }
    }     
 
    const handleToggleMenu = () =>{
       const sidebar = document.getElementById('sidebar')
       if(sidebar.classList.contains('collapse')){
-         sidebar.classList.remove('collapse')
-         // document.documentElement.style.setProperty('--sidebar-width', '400px');
-         setCollapsed(false)
+         updateLocalState('0')
+         setCollapsed(false) 
       }
       else{
-         sidebar.classList.add('collapse')
-         // document.documentElement.style.setProperty('--sidebar-width', '40px');
+         updateLocalState('1')
          setCollapsed(true)
       }
    }
-
    const handleQueryChange = (e) =>{
       setSearchQuery(e.target.value)
-   }
-   const clearQuery =(e)=>{
-      setSearchQuery('')
    }
 
    async function addNewPlaylist() {
@@ -93,12 +113,16 @@ function Sidebar(props) {
       navigate(`/playlist/${id}`)
   };
 
+  function handleQuerySubmit(e){
+      e.preventDefault()
+  }
+
    return(
-    <div className="sidebar" id='sidebar'>
+    <div className={collapsed ? "sidebar collapse" : "sidebar"} id='sidebar'>
       <SidebarCollapser collapseFunc={handleToggleMenu} collapsed={collapsed}/>
       <div className="sidebar-content">
          <div className="searchbar-container">
-            <form action="" method='GET'>
+            <form>
                <button className='searchbar-submit' type='submit'>
                   <img src={search} alt="" draggable='false' />
                </button>
@@ -106,7 +130,7 @@ function Sidebar(props) {
                className='searchbar' 
                type="text" 
                placeholder='Поиск'
-               value={searchInput}
+               onSubmit={handleQuerySubmit}
                onInput={handleQueryChange}/>
             </form>
          </div>
@@ -115,7 +139,7 @@ function Sidebar(props) {
             <nav className='music-nav'>
                <ul className="nav-links">
                   <li>
-                     <NavLink draggable='false' onClick={clearQuery} className ={({ isActive }) => (isActive ? 'nav-link wave active' : 'nav-link wave' )} 
+                     <NavLink draggable='false' onClick={cleanQuery} className ={({ isActive }) => (isActive ? 'nav-link wave active' : 'nav-link wave' )} 
                      to={'/'} 
                      style={({ isActive }) => (isActive ? {color: '#FE1170'} : {color: '#787885'})}>
                         <img src={wave} alt="" className="nav-icon" draggable='false' />
@@ -123,7 +147,7 @@ function Sidebar(props) {
                      </NavLink>
                   </li>
                   <li>
-                     <NavLink draggable='false' onClick={clearQuery} className ={({ isActive }) => (isActive ? 'nav-link fav active' : 'nav-link fav ' )}
+                     <NavLink draggable='false' onClick={cleanQuery} className ={({ isActive }) => (isActive ? 'nav-link fav active' : 'nav-link fav ' )}
                      to={'/featured'} 
                      style={({ isActive }) => (isActive ? {color: '#FE1170'} : {color: '#787885'})}>
                         <img src={like} alt="" className="nav_icon" draggable='false' />
@@ -131,21 +155,21 @@ function Sidebar(props) {
                      </NavLink>
                   </li>
                   <li> 
-                     <NavLink draggable='false' onClick={clearQuery} className ={({ isActive }) => (isActive ? 'nav-link remove active' : 'nav-link remove ' )}
+                     <NavLink draggable='false' onClick={cleanQuery} className ={({ isActive }) => (isActive ? 'nav-link remove active' : 'nav-link remove ' )}
                      to={'/excluded'} 
                      style={({ isActive }) => (isActive ? {color: '#FE1170'} : {color: '#787885'})}>
                         <img src={warning} alt="" className="nav-icon" draggable='false' />
                         <span >Исключенное</span>
                      </NavLink>
                   </li>
-               <li> 
-                  <NavLink draggable='false' onClick={clearQuery} className ={({ isActive }) => (isActive ? 'nav-link remove active' : 'nav-link remove ' )}
-                  to={'/subscriptions'} 
-                  style={({ isActive }) => (isActive ? {color: '#FE1170'} : {color: '#787885'})}>
-                     <img src={subsIcon} alt="" className="nav-icon" draggable='false' />
-                     <span>Подписки</span>
-                  </NavLink>
-               </li>
+                  <li> 
+                     <NavLink draggable='false' onClick={cleanQuery} className ={({ isActive }) => (isActive ? 'nav-link remove active' : 'nav-link remove ' )}
+                     to={'/subscriptions'} 
+                     style={({ isActive }) => (isActive ? {color: '#FE1170'} : {color: '#787885'})}>
+                        <img src={subsIcon} alt="" className="nav-icon" draggable='false' />
+                        <span>Подписки</span>
+                     </NavLink>
+                  </li>
                </ul>
             </nav>
          </div>
@@ -155,7 +179,7 @@ function Sidebar(props) {
             <ul className="sidebar-playlists">
                {playlistsInfo.map((pl => 
                   <li className='sidebar-playlist' key={pl.id}>
-                     <NavLink draggable='false' to={`/playlist/${pl.id}`} className='sidebar-playlist-name' 
+                     <NavLink onClick={()=>cleanQuery()} draggable='false' to={`/playlist/${pl.id}`} className='sidebar-playlist-name' 
                         style={({ isActive }) => (isActive ? {color: '#FE1170'} : {color: '#787885'})}>
                            <img draggable='false' src={pl.img ? api + `api/playlist/${pl.id}/logo?width=400&height=400` : placeholder}/>
                            {pl.name}
@@ -169,9 +193,10 @@ function Sidebar(props) {
             </ul>
          </div> :
          <></>}
-         
       </div>
     </div>
    )
 }
+
+
 export default Sidebar;

@@ -6,9 +6,10 @@ import message from '../../Images/controller/Chat_Dots.png';
 import dislike from '../../Images/controller/thumbs-down.svg';
 import redDislike from '../../Images/controller/dislike-red.svg';
 import list from '../../Images/list.svg'
-import { CurrentSongContext, ExcludedContext, FeaturedContext, PlayerContext, api, axiosAuthorized } from '../App/App';
+import { CurrentSongContext, ExcludedContext, FeaturedContext, PlayerContext, ResizeContext, api, axiosAuthorized } from '../App/App';
 import thumb from '../../Images/main-placeholder.png';
 import check from '../../Images/check_big.svg';
+import useSearchClean from '../../Hooks/useSearchClean/useSearchClean';
 
 import './Song.css';
 
@@ -19,6 +20,9 @@ function Song(props) {
     const {currentSong, setCurrentSong} = useContext(CurrentSongContext);
     const {featured, setFeatured} = useContext(FeaturedContext);
     const {excluded, setExcluded} = useContext(ExcludedContext);
+    const {cleanQuery} = useSearchClean()
+    const {resize, setResize} = useContext(ResizeContext);
+
     const changeModalState = () => {
         setModalIsHidden(modalIsHidden => modalIsHidden = !modalIsHidden);
     }
@@ -73,15 +77,29 @@ function Song(props) {
         <>
             <div className='track'>
                 <img onClick={handleAddToSongs} alt='cover' src={api + `api/song/${props.id}/logo?width=100&height=100`} draggable='false'/>
-                <p onClick={handleAddToSongs} className='song-title-t'>{props.name}<p className='songAuthor'>{props.artist}</p></p>
-                {props?.genres?.length > 0 ? <p className='song-genre'>{props?.genres[0]}</p> : <p className='song-genre'>Без жанра</p>}
-                <p className='song-duration'>{duration}</p>
-                <div className='track-buttons'>
-                    <a><img alt='list' src={list} onClick={changeModalState}/></a>
-                    <a onClick={handleToExcluded}><img alt='dislike' src={excluded.includes(props.id) ? redDislike : dislike}/></a>
+                <p onClick={handleAddToSongs} className='song-title-t'>{props.name}
+                    <p className='songAuthor'>{props.artist}</p>
+                </p>
+                {resize === 'standart' ? (
+                    <>
+                        {props?.genres?.length > 0 ? <p className='song-genre'>{props?.genres[0]}</p> : <p className='song-genre'>Без жанра</p>}
+                        <p className='song-duration'>{duration}</p>
+                    </>
+                ) : (
+                    <></>
+                )}
+                
+                {resize === 'standart' ? (
+                    <div className='track-buttons'>
+                        <a><img alt='list' src={list} onClick={changeModalState}/></a>
+                        <a onClick={handleToExcluded}><img alt='dislike' src={excluded.includes(props.id) ? redDislike : dislike}/></a>
+                        <a onClick={handleToFavorite}><img alt='like' src={featured.includes(props.id) ? redHeart : heart}/></a>
+                        <Link to={`/commentaries/${props.id}`} onClick={cleanQuery}><img alt='comment' src={message}/></Link>
+                    </div>
+                ): (
                     <a onClick={handleToFavorite}><img alt='like' src={featured.includes(props.id) ? redHeart : heart}/></a>
-                    <Link to={`/commentaries/${props.id}`}><img alt='comment' src={message}/></Link>
-                </div>
+                )}
+                
                 
             </div>
             {!modalIsHidden ? (

@@ -23,7 +23,6 @@ function Songs({artist}) {
     if (isLoaded)
     return (
         <div className="top-tracks-container">
-            <span className='top-tracks-title'>Треки</span>
             <div className="tracks">
                 {songs.map(el => (
                     <Song key={el.id} id={el.id} name={el.name} duration={el.durationMs} artist={artist.artistName} genres={el.genreList}/>
