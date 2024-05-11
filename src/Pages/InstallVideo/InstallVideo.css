@@ -24,10 +24,7 @@
 
 }
 
-.video-inf-in{
-    margin-left: 40px;
-    
-}
+
 
 .video-information-3 {
     text-align: start;
@@ -37,7 +34,7 @@
 
 .newvideo-h1 {
     color: #FFF;
-    width: 750px;
+    /* width: 750px; */
     height: 42px;
     position: absolute;
 
@@ -50,7 +47,7 @@
 }
 
 .uploadvideo-div-inf{
-    width: 257px;
+    /* width: 257px; */
 }
 
 .uploadvideo-div {
@@ -59,7 +56,7 @@
     justify-content: center;
     margin-top: 75px;
     width: 100%;
-    min-width: 750px;
+    /* min-width: 750px; */
     height: 168px;
     border-radius: 25px;
     border: 3px dashed #787885;
@@ -220,31 +217,6 @@
     margin-bottom: 24px;
 }
 
-.filters-select {
-    width: 500px;
-    height: 40px;
-    border: none;
-    border-radius: 10px;
-    background: #191E28;
-    color: #787885;
-    padding-left: 16px;
-
-    font-family: Montserrat;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
-    margin-bottom: 24px;
-    padding:5px 16px 5px 16px;
-}
-
-.song-availability-text {
-    display: flex;
-    width: 1040px;
-    height: 30px;
-    margin-bottom: 24px;
-    border-bottom: 3px solid #191E28;
-}
 
 
 
@@ -274,11 +246,39 @@
 }
 
 .video-prewiew{
-    width: 430px;
-    height: 250px;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    aspect-ratio: 16/9;
+    border-radius: 25px;
 }
 
-.video-skin{
-    width: 430px;
-    height: 250px;
+
+.video-skin-change {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    width: 100%;
+    max-width: 430px;
+    /* height: 100%;
+    max-height: 250px; */
+    /* aspect-ratio: 1/1; */
+    aspect-ratio: 16/9;
+    border-radius: 25px;
+    visibility: hidden;
+}
+
+.video-skin-wrapper:hover .video-skin-change {
+    cursor: pointer;
+    visibility: visible;
+    border-radius: 25px;
+    background: linear-gradient(0deg, #191E28 0%, rgba(25, 30, 40, 0.00) 193.75%);
+}
+
+.video-skin-wrapper {
+    width: 100%;
+    height: 100%;
+    max-width: 430px;
+    max-height: 241.88px;
 }

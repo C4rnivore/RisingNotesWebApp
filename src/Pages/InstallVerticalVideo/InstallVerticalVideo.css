@@ -3,6 +3,8 @@
     display: flex;
     text-align: start;
     width: 100%;
+    gap: 40px;
+    justify-content: space-between;
 
 }
 
@@ -19,12 +21,6 @@
 
 }
 
-.video-inf-in{
-    margin-left: 40px;
-    width: 100%;
-    
-}
-
 .video-information-3 {
     text-align: start;
     margin-top: 24px;
@@ -33,7 +29,7 @@
 
 .newмvertvideo-h1 {
     color: #FFF;
-    width: 750px;
+    /* width: 750px; */
     height: 42px;
     position: absolute;
 
@@ -46,16 +42,16 @@
 }
 
 .uploadvideo-div-inf{
-    width: 257px;
+    /* width: 257px; */
 }
 
-.uploadvideo-div {
+.uploadvertvideo-div {
     display: flex;
     align-items: center;
     justify-content: center;
     margin-top: 75px;
     width: 100%;
-    min-width: 750px;
+    min-width: 1040px;
     height: 168px;
     border-radius: 25px;
     border: 3px dashed #787885;
@@ -216,32 +212,6 @@
     margin-bottom: 24px;
 }
 
-.filters-select {
-    width: 500px;
-    height: 40px;
-    border: none;
-    border-radius: 10px;
-    background: #191E28;
-    color: #787885;
-    padding-left: 16px;
-
-    font-family: Montserrat;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
-    margin-bottom: 24px;
-    padding:5px 16px 5px 16px;
-}
-
-.song-availability-text {
-    display: flex;
-    width: 1040px;
-    height: 30px;
-    margin-bottom: 24px;
-    border-bottom: 3px solid #191E28;
-}
-
 
 
 .publication-video-button {
@@ -262,6 +232,15 @@
     
 }
 
+.vertvideo-prewiew{
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    aspect-ratio: 9/16;
+    border-radius: 15.22px;
+
+}
+
 .publication-video-button:hover {
     background: none; 
     border: 3px solid #FE1170;
@@ -269,7 +248,32 @@
     cursor: pointer;
 }
 
-.video-skin2{
 
+.videovert-skin-change {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    width: 100%;
+    max-width: 140px;
+    /* height:100%;
+    max-height: 260px; */
+    aspect-ratio: 9/16;
+    border-radius: 15.22px;
+    visibility: hidden;
+}
+
+.videovert-skin-wrapper:hover .videovert-skin-change {
+    cursor: pointer;
+    visibility: visible;
+    border-radius: 15.22px;
+    background: linear-gradient(0deg, #191E28 0%, rgba(25, 30, 40, 0.00) 193.75%);
+}
+
+.videovert-skin-wrapper {
+    width: 100%;
+    height: 100%;
+    max-width: 140px;
+    max-height: 260px;
 }
 
