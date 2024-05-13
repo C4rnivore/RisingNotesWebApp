@@ -20,6 +20,7 @@ import { axiosAuthorized, axiosUnauthorized } from '../App/App';
 
 import './MusicPlayer.css';
 import useSearchClean from '../../Hooks/useSearchClean/useSearchClean';
+import { useCookies } from 'react-cookie';
 
 const MusicPlayer = (props) => {
     const [isPlaying, setIsPlaying] = useState(false);  
@@ -44,11 +45,12 @@ const MusicPlayer = (props) => {
     
     const volumeJSON = localStorage.getItem('VOL');
     const [volume, setVolume] = useState(volumeJSON ? JSON.parse(volumeJSON) : 1);
+    const [cookies, setCookies] = useCookies(['role']);
 
     useEffect(() => {
         // скрытие плеера
         if (location.pathname.includes('login') || location.pathname.includes('registration') ||
-            location.pathname.includes('uploadmusic') || location.pathname.includes('adminpanel')) {
+            location.pathname.includes('uploadmusic') || cookies.role === 'admin') {
             setHiddenTag('hidden');
         } 
         else {

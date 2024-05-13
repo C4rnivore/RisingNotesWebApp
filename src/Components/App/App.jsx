@@ -287,33 +287,24 @@ function App() {
                                         <SearchResults/>
                                         <ErrorMessage text={errorText} visibility={errorVisibility}/>
                                         <Routes>
+                                            <Route path={'/login'} element={<Login/>}/>
+                                            <Route path={'/registration'} element={<Registration/>}/>
+                                            <Route path={'/artist/:id'} element={<ArtistCard/>}/>
+                                            <Route path={'/commentaries/:id'} element={<Commentaries/>}/>
+                                            <Route path={'/playlist/:id'} element={<PlaylistWindow/>}/>
+                                            <Route path={'/uploadmusic/:id'} element={<UploadMusic/>}/>
+                                            <Route path={'*'} element={<ErrorPage/>}/>
+                                            <Route path={'/verticalvideo'} element={<BlogVideo/>}/>
                                             {cookies.role === 'admin' ? (<>
-                                                <Route path={'/login'} element={<Login/>}/>
-                                                <Route path={'/registration'} element={<Registration/>}/>
-                                                <Route path={'/artist/:id'} element={<ArtistCard/>}/>
-                                                <Route path={'/commentaries/:id'} element={<Commentaries/>}/>
-                                                <Route path={'/adminpanel'} element={<AdminPanel/>}/>
-                                                <Route path={'/playlist/:id'} element={<PlaylistWindow/>}/>
-                                                <Route path={'/uploadmusic/:id'} element={<UploadMusic/>}/>
-                                                <Route path={'*'} element={<ErrorPage/>}/>
-                                                <Route path={'/verticalvideo'} element={<BlogVideo/>}/>
+                                                <Route path={'/'} element={<AdminPanel/>}/>
                                             </>) : (
                                             <>
                                                 <Route path={'/'} element={<Player/>}/>
-                                                <Route path={'/login'} element={<Login/>}/>
-                                                <Route path={'/registration'} element={<Registration/>}/>
-                                                <Route path={'/artist/:id'} element={<ArtistCard/>}/>
                                                 <Route path={'/featured'} element={<Featured/>}/>
                                                 <Route path={'/excluded'} element={<Excluded/>}/>
                                                 <Route path={'/account'} element={<AccountPage/>}/>
                                                 <Route path={'/subscriptions'} element={<Subscriptions/>}/>
-                                                <Route path={'/commentaries/:id'} element={<Commentaries/>}/>
-                                                <Route path={'/adminpanel'} element={<AdminPanel/>}/>
-                                                <Route path={'/playlist/:id'} element={<PlaylistWindow/>}/>
                                                 <Route path={'/uploadmusic'} element={<UploadMusic/>}/>
-                                                <Route path={'/uploadmusic/:id'} element={<UploadMusic/>}/>
-                                                <Route path={'*'} element={<ErrorPage/>}/>
-                                                <Route path={'/verticalvideo'} element={<BlogVideo/>}/>
                                             </>
                                             )}
                                             

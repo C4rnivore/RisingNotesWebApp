@@ -1,26 +1,38 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import BackButton from '../../Components/BackButton';
 import RequestSong from './RequestSong';
 import { api, axiosAuthorized } from '../../Components/App/App';
+import searchIcon from '../../Images/sidebar/Vector.svg';
 
 import './AdminPanel.css';
+import UserCard from '../../Components/UserCard/UserCard';
+import ChosenUser from '../../Components/ChosenUser/ChosenUser';
+import Loader from '../../Components/Loader/Loader';
 
 function AdminPanel() {
     const [requestsList, setRequestsList] = useState([]);
     const [currPage, setCurrPage] = useState(0);
     const [isLoaded, setIsLoaded] = useState(false);
+    const [search, setSearch] = useState(searchIcon);
+    const [searchQuery, setSearchQuery] = useState('');
+    const [users, setUsers] = useState([]);
+    const [currentUser, setCurrentUser] = useState(undefined);
 
     useEffect(() => {
-        getRequestsList();
-    }, []);
+        if (currPage === 0)
+            getRequestsList();
+        else 
+            getUsersList();
+    }, [currPage, searchQuery]);
 
     const handleChangePage = (id) => {
         // смена страницы в лк
         setCurrPage(id);
+        setIsLoaded(false);
     };
 
-    async function getRequestsList(params) {
+    async function getRequestsList() {
+        // получение заявок с песнями
         let list = [];
         let correctList = [];
         await axiosAuthorized.get('api/song/upload-request/list/for-review')
@@ -48,6 +60,35 @@ function AdminPanel() {
 
         setRequestsList(correctList);
         setIsLoaded(true);
+    };
+
+    async function getUsersList() {
+        let list = [];
+        let correctList = [];
+        await axiosAuthorized.get('api/author/list' + `?NameWildcard=${searchQuery}`)
+        .then(response => {
+            list = response.data.authorList;
+        });
+
+        // for (var el of list) {
+        //     try {
+        //         let response = await axiosAuthorized.get('api/user/' + el.id);
+        //         correctList = [...correctList, {
+        //             name: el.name,
+        //             logo: api + 'api/user/' + el.id + '/logo',
+        //             role: '~Музыкант',
+        //             id: el.id,
+        //             email: response.data.email
+        //         }];
+        //     }
+        //     catch (err) {
+        //         console.log(err);
+        //     }
+        // }
+
+        // setUsers(correctList);
+        setUsers(list);
+        setIsLoaded(true);
     }
 
     if (isLoaded)
@@ -70,12 +111,51 @@ function AdminPanel() {
                         </a>
                 </div>
 
-                <div className=''>
-                    {requestsList.map(el => <RequestSong info={el}/>)}
-                </div>
+                {currPage === 0 ? (
+                    <div className=''>
+                        {requestsList.map(el => <RequestSong info={el} key={el.id}/>)}
+                    </div>
+                ) : (<></>)}
+                
+                {currPage === 1 ? (
+                    <div className='admin-users'>
+                        <div className='admin-users-list'>
+                            <div className="searchbar-container">
+                                <form>
+                                    <button className='searchbar-submit' type='submit'>
+                                        <img src={search} alt="" draggable='false' />
+                                    </button>
+                                    <input 
+                                        className='searchbar' 
+                                        type="text" 
+                                        placeholder='Поиск'
+                                        value={searchQuery}
+                                        onChange={e => setSearchQuery(e.target.value)}/>
+                                </form>
+                            </div>
+
+                            {users?.map(el => <button onClick={() => setCurrentUser(el)} key={el.id}><UserCard  info={el} /></button>)}
+                            
+                        </div>
+                        <ChosenUser info={currentUser}/>
+                    </div>
+                ) : (<></>)}
             </div>
         </div>
     )
+    else {
+        return(
+            <div className='comment-page-wrapper'>
+                <div className='featured'>
+                    <BackButton/>
+                    <div className='search-element'>
+                        <h2 className='sub-h2'>Панель администратора</h2>
+                    </div>
+                    <Loader/>
+                </div>
+            </div>
+        )
+    }
 }
 
 export default AdminPanel

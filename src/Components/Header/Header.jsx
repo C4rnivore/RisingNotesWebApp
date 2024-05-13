@@ -30,7 +30,6 @@ function Header() {
                 setIsImageExist(true);
             })
             .catch(err => {
-                console.log(1111);
                 setIsImageExist(false);
             });
         }
