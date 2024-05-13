@@ -27,6 +27,7 @@ function SidebarCollapser(props){
    },[searchQuery])
 
 
+
    if (resize === 'standart')
    return(
       <div className="collapser">

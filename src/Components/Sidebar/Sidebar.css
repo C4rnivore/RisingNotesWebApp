@@ -194,4 +194,32 @@
     
 }
 
+@media screen and (max-width: 720px){ 
+    .sidebar{
+        width: 100%;
+        padding: 78px 16px 0 16px;
+        background: #0F141D;
+    }
+
+    .collapse{
+        width: 0;
+        padding: 0;
+    }
+
+    .music-container .section_title{
+        font-size: 20px;
+        font-weight: 400;
+        width: calc(100% + 32px);
+        text-align: start;
+        border-bottom: 1px solid #2C323D;
+        transform: translateX(-16px);
+        padding-left: 16px;
+        padding-bottom: 10px;
+    }
+    .nav-links > li > a > span{
+        font-size: 18px !important;
+    }
+
+}
+
 

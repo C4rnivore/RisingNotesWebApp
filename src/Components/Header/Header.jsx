@@ -1,13 +1,14 @@
 import { useContext, useEffect, useState } from 'react'
-import logotype from '../../Images/logo.svg'
 import {Link, NavLink} from "react-router-dom";
-import FallDownMenu from '../FallDownMenu/FallDownMenu';
-import Chevron from '../../Images/controller/chevron-left.svg';
 import { ResizeContext, api, axiosPictures } from '../App/App';
 import { useCookies } from 'react-cookie';
+import logotype from '../../Images/logo.svg'
+import FallDownMenu from '../FallDownMenu/FallDownMenu';
+import Chevron from '../../Images/controller/chevron-left.svg';
 import defaultAvatar from '../../Images/main-placeholder.png';
 import burderImg from '../../Images/burger.svg';
 import useSearchClean from '../../Hooks/useSearchClean/useSearchClean';
+import useMenuToggle from '../../Hooks/useMenuToggle/useMenuToggle';
 
 import './Header.css';
 
@@ -18,8 +19,8 @@ function Header() {
     const [cookies, setCookies] = useCookies(['accessToken', 'refreshToken', 'authorId', 'role', 'subscriptions', 'userId']);
     const [isUserAuthorized, setIsUserAuthorized] = useState(false);
     const {resize, setResize} = useContext(ResizeContext);
-    const [collapsed, setCollapsed] = useState(false)
     const {cleanQuery} = useSearchClean()
+    const {toggler} = useMenuToggle()
 
     useEffect(() => {
         // проверка картинки
@@ -36,24 +37,10 @@ function Header() {
         }
     }, []);
 
-    const handleToggleMenu = () => {
-        const sidebar = document.getElementById('sidebar')
-        if(sidebar.classList.contains('collapse')){
-           sidebar.classList.remove('collapse')
-           // document.documentElement.style.setProperty('--sidebar-width', '400px');
-           setCollapsed(false)
-        }
-        else{
-           sidebar.classList.add('collapse')
-           // document.documentElement.style.setProperty('--sidebar-width', '40px');
-           setCollapsed(true)
-        }
-    }
-
     return (
         <header className='header'>
             {resize === 'mobile' ? (
-                <button onClick={handleToggleMenu}><img src={burderImg} alt='menu'/></button>
+                <button onClick={toggler}><img src={burderImg} alt='menu'/></button>
             ) : (
             <></>)}
             <div className="header_logo">

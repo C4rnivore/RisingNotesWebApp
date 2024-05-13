@@ -49,7 +49,6 @@ function FilterComponent(){
     }
 
     useEffect(() => {
-        console.log(filters)
         async function fetchFilters() {
             setIsLoading(true);
             await Promise.all([
