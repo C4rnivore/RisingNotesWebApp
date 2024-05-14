@@ -4,6 +4,7 @@ import backIcon from '../../Images/artist-card/Chevron_Left.svg'
 import SearchContent from './SearchContent/SeacrhContent'
 import { fetchInput } from './APICallers/GetArtistData'
 import { SearchQueryContext } from '../App/App'
+import Loader from '../Loader/Loader'
 
 function SearchResults(props){
     const [activeNav, setActiveNav] = useState('All')
@@ -62,7 +63,7 @@ function SearchResults(props){
                         <div id='Authors'className="search-nav-el" onClick={() =>handleNavClick('Authors')}>Исполнители</div>
                         <div id='Playlists' className="search-nav-el" onClick={() =>handleNavClick('Playlists')}>Плейлисты</div>
                     </nav>
-                    {isFetching? <div className="">Fetching data</div>:
+                    {isFetching? <Loader/>:
                         <SearchContent navChanger={handleNavClick} navType={activeNav} searchQuery={props.searchQuery} search={searchRes}/>
                     }
                 </div>

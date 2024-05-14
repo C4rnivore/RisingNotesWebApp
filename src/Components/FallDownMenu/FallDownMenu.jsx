@@ -23,7 +23,7 @@ export default function FallDownMenu () {
         <div className="fall-down-menu">
             
             {cookies.role === 'admin' ? (
-                <NavLink draggable='false' to='/adminpanel' className={'fall-down-menu-ref'}
+                <NavLink draggable='false' to='/' className={'fall-down-menu-ref'}
                     style={({ isActive }) => (isActive ? {color: '#FE1170'} : {color: '#787885'})}>
                     <img draggable='false'src={settingsIcon}/>
                     Админ панель

@@ -8,9 +8,9 @@ function InstallMusicText(props){
     const [toggleButton, setToggleButton] = useState(0);
     const handleswitchStateClick = ()=>{
         const targetDiv = document.getElementById("myDiv");
-        if (toggleButton === 0 & targetDiv.style.display !== "block") {
+        if (toggleButton === 0 & targetDiv.style.display !== "grid") {
             setToggleButton(1);
-            targetDiv.style.display = "block";
+            targetDiv.style.display = "grid";
         } else {
             targetDiv.style.display = "none";
             setToggleButton(0);

@@ -1,12 +1,9 @@
 import React, { useContext } from 'react';
-import SongCover from '../../Images/main-placeholder.png';
-import applicationID from '../../Images/admin-circle.svg';
 import { Link } from 'react-router-dom';
 import { ResizeContext } from '../../Components/App/App';
 
 import editIcon from '../../Images/account-page/edit-icon.svg';
 import message from '../../Images/controller/Chat_Dots.png';
-import statsIcon from '../../Images/account-page/stats-icon.svg';
 
 const statusType = {
     0: 'Неизвестно',
@@ -46,7 +43,7 @@ export default function RequestSong ({info}) {
                 <span className='track-buttons'>
                     { info.publishedId ? 
                         <Link draggable='false' to={`/commentaries/${info.publishedId}`}><img draggable='false' alt='comment' src={message}/></Link> : 
-                        <Link draggable='false' to={`/adminpanel`}><img alt='comment' draggable='false' src={message} style={{opacity: 0.2}}/></Link>
+                        <Link draggable='false' to={`/`}><img alt='comment' draggable='false' src={message} style={{opacity: 0.2}}/></Link>
                     }
                     <a href={`/uploadmusic/${info.id}`}><img alt='list' src={editIcon} /></a>
                 </span>

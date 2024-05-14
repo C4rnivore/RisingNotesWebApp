@@ -306,11 +306,11 @@ function UploadMusic(){
                         <InputWithTags placeholder={"Введите настроение..."} list={vibe} setList={setVibe} availableOptions={vibeList}/>
                     </div>
                     <div className='column'>
-                        <h2 className='column2-h2'>Жанры</h2>
+                        <h2 className='column1-h2'>Жанры</h2>
                         <InputWithTags placeholder={"Введите жанр..."} list={genre} setList={setGenre} availableOptions={genreList}/>
                     </div>
                     <div className='column'>
-                        <h2 className='column2-h2'>Пол исполнителя</h2>
+                        <h2 className='column1-h2'>Пол исполнителя</h2>
                         <select className="filters-select" onChange={e => setGender(e.target.value)} value={gender}>
                             <option value={0}>-</option>
                             <option value={1}>Женский</option>
@@ -322,9 +322,9 @@ function UploadMusic(){
                 <div className='song-information-3' >
                     <InstallMusicText/>
                     <div id="myDiv" className='div-text'>
-                        <h2 className='column1-h2'>Язык трека</h2>
+                        <h2 className='column2-h2'>Язык трека</h2>
                         <InputWithTags placeholder={"Введите язык..."} list={language} setList={setLanguage} availableOptions={languageList}/>
-                        <h2 className='column1-h2'>Текст</h2>
+                        <h2 className='column2-h2'>Текст</h2>
                         <textarea id='myinput' className='song-text-area' placeholder={'Введите текст...'} value={lyrics} onChange={e => setLyrics(e.target.value)}/>
                         <div className="text-checkbox">
                             <input type="checkbox" className='checkbox-button'/>

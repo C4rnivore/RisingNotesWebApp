@@ -1,0 +1,47 @@
+.chosen-user {
+    width: 320px;
+    height: 634px;
+    border-radius: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(42px);
+    background: radial-gradient(245.94% 143.59% at 1% 3%,rgba(255, 255, 255, 0.4),rgba(255, 255, 255, 0) 100%);
+    top: 10%;
+    position: sticky;
+}
+
+.chosen-user > p {
+    font-size: 18px;
+    color: #787885;
+    text-align: center;
+}
+
+.chosen-user > img {
+    width: 36px;
+    height: auto;
+    mask-image: linear-gradient(rgb(0 0 0 / 30%), rgb(0 0 0 / 30%));
+}
+
+.user-settings {
+    display: grid;
+    gap: 8px;
+    padding: 24px;
+}
+
+.user-settings > img {
+    width: 272px;
+    height: 272px;
+    border-radius: 25px;
+    margin-bottom: 8px;
+}
+
+.chosen-user-buttons {
+    display: flex;
+    justify-content: start;
+    width: 100%;
+    padding-bottom: 24px;
+    padding-left: 24px;
+    padding-right: 24px;
+}
