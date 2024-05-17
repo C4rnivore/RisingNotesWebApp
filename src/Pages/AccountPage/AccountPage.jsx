@@ -13,8 +13,14 @@ import { jwtDecode } from 'jwt-decode';
 import AccountNonMusician from "./AccountMusician/AccountNonMusician";
 import { useNavigate } from "react-router-dom";
 import Loader from "../../Components/Loader/Loader";
+import blogIcon from '../../Images/account-page/blog.svg';
+import clipsIcon from '../../Images/account-page/clips.svg';
+import profileIcon from '../../Images/account-page/profile.svg';
 
 import './AccountPage.css';
+import Songs from "./Songs/Songs";
+import Clips from "./Clips/Clips";
+import Blog from "./Blog/Blog";
 
 export default function AccountPage () {
     const navigate = useNavigate();
@@ -28,6 +34,7 @@ export default function AccountPage () {
     const [cookies, setCookies] = useCookies(['accessToken', 'refreshToken', 'authorId', 'role', 'userId']);
     const [authorId, setAuthorId] = useState(undefined);
     const [isLoaded, setIsLoaded] = useState(false);
+    const [email, setEmail] = useState('');
 
     useEffect(() => {
         // попытка загрузки информации и перенаправление
@@ -47,15 +54,16 @@ export default function AccountPage () {
         if (auth) {
             await getMusicianInfo(auth);
         }
-        await getUserName();
+        await getUserInfo();
         setIsLoaded(true);
     }
 
-    async function getUserName () {
+    async function getUserInfo () {
         // получение имени пользователя
         await axiosAuthorized.get('/api/user')
         .then(response => {
             setUserName(response.data.userName);
+            setEmail(response.data.email);
         })
         .catch(err =>{
             console.log(err)
@@ -120,22 +128,38 @@ export default function AccountPage () {
                             className={currPage === 0 ? 'account-page-menu-item account-page-active' : 'account-page-menu-item'}>
                                 <img alt='icon' src={userIcon}/>Аккаунт
                         </a>
-                        <a onClick={() => handleChangePage(role ==='author' ? 1 : 3)} 
-                            className={currPage === 1 || currPage === 3 ? 'account-page-menu-item account-page-active' : 'account-page-menu-item'}>
-                                <img alt='icon' src={musicIcon}/>Профиль музыканта
-                        </a>
                         {role === 'author' ? (
-                            <a onClick={() => handleChangePage(2)} 
-                                className={currPage === 2 ? 'account-page-menu-item account-page-active' : 'account-page-menu-item'}>
-                                    <img alt='icon' src={creditCard}/>Оплата
-                            </a>
+                            <>
+                                <a onClick={() => handleChangePage(role ==='author' ? 1 : 3)} 
+                                    className={currPage === 1 || currPage === 3 ? 'account-page-menu-item account-page-active' : 'account-page-menu-item'}>
+                                        <img alt='icon' src={profileIcon}/>Профиль музыканта
+                                </a>
+                                <a onClick={() => handleChangePage(4)} 
+                                    className={currPage === 4 ? 'account-page-menu-item account-page-active' : 'account-page-menu-item'}>
+                                        <img alt='icon' src={musicIcon}/>Треки
+                                </a>
+                                <a onClick={() => handleChangePage(5)} 
+                                    className={currPage === 5 ? 'account-page-menu-item account-page-active' : 'account-page-menu-item'}>
+                                        <img alt='icon' src={clipsIcon}/>Клипы
+                                </a>
+                                <a onClick={() => handleChangePage(6)} 
+                                    className={currPage === 6 ? 'account-page-menu-item account-page-active' : 'account-page-menu-item'}>
+                                        <img alt='icon' src={blogIcon}/>Блог
+                                </a>
+                                <a onClick={() => handleChangePage(2)} 
+                                    className={currPage === 2 ? 'account-page-menu-item account-page-active' : 'account-page-menu-item'}>
+                                        <img alt='icon' src={creditCard}/>Оплата
+                                </a>
+                            </>
+                            
                         ) : (<></>)}
                         
                     </div>
 
                     {currPage === 0 ? <AccountUser 
                         userName={userName}
-                        changeUserName={changeUserName}/> : <></>}
+                        changeUserName={changeUserName}
+                        email={email}/> : <></>}
                     {currPage === 1 ? <AccountMusician 
                         authorId={authorId} 
                         about={about} 
@@ -147,6 +171,9 @@ export default function AccountPage () {
                     {currPage === 2 ? <AccountPayment/> : <></>}
                     {currPage === 3 ? <AccountNonMusician
                         userName={userName}/> : <></>}
+                    {currPage === 4 ? <Songs/> : <></>}
+                    {currPage === 5 ? <Clips/> : <></>}
+                    {currPage === 6 ? <Blog/> : <></>}
                 </div>
             </div>
         )

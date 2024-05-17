@@ -3,7 +3,7 @@ import { useEffect, useState, useRef } from "react"
 
 
 
-function InstallMusicText(props){
+function InstallMusicText({lyrics}){
 
     const [toggleButton, setToggleButton] = useState(0);
     const handleswitchStateClick = ()=>{
@@ -17,6 +17,11 @@ function InstallMusicText(props){
         }
     }
 
+    useEffect(() => {
+        if (lyrics !== undefined && lyrics !== '') {
+            handleswitchStateClick();
+        }
+    }, [])
 
     return (
         <div className='song-availability-text'>

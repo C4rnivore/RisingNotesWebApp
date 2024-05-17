@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import avatar from '../Images/image-placeholder/user_logo_small_placeholder.png';
 import { useCookies, withCookies } from 'react-cookie';
@@ -6,13 +6,14 @@ import trashIcon from '../Images/commentaries/trash-icon.svg';
 import trashRedIcon from '../Images/commentaries/trash-red-icon.svg';
 import xIcon from '../Images/commentaries/x-icon.svg';
 
-import { api } from './App/App';
+import { ResizeContext, api } from './App/App';
 import { axiosAuthorized } from './App/App';
 
 const Comment = (props) => {
     const [isDeleted, setIsDeleted] = useState(false);
     const [comment, setComment] = useState(props.data.text);
     const [cookies, setCookies] = useCookies(['userId']);
+    const {resize, setResize} = useContext(ResizeContext);
 
     const handleDeleteComment = () => {
         axiosAuthorized.delete(`api/song/comment/${props.data.id}`);
@@ -52,7 +53,7 @@ const Comment = (props) => {
             {cookies.userId === props.data.authorId && !isDeleted ? (
                 <button className='comment-del-button' onClick={handleDeleteComment}>
                     <img alt='delete' src={trashIcon}/>
-                    {'Удалить'}
+                    {resize === 'standart' ? 'Удалить' : ''}
                 </button>
             ) : (<></>)}
         </>

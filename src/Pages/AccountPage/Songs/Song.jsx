@@ -56,25 +56,10 @@ export default function Song (props) {
         setDuration(formatTime(0));
     }, []);
 
-    const handleAddToSongs = (event) => {
-        event.preventDefault();
-        if (props.isPlaying && 
-            props.audioRef.current?.src === api + `api/song/upload-request/${props.id}/file`) {
-            props.audioRef.current?.pause();
-            props.setIsPlaying(false);
-        }
-        else {
-            props.audioRef.current.src= api + `api/song/upload-request/${props.id}/file`;
-            props.audioRef.current?.play();
-            props.setIsPlaying(true);
-        }
-        
-    };
-
     return (
         <div className='track'>
-            <img draggable='false' onClick={handleAddToSongs} alt='cover' src={api + `api/song/upload-request/${props.id}/logo?width=100&height=100`}/>
-            <p onClick={handleAddToSongs} className='song-title-t'>{songName}<p className='songAuthor'>{props.artist}</p></p>
+            <img draggable='false'alt='cover' src={api + `api/song/upload-request/${props.id}/logo?width=100&height=100`}/>
+            <p className='song-title-t'>{songName}<p className='songAuthor'>{props.artist}</p></p>
             <p className='track-statistic'><img alt='stats' src={statsIcon}/>{auditionCount}</p>
             <p className='song-status'>
                 <div className={'song-status-dot ' + statusColor[props.status]}></div>

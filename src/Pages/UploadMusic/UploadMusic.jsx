@@ -139,6 +139,7 @@ function UploadMusic(){
         // Одобрение заявки
         axiosAuthorized.patch(`/api/song/upload-request/${params.id}/admin`, {
             status: 3, 
+            comment: comment
         })
         .then( response => {navigate(-1)})
         .catch(err => console.log(err));
@@ -226,7 +227,7 @@ function UploadMusic(){
                 setRole('authoredit');
                 setTitle('Редактирование трека');
             }
-            setComment('текст комментария');
+            setComment(response?.data?.reviewerComment);
         })
         .catch(err => {console.log(err)});
 
@@ -320,7 +321,7 @@ function UploadMusic(){
                 </div>
 
                 <div className='song-information-3' >
-                    <InstallMusicText/>
+                    <InstallMusicText lyrics={lyrics}/>
                     <div id="myDiv" className='div-text'>
                         <h2 className='column2-h2'>Язык трека</h2>
                         <InputWithTags placeholder={"Введите язык..."} list={language} setList={setLanguage} availableOptions={languageList}/>
@@ -354,9 +355,17 @@ function UploadMusic(){
                             <CustomButton text={'Сохранить*'} func={uploadToModeration} success={'Сохранено'} icon={uploadImg}/>
                             <button className='save-installmusic' onClick={deleteSong}><img src={trashImg}/>Удалить</button>
                         </div>
-                        <h2 className='column1-h2'>Комментарий</h2>
-                            <input id='myinput' value={comment} onChange={event => setComment(event.target.value)} className='inp-column1' placeholder={'Введите комментарий...'}/>
-                        <text className='warning-upload'>*перед публикацией трек будет отправлен на модерацию</text>
+                        <h2 className='column1-h2'>Комментарий модератора</h2>
+                            {role === 'admin' ? (
+                                <input id='myinput' value={comment} onChange={event => setComment(event.target.value)} className='inp-column1' placeholder={'Введите комментарий...'}/>
+                            ) : (<></>)}
+
+                            {role !== 'admin' && comment !== '' ? (
+                                <>
+                                    <p className='inp-column1' style={{padding: '10px 16px'}}>{comment}</p>
+                                    <text className='warning-upload'>*перед публикацией трек будет отправлен на модерацию</text>
+                                </>
+                            ) : (<></>)}
                     </div> : ''}
 
                     <input type='file' accept="image/*" className='input-file' ref={imageSetterRef} onChange={changeLogo}></input>

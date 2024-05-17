@@ -231,7 +231,7 @@ const MusicPlayer = (props) => {
     };
 
     if (resize === 'standart') {
-        return (<div className="music-player-wrapper">
+        return (<div className={"music-player-wrapper " + hiddenTag}>
             <audio ref={audioRef} src={currentSong ? api + `api/song/${currentSong}/file` : ''}
                 onEnded={handleNextSong} type="audio/mpeg" autoPlay={isPlaying} controls style={{ display: 'none' }}/>
             <div className={`music-player-1 ` + hiddenTag}>

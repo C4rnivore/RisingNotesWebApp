@@ -3,19 +3,47 @@
     gap: 26px;
 
     margin-bottom: 34px;
+
+    @media screen and (max-width: 720px){ 
+        flex-direction: column;
+        align-items: center;
+    }
 }
 
 .comm-head > img {
-    width: 276px;
-    height: 276px;
+    max-width: 276px;
+    width: 100%;
+    aspect-ratio: 1/1;
 
     border-radius: 20px;
+
+    @media screen and (max-width: 720px){ 
+        max-width: 165px;
+    }
+}
+
+.comm-page-text{
+    height: 100%;
+    max-height: 250px;
+    @media screen and (max-width: 720px){ 
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 16px;
+    }
 }
 
 .comm-head-buttons {
     margin-top: 5px;
     display: flex;
     gap: 13px;
+    flex-wrap: wrap;
+    @media screen and (max-width: 720px){ 
+        justify-content: center;
+        width: 100%;
+        max-width: 350px;
+        margin: 0;
+    }
 }
 
 .comm-head-name {
@@ -30,6 +58,11 @@
     color: #C5C5C5;
     font-size: 28px;
     font-weight: 400;
+
+    @media screen and (max-width: 720px){ 
+        font-size: 16px;
+        margin: 0;
+    }
 }
 
 .comm-page-author:hover {
@@ -47,6 +80,11 @@ h2 {
     height: 55px;
 
     border-radius: 50px;
+
+    @media screen and (max-width: 720px){ 
+        width: 32px;
+        height: 32px;
+    }
 }
 
 .comm-text-area {
@@ -89,6 +127,10 @@ h2 {
     gap: 19px;
 
     margin-bottom: 37px;
+
+    @media screen and (max-width: 720px){ 
+        margin-bottom: 16px;
+    }
 }
 
 .comment-button-b {
@@ -169,6 +211,10 @@ h2 {
     /* margin-bottom: 5px; */
     font-weight: 500;
     max-width: 750px;
+
+    @media screen and (max-width: 720px){ 
+        font-size: 24px;
+    }
 }
 
 .comm-page-h3 {
@@ -192,6 +238,12 @@ h2 {
     font-weight: 400;
 
     padding: 15px 20px;
+
+    @media screen and (max-width: 720px){ 
+        font-size: 12px;
+        height: 44px;
+        padding: 14px 16px;
+    }
 }
 
 .comment-input-wrapper {
@@ -200,6 +252,10 @@ h2 {
     justify-content: start;
     align-items: center;
     margin-bottom: 40px;
+
+    @media screen and (max-width: 720px){ 
+        margin-bottom: 20px;
+    }
 }
 
 .comment-del-button {
@@ -225,6 +281,18 @@ h2 {
     /* margin-left: 880px; */
 
     margin-bottom: 37px;
+
+    @media screen and (max-width: 1054px) and (min-width: 721px){ 
+        margin-inline-start: 78%;
+    }
+
+    @media screen and (max-width: 720px){ 
+        width: 32px;
+        height: 32px;
+        padding: 0;
+        margin-inline-start: 90%;
+        margin-top: -40px;
+    }
 }
 
 .comment-deleted {
@@ -269,4 +337,26 @@ h2 {
 .comment-restore-button:hover {
     transform: scale(1.05);
     transition: all .2s ease;
+}
+
+.song-text {
+    font-size: 36px;
+    color: #787885;
+
+    @media screen and (max-width: 720px){ 
+        font-size: 16px;
+        color: #FFF;
+    }
+}
+
+.comm-head-button {
+    position: absolute;
+    margin-top: 228px;
+    margin-left: 300px;
+}
+
+.comment-btn-offset {
+    position: absolute;
+    right: 30px;
+    filter: brightness(0) saturate(100%) invert(32%) sepia(10%) saturate(7304%) hue-rotate(302deg) brightness(100%) contrast(94%);
 }

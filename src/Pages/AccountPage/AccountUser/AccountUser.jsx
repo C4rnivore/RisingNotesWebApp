@@ -5,6 +5,7 @@ import CustomButton from '../../../Components/CustomButton/CustomButton';
 
 export default function AccountUser (props) {
     const [userName, setUserName] = useState(props.userName);
+    const [email, setEmail] = useState(props.email);
 
     async function handleSave() {
         try {
@@ -26,7 +27,7 @@ export default function AccountUser (props) {
                 </span>
                 <span className='account-page-user-input'>
                     <p>Почта</p>
-                    <input placeholder="Введите вашу почту" className='account-page-link'></input>
+                    <input placeholder="Введите вашу почту" className='account-page-link' value={email}></input>
                 </span>
             </div>
             <div className="account-page-user-buttons">

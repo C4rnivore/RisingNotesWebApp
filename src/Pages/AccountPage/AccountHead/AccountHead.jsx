@@ -16,6 +16,7 @@ export default function AccountHead (props) {
     const fileRef = useRef(null);
     const imgRef = useRef(null);
     const [subsCount, setSubsCount] = useState(0);
+    const [auditionsCount, setAuditions] = useState(0);
     const [isImageExist, setIsImageExist] = useState(false);
     const [cookies, setCookies] = useCookies(['accessToken', 'refreshToken', 'authorId', 'role', 'subscriptions', 'userId']);
 
@@ -33,7 +34,11 @@ export default function AccountHead (props) {
             axiosUnauthorized.get(api + `api/subscription/${props.authorId}/count`)
             .then(response => {
                 setSubsCount(response.data.count);
-            })
+            });
+            axiosAuthorized.get(`api/author/${props.authorId}/audition/count`)
+            .then(response => {
+                setAuditions(response.data.auditionCount);
+            });
         }
     }, [props]);
 
@@ -70,7 +75,7 @@ export default function AccountHead (props) {
                 <p className='account-page-user-status'>{props.role === 'author' ? 'Музыкант' : 'Слушатель'}</p>
                 {props.role === 'author' ? (
                     <>
-                        <p className='account-page-stats'><img src={statsIcon}/>1456 прослушиваний в месяц</p>
+                        <p className='account-page-stats'><img src={statsIcon}/>Прослушиваний в месяц: {auditionsCount}</p>
                         <p className='account-page-stats'><img src={subsIcon}/>Подписчиков: {subsCount}</p>
                         <p className='account-page-stats'><img src={creditIcon}/>Месяц оплачен</p>
                     </>

@@ -46,6 +46,11 @@
     margin-bottom: 30px;
     margin-top: 80px;
     mask-image: linear-gradient(rgb(0 0 0 / 30%), rgb(0 0 0 / 30%));
+
+    @media screen and (max-width: 900px){ 
+        visibility: hidden;
+        margin-top: 0;
+    }
 }
 
 .back-chervon {
@@ -357,7 +362,7 @@
     margin-top: 40px;
 
     @media screen and (max-width: 720px){ 
-        border-bottom: #191E28 solid 1px;
+        border-bottom: #191E28 solid 2px;
         margin-top: 10px;
         height: 45px;
         margin-bottom: 24px;
@@ -367,8 +372,8 @@
 .artist-card-menu-item {
     display: flex;
     height: 60px;
-    width: 155px;
-    max-width: 250px;
+    /* width: 155px;
+    max-width: 250px; */
     gap: 10px;
     justify-content: center;
     align-items: center;
@@ -378,6 +383,9 @@
     font-weight: 500;
 
     border-bottom: #191E28 solid 4px;
+
+    padding-left: 24px;
+    padding-right: 24px;
 
     @media screen and (max-width: 720px){ 
         font-size: 14px;

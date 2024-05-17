@@ -7,7 +7,7 @@ import { useContext, useEffect, useState } from "react"
 import { SubscriptionsContext, api, axiosAuthorized, axiosUnauthorized } from "../../Components/App/App.jsx"
 import BackButton from "../../Components/BackButton.jsx";
 import Songs from "../../Components/ArtistCardComponents/Songs/Songs.jsx"
-import Blog from "../../Components/ArtistCardComponents/Blog/Blog.jsx"
+import Blog from "../../Components/Blog/Blog.jsx"
 import Clips from "../../Components/ArtistCardComponents/Clips/Clips.jsx";
 import arrowRight from '../../Images/artist-card/Chevron_Right.svg'
 

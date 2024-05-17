@@ -56,7 +56,7 @@ function InputWithTags({list, setList, placeholder, availableOptions}){
     }
 
     return (
-        <div>
+        <div className='input-with-tags'>
             <div className='input-filtercomponent'>
                 <input className="input-installmusic" placeholder={placeholder} value={currentTag} onChange={handleInputChange}/>
                 <button className="submit-tag-input-track" onClick={addTag}>&#10010;</button>

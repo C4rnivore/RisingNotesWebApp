@@ -3,7 +3,7 @@ import ok from '../../Images/controller/ok.svg';
 import refresh from '../../Images/controller/refresh.svg';
 import './CustomButton.css';
 
-function CustomButton({func, text, icon, success}) {
+function CustomButton({func, text, icon, success, errorText='Повторите попытку'}) {
     const [verifiedText, setText] = useState(text);
     const [isSent, setIsSent] = useState(false);
     const [isSending, setIsSending] = useState(false);
@@ -19,7 +19,7 @@ function CustomButton({func, text, icon, success}) {
         catch (err) {
             setIsSent(false);
             setIsSending(false);
-            setText('Повторите попытку');
+            setText(errorText);
         }
     }
 

@@ -37,6 +37,8 @@
 }
 
 .vertical-video-preview-wrapper {
+    display: flex;
+    flex-direction: column;
     aspect-ratio: 9/16;
     width: 18%;
     @media screen and (max-width: 890px){ 

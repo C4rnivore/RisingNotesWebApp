@@ -1,16 +1,17 @@
 import BackButton from '../../Components/BackButton';
 import Comment from '../../Components/Comment';
-
-import { api } from '../../Components/App/App';
-
-import React from 'react';
+import { ResizeContext, api } from '../../Components/App/App';
+import React, { useContext } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useEffect, useState } from "react";
-import axios from "axios";
-
 import { axiosAuthorized, axiosUnauthorized } from '../../Components/App/App';
+import commentsIcon from '../../Images/controller/message.svg';
+import sendIcon from '../../Images/controller/sendIcon.svg';
+import burgerIcon from '../../Images/controller/menu.svg';
+import playIcon from '../../Images/player/PlayBtn.svg';
 
 import './Commentaries.css';
+import CustomButton from '../../Components/CustomButton/CustomButton';
 
 const Commentaries = (props) => {
     const params = useParams();
@@ -21,6 +22,10 @@ const Commentaries = (props) => {
     const [songAuthor, setSongAuthor] = useState('');
     const [authorId, setAuthorId] = useState('');
     const [genres, setGenres] = useState([]);
+
+    const [currPage, setCurrPage] = useState(0);
+    const [songText, setText] = useState('');
+    const {resize, setResize} = useContext(ResizeContext);
 
     useEffect(() => {
         axiosUnauthorized.get(`api/song/${params.id}/comment/list`)
@@ -38,6 +43,7 @@ const Commentaries = (props) => {
             .then(response => {
                 setSongName(response.data.name);
                 setGenres(response.data.genreList);
+                setText(response.data.lyrics ? response.data.lyrics : 'Мы не знаем текст этой песни :(');
                 axiosUnauthorized.get(`api/author/${response.data.authorId}`)
                     .then(resp => {
                         setSongAuthor(resp.data.name);
@@ -45,7 +51,7 @@ const Commentaries = (props) => {
                     .catch(err => {
                         console.log(err);
                         throw err;
-                    })
+                    });
             })
             .catch(err => {
                 console.log(err);
@@ -55,19 +61,33 @@ const Commentaries = (props) => {
         axiosUnauthorized.get(`api/song/${params.id}`)
             .then(response => {
                 setAuthorId(response.data.authorId);
-            })
+            });
     }, [isDataUpdated, params.id]);
 
     const handleSendComment = () => {
-        axiosAuthorized.post(`api/song/${params.id}/comment`, {text: comment})
+        if (comment !== '') {
+            axiosAuthorized.post(`api/song/${params.id}/comment`, {text: comment})
             .then(response => {
                 setIsDataUpdated(!isDataUpdated);
                 setComment('');
             })
             .catch(err => {
                 console.log(err);
-                // throw err;
             })
+        }
+        else {
+            return Promise.reject(Error);
+        }
+    };
+
+    const handleChangePage = (id) => {
+        // смена страницы в лк
+        setCurrPage(id);
+    };
+
+    const bgLoaded = () =>{
+        const img = document.querySelector('.player-bg-image')
+        img.classList.add('bg-loaded')
     }
 
     return (
@@ -77,28 +97,58 @@ const Commentaries = (props) => {
 
                 <div className='comm-head'>
                     <img alt='cover' src={(api + `api/song/${params.id}/logo?width=500&height=500`)} draggable='false'/>
-                    <span>
+                    <span className='comm-page-text'>
                         <h2 className='comm-page-h2'>{songName}</h2>
                         <Link to={`/artist/${authorId}`} className='comm-page-author'>{songAuthor}</Link>
                         <div className='comm-head-buttons'>
                             {genres.map(el => <span key={el} className='song-tag'>{el}</span>)}
                         </div>
+                        {resize === 'mobile' ? (
+                            <CustomButton text={'Смотреть клип'} icon={playIcon}/>
+                        ) : 
+                        (<></>)}
                     </span>
+                    {resize === 'standart' ? (
+                        <div className='comm-head-button'>
+                            <CustomButton text={'Смотреть клип'} icon={playIcon}/>
+                        </div>
+                    ) : 
+                    (<></>)}
+                    
                 </div>
 
-                <h3 className='comm-page-h3'>Комментарии</h3>
-
-                <div className='comment-input-wrapper'>
-                    <textarea placeholder='Введите текст комментария здесь...' className='comment-input' 
-                        onChange={(e) => setComment(e.target.value)} value={comment}></textarea>
-                    <button className='comment-button-b' onClick={handleSendComment}>Отправить</button>
+                <div className="artist-card-menu">
+                    <a onClick={() => handleChangePage(0)} 
+                        className={currPage === 0 ? 'artist-card-menu-item account-page-active' : 'artist-card-menu-item'}>
+                        <img src={commentsIcon}/>
+                        Обсуждение
+                    </a>
+                    <a onClick={() => handleChangePage(1)} 
+                        className={currPage === 1 ? 'artist-card-menu-item account-page-active' : 'artist-card-menu-item'}>
+                        <img src={burgerIcon}/>
+                        Текст
+                    </a>
                 </div>
 
-                <div className='stripe'></div>
-
-                {comments.map(e => (<div key={e.id} className='comment-wrapper'><Comment data={e} songId={params.id} setIsDataUpdated={setIsDataUpdated} isDataUpdated={isDataUpdated}/></div>))}
-
+                {currPage === 0 ? (
+                    <>
+                        <div className='comment-input-wrapper'>
+                            <textarea placeholder='Введите текст комментария здесь...' className='comment-input' 
+                                onChange={(e) => setComment(e.target.value)} value={comment}></textarea>
+                                {resize === 'mobile' ? <button className='comment-btn-offset' onClick={handleSendComment}><img src={sendIcon}/></button> : <></>}
+                                {resize === 'standart' ? <CustomButton text={'Отправить'} func={handleSendComment} icon={sendIcon} errorText='Ошибка' success={'Отправить'}/> : <></>}
+                        </div>
+                        {comments.map(e => (<div key={e.id} className='comment-wrapper'><Comment data={e} songId={params.id} setIsDataUpdated={setIsDataUpdated} isDataUpdated={isDataUpdated}/></div>))}
+                    </>
+                ) : 
+                (<></>)}
+                
+                {currPage === 1 ? (<text className='song-text' style={{whiteSpace: "pre-line"}}>{songText}</text>
+                ) :
+                (<></>)}
+                
             </div>
+            <img className="player-bg-image" onLoad={bgLoaded} src={(api + `api/song/${params.id}/logo?width=500&height=500`)} alt="" />
         </div>
     );
 }

@@ -24,7 +24,7 @@
     text-align: start;
     width: 100%;
     margin-top: 40px;
-    gap: 4%;
+    gap: 24px 4%;
     flex-wrap: wrap;
 }
 
@@ -114,7 +114,6 @@
     background-color: #cb115e;
     border-radius: 50px;
     align-items: center;
-    margin-bottom: 20px;
 }
 
 .input-filtercomponent {
@@ -213,12 +212,6 @@
     @media screen and (max-width: 720px){ 
         width: 100%;
     }
-}
-
-.column > div {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
 }
 
 .inp-column1, .song-text-area {
@@ -451,4 +444,10 @@
     justify-self: end;
     margin-top: 100px;
     margin-right: 20px;
+}
+
+.input-with-tags {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
 }
