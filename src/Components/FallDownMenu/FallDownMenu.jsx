@@ -5,8 +5,9 @@ import exitIcon from '../../Images/account-page/exit-icon.svg';
 import { useCookies } from "react-cookie";
 
 import './FallDownMenu.css';
+import { useEffect } from "react";
 
-export default function FallDownMenu () {
+export default function FallDownMenu ({callback}) {
     const [cookies, setCookies] = useCookies(['accessToken', 'refreshToken', 'authorId', 'role', 'subscriptions', 'userId']);
 
     const logoutUser = () => {
@@ -23,13 +24,13 @@ export default function FallDownMenu () {
         <div className="fall-down-menu">
             
             {cookies.role === 'admin' ? (
-                <NavLink draggable='false' to='/' className={'fall-down-menu-ref'}
+                <NavLink draggable='false' to='/' className={'fall-down-menu-ref'} onClick={() => callback(false)}
                     style={({ isActive }) => (isActive ? {color: '#FE1170'} : {color: '#787885'})}>
                     <img draggable='false'src={settingsIcon}/>
                     Админ панель
                 </NavLink>   
             ) : (
-                <NavLink draggable='false' to='/account' className={'fall-down-menu-ref'}
+                <NavLink draggable='false' to='/account' className={'fall-down-menu-ref'} onClick={() => callback(false)}
                     style={({ isActive }) => (isActive ? {color: '#FE1170'} : {color: '#787885'})}>
                     <img draggable='false'src={userIcon}/>
                     Личный кабинет

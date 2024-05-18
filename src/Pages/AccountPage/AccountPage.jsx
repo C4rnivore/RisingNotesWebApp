@@ -5,10 +5,10 @@ import musicIcon from '../../Images/account-page/music-icon.svg';
 import creditCard from '../../Images/account-page/credit-card-icon.svg';
 import AccountUser from "./AccountUser/AccountUser";
 import AccountMusician from "./AccountMusician/AccountMusician";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import AccountPayment from "./AccountPayment/AccountPayment";
 import { useCookies, withCookies } from 'react-cookie';
-import { api, axiosAuthorized, axiosUnauthorized } from '../../Components/App/App';
+import { ResizeContext, api, axiosAuthorized, axiosUnauthorized } from '../../Components/App/App';
 import { jwtDecode } from 'jwt-decode';
 import AccountNonMusician from "./AccountMusician/AccountNonMusician";
 import { useNavigate } from "react-router-dom";
@@ -35,6 +35,7 @@ export default function AccountPage () {
     const [authorId, setAuthorId] = useState(undefined);
     const [isLoaded, setIsLoaded] = useState(false);
     const [email, setEmail] = useState('');
+    const {resize, setResize} = useContext(ResizeContext); 
 
     useEffect(() => {
         // попытка загрузки информации и перенаправление
@@ -119,36 +120,42 @@ export default function AccountPage () {
 
     if (isLoaded) {
         return (
-            <div className="account-page-wrapper">
-                <div className="account-page">
+            <div className="comment-page-wrapper">
+                <div className="featured">
                     <BackButton/>
                     <AccountHead role={role} userName={userName} authorId={authorId}/>
                     <div className="account-page-menu">
                         <a onClick={() => handleChangePage(0)} 
                             className={currPage === 0 ? 'account-page-menu-item account-page-active' : 'account-page-menu-item'}>
-                                <img alt='icon' src={userIcon}/>Аккаунт
+                            {resize === 'standart' ? <img alt='icon' src={userIcon}/> : <></>}
+                            Аккаунт
                         </a>
+                        <a onClick={() => handleChangePage(role ==='author' ? 1 : 3)} 
+                                    className={currPage === 1 || currPage === 3 ? 'account-page-menu-item account-page-active' : 'account-page-menu-item'}>
+                                    {resize === 'standart' ? <img alt='icon' src={profileIcon}/> : <></>}
+                                    Профиль музыканта
+                                </a>
                         {role === 'author' ? (
                             <>
-                                <a onClick={() => handleChangePage(role ==='author' ? 1 : 3)} 
-                                    className={currPage === 1 || currPage === 3 ? 'account-page-menu-item account-page-active' : 'account-page-menu-item'}>
-                                        <img alt='icon' src={profileIcon}/>Профиль музыканта
-                                </a>
                                 <a onClick={() => handleChangePage(4)} 
                                     className={currPage === 4 ? 'account-page-menu-item account-page-active' : 'account-page-menu-item'}>
-                                        <img alt='icon' src={musicIcon}/>Треки
+                                    {resize === 'standart' ? <img alt='icon' src={musicIcon}/> : <></>}
+                                    Треки
                                 </a>
                                 <a onClick={() => handleChangePage(5)} 
                                     className={currPage === 5 ? 'account-page-menu-item account-page-active' : 'account-page-menu-item'}>
-                                        <img alt='icon' src={clipsIcon}/>Клипы
+                                    {resize === 'standart' ? <img alt='icon' src={clipsIcon}/> : <></>}
+                                    Клипы
                                 </a>
                                 <a onClick={() => handleChangePage(6)} 
                                     className={currPage === 6 ? 'account-page-menu-item account-page-active' : 'account-page-menu-item'}>
-                                        <img alt='icon' src={blogIcon}/>Блог
+                                    {resize === 'standart' ? <img alt='icon' src={blogIcon}/> : <></>}
+                                    Блог
                                 </a>
                                 <a onClick={() => handleChangePage(2)} 
                                     className={currPage === 2 ? 'account-page-menu-item account-page-active' : 'account-page-menu-item'}>
-                                        <img alt='icon' src={creditCard}/>Оплата
+                                    {resize === 'standart' ? <img alt='icon' src={creditCard}/> : <></>}
+                                    Оплата
                                 </a>
                             </>
                             

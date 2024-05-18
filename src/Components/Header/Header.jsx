@@ -60,7 +60,7 @@ function Header() {
                             api + `api/user/${cookies.userId}/logo?width=400&height=400` : defaultAvatar} alt="avatar"  
                             onClick={() => setIsMenuOpened(!isMenuOpened)}/>
                     </div>
-                    {isMenuOpened ? <FallDownMenu/> : <></>}
+                    {isMenuOpened ? <FallDownMenu callback={setIsMenuOpened}/> : <></>}
                 </>
             ) : (
                 <div className='unauth-header'>

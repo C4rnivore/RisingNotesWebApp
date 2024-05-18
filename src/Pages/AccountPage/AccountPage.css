@@ -14,6 +14,12 @@
 .account-page-head {
     display: flex;
     gap: 40px;
+
+    @media screen and (max-width: 720px){ 
+        flex-direction: column;
+        align-items: center;
+        gap: 24px;
+    }
 }
 
 .account-page-avatar-button {
@@ -22,6 +28,11 @@
     width: 100%;
     max-width: 250px;
     height:auto;
+
+    @media screen and (max-width: 720px){ 
+        max-width: 165px;
+        max-height: 165px;
+    }
 }
 
 .account-page-avatar-button > img {
@@ -31,10 +42,27 @@
     max-height: 250px;
     border-radius: 25px;
     object-fit: cover;
+    @media screen and (max-width: 720px){ 
+        border-radius: 12px;
+        max-width: 165px;
+        max-height: 165px;
+    }
 }
 
 .account-page-head > span {
     text-align: start;
+    @media screen and (max-width: 720px){ 
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+.account-stats {
+    @media screen and (max-width: 720px){ 
+        display: flex;
+        gap: 16px;
+    }
 }
 
 .account-page-user-status {
@@ -49,6 +77,10 @@
     font-size: 14px;
     font-style: normal;
     font-weight: 500;
+
+    @media screen and (max-width: 720px){ 
+        font-size: 12px;
+    }
 }
 
 .account-page-stats {
@@ -59,12 +91,21 @@
     font-size: 20px;
     font-style: normal;
     font-weight: 400;
+    @media screen and (max-width: 720px){ 
+        font-size: 16px;
+        align-items: center;
+    }
 }
 
 .account-page-username {
     font-size: 36px;
     font-style: normal;
     font-weight: 500;
+
+    @media screen and (max-width: 720px){ 
+        text-align: center;
+        font-size: 24px;
+    }
 }
 
 .account-page-menu {
@@ -72,9 +113,13 @@
     width: 100%;
     height: 60px;
 
-    border-bottom: #191E28 solid 4px;
+    /* border-bottom: #191E28 solid 4px; */
 
     margin-bottom: 40px;
+    overflow-x: auto;
+    &::-webkit-scrollbar {
+        display: none;
+    }
 }
 
 .account-page-menu-item {
@@ -94,6 +139,10 @@
     text-wrap: nowrap;
     padding-left: 10px;
     padding-right: 10px;
+
+    @media screen and (max-width: 720px){ 
+        font-size: 12px;
+    }
 }
 
 .account-page-menu-item:hover {
@@ -103,6 +152,7 @@
 .account-page-active {
     border-bottom: #FE1170 solid 4px;
     transition: all .2s ease-in-out;
+    z-index: 2;
 
     @media screen and (max-width: 720px){ 
         border-bottom: #FE1170 solid 2px;
@@ -120,6 +170,10 @@
     font-weight: 500;
 
     margin-bottom: 24px;
+
+    @media screen and (max-width: 720px){ 
+        font-size: 16px;
+    }
 }
 
 .account-page-user > h2:nth-child(9) {
@@ -132,10 +186,16 @@
     gap: 2%;
 
     margin-bottom: 40px;
+    @media screen and (max-width: 720px){ 
+        gap: 16px;
+    }
 }
 
 .account-page-user-input {
     width: 49%;
+    @media screen and (max-width: 720px){ 
+        width: 100%;
+    }
 }
 
 .account-page-user-input > p {
@@ -144,6 +204,10 @@
     font-weight: 500;
 
     margin-bottom: 10px;
+
+    @media screen and (max-width: 720px){ 
+        font-size: 14px;
+    }
 }
 
 .account-page-link {
@@ -160,6 +224,10 @@
     padding: 0 16px;
 
     border: none;
+
+    @media screen and (max-width: 720px){ 
+        font-size: 14px;
+    }
 }
 
 .account-page-user-input > input::placeholder {
@@ -170,6 +238,7 @@
     display: flex;
     gap: 24px;
     height: 52px;
+    flex-wrap: wrap;
 }
 
 .account-page-filled-button {
@@ -215,6 +284,10 @@
     font-size: 18px;
     font-style: normal;
     font-weight: 500;
+
+    @media screen and (max-width: 720px){ 
+        font-size: 14px;
+    }
 }
 
 .account-page-unfilled-button:hover {
@@ -239,6 +312,10 @@
     border-style: none;
 
     margin-bottom: 24px;
+
+    @media screen and (max-width: 720px){ 
+        font-size: 14px;
+    }
 }
 
 .account-page-textarea::placeholder {
@@ -250,6 +327,10 @@
     width: 100%;
     gap: 40px;
     margin-bottom: 16px;
+    @media screen and (max-width: 720px){ 
+        flex-direction: column;
+        gap: 8px;
+    }
 }
 
 .account-page-link-wrapper:nth-child(7) {
@@ -269,6 +350,10 @@
     font-weight: 400;
 
     width: 200px;
+
+    @media screen and (max-width: 720px){ 
+        font-size: 16px;
+    }
 }
 
 .account-page-user > p {
@@ -279,6 +364,9 @@
     font-weight: 500;
 
     margin-bottom: 10px;
+    @media screen and (max-width: 720px){ 
+        font-size: 14px;
+    }
 }
 
 .account-page-add-song {
@@ -296,6 +384,18 @@
 
     margin-top: -50px;
     margin-bottom: 30px;
+
+    @media screen and (max-width: 720px){ 
+        font-size: 14px;
+        margin-top: -43px;
+    }
+}
+
+.account-page-add-song > img {
+    @media screen and (max-width: 720px){ 
+        width: 15px;
+        height: 15px;
+    }
 }
 
 .account-page-add-song:hover {
@@ -367,6 +467,9 @@
     font-size: 18px;
     font-style: normal;
     font-weight: 500;
+    @media screen and (max-width: 720px){ 
+        text-align: center;
+    }
 }
 
 .account-non-musician > p > b {
@@ -392,10 +495,15 @@
     max-height: 250px;
     border-radius: 25px;
     visibility: hidden;
+
+    @media screen and (max-width: 720px){ 
+        max-width: 165px;
+        max-height: 165px;
+        border-radius: 12px;
+    }
 }
 
 .account-page-avatar-button:hover .account-page-avatar-change {
     visibility: visible;
-    border-radius: 25px;
     background: linear-gradient(0deg, #191E28 0%, rgba(25, 30, 40, 0.00) 193.75%);
 }
