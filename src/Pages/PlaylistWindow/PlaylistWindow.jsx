@@ -35,6 +35,7 @@ function PlaylistWindow(){
     }
 
     useEffect(() => {
+        // подгрузка информации о плейлисте
         axiosUnauthorized.get(`api/playlist/${params.id}`)
         .then(
             response => {
@@ -110,6 +111,7 @@ function PlaylistWindow(){
     };
 
     const handleCheckboxChange = async () => {
+        // приватизация плейлиста
         const playlistId = params.id;
         try {
           await axiosAuthorized.patch(`/api/playlist/${playlistId}`, {

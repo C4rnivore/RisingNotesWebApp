@@ -30,6 +30,7 @@ import { useCookies } from 'react-cookie';
 import AccountPage from '../../Pages/AccountPage/AccountPage';
 import BlogVideo from '../../Pages/BlogVideo/BlogVideo.jsx';
 import ErrorMessage from '../ErrorMessage/ErrorMessage.jsx';
+import Footer from '../Footer/Footer.jsx';
 
 export const api = 'https://rising-notes.tw1.su/';
 
@@ -313,6 +314,7 @@ function App() {
                                             )}
                                             
                                         </Routes>  
+                                        <Footer/>
                                     </div>
                                 </PlayerContext.Provider>
                             </CurrentSongContext.Provider>
