@@ -349,15 +349,14 @@
     pointer-events: none;
     position: absolute;
     top: 33px;
-    transform: translate(-2px,-50%); 
-
-    
+    transform: translate(1px,-50%); 
 }
 
 .f-btn-active{
     filter: blur(1.5px);
     animation: 1.5s infinite linear shadow-spin;
     transition: 250ms ease-in;
+    background-color: #2C323D;
 }
 
 
