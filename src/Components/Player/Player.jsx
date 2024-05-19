@@ -12,7 +12,7 @@ import { CurrentSongContext, api, axiosPictures, axiosUnauthorized } from '../Ap
 
 function Player() {
     const {currentSong, setCurrentSong} = useContext(CurrentSongContext);
-    const [currentTrack,setCurrentTrack] = useState({
+    const [currentTrack, setCurrentTrack] = useState({
         trackName: 'Нет треков',
         trackCover: songCoverTemplate,
         authors: [],

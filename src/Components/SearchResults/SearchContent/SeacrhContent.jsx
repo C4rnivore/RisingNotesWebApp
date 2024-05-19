@@ -5,7 +5,6 @@ import Playlist from '../../Playlist'
 import Clip from '../../Clip/Clip'
 import pfpPlaceholder from '../../../Images/main-placeholder.png';
 import SearchArtistCard from '../../SearchArtistCard/SearchArtistCard'
-import useSearchClean from '../../../Hooks/useSearchClean/useSearchClean'
 
 function SearchContent(props){
     const searchResult = props.search
@@ -19,6 +18,9 @@ function SearchContent(props){
     }
 
     switch(props.navType){
+        default:
+            return(<SearchAll 
+                searchResult={searchResult}/>)
         case 'All':
             return(<SearchAll 
                 searchResult={searchResult}/>)
@@ -104,7 +106,15 @@ function SearchContent(props){
                     <div className="search-clips-content">
                         <div className='clips'>
                             {clipsToShow?.map((clip, index) => (
-                                <Clip key={index} cover={clip.cover} duration={clip.duration} name={clip.name} authorName={clip.authorName}/>
+                                <Clip 
+                                    key={index} 
+
+                                    clipId={clip.id} 
+                                    authorId={clip.uploaderId}
+                                    songId={clip.songId}
+
+                                    name={clip.title} 
+                                />
                             ))}
                         </div>
                     </div>
