@@ -50,8 +50,8 @@ function InstallVerticalVideo(){
                         <div className='uploadtrack-div'>
                                 <div className='div-track'> 
                                     <div className='uploadtrack-div-inf'>
-                                        <p className='uploadtrack-p1'>Перетащите свой трек сюда</p>
-                                        <p className='uploadtrack-p2'>.mp3 или .wav, макс.100мб</p>
+                                        <p className='uploadtrack-p1'>Перетащите свое видео сюда</p>
+                                        <p className='uploadtrack-p2'>.mp3 или .wav, макс. 100мб</p>
                                     </div>
                                     <p className='or'>или</p>
                                     <CustomButton text={'Выберите файл'} func={() => {return}} success={'Изменить'}/>
