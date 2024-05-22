@@ -7,6 +7,7 @@ import mailIcon from '../../Images/Mail.svg';
 import { Link } from 'react-router-dom';
 
 export default function Footer(params) {
+    if (!window.location.href.includes('login') && !window.location.href.includes('registration'))
     return (
         <div className='footer-wrapper'>
             <div className='stripe'></div>
