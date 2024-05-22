@@ -286,39 +286,42 @@ function App() {
                         <SubscriptionsContext.Provider value={{subscriptions, setSubscriptions}}>
                             <CurrentSongContext.Provider value={{currentSong, setCurrentSong}}>
                                 <PlayerContext.Provider value={{songs, setSongs}}>
-                                    <div className="App">
-                                        <Header/>
-                                        <MusicPlayer/>
-                                        {cookies.role === 'admin' ? <></> : <Sidebar></Sidebar>}
-                                        <SearchResults/>
-                                        <ErrorMessage text={errorText} visibility={errorVisibility}/>
-                                        <Routes>
-                                            <Route path={'/login'} element={<Login/>}/>
-                                            <Route path={'/registration'} element={<Registration/>}/>
-                                            <Route path={'/artist/:id'} element={<ArtistCard/>}/>
-                                            <Route path={'/commentaries/:id'} element={<Commentaries/>}/>
-                                            <Route path={'/playlist/:id'} element={<PlaylistWindow/>}/>
-                                            <Route path={'/uploadmusic/:id'} element={<UploadMusic/>}/>
-                                            <Route path={'*'} element={<ErrorPage/>}/>
-                                            <Route path={'/verticalvideo'} element={<BlogVideo/>}/>
-                                            {cookies.role === 'admin' ? (<>
-                                                <Route path={'/'} element={<AdminPanel/>}/>
-                                            </>) : (
-                                            <>
-                                                <Route path={'/'} element={<Player/>}/>
-                                                <Route path={'/featured'} element={<Featured/>}/>
-                                                <Route path={'/excluded'} element={<Excluded/>}/>
-                                                <Route path={'/account'} element={<AccountPage/>}/>
-                                                <Route path={'/subscriptions'} element={<Subscriptions/>}/>
-                                                <Route path={'/uploadmusic'} element={<UploadMusic/>}/>
-                                                <Route path={'/uploadvideo'} element={<InstallVideo/>}/>
-                                                <Route path={'/uploadvertvideo'} element={<InstallVerticalVideo/>}/>
-                                            </>
-                                            )}
-                                            
-                                        </Routes>  
-                                        <Footer/>
-                                    </div>
+                                    <VideoPlayerContext.Provider value={{ video, setVideo }}>
+                                        <div className="App">
+                                            <VideoPlayer />
+                                            <Header/>
+                                            <MusicPlayer/>
+                                            {cookies.role === 'admin' ? <></> : <Sidebar></Sidebar>}
+                                            <SearchResults/>
+                                            <ErrorMessage text={errorText} visibility={errorVisibility}/>
+                                            <Routes>
+                                                <Route path={'/login'} element={<Login/>}/>
+                                                <Route path={'/registration'} element={<Registration/>}/>
+                                                <Route path={'/artist/:id'} element={<ArtistCard/>}/>
+                                                <Route path={'/commentaries/:id'} element={<Commentaries/>}/>
+                                                <Route path={'/playlist/:id'} element={<PlaylistWindow/>}/>
+                                                <Route path={'/uploadmusic/:id'} element={<UploadMusic/>}/>
+                                                <Route path={'*'} element={<ErrorPage/>}/>
+                                                <Route path={'/verticalvideo'} element={<BlogVideo/>}/>
+                                                {cookies.role === 'admin' ? (<>
+                                                    <Route path={'/'} element={<AdminPanel/>}/>
+                                                </>) : (
+                                                <>
+                                                    <Route path={'/'} element={<Player/>}/>
+                                                    <Route path={'/featured'} element={<Featured/>}/>
+                                                    <Route path={'/excluded'} element={<Excluded/>}/>
+                                                    <Route path={'/account'} element={<AccountPage/>}/>
+                                                    <Route path={'/subscriptions'} element={<Subscriptions/>}/>
+                                                    <Route path={'/uploadmusic'} element={<UploadMusic/>}/>
+                                                    <Route path={'/uploadvideo'} element={<UploadVideo/>}/>
+                                                    <Route path={'/uploadvertvideo'} element={<InstallVerticalVideo/>}/>
+                                                </>
+                                                )}
+                                                
+                                            </Routes>  
+                                            <Footer/>
+                                        </div>
+                                    </VideoPlayerContext.Provider>
                                 </PlayerContext.Provider>
                             </CurrentSongContext.Provider>
                         </SubscriptionsContext.Provider>
@@ -328,68 +331,6 @@ function App() {
         </SearchQueryContext.Provider>
     </FiltersProvider>
     </ResizeContext.Provider>
-        <ResizeContext.Provider value={{ resize, setResize }}>
-            <FiltersProvider>
-                <SearchQueryContext.Provider value={{ searchInput, setSearchInput }}>
-                    <PlaylistsContext.Provider value={{ playlists, setPlaylists }}>
-                        <ExcludedContext.Provider value={{ excluded, setExcluded }}>
-                            <FeaturedContext.Provider value={{ featured, setFeatured }}>
-                                <SubscriptionsContext.Provider value={{ subscriptions, setSubscriptions }}>
-                                    <CurrentSongContext.Provider value={{ currentSong, setCurrentSong }}>
-                                        <PlayerContext.Provider value={{ songs, setSongs }}>
-                                            <VideoPlayerContext.Provider value={{ video, setVideo }}>
-                                                <div className="App">
-                                                    <VideoPlayer />
-                                                    <Header />
-                                                    <MusicPlayer />
-                                                    {cookies.role === 'admin' ? <></> : <Sidebar></Sidebar>}
-                                                    <SearchResults />
-                                                    <ErrorMessage text={errorText} visibility={errorVisibility} />
-                                                    <Routes>
-                                                        {cookies.role === 'admin' ? (<>
-                                                            <Route path={'/login'} element={<Login />} />
-                                                            <Route path={'/registration'} element={<Registration />} />
-                                                            <Route path={'/artist/:id'} element={<ArtistCard />} />
-                                                            <Route path={'/commentaries/:id'} element={<Commentaries />} />
-                                                            <Route path={'/adminpanel'} element={<AdminPanel />} />
-                                                            <Route path={'/playlist/:id'} element={<PlaylistWindow />} />
-                                                            <Route path={'/uploadmusic/:id'} element={<UploadMusic />} />
-                                                            <Route path={'*'} element={<ErrorPage />} />
-                                                            <Route path={'/verticalvideo'} element={<BlogVideo />} />
-                                                        </>) : (
-                                                            <>
-                                                                <Route path={'/'} element={<Player />} />
-                                                                <Route path={'/login'} element={<Login />} />
-                                                                <Route path={'/registration'} element={<Registration />} />
-                                                                <Route path={'/artist/:id'} element={<ArtistCard />} />
-                                                                <Route path={'/featured'} element={<Featured />} />
-                                                                <Route path={'/excluded'} element={<Excluded />} />
-                                                                <Route path={'/account'} element={<AccountPage />} />
-                                                                <Route path={'/subscriptions'} element={<Subscriptions />} />
-                                                                <Route path={'/commentaries/:id'} element={<Commentaries />} />
-                                                                <Route path={'/adminpanel'} element={<AdminPanel />} />
-                                                                <Route path={'/playlist/:id'} element={<PlaylistWindow />} />
-                                                                <Route path={'/uploadmusic'} element={<UploadMusic />} />
-                                                                <Route path={'/uploadvideo'} element={<UploadVideo />} />
-                                                                <Route path={'/uploadvertvideo'} element={<InstallVerticalVideo />} />
-                                                                <Route path={'/uploadmusic/:id'} element={<UploadMusic />} />
-                                                                <Route path={'*'} element={<ErrorPage />} />
-                                                                <Route path={'/verticalvideo'} element={<BlogVideo />} />
-                                                            </>
-                                                        )}
-
-                                                    </Routes>
-                                                </div>
-                                            </VideoPlayerContext.Provider>
-                                        </PlayerContext.Provider>
-                                    </CurrentSongContext.Provider>
-                                </SubscriptionsContext.Provider>
-                            </FeaturedContext.Provider>
-                        </ExcludedContext.Provider>
-                    </PlaylistsContext.Provider>
-                </SearchQueryContext.Provider>
-            </FiltersProvider>
-        </ResizeContext.Provider>
     );
 }
 
