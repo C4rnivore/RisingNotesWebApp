@@ -1,0 +1,32 @@
+.footer, .footer > span {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+
+.footer-wrapper {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+.footer {
+    margin: 0 60px;
+    flex-wrap: wrap;
+    margin-bottom: 80px;
+    @media screen and (max-width: 720px){ 
+        margin: 0 16px;
+        margin-bottom: 80px;
+    }
+}
+
+.stripe {
+    width: 100%;
+    border-top: 2px solid #2C323D;
+    margin-bottom: 48px;
+    @media screen and (max-width: 720px){ 
+        margin: 0;
+    }
+}

@@ -153,12 +153,6 @@ h2 {
     transform: scale(1.02);
 }
 
-.stripe {
-    width: 100%;
-    border-top: 2px solid #2C323D;
-    margin-bottom: 27px;
-}
-
 .delete {
     position: absolute;
     justify-self: end;

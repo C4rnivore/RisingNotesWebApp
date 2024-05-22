@@ -8,6 +8,7 @@ import FilterBtn from '../../Images/player/FilterBtn.svg';
 
 import './Player.css';
 import { CurrentSongContext, api, axiosPictures, axiosUnauthorized } from '../App/App.jsx';
+import Loader from '../Loader/Loader.jsx';
 
 
 function Player() {
@@ -90,6 +91,13 @@ function Player() {
             <FilterComponent/>
             <img className="player-bg-image" onLoad={bgLoaded} src={currentTrack.trackCover} alt="" />
         </>
-    );
+    )
+    else {
+        <div className='comment-page-wrapper'>
+            <div className='featured'>
+                <Loader/>
+            </div>
+        </div>
+    }
 }
 export default Player;

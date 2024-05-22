@@ -3,6 +3,13 @@
     width: 100%;
     height: 250px;
     margin-bottom: 106px;
+    gap: 40px;
+
+    @media screen and (max-width: 720px){ 
+        flex-direction: column;
+        align-items: center;
+        gap: 24px;
+    }
 }
 
 .playlist-edit {
@@ -12,12 +19,19 @@
     height: 22px;
     margin-top: 20px;
     align-items: center; 
+    justify-content: start;
+    @media screen and (max-width: 720px){ 
+        justify-content: center;
+    }
 }
 
 .nameplaylist-and-buttons {
     text-align: start;
     width: 100%;
-    margin-left: 40px;
+
+    @media screen and (max-width: 720px){ 
+        text-align: center;
+    }
 }
 
 .delete-playlist {
@@ -46,7 +60,9 @@
     font-style: normal;
     font-weight: 400;
     line-height: normal;
-    
+    @media screen and (max-width: 720px){ 
+        font-size: 24px;
+    }
 }
 
 .rename-playlist:hover {
@@ -142,10 +158,12 @@
 .playlist-image {
     width: 100%;
     aspect-ratio: 1/1;
-    /* width: 250px;
-    height: 250px; */
     object-fit: cover;
     border-radius: 25px;
+
+    @media screen and (max-width: 720px){ 
+        border-radius: 12px;
+    }
 }
 
 .playlist-image-wrapper {
@@ -153,6 +171,11 @@
     height: 100%;
     max-width: 250px;
     max-height: 250px;
+
+    @media screen and (max-width: 720px){ 
+        max-width: 165px;
+        max-height: 165px;
+    }
 }
 
 .image-playlistskin {
@@ -172,12 +195,18 @@
     aspect-ratio: 1/1;
     border-radius: 25px;
     visibility: hidden;
+
+    @media screen and (max-width: 720px){ 
+        max-width: 165px;
+        max-height: 165px;
+        border-radius: 12px;
+    }
 }
 
 .playlist-image-wrapper:hover .playlist-image-change {
     cursor: pointer;
     visibility: visible;
-    border-radius: 25px;
+    /* border-radius: 25px; */
     background: linear-gradient(0deg, #191E28 0%, rgba(25, 30, 40, 0.00) 193.75%);
 }
 
