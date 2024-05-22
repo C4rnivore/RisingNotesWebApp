@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import ok from '../../Images/controller/ok.svg';
 import refresh from '../../Images/controller/refresh.svg';
 import './CustomButton.css';
+import { BsCloudArrowUp } from "react-icons/bs";
 
 function CustomButton({func, text, icon, success}) {
     const [verifiedText, setText] = useState(text);

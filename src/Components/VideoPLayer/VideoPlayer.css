@@ -1,0 +1,23 @@
+.video-player-wrapper {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 998;
+    width: 100%;
+    height: 100%;
+}
+
+.player-exit-button {
+    position: absolute;
+    right: 0;
+    background-color: red;
+    height: 48px;
+    z-index: 999;
+}
+
+.video-player {
+    display: block;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+}
