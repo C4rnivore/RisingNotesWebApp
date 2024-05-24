@@ -35,11 +35,7 @@ function SearchResults(props){
         setSearchInput('')
     }
 
-    function changeNavType(type){
-        handleNavClick(type)
-    }
-
-    if(input == ''){
+    if(input === ''){
         return(<></>)
     }
     else{

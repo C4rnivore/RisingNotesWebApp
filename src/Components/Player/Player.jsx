@@ -13,7 +13,7 @@ import Loader from '../Loader/Loader.jsx';
 
 function Player() {
     const {currentSong, setCurrentSong} = useContext(CurrentSongContext);
-    const [currentTrack,setCurrentTrack] = useState({
+    const [currentTrack, setCurrentTrack] = useState({
         trackName: 'Нет треков',
         trackCover: songCoverTemplate,
         authors: [],

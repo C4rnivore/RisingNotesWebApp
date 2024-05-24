@@ -61,7 +61,7 @@ function FilterElement(props){
                 <form className="filters-form">
                     <input className="filters-input" id={props.id + "-input"} list={props.id+'-options'} type="text"  placeholder={'Начните вводить'}/>
                     <datalist id={props.id+'-options'}>
-                    {props.filters.map(
+                    {props.filters?.map(
                         (opt, i) => <option key = {i}>{opt}</option>
                     )}
                     </datalist>
