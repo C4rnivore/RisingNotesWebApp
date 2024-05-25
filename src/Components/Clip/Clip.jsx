@@ -4,9 +4,13 @@ import editIcon from '../../Images/account-page/edit-icon.svg';
 import { api } from '../App/App';
 import axios from 'axios';
 import { CurrentSongContext, PlayerContext } from '../App/App';
-import { useEffect, useState, useContext } from 'react';
+import { useEffect, useState, useContext, useRef } from 'react';
 import { NavLink } from 'react-router-dom';
 import useSearchClean from '../../Hooks/useSearchClean/useSearchClean';
+import { VideoPlayerContext } from '../App/App';
+import { handleVideoEnter, handleVideoHover, handleVideoLeave } from './handlers/ClipHandlers';
+import Skeleton from 'react-loading-skeleton'
+import 'react-loading-skeleton/dist/skeleton.css'
 
 const statusType = {
     0: 'Неизвестно',
@@ -26,16 +30,17 @@ const statusColor = {
     5: 'red'
 }
 
-
-
-
-
 function Clip({key, clipId, authorId, songId, name, status, views, isArtist=false}) {
-    const stockCover='https://products.ls.graphics/mesh-gradients/images/29.-Pale-Cornflower-Blue_1.jpg'
     const [authorName, setAuthorName] = useState('')
-    const {currentSong, setCurrentSong} = useContext(CurrentSongContext);
-    const {songs, setSongs} = useContext(PlayerContext);
+    const [videoLoaded, setVideoLoaded] = useState(false)
     const {cleanQuery} = useSearchClean()
+
+    const {setCurrentSong} = useContext(CurrentSongContext);
+    const {setSongs} = useContext(PlayerContext);
+    const {setVideo } = useContext(VideoPlayerContext);
+    
+    const previewRef = useRef(undefined)
+    const videoPreviewRef = useRef(undefined)
 
     const getAuthorName = async (id) =>{
         try{
@@ -63,20 +68,42 @@ function Clip({key, clipId, authorId, songId, name, status, views, isArtist=fals
             .catch(err=>console.log(err))
     })
 
+    const skeletonLoader = () =>{
+        return(
+            <>  
+                <Skeleton baseColor='#0F141D' highlightColor="#2C323D"  height={200}/>
+                <Skeleton baseColor='#0F141D' highlightColor="#2C323D" count={2} />
+            </>
+        )
+    }
+
     return ( 
         <div key={key} className="clip-wrapper">
-            <div className="cover-wrapper">
-                <video className='clip-video' 
-                    src={api + `api/music-clip/${clipId}/preview`} 
-                    poster={stockCover} 
-                    controls>
-                    Sorry, your browser doesn't support embedded videos
-                </video>
+            {videoLoaded ? <></>: skeletonLoader}
+            <div className="cover-wrapper" style={videoLoaded?{display:'block'}:{display:'none'}}>
+                <div className="clip-video" onClick={() => setVideo(api + `api/music-clip/${clipId}/file`)} 
+                        onMouseOver={() => handleVideoHover(videoPreviewRef)}
+                        onMouseEnter={() => handleVideoEnter(previewRef)}
+                        onMouseLeave={() => handleVideoLeave(previewRef, videoPreviewRef)}>
+                    <img ref={previewRef}
+                        draggable='false'
+                        className='clip-cover' 
+                        src={api + `api/music-clip/${clipId}/preview`} 
+                        alt="" 
+                        style={{width:'100%', objectFit:'cover', pointerEvents:'none'}} />
+                    <video ref={videoPreviewRef}
+                        onLoad={()=>console.log('loaded')}
+                        className='clip-video' 
+                        muted={true}
+                        onCanPlay={()=>{setVideoLoaded(true)}}
+                        src={api + `api/music-clip/${clipId}/file`}>
+                        Sorry, your browser doesn't support embedded videos
+                    </video>
+                </div>
             </div>
-
-            <div className="clip-song" onClick={handleSongClick}> 
+            <div className="clip-song" onClick={handleSongClick} style={videoLoaded?{display:'flex'}:{display:'none'}}> 
                 <div className="song-img-placeholder">
-                    <img src={api + `api/song/${songId}/logo`} alt="" style={{width:'100%'}}/>
+                    <img src={api + `api/song/${songId}/logo`} alt="" style={{height:'100%'}}/>
                 </div>
                 <div className="song-info-wrapper">
                     <span className="clip-song-name">{name}</span>
@@ -87,10 +114,9 @@ function Clip({key, clipId, authorId, songId, name, status, views, isArtist=fals
                     </span>
                 </div>
             </div>
-
             {isArtist ? (
                 <div className='clip-artist-info'>
-                    <p className='clip-views'><img src={viewsIcon}/>{views}</p>
+                    <p className='clip-views'><img src={viewsIcon} alt=''/>{views}</p>
                     <p className='song-status'>
                         <div className={'song-status-dot ' + statusColor[status]}></div>
                         {statusType[status]}
