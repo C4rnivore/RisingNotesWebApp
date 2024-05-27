@@ -165,7 +165,7 @@ function PlaylistWindow(){
                 </div>
             </div>
             <img className="playlist-bg-image" src={isreviewSkin ? (logofile ?? api + `api/playlist/${params.id}/logo?width=400&height=400`) : ''} alt="" />
-            <input type='file' accept="image/*" className='input-file' ref={imageSetterRef} onChange={uploadLogo}></input>
+            <input type='file' accept=".jpg,.png" className='input-file' ref={imageSetterRef} onChange={uploadLogo}></input>
         </div>
     )
 

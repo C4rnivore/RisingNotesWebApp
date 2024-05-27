@@ -121,6 +121,7 @@
     width: 100%;
     height: auto;
     border-radius: 19px;
+    aspect-ratio: 1/1;
 
     @media screen and (max-width: 720px){ 
         max-width: 165px;

@@ -93,7 +93,7 @@ function InstallVerticalVideo(){
                 <div className='video-information-3' >
                     <button className='publication-video-button'><BsCloudArrowUp className='uploadcloud' alt='uploadcloud' size={23} />Опубликовать*</button>
                     <text className='warning-upload'>*перед публикацией трек будет отправлен на модерацию</text>
-                    <input type='file' accept="image/*" className='input-file' ref={vertskinSetterRef} onChange={changeSkin}></input>
+                    <input type='file' accept=".jpg,.png" className='input-file' ref={vertskinSetterRef} onChange={changeSkin}></input>
                 </div>
             </div>  
         </section>

@@ -368,8 +368,8 @@ function UploadMusic(){
                             ) : (<></>)}
                     </div> : ''}
 
-                    <input type='file' accept="image/*" className='input-file' ref={imageSetterRef} onChange={changeLogo}></input>
-                    <input type='file' className='input-file' ref={songSetterRef} onChange={changeSong}></input>
+                    <input type='file' accept=".jpg,.png" className='input-file' ref={imageSetterRef} onChange={changeLogo}></input>
+                    <input type='file' accept=".mp3" className='input-file' ref={songSetterRef} onChange={changeSong}></input>
                     <audio ref={audioRef} src={songFileName ? api + `api/song/${songFileName}/file` : ''}
                         type="audio/mpeg" controls style={{ display: 'none' }}/>
                 </div>
