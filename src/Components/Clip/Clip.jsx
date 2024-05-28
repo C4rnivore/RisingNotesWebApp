@@ -68,18 +68,18 @@ function Clip({key, clipId, authorId, songId, name, status, views, isArtist=fals
             .catch(err=>console.log(err))
     },[])
 
-    const skeletonLoader = () =>{
-        return(
-            <>  
-                <Skeleton baseColor='#0F141D' highlightColor="#2C323D"  height={200}/>
-                <Skeleton baseColor='#0F141D' highlightColor="#2C323D" count={2} />
-            </>
-        )
-    }
+    // const skeletonLoader = () =>{
+    //     return(
+           
+    //     )
+    // }
 
     return ( 
         <div key={key} className="clip-wrapper">
-            {videoLoaded ? <></>: skeletonLoader}
+            {videoLoaded ? <></>:  <>  
+                <Skeleton baseColor='#0F141D' highlightColor="#2C323D"  height={200}/>
+                <Skeleton baseColor='#0F141D' highlightColor="#2C323D" count={2} />
+            </>}
             <div className="cover-wrapper" style={videoLoaded?{display:'block'}:{display:'none'}}>
                 <div className="clip-video" onClick={() => setVideo(api + `api/music-clip/${clipId}/file`)} 
                         onMouseOver={() => handleVideoHover(videoPreviewRef)}
