@@ -138,7 +138,7 @@ function UploadVideo(){
                                 <div className='div-track' {...getInputFile()}> 
                                     <div className='uploadtrack-div-inf'>
                                         <p className='uploadtrack-p1'>Перетащите свой клип сюда</p>
-                                        <p className='uploadtrack-p2'>.mp4 или .mkv, макс. 100ГБ</p>
+                                        <p className='uploadtrack-p2'>.mp4 или .mkv, макс. 200мб</p>
                                     </div>
                                     <p className='or'>или</p>
                                     <CustomButton text={'Выберите файл'} func={() => {return}} success={'Изменить'} icon={uploadImg}/>
@@ -161,8 +161,8 @@ function UploadVideo(){
                     <CustomButton text={'Опубликовать*'} func={() => uploadVideo()} success={'Опубликовано'} icon={uploadImg}/>
                     <text className='warning-upload'>*перед публикацией видео будет отправлено на модерацию</text>
 
-                    <input type='file' accept="image/*" className='input-file' ref={skinSetterRef} onChange={changeSkin}></input>
-                    <input type='file' className='input-file' ref={videoSetterRef} onChange={changeVideo}></input>
+                    <input type='file' accept=".jpg,.png" className='input-file' ref={skinSetterRef} onChange={changeSkin}></input>
+                    <input type='file' accept=".mp4,.avi,.mkv,.mov" className='input-file' ref={videoSetterRef} onChange={changeVideo}></input>
                 </div>
             </div>  
         </section>

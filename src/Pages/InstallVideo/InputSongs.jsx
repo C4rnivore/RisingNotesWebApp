@@ -34,11 +34,12 @@ function InputSongs({ setSong }){
 
     return (
         <div>
-                <select className='choose-track-for-video' onChange={event => handleChangeSong(event.target.value)}>
-                    {songs.map(song => (
-                        <option key={song.id} value={song.id}>{song.name}</option>
-                    ))}
-                </select>  
+            <select className='choose-track-for-video' onChange={event => handleChangeSong(event.target.value)}>
+                <option>Не выбрано</option>
+                {songs.map(song => (
+                    <option key={song.id} value={song.id}>{song.name}</option>
+                ))}
+            </select>  
         </div>
     )
 }

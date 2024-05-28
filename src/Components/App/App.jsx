@@ -33,8 +33,7 @@ import ErrorMessage from '../ErrorMessage/ErrorMessage.jsx';
 import Footer from '../Footer/Footer.jsx';
 import VideoPlayer from '../VideoPLayer/VideoPlayer.jsx';
 
-
-export const api = 'https://rising-notes.tw1.su/';
+export const api = process.env.REACT_APP_API_ENDPOINT;
 
 export const axiosAuthorized = axios.create({
     baseURL: api,
