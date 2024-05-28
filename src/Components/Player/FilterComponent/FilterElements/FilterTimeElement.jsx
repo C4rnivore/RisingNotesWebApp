@@ -3,8 +3,13 @@ import { useEffect, useState } from "react"
 
 function FilterTimeElement(props){
     const[duration, setDuration] = useState('any')
+    const [initialCall, setInitialCall] = useState(true)
 
     useEffect(()=>{
+        if(initialCall){
+            setInitialCall(false)
+            return
+        }
         passToParent(props.id, duration)
     },[duration])
 

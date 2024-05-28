@@ -2,7 +2,7 @@
 .filters-container{
     max-height: 100%;
     position: absolute;
-    right: 60px;
+    right: 100px;
     top: -225px;
     transform: translateY(50%);
     display: none;
@@ -182,3 +182,19 @@
 
 }
 
+.filters-apply-btn{
+    width: 100%;
+    background-color: #FE1170;
+    padding:10px 0;
+    font-size: 18px;
+    border-radius: 8px;
+    margin-top: 10px;
+}
+
+.filters-apply-btn:active{
+    background-color: #c9195f;
+}
+
+.filters-apply-btn:disabled{
+    background-color: #c9195f;
+}

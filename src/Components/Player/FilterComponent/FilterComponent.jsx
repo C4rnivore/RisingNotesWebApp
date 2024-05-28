@@ -17,6 +17,7 @@ function FilterComponent(){
     const [isLoading, setIsLoading] = useState(true)
     const {filters, updateFilters} = useFilters()
     const {songs, setSongs} = useContext(PlayerContext);
+    const [filtersDisabled, setFiltersDisabled] = useState(false)
 
     /**
     * Главная функция обновления фильров
@@ -29,7 +30,7 @@ function FilterComponent(){
     const filtersUpdateFunction = (filterId, filterValue, filterOrAnd = null) => {
         let updated = filtersUpdater(filterId, filterValue, filterOrAnd, filters)
         updateFilters(updated)
-        updateSongs()
+        setFiltersDisabled(false)
     }
 
     /**
@@ -46,6 +47,8 @@ function FilterComponent(){
             console.log('Error while getting songs by filters: \n')
             console.log(err)
         } )
+        
+        setFiltersDisabled(true)
     }
 
     useEffect(() => {
@@ -72,6 +75,7 @@ function FilterComponent(){
                     <FilterElement name="Настроение" id="mood" switch={filters.moodOrAnd} tags={filters.mood} filters={moodFilters} function = {filtersUpdateFunction}/>
                     <FilterTimeElement  name="Длительность" id="duration" function = {filtersUpdateFunction}/>
                     <FilterChckboxElement name="Дополнительно" id="extra"  function = {filtersUpdateFunction}/>
+                    <button className='filters-apply-btn' disabled={filtersDisabled} onClick={updateSongs}>Применить фильтры</button>
                 </div>
             </div>
         )    

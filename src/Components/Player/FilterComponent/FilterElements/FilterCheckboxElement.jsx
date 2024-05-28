@@ -4,12 +4,17 @@ import { useEffect, useState } from "react"
 function FilterCheckboxElement(props){
     const [expContent, setExpContent] = useState('Disabled')
     const [removedContent, setRemovedContent] = useState('Disabled')
+    const [initialCall, setInitialCall] = useState(true)
 
     function passToParent(filterId, filterValue, filterOrAnd = null){
         props.function(filterId, filterValue, filterOrAnd)
     }
 
     useEffect(()=>{
+        if(initialCall){
+            setInitialCall(false)
+            return
+        }
         passToParent(props.id, {"explicit" : expContent, "removed" : removedContent})
     },[expContent, removedContent])
 
@@ -34,10 +39,6 @@ function FilterCheckboxElement(props){
                 <div className="filter-checkbox">
                     <input type="checkbox" id="explicit" onChange={e=>handleCheckboxChange('explicit')}/>
                     <label>Ненормативная лексика</label>
-                </div>
-                <div className="filter-checkbox cb-offset">
-                    <input type="checkbox" id="removed" onChange={e=>handleCheckboxChange('removed')}/>
-                    <label>Добавить исключенные</label>
                 </div>
             </div>
         </div>
