@@ -55,11 +55,13 @@ function Player() {
         });
 
         setCurrentTrack(info);
-
         setIsLoaded(true);
     }
 
     useEffect(() => {
+        if(currentSong === '')
+            return
+        
         getCurrentTrackInfo();
     }, [currentSong])
 

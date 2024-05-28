@@ -93,7 +93,7 @@ function App() {
     const [songs, setSongs] = useState(songsJSON ? JSON.parse(songsJSON) : []);
     const [video, setVideo] = useState(false);
     const [excluded, setExcluded] = useState(excludedJSON ? JSON.parse(excludedJSON) : []);
-    const [currentSong, setCurrentSong] = useState(currentSongJSON === undefined ? JSON.parse(currentSongJSON) : '');
+    const [currentSong, setCurrentSong] = useState(currentSongJSON === undefined ? '' : JSON.parse(currentSongJSON));
     // проверка на наличие
     const [playlists, setPlaylists] = useState(playlistsJSON ? JSON.parse(playlistsJSON) : []);
     const [cookies, setCookies] = useCookies(['accessToken', 'refreshToken', 'authorId', 'role', 'userId']);
