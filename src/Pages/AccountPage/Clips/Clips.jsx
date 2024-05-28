@@ -29,7 +29,7 @@ export default function Clips() {
         getAuthorClips()
             .then(res=>setClips(res))
             .catch(err=>console.log(err))
-    })
+    },[])
 
     return (
         <div className="account-page-user">

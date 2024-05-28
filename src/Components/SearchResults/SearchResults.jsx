@@ -5,12 +5,14 @@ import SearchContent from './SearchContent/SeacrhContent'
 import { fetchInput } from './APICallers/GetArtistData'
 import { SearchQueryContext } from '../App/App'
 import Loader from '../Loader/Loader'
+import { useSearchCache } from '../../Hooks/useSearchInput/useSearchCache'
 
 function SearchResults(props){
     const [activeNav, setActiveNav] = useState('All')
     const [isFetching, setIsFetching] = useState(false)
     const [searchRes, setSearchRes] = useState(undefined)
     const {searchInput, setSearchInput} = useContext(SearchQueryContext)
+    const {cache} = useSearchCache()
 
     let input = searchInput
 
@@ -25,11 +27,30 @@ function SearchResults(props){
     useEffect(()=>{
         async function fetchData(){
             setIsFetching(true)
-            await fetchInput(input).then(res=>setSearchRes(res))
+            try{
+               var res = getFromCache(input)
+               setSearchRes(res)
+            }
+            catch{
+                await fetchInput(input).then(res=>{
+                    setSearchRes(res)
+                    updateCache(input, res)
+                })
+            }
             setIsFetching(false)
         }
         fetchData()
     },[input])
+
+    const getFromCache = (input) =>{
+        var res = cache.get(input)
+        if(!res) throw Error()
+        else return res
+    }
+
+    const updateCache = (key, value) =>{
+        cache.set(key, value)
+    }
 
     function clearQuery(){
         setSearchInput('')

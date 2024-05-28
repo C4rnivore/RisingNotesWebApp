@@ -125,7 +125,7 @@ function ArtistCard(props){
                             <img src={arrowRight} alt="" />
                         </button>
                         </p>
-                        <Clips/> 
+                        <Clips artistId={params.id}/> 
                         <p className='top-tracks-title'>Блог
                         <button className='search-show-more' onClick={() => handleChangePage(3)}>
                             <span>Смотреть все</span>
@@ -135,7 +135,7 @@ function ArtistCard(props){
                         <Blog/>
                     </>: <></>}
                     {currPage === 1 ? <Songs artist={artist}/> : <></>}
-                    {currPage === 2 ? <Clips/> : <></>}
+                    {currPage === 2 ? <Clips artistId={params.id}/> : <></>}
                     {currPage === 3 ? <Blog/> : <></>}
                     
                 </div>

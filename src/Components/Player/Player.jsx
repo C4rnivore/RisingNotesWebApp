@@ -70,6 +70,7 @@ function Player() {
 
 
     const toggleFilters = () =>{
+        console.log(process.env)
         let filters = document.getElementById('filters-container-id')
         let btn = document.getElementById('f-toggle-btn')
         if(!filters) return

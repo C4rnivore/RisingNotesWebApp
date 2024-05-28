@@ -22,7 +22,7 @@ import UploadVideo from '../../Pages/InstallVideo/UploadVideo.jsx';
 import InstallVerticalVideo from '../../Pages/InstallVerticalVideo/InstallVerticalVideo';
 import ErrorPage from '../../Pages/404Page/404Page';
 import { FiltersProvider } from '../../Hooks/useFilters/useFilters';
-
+import { CacheProvider } from '../../Hooks/useSearchInput/useSearchCache.js';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { jwtDecode } from 'jwt-decode';
@@ -32,6 +32,7 @@ import BlogVideo from '../../Pages/BlogVideo/BlogVideo.jsx';
 import ErrorMessage from '../ErrorMessage/ErrorMessage.jsx';
 import Footer from '../Footer/Footer.jsx';
 import VideoPlayer from '../VideoPLayer/VideoPlayer.jsx';
+
 
 export const api = 'https://rising-notes.tw1.su/';
 
@@ -279,6 +280,7 @@ function App() {
     return (
         <ResizeContext.Provider value={{resize, setResize}}>
         <FiltersProvider>
+        <CacheProvider>
         <SearchQueryContext.Provider value={{searchInput, setSearchInput}}>
             <PlaylistsContext.Provider value={{playlists, setPlaylists}}>
                 <ExcludedContext.Provider value={{excluded, setExcluded}}>
@@ -287,6 +289,7 @@ function App() {
                             <CurrentSongContext.Provider value={{currentSong, setCurrentSong}}>
                                 <PlayerContext.Provider value={{songs, setSongs}}>
                                     <VideoPlayerContext.Provider value={{ video, setVideo }}>
+                                        
                                         <div className="App">
                                             <VideoPlayer />
                                             <Header/>
@@ -329,6 +332,7 @@ function App() {
                 </ExcludedContext.Provider>
             </PlaylistsContext.Provider>
         </SearchQueryContext.Provider>
+    </CacheProvider>
     </FiltersProvider>
     </ResizeContext.Provider>
     );

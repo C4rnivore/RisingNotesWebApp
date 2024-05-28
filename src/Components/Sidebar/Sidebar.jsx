@@ -42,7 +42,6 @@ function Sidebar(props) {
    }, [playlists])
 
    useEffect(() => {
-      console.log('change')
    }, [collapsed])
 
  

@@ -66,7 +66,7 @@ function Clip({key, clipId, authorId, songId, name, status, views, isArtist=fals
         getAuthorName(authorId)
             .then(res=>setAuthorName(res))
             .catch(err=>console.log(err))
-    })
+    },[])
 
     const skeletonLoader = () =>{
         return(
