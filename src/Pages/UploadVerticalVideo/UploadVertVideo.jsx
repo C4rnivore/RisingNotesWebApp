@@ -2,11 +2,7 @@ import React, { useContext } from 'react';
 import BackButton from '../../Components/BackButton';
 import VideoPrewiew from '../../Images/installvideo/vertvideo.svg';
 import { useState, useEffect, useRef } from 'react'
-import { BsCloudArrowUp } from "react-icons/bs";
-import { VertVideoPlayerContext, VideoPlayerContext, axiosAuthorized } from '../../Components/App/App';
-import { api } from '../../Components/App/App';
-import { useCookies } from 'react-cookie';
-import { Navigate, useNavigate, useParams } from 'react-router-dom';
+import { VertVideoInfoContext, VertVideoPlayerContext, VideoPlayerContext, axiosAuthorized, axiosUnauthorized } from '../../Components/App/App';
 import bigEdit from '../../Images/account-page/edit-big.svg';
 import closeImg from '../../Images/x.svg';
 import uploadImg from '../../Images/upload.svg';
@@ -17,9 +13,11 @@ import './UploadVertVideo.css';
 import CustomButton from '../../Components/CustomButton/CustomButton';
 import InputSongs from '../InstallVideo/InputSongs';
 import { useDropzone } from 'react-dropzone';
+import { useNavigate } from 'react-router-dom';
 
 function InstallVerticalVideo(){
     const {vertvideo, setVertVideo} = useContext(VertVideoPlayerContext);
+    const { vertVideoInfo, setVertVideoInfo } = useContext(VertVideoInfoContext);
     const vertskinSetterRef = useRef(null);
     const [vertskinfile, setVertSkinfile] = useState(undefined);
     const [currentVertSkin, setCurrentVertSkin] = useState(VideoPrewiew);
@@ -29,10 +27,23 @@ function InstallVerticalVideo(){
     const [videoFileName, setVideoFileName] = useState(null);
     const videoSetterRef = useRef(null);
     const [description, setDescription] = useState(undefined);
-    const [songId, setSongId] = useState([]);
+    const [songId, setSongId] = useState(undefined);
     const [title, setTitle] = useState([]);
+
+    const [songName, setSongName] = useState('Песня не указана');
+    const [authorName, setAuthorName] = useState('Автор не указан');
+
     const formData= new FormData();
     
+    useEffect(() => {
+        if (songId !== undefined) {
+            axiosUnauthorized.get(`/api/song/${songId}`)
+            .then(response => {
+                setAuthorName(response.data.authorName);
+                setSongName(response.data.name);
+            });
+        }
+    }, [songId]);
 
     const handleVertSkinInput = () => {
         vertskinSetterRef.current.click();
@@ -68,7 +79,7 @@ function InstallVerticalVideo(){
         console.log(videoFile)
         console.log(formData);
 
-        axiosAuthorized.post('api/short-video', formData, {
+        await axiosAuthorized.post('api/short-video', formData, {
             headers: {
                 "Content-Type": "multipart/form-data",
             }
@@ -80,6 +91,12 @@ function InstallVerticalVideo(){
 
     function handlePlayVideo() {
         // плеер видео
+        setVertVideoInfo({
+            description: description,
+            title: songName,
+            author: authorName,
+            songId: songId
+        });
         setVertVideo(videoFile);
     }
 

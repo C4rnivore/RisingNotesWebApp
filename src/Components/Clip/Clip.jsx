@@ -53,7 +53,7 @@ function Clip({key, clipId, authorId, songId, name, status, views, isArtist=fals
             return result.name
         }
         catch(err){
-            console.log(err);
+            return Promise.reject(err);
         }
     }
 

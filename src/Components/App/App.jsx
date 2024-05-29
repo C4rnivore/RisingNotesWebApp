@@ -72,6 +72,7 @@ export const ExcludedContext = createContext({});
 export const PlaylistsContext = createContext({});
 export const VideoPlayerContext = createContext({});
 export const VertVideoPlayerContext = createContext({});
+export const VertVideoInfoContext = createContext({});
 // ссылка на переменную
 export const SearchQueryContext = createContext({});
 export const ResizeContext = createContext({});
@@ -93,8 +94,9 @@ function App() {
     const [subscriptions, setSubscriptions] = useState(subsJSON ? JSON.parse(subsJSON) : []);
     const [featured, setFeatured] = useState(featuredJSON ? JSON.parse(featuredJSON) : []);
     const [songs, setSongs] = useState(songsJSON ? JSON.parse(songsJSON) : []);
-    const [video, setVideo] = useState(false);
-    const [vertvideo, setVertVideo] = useState(false);
+    const [video, setVideo] = useState('');
+    const [vertvideo, setVertVideo] = useState('');
+    const [vertVideoInfo, setVertVideoInfo] = useState('');
     const [excluded, setExcluded] = useState(excludedJSON ? JSON.parse(excludedJSON) : []);
     const [currentSong, setCurrentSong] = useState(currentSongJSON === undefined ? '' : JSON.parse(currentSongJSON));
     // проверка на наличие
@@ -297,41 +299,43 @@ function App() {
                                 <PlayerContext.Provider value={{songs, setSongs}}>
                                     <VideoPlayerContext.Provider value={{ video, setVideo }}>
                                         <VertVideoPlayerContext.Provider value={{ vertvideo, setVertVideo }}>
-                                            <div className="App">
-                                                <VertVideoPlayer />
-                                                <VideoPlayer />
-                                                <Header/>
-                                                <MusicPlayer/>
-                                                {cookies.role === 'admin' ? <></> : <Sidebar></Sidebar>}
-                                                <SearchResults/>
-                                                <ErrorMessage text={errorText} visibility={errorVisibility}/>
-                                                <Routes>
-                                                    <Route path={'/login'} element={<Login/>}/>
-                                                    <Route path={'/registration'} element={<Registration/>}/>
-                                                    <Route path={'/artist/:id'} element={<ArtistCard/>}/>
-                                                    <Route path={'/commentaries/:id'} element={<Commentaries/>}/>
-                                                    <Route path={'/playlist/:id'} element={<PlaylistWindow/>}/>
-                                                    <Route path={'/uploadmusic/:id'} element={<UploadMusic/>}/>
-                                                    <Route path={'*'} element={<ErrorPage/>}/>
-                                                    <Route path={'/verticalvideo'} element={<BlogVideo/>}/>
-                                                    {cookies.role === 'admin' ? (<>
-                                                        <Route path={'/'} element={<AdminPanel/>}/>
-                                                    </>) : (
-                                                    <>
-                                                        <Route path={'/'} element={<Player/>}/>
-                                                        <Route path={'/featured'} element={<Featured/>}/>
-                                                        <Route path={'/excluded'} element={<Excluded/>}/>
-                                                        <Route path={'/account'} element={<AccountPage/>}/>
-                                                        <Route path={'/subscriptions'} element={<Subscriptions/>}/>
-                                                        <Route path={'/uploadmusic'} element={<UploadMusic/>}/>
-                                                        <Route path={'/uploadvideo'} element={<UploadVideo/>}/>
-                                                        <Route path={'/uploadvertvideo'} element={<InstallVerticalVideo/>}/>
-                                                    </>
-                                                    )}
-                                                    
-                                                </Routes>  
-                                                <Footer/>
-                                            </div>
+                                            <VertVideoInfoContext.Provider value={{vertVideoInfo, setVertVideoInfo}}>
+                                                <div className="App">
+                                                    <VertVideoPlayer />
+                                                    <VideoPlayer />
+                                                    <Header/>
+                                                    <MusicPlayer/>
+                                                    {cookies.role === 'admin' ? <></> : <Sidebar></Sidebar>}
+                                                    <SearchResults/>
+                                                    <ErrorMessage text={errorText} visibility={errorVisibility}/>
+                                                    <Routes>
+                                                        <Route path={'/login'} element={<Login/>}/>
+                                                        <Route path={'/registration'} element={<Registration/>}/>
+                                                        <Route path={'/artist/:id'} element={<ArtistCard/>}/>
+                                                        <Route path={'/commentaries/:id'} element={<Commentaries/>}/>
+                                                        <Route path={'/playlist/:id'} element={<PlaylistWindow/>}/>
+                                                        <Route path={'/uploadmusic/:id'} element={<UploadMusic/>}/>
+                                                        <Route path={'*'} element={<ErrorPage/>}/>
+                                                        <Route path={'/verticalvideo'} element={<BlogVideo/>}/>
+                                                        {cookies.role === 'admin' ? (<>
+                                                            <Route path={'/'} element={<AdminPanel/>}/>
+                                                        </>) : (
+                                                        <>
+                                                            <Route path={'/'} element={<Player/>}/>
+                                                            <Route path={'/featured'} element={<Featured/>}/>
+                                                            <Route path={'/excluded'} element={<Excluded/>}/>
+                                                            <Route path={'/account'} element={<AccountPage/>}/>
+                                                            <Route path={'/subscriptions'} element={<Subscriptions/>}/>
+                                                            <Route path={'/uploadmusic'} element={<UploadMusic/>}/>
+                                                            <Route path={'/uploadvideo'} element={<UploadVideo/>}/>
+                                                            <Route path={'/uploadvertvideo'} element={<InstallVerticalVideo/>}/>
+                                                        </>
+                                                        )}
+                                                        
+                                                    </Routes>  
+                                                    <Footer/>
+                                                </div>
+                                            </VertVideoInfoContext.Provider>
                                         </VertVideoPlayerContext.Provider>
                                     </VideoPlayerContext.Provider>
                                 </PlayerContext.Provider>

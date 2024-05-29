@@ -21,7 +21,7 @@ export default function Clips() {
             return result
         }
         catch(err){
-            console.log(err);
+            return Promise.reject(err);
         }
     }
 
@@ -43,7 +43,8 @@ export default function Clips() {
                         clipId={clip.id} 
                         authorId={clip.uploaderId} 
                         songId={clip.songId} 
-                        name={clip.title} />
+                        name={clip.title} 
+                        isArtist={true}/>
                 ))}
             </div>
         </div>

@@ -1,21 +1,20 @@
 import { useContext, useEffect, useRef, useState } from 'react';
 import './BlogVideoPlayer.css';
-import { VertVideoPlayerContext, api, axiosUnauthorized } from '../App/App';
+import { VertVideoInfoContext, VertVideoPlayerContext, api, axiosUnauthorized } from '../App/App';
 import placeholder from '../../Images/main-placeholder.png';
 import heart from '../../Images/controller/heart.svg';
-import { Navigate } from 'react-router-dom';
 import closeButton from '../../Images/playerforvideo/closebutton.svg'
 
 
-function VertVideoPlayer({id, title, description}) {
+function VertVideoPlayer() {
     const { vertvideo, setVertVideo } = useContext(VertVideoPlayerContext);
+    const { vertVideoInfo, setVertVideoInfo } = useContext(VertVideoInfoContext);
     const videoRef = useRef();
     const placeholderVideoRef = useRef();
     const [isPlaying, setIsPlaying] = useState(false);
 
     useEffect(() => {
         handlePlayVideo();
-        console.log();
     }, [vertvideo])
 
     function handlePlayVideo() {
@@ -56,17 +55,16 @@ function VertVideoPlayer({id, title, description}) {
                             <button onClick={() => setVertVideo(false)}><img alt='x' src={closeButton}/></button>
                                 <span>
                                     <img  alt='avatar' src={placeholder} />
-                                    <p>Francis Owens</p>
+                                    <p>{vertVideoInfo.author}</p>
                                 </span>
 
-                                <p>
-                                </p>
+                                <p>{vertVideoInfo.description}</p>
 
                                 <div className='blog-song'>
-                                    <img alt='photo' src={placeholder} />
+                                    <img alt='photo' src={vertVideoInfo.songId ? api + `api/song/${vertVideoInfo.songId}/logo` : placeholder} />
                                     <span>
-                                        <p>Deconstructive Achievements</p>
-                                        <p className='blog-artist-name'>Francis Owens, ZIA</p>
+                                        <p>{vertVideoInfo.title}</p>
+                                        <p className='blog-artist-name'>{vertVideoInfo.author}</p>
                                     </span>
                                     <button><img alt='to_favourites' src={heart} /></button>
                                 </div>
@@ -74,10 +72,6 @@ function VertVideoPlayer({id, title, description}) {
 
                     </div>
                 </div>
-                // <div className='video-player-wrapper'>
-                //     <button className='vertplayer-exit-button' onClick={() => setVideo(false)}>Закрыть</button>
-                //     <video className='vertvideo-player' ref={videoRef} src={api + `api/video/${video.name}/file`} type="video/mp4" controls/>
-                // </div>
                 : <></>
             }
         </>

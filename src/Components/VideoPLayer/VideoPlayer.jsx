@@ -12,6 +12,7 @@ function VideoPlayer() {
 
     useEffect(() => {
         handlePlayVideo();
+        console.log(video)
     }, [video])
 
     function handlePlayVideo() {
