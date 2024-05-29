@@ -1,6 +1,9 @@
 import { useContext, useEffect, useRef } from 'react';
 import './VideoPlayer.css';
 import { VideoPlayerContext, api } from '../App/App';
+import closeButton from '../../Images/playerforvideo/closebutton.svg'
+import risingnotes from '../../Images/playerforvideo/risingnotes.svg'
+
 
 
 function VideoPlayer() {
@@ -9,7 +12,7 @@ function VideoPlayer() {
 
     useEffect(() => {
         handlePlayVideo();
-    })
+    }, [video])
 
     function handlePlayVideo() {
         // плеер видео
@@ -31,7 +34,8 @@ function VideoPlayer() {
         <>
             {video ?
                 <div className='video-player-wrapper'>
-                    <button className='player-exit-button' onClick={() => setVideo(false)}>Закрыть</button>
+                    <img className="rising-notes-forplayer" src={risingnotes}></img>
+                    <button className='player-exit-button' onClick={() => setVideo(false)}><img src={closeButton}/></button>
                     <video className='video-player' ref={videoRef} src={api + `api/video/${video.name}/file`} type="video/mp4" controls/>
                 </div>
                 : <></>

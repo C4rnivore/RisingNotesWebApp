@@ -227,6 +227,7 @@
 .input-installvideo {
     
     width: 100%;
+    max-width: 1220px;
     height: 40px;
     border: none;
     border-radius: 10px;
