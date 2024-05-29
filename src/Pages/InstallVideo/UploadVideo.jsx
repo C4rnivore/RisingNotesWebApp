@@ -54,7 +54,7 @@ function UploadVideo(){
         console.log(videoFile)
         console.log(formData);
 
-        axiosAuthorized.post('api/music-clip', formData, {
+        await axiosAuthorized.post('api/music-clip', formData, {
             headers: {
                 "Content-Type": "multipart/form-data",
             }

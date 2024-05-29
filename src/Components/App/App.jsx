@@ -188,6 +188,11 @@ function App() {
                 // window.location.replace('/404');
                 // return Promise.reject(error.response);
             }
+            else if (error.response.status === 413) {
+                setErrorText('Слишком большой файл');
+                setErrorVisibility(true);
+                return Promise.reject(error.response);
+            }
             else if (error.response.status === 500) {
                 console.log("Ошибка на сервере");
                 setErrorText('Ошибка 500 на сервере');
