@@ -19,7 +19,7 @@ import PlaylistWindow from '../../Pages/PlaylistWindow/PlaylistWindow';
 import SearchResults from '../SearchResults/SearchResults';
 import UploadMusic from '../../Pages/UploadMusic/UploadMusic.jsx';
 import UploadVideo from '../../Pages/InstallVideo/UploadVideo.jsx';
-import InstallVerticalVideo from '../../Pages/InstallVerticalVideo/InstallVerticalVideo';
+import InstallVerticalVideo from '../../Pages/UploadVerticalVideo/UploadVertVideo.jsx';
 import ErrorPage from '../../Pages/404Page/404Page';
 import { FiltersProvider } from '../../Hooks/useFilters/useFilters';
 
@@ -32,6 +32,7 @@ import BlogVideo from '../../Pages/BlogVideo/BlogVideo.jsx';
 import ErrorMessage from '../ErrorMessage/ErrorMessage.jsx';
 import Footer from '../Footer/Footer.jsx';
 import VideoPlayer from '../VideoPLayer/VideoPlayer.jsx';
+import VertVideoPlayer from '../BlogVideoPlayer/BlogVideoPlayer.jsx';
 
 export const api = 'https://rising-notes.tw1.su/';
 
@@ -70,6 +71,7 @@ export const FeaturedContext = createContext({});
 export const ExcludedContext = createContext({});
 export const PlaylistsContext = createContext({});
 export const VideoPlayerContext = createContext({});
+export const VertVideoPlayerContext = createContext({});
 // ссылка на переменную
 export const SearchQueryContext = createContext({});
 export const ResizeContext = createContext({});
@@ -92,6 +94,7 @@ function App() {
     const [featured, setFeatured] = useState(featuredJSON ? JSON.parse(featuredJSON) : []);
     const [songs, setSongs] = useState(songsJSON ? JSON.parse(songsJSON) : []);
     const [video, setVideo] = useState(false);
+    const [vertvideo, setVertVideo] = useState(false);
     const [excluded, setExcluded] = useState(excludedJSON ? JSON.parse(excludedJSON) : []);
     const [currentSong, setCurrentSong] = useState(currentSongJSON === undefined ? JSON.parse(currentSongJSON) : '');
     // проверка на наличие
@@ -287,40 +290,43 @@ function App() {
                             <CurrentSongContext.Provider value={{currentSong, setCurrentSong}}>
                                 <PlayerContext.Provider value={{songs, setSongs}}>
                                     <VideoPlayerContext.Provider value={{ video, setVideo }}>
-                                        <div className="App">
-                                            <VideoPlayer />
-                                            <Header/>
-                                            <MusicPlayer/>
-                                            {cookies.role === 'admin' ? <></> : <Sidebar></Sidebar>}
-                                            <SearchResults/>
-                                            <ErrorMessage text={errorText} visibility={errorVisibility}/>
-                                            <Routes>
-                                                <Route path={'/login'} element={<Login/>}/>
-                                                <Route path={'/registration'} element={<Registration/>}/>
-                                                <Route path={'/artist/:id'} element={<ArtistCard/>}/>
-                                                <Route path={'/commentaries/:id'} element={<Commentaries/>}/>
-                                                <Route path={'/playlist/:id'} element={<PlaylistWindow/>}/>
-                                                <Route path={'/uploadmusic/:id'} element={<UploadMusic/>}/>
-                                                <Route path={'*'} element={<ErrorPage/>}/>
-                                                <Route path={'/verticalvideo'} element={<BlogVideo/>}/>
-                                                {cookies.role === 'admin' ? (<>
-                                                    <Route path={'/'} element={<AdminPanel/>}/>
-                                                </>) : (
-                                                <>
-                                                    <Route path={'/'} element={<Player/>}/>
-                                                    <Route path={'/featured'} element={<Featured/>}/>
-                                                    <Route path={'/excluded'} element={<Excluded/>}/>
-                                                    <Route path={'/account'} element={<AccountPage/>}/>
-                                                    <Route path={'/subscriptions'} element={<Subscriptions/>}/>
-                                                    <Route path={'/uploadmusic'} element={<UploadMusic/>}/>
-                                                    <Route path={'/uploadvideo'} element={<UploadVideo/>}/>
-                                                    <Route path={'/uploadvertvideo'} element={<InstallVerticalVideo/>}/>
-                                                </>
-                                                )}
-                                                
-                                            </Routes>  
-                                            <Footer/>
-                                        </div>
+                                        <VertVideoPlayerContext.Provider value={{ vertvideo, setVertVideo }}>
+                                            <div className="App">
+                                                <VertVideoPlayer />
+                                                <VideoPlayer />
+                                                <Header/>
+                                                <MusicPlayer/>
+                                                {cookies.role === 'admin' ? <></> : <Sidebar></Sidebar>}
+                                                <SearchResults/>
+                                                <ErrorMessage text={errorText} visibility={errorVisibility}/>
+                                                <Routes>
+                                                    <Route path={'/login'} element={<Login/>}/>
+                                                    <Route path={'/registration'} element={<Registration/>}/>
+                                                    <Route path={'/artist/:id'} element={<ArtistCard/>}/>
+                                                    <Route path={'/commentaries/:id'} element={<Commentaries/>}/>
+                                                    <Route path={'/playlist/:id'} element={<PlaylistWindow/>}/>
+                                                    <Route path={'/uploadmusic/:id'} element={<UploadMusic/>}/>
+                                                    <Route path={'*'} element={<ErrorPage/>}/>
+                                                    <Route path={'/verticalvideo'} element={<BlogVideo/>}/>
+                                                    {cookies.role === 'admin' ? (<>
+                                                        <Route path={'/'} element={<AdminPanel/>}/>
+                                                    </>) : (
+                                                    <>
+                                                        <Route path={'/'} element={<Player/>}/>
+                                                        <Route path={'/featured'} element={<Featured/>}/>
+                                                        <Route path={'/excluded'} element={<Excluded/>}/>
+                                                        <Route path={'/account'} element={<AccountPage/>}/>
+                                                        <Route path={'/subscriptions'} element={<Subscriptions/>}/>
+                                                        <Route path={'/uploadmusic'} element={<UploadMusic/>}/>
+                                                        <Route path={'/uploadvideo'} element={<UploadVideo/>}/>
+                                                        <Route path={'/uploadvertvideo'} element={<InstallVerticalVideo/>}/>
+                                                    </>
+                                                    )}
+                                                    
+                                                </Routes>  
+                                                <Footer/>
+                                            </div>
+                                        </VertVideoPlayerContext.Provider>
                                     </VideoPlayerContext.Provider>
                                 </PlayerContext.Provider>
                             </CurrentSongContext.Provider>
