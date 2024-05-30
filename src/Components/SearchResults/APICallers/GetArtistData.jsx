@@ -15,13 +15,15 @@ export async function fetchInput(input){
         },
         tracks: undefined,
         playlists: undefined,
-        clips: undefined
+        clips: undefined,
+        verticals:undefined
     }
 
     searchResult.artists = await fetchArtists(input)
     searchResult.tracks = await fetchTracks(input)
     searchResult.playlists = await fetchPlaylists(input)
     searchResult.clips = await fetchClips(input)
+    searchResult.verticals = await fetchVerticals(input)
     return searchResult
 }
 
@@ -92,8 +94,25 @@ async function fetchClips(input){
         return result
     }
     catch(err){
-        console.log('Something wrong occured when trying to fetch playlists data');
+        console.log('Something wrong occured when trying to fetch clips data');
     }
 }
 
+async function fetchVerticals(input){
+    if(input == '')
+        return 
+
+    try{
+        const response = await axios({
+            method:'GET',
+            url: api + `api/short-video/list?nameWildcard=${input}`,
+            responseType: 'application/json',
+        })
+        const result = JSON.parse(response.data).shortVideoList
+        return result
+    }
+    catch(err){
+        console.log('Something wrong occured when trying to fetch vertical videos data');
+    }
+}
 

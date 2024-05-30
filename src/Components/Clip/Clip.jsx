@@ -68,11 +68,6 @@ function Clip({key, clipId, authorId, songId, name, status, views, isArtist=fals
             .catch(err=>console.log(err))
     },[])
 
-    // const skeletonLoader = () =>{
-    //     return(
-           
-    //     )
-    // }
 
     return ( 
         <div key={key} className="clip-wrapper">

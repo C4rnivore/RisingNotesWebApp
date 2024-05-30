@@ -5,6 +5,7 @@ import Playlist from '../../Playlist'
 import Clip from '../../Clip/Clip'
 import pfpPlaceholder from '../../../Images/main-placeholder.png';
 import SearchArtistCard from '../../SearchArtistCard/SearchArtistCard'
+import VerticalClip from '../../VerticalClip/VerticalClip'
 
 function SearchContent(props){
     const searchResult = props.search
@@ -40,6 +41,12 @@ function SearchContent(props){
         case 'Clips':
             return (<SearchClips
                     clips={searchResult.clips}
+                    navType={props.navType}
+                    firstThree={false}
+            />)
+        case 'Vertical':
+            return (<SearchVert
+                    verticals={searchResult.verticals}
                     navType={props.navType}
                     firstThree={false}
             />)
@@ -177,6 +184,37 @@ function SearchContent(props){
                     <div className='playlists'>
                         {playlists?.map(playlist =>(
                             <Playlist key={playlist.id} id={playlist.id} />
+                        ))}
+                    </div>
+                </div>
+            </div>)
+    }
+
+    function SearchVert(props){
+        const verticals = props.verticals
+        const validation = validateResult(verticals, props.navType, 'Verticals', 'Не найдено клипов по запросу')
+        if (!validation?.valid) return validation?.return
+
+        return(
+            <div>
+                <div className="search-verticals-top">
+                    <span>Вертикальные видео</span>
+                    <button className='search-show-more'>
+                    {verticals?.length>5?
+                        <>
+                            <span>Смотреть все</span>
+                            <img src={arrowRight} alt="" />
+                        </>
+                        : <></>
+                    }
+                    </button>
+                </div>
+                <div className="search-verticals-content">
+                    <div className='verticals'>
+                        {verticals?.map(vert =>(
+                            <VerticalClip 
+                                key={vert.id} 
+                                id={vert.id}/>
                         ))}
                     </div>
                 </div>

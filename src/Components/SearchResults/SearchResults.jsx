@@ -79,6 +79,7 @@ function SearchResults(props){
                         <div id='Clips' className="search-nav-el" onClick={() =>handleNavClick('Clips')}>Клипы</div>
                         <div id='Authors'className="search-nav-el" onClick={() =>handleNavClick('Authors')}>Исполнители</div>
                         <div id='Playlists' className="search-nav-el" onClick={() =>handleNavClick('Playlists')}>Плейлисты</div>
+                        <div id='Vertical' className="search-nav-el" onClick={() =>handleNavClick('Vertical')}>Блог</div>
                     </nav>
                     {isFetching? <Loader/>:
                         <SearchContent navChanger={handleNavClick} navType={activeNav} searchQuery={props.searchQuery} search={searchRes}/>
