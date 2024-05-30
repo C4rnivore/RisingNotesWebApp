@@ -132,11 +132,11 @@ function ArtistCard(props){
                             <img src={arrowRight} alt="" />
                         </button>
                         </p>
-                        <Blog/>
+                        <Blog artistId={params.id}/>
                     </>: <></>}
                     {currPage === 1 ? <Songs artist={artist}/> : <></>}
                     {currPage === 2 ? <Clips artistId={params.id}/> : <></>}
-                    {currPage === 3 ? <Blog/> : <></>}
+                    {currPage === 3 ? <Blog artistId={params.id}/> : <></>}
                     
                 </div>
                 <img className="artist-bg-image" src={api + `api/user/${artist.userId}/logo?width=400&height=400`}/>
