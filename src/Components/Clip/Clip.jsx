@@ -8,7 +8,7 @@ import { useEffect, useState, useContext, useRef } from 'react';
 import { NavLink } from 'react-router-dom';
 import useSearchClean from '../../Hooks/useSearchClean/useSearchClean';
 import { VideoPlayerContext } from '../App/App';
-import { handleVideoEnter, handleVideoHover, handleVideoLeave } from './handlers/ClipHandlers';
+import { handleVideoEnter, handleVideoHover, handleVideoLeave, handleVideoMove } from './handlers/ClipHandlers';
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 
@@ -77,21 +77,21 @@ function Clip({key, clipId, authorId, songId, name, status, views, isArtist=fals
             </>}
             <div className="cover-wrapper" style={videoLoaded?{display:'block'}:{display:'none'}}>
                 <div className="clip-video" onClick={() => setVideo(api + `api/music-clip/${clipId}/file`)} 
-                        onMouseOver={() => handleVideoHover(videoPreviewRef)}
+                        onMouseOver={() => handleVideoHover(videoPreviewRef, api + `api/music-clip/${clipId}/file` )}
                         onMouseEnter={() => handleVideoEnter(previewRef)}
+                        onMouseMove={() => handleVideoMove(videoPreviewRef)}
                         onMouseLeave={() => handleVideoLeave(previewRef, videoPreviewRef)}>
                     <img ref={previewRef}
                         draggable='false'
-                        className='clip-cover' 
+                        className='clip-cover'
+                        onLoad={()=>{setVideoLoaded(true)}}
                         src={api + `api/music-clip/${clipId}/preview`} 
                         alt="" 
                         style={{width:'100%', objectFit:'cover', pointerEvents:'none'}} />
                     <video ref={videoPreviewRef}
-                        onLoad={()=>console.log('loaded')}
                         className='clip-video' 
                         muted={true}
-                        onCanPlay={()=>{setVideoLoaded(true)}}
-                        src={api + `api/music-clip/${clipId}/file`}>
+                        >
                         Sorry, your browser doesn't support embedded videos
                     </video>
                 </div>

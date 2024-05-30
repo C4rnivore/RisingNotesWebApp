@@ -60,7 +60,7 @@ function FilterComponent(){
             ])
             setIsLoading(false);
         }
-        fetchFilters();
+        fetchFilters().then(() => updateSongs());
     }, []); 
 
     if(!isLoading)
