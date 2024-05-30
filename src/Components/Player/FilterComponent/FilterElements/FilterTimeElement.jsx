@@ -6,10 +6,6 @@ function FilterTimeElement(props){
     const [initialCall, setInitialCall] = useState(true)
 
     useEffect(()=>{
-        if(initialCall){
-            setInitialCall(false)
-            return
-        }
         passToParent(props.id, duration)
     },[duration])
 

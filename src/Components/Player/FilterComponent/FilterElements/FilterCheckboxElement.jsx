@@ -11,10 +11,6 @@ function FilterCheckboxElement(props){
     }
 
     useEffect(()=>{
-        if(initialCall){
-            setInitialCall(false)
-            return
-        }
         passToParent(props.id, {"explicit" : expContent, "removed" : removedContent})
     },[expContent, removedContent])
 

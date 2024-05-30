@@ -80,27 +80,37 @@ function Player() {
         btn.classList.toggle('f-btn-active')
     }
 
-    if (isLoaded)
-    return (
-        <>
-            <section className="comment-page-wrapper">           
-                <SongCover track = {currentTrack}/>
-                <div className="player-filters-toggle">
-                    <button id='f-toggle-btn' onClick={toggleFilters} className="player-filters-toggle-btn">
-                    </button>
-                    <img className='player-filters-toggle-img' src={FilterBtn} alt="" />
-                </div>  
-            </section>
-            <FilterComponent/>
-            <img className="player-bg-image" onLoad={bgLoaded} src={currentTrack.trackCover} alt="" />
-        </>
-    )
+    if (isLoaded){
+        return (
+            <>
+                <section className="comment-page-wrapper">           
+                    <SongCover track = {currentTrack}/>
+                    <div className="player-filters-toggle">
+                        <button id='f-toggle-btn' onClick={toggleFilters} className="player-filters-toggle-btn">
+                        </button>
+                        <img className='player-filters-toggle-img' src={FilterBtn} alt="" />
+                    </div>  
+                </section>
+                <FilterComponent/>
+                <img className="player-bg-image" onLoad={bgLoaded} src={currentTrack.trackCover} alt="" />
+            </>
+        )
+    }
     else {
-        <div className='comment-page-wrapper'>
-            <div className='featured'>
-                <Loader/>
-            </div>
-        </div>
+        return (
+            <>
+                <section className="comment-page-wrapper">           
+                    <SongCover track = {currentTrack}/>
+                    <div className="player-filters-toggle">
+                        <button id='f-toggle-btn' onClick={toggleFilters} className="player-filters-toggle-btn">
+                        </button>
+                        <img className='player-filters-toggle-img' src={FilterBtn} alt="" />
+                    </div>  
+                </section>
+                <FilterComponent/>
+                <img className="player-bg-image" onLoad={bgLoaded} src={currentTrack.trackCover} alt="" />
+            </>
+        )
     }
 }
 export default Player;

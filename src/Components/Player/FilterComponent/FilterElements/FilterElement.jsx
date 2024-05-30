@@ -41,12 +41,7 @@ function FilterElement(props){
         props.function(filterId, filterValue, filterOrAnd)
     }
 
-    useEffect(()=>{
-        if(initialCall){
-            setInitialCall(false)
-            return
-        }
-        
+    useEffect(()=>{ 
         const stateToPass = switchState === 'и' ? 'and': 'or'
         passToParent(props.id, tags, stateToPass )
     }, [tags, switchState])

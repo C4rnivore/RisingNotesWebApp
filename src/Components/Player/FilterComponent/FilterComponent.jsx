@@ -47,7 +47,6 @@ function FilterComponent(){
             console.log('Error while getting songs by filters: \n')
             console.log(err)
         } )
-        
         setFiltersDisabled(true)
     }
 
