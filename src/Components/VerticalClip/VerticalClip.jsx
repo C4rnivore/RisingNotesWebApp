@@ -5,7 +5,7 @@ import { api } from '../App/App'
 import axios from 'axios'
 import Skeleton from 'react-loading-skeleton'
 import { VertVideoInfoContext, VertVideoPlayerContext,} from '../App/App';
-import { handleVideoEnter, handleVideoHover, handleVideoLeave } from '../Clip/handlers/ClipHandlers';
+import { handleVideoEnter, handleVideoHover, handleVideoLeave, handleVideoMove } from '../Clip/handlers/ClipHandlers';
 
 function VerticalClip(props) {
     const [dataFetched, setDataFetched] = useState(false)
@@ -77,22 +77,23 @@ function VerticalClip(props) {
             {!dataFetched? <></> :
              <div className="vert-video" 
                 onClick={handleVertClick}
-                onMouseOver={() => handleVideoHover(videoPreviewRef)}
+                onMouseOver={() => handleVideoHover(videoPreviewRef, api + `api/short-video/${props.id}/file`)}
                 onMouseEnter={() => handleVideoEnter(previewRef)}
+                onMouseMove={() => handleVideoMove(videoPreviewRef)}
                 onMouseLeave={() => handleVideoLeave(previewRef, videoPreviewRef)} >
                 <img
                     ref={previewRef}
                     draggable='false'
                     className='vert-cover' 
-                    src={api + `api/short-video/${props.id}/preview`} 
+                    src={api + `api/short-video/${props.id}/preview`}
+                    onLoad={()=>{setVideoLoaded(true)}}
                     alt="" 
                     style={{ objectFit:'cover', pointerEvents:'none'}} />
                 <video
                     ref={videoPreviewRef}
                     className='clip-video' 
                     muted={true}
-                    onCanPlay={()=>{setVideoLoaded(true)}}
-                    src={api + `api/short-video/${props.id}/file`}>
+                    >
                     Sorry, your browser doesn't support embedded videos
                 </video>
                 <div className="vert-data-label" style={videoLoaded?{display:'block'}:{display:'none'}}>
