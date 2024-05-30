@@ -58,7 +58,7 @@ function FilterComponent(){
                 getGenres().then(res=>setGenreFilters(res)).catch(err=>console.log(err)),
                 getLanguages().then(res=>setLangFilters(res)).catch(err=>console.log(err)),
                 getMoods().then(res=>setMoodFilters(res)).catch(err=>console.log(err))
-             ])
+            ])
             setIsLoading(false);
         }
         fetchFilters();
