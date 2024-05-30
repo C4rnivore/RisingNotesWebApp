@@ -1,6 +1,9 @@
 .vertical-clip{
     position: relative;
-    width: 31%;
+    width: 18%;
+    @media screen and (max-width: 890px){ 
+        width: 31%;
+    }
     height: auto;
     aspect-ratio: 9/16;
     margin-bottom: 3%;

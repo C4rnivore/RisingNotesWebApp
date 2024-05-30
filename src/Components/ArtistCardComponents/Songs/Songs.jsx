@@ -18,7 +18,7 @@ function Songs({artist}) {
                 throw err;
             })
         setIsLoaded(true);
-    }, []);
+    }, [params]);
 
     if (isLoaded)
     return (

@@ -91,6 +91,7 @@ function Clip({key, clipId, authorId, songId, name, status, views, isArtist=fals
                     <video ref={videoPreviewRef}
                         className='clip-video' 
                         muted={true}
+                        preload="auto"
                         >
                         Sorry, your browser doesn't support embedded videos
                     </video>

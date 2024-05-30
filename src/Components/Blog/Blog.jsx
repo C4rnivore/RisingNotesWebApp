@@ -4,8 +4,10 @@ import './Blog.css';
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { api } from "../App/App";
+import { useParams } from "react-router-dom";
 function Blog(props) {
-    const [verts, setVerts] = useState(undefined)
+    const [verts, setVerts] = useState(undefined);
+    const params = useParams();
 
     const getArtistVert = async ()=> {
         try{
@@ -26,7 +28,8 @@ function Blog(props) {
         getArtistVert()
             .then(res=>setVerts(res))
             .catch(err=>console.log(err))
-    },[])
+    },[params])
+
     return (
         <div className="blog">
             {verts?.map((video)=>(

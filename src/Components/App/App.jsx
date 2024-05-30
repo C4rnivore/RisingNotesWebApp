@@ -187,30 +187,30 @@ function App() {
             return config;
         },
         error => {
-            if (error.response.status === 404) {
+            if (error.response?.status === 404) {
                 setErrorText('Указанного объекта не существует');
                 setErrorVisibility(true);
                 // window.location.replace('/404');
                 // return Promise.reject(error.response);
             }
-            else if (error.response.status === 413) {
+            else if (error.response?.status === 413) {
                 setErrorText('Слишком большой файл');
                 setErrorVisibility(true);
                 return Promise.reject(error.response);
             }
-            else if (error.response.status === 500) {
+            else if (error.response?.status === 500) {
                 console.log("Ошибка на сервере");
                 setErrorText('Ошибка 500 на сервере');
                 setErrorVisibility(true);
                 return Promise.reject(error.response);
             }
-            else if (error.response.status === 401) {
+            else if (error.response?.status === 401) {
                 setErrorText('Вы не авторизированы');
                 setErrorVisibility(true);
                 window.location.replace('/login');
                 return Promise.reject(error.response);
             }
-            else if (error.response.status === 400) {
+            else if (error.response?.status === 400) {
                 setErrorText(error.message);
                 setErrorVisibility(true);
                 return Promise.reject(error);
@@ -228,25 +228,25 @@ function App() {
             return config;
         },
         error => {
-            if (error.response.status === 404) {
+            if (error.response?.status === 404) {
                 setErrorText('Указанного объекта не существует');
                 setErrorVisibility(true);
                 // window.location.replace('/404');
                 // return Promise.reject(error.response);
             }
-            else if (error.response.status === 500) {
+            else if (error.response?.status === 500) {
                 setErrorText('Ошибка 500 на сервере');
                 setErrorVisibility(true);
                 console.log("Ошибка на сервере");
                 return Promise.reject(error.response);
             }
-            else if (error.response.status === 401) {
+            else if (error.response?.status === 401) {
                 setErrorText('Вы не авторизированы');
                 setErrorVisibility(true);
                 window.location.replace('/login');
                 return Promise.reject(error.response);
             }
-            else if (error.response.status === 400) {
+            else if (error.response?.status === 400) {
                 setErrorText(error.message);
                 setErrorVisibility(true);
                 return Promise.reject(error);

@@ -3,9 +3,11 @@ import './Clips.css';
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { api } from "../../App/App";
+import { useParams } from "react-router-dom";
 
 export default function Clips(props) {
-    const [clips, setClips] = useState(undefined)
+    const [clips, setClips] = useState(undefined);
+    const params = useParams();
 
     const getArtistClips = async ()=> {
         try{
@@ -26,7 +28,7 @@ export default function Clips(props) {
         getArtistClips()
             .then(res=>setClips(res))
             .catch(err=>console.log(err))
-    },[])
+    },[params])
 
 
 

@@ -93,6 +93,7 @@ function VerticalClip(props) {
                     ref={videoPreviewRef}
                     className='clip-video' 
                     muted={true}
+                    preload="auto"
                     >
                     Sorry, your browser doesn't support embedded videos
                 </video>

@@ -1,6 +1,6 @@
 import { useContext, useEffect, useRef, useState } from 'react';
 import './BlogVideoPlayer.css';
-import { VertVideoInfoContext, VertVideoPlayerContext, api, axiosUnauthorized } from '../App/App';
+import { ResizeContext, VertVideoInfoContext, VertVideoPlayerContext, api, axiosUnauthorized } from '../App/App';
 import placeholder from '../../Images/main-placeholder.png';
 import heart from '../../Images/controller/heart.svg';
 import closeButton from '../../Images/playerforvideo/closebutton.svg'
@@ -12,8 +12,10 @@ function VertVideoPlayer() {
     const videoRef = useRef();
     const placeholderVideoRef = useRef();
     const [isPlaying, setIsPlaying] = useState(false);
+    const {resize, setResize} = useContext(ResizeContext);
 
     useEffect(() => {
+        if (resize === 'standart')
         handlePlayVideo();
     }, [vertvideo])
 
@@ -41,6 +43,7 @@ function VertVideoPlayer() {
         }
     }
 
+    if (resize === 'standart')
     return (
         <>
             {vertvideo ?
@@ -76,6 +79,19 @@ function VertVideoPlayer() {
             }
         </>
     )
+    else {
+        return (
+            <>
+            { vertvideo ?
+                <div className='video-player-wrapper'>
+                    <button className='player-exit-button' onClick={() => setVertVideo(false)}><img src={closeButton}/></button>
+                    <video className='vertvideo-player' src={vertvideo} type="video/mp4" loop autoPlay/>
+                </div>
+                : <></>
+            }
+            </>
+        )
+    }
 }
 
 
