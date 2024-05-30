@@ -1,9 +1,10 @@
 import { useState } from 'react'
 import './VerticalClip.css'
-import { useEffect, useContext } from 'react'
+import { useEffect, useContext, useRef } from 'react'
 import { api } from '../App/App'
 import axios from 'axios'
 import { VertVideoInfoContext, VertVideoPlayerContext,} from '../App/App';
+import { handleVideoEnter, handleVideoHover, handleVideoLeave } from '../Clip/handlers/ClipHandlers';
 
 function VerticalClip(props) {
     const [dataFetched, setDataFetched] = useState(false)
@@ -13,6 +14,9 @@ function VerticalClip(props) {
 
     const { vertvideo, setVertVideo } = useContext(VertVideoPlayerContext);
     const { vertVideoInfo, setVertVideoInfo } = useContext(VertVideoInfoContext);
+
+    const previewRef = useRef(undefined)
+    const videoPreviewRef = useRef(undefined)
 
     useEffect(()=>{
         getVertData()
@@ -67,14 +71,20 @@ function VerticalClip(props) {
     return ( 
         <div className="vertical-clip">
             {!dataFetched?<></>:
-             <div className="vert-video" onClick={handleVertClick} >
+             <div className="vert-video" 
+             onClick={handleVertClick}
+             onMouseOver={() => handleVideoHover(videoPreviewRef)}
+             onMouseEnter={() => handleVideoEnter(previewRef)}
+             onMouseLeave={() => handleVideoLeave(previewRef, videoPreviewRef)} >
                 <img
+                    ref={previewRef}
                     draggable='false'
                     className='vert-cover' 
                     src={api + `api/short-video/${props.id}/preview`} 
                     alt="" 
                     style={{ objectFit:'cover', pointerEvents:'none'}} />
                 <video
+                    ref={videoPreviewRef}
                     className='clip-video' 
                     muted={true}
                     onCanPlay={()=>{setVideoLoaded(true)}}

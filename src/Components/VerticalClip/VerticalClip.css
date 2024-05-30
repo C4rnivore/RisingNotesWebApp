@@ -13,6 +13,13 @@
     cursor: pointer;
 }
 
+.preview-hover{
+    opacity: 0;
+}
+.clip-video{
+    height: 100%;
+}
+
 .vert-video{
     height: 100%;
     aspect-ratio: 9/16;
