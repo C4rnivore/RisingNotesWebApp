@@ -66,6 +66,25 @@ export function filtersUpdater(filterId, filterValue, filterOrAnd, filters){
     return temp
 }
 
+export function filtersReseter(filters){
+    let temp = filters
+
+    temp.genre = []
+    temp.genreOrAnd = 'and'
+    temp.language = []
+    temp.languageOrAnd= 'and'
+    temp.similar = []
+    temp.similarOrAnd= 'and'
+    temp.mood = []
+    temp.moodOrAnd = 'and'
+    temp.duration = 'any'
+    temp.extra = {
+            explicit : "Disabled",
+            removed : "Disabled"}
+
+    return temp
+}
+
 /**
  * Преобразует текущие фильтры в JSON строку
  * @function
@@ -121,7 +140,7 @@ export async function songsByFiltersGetter(filters){
         return result.songList
     }
     catch(err){
-        console.log(err);
+        return -1
     }
 }
 

@@ -198,3 +198,37 @@
 .filters-apply-btn:disabled{
     background-color: #c9195f;
 }
+
+
+.filters-notification-popup{
+    position: absolute;
+    top: 80px;
+    flex-direction: column;
+    width: 100%;
+    background: linear-gradient(119deg, rgba(25,30,40,1) 0%, rgba(180,180,180,0.7) 0%, rgba(15,20,29,0.5) 100%);
+    padding: 20px;
+    border-radius: 20px;
+    gap: 10px;
+
+    animation: fade-in ease-in 250ms forwards;
+}
+
+@keyframes fade-in {
+    0%{
+        left: 0%;
+        opacity: 0;
+    }
+
+    100%{
+        left: -100%;
+        opacity: 1;
+    }
+}
+
+.filters-notification-popup > button{
+    background-color: #c9195f;
+    padding: 5px 15px;
+    border-radius:5px;
+    margin: 0 auto;
+    width: max-content;
+}

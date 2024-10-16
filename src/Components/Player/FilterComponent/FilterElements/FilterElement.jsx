@@ -5,7 +5,6 @@ import { useFilters } from "../../../../Hooks/useFilters/useFilters";
 function FilterElement(props){
     const [tags, setTags] = useState(props.tags);
     const [switchState, setSwitchState] = useState(props.switch === 'and'? 'и':'или')
-    const [initialCall, setInitialCall] = useState(true)
 
     const handleSwitchStateClick = ()=>{
         const swt = document.getElementById(props.id)

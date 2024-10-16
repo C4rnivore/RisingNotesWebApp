@@ -1,12 +1,13 @@
 import FilterElement from './FilterElements/FilterElement'
 import FilterTimeElement from './FilterElements/FilterTimeElement'
 import FilterChckboxElement from './FilterElements/FilterCheckboxElement'
+import FilterNotificationPopup from './FilterElements/FilterNotificationPopup'
 import { useFilters } from '../../../Hooks/useFilters/useFilters'
 
 import { PlayerContext, CurrentSongContext } from '../../App/App'
 import { useState, useEffect, useContext } from 'react'
 import { getGenres, getLanguages, getMoods } from './APICallers/FiltersGetter'
-import { filtersInitial, filtersUpdater,songsByFiltersGetter, extractSongsIdsList } from './FIlters/Filters';
+import { filtersInitial, filtersUpdater,filtersReseter, songsByFiltersGetter, extractSongsIdsList } from './FIlters/Filters';
 
 import './FilterComponent.css';
 
@@ -18,37 +19,7 @@ function FilterComponent(){
     const {filters, updateFilters} = useFilters()
     const {songs, setSongs} = useContext(PlayerContext);
     const [filtersDisabled, setFiltersDisabled] = useState(false)
-
-    /**
-    * Главная функция обновления фильров
-    * @function
-    * 
-    * @param {any} filterId - тип фильтра: genre | language | similar | mood | duration | extra
-    * @param {any} filterValue - значение фильтра
-    * @param {any} filterOrAnd - значение предиката для фильтра default = null
-    */
-    const filtersUpdateFunction = (filterId, filterValue, filterOrAnd = null) => {
-        let updated = filtersUpdater(filterId, filterValue, filterOrAnd, filters)
-        updateFilters(updated)
-        setFiltersDisabled(false)
-    }
-
-    /**
-    * Функция для обновления списка песен по фильтрам
-    * @function
-    */
-    function updateSongs(){
-        songsByFiltersGetter(filters)
-        .then(res=> {
-            const songs = extractSongsIdsList(res)
-            setSongs(curSongs => curSongs = songs)
-        })
-        .catch(err=> {
-            console.log('Error while getting songs by filters: \n')
-            console.log(err)
-        } )
-        setFiltersDisabled(true)
-    }
+    const [popupVisible, setPopupVisible] = useState(false)
 
     useEffect(() => {
         async function fetchFilters() {
@@ -63,6 +34,53 @@ function FilterComponent(){
         fetchFilters().then(() => updateSongs());
     }, []); 
 
+    /**
+    * Главная функция обновления фильров
+    * @function
+    * 
+    * @param {any} filterId - тип фильтра: genre | language | similar | mood | duration | extra
+    * @param {any} filterValue - значение фильтра
+    * @param {any} filterOrAnd - значение предиката для фильтра default = null
+    */
+    const filtersUpdateFunction = (filterId, filterValue, filterOrAnd = null) => {
+
+        let updated = filtersUpdater(filterId, filterValue, filterOrAnd, filters)
+
+        updateFilters(updated)
+        setFiltersDisabled(false)
+    }
+
+    /**
+    * Функция для обновления списка песен по фильтрам
+    * @function
+    */
+    function updateSongs(){
+        songsByFiltersGetter(filters)
+        .then(res=> {
+            if(res == -1 || res == [] ){
+                setPopupVisible(true)
+                return
+            }
+            
+            const songs = extractSongsIdsList(res)
+            setPopupVisible(false)
+            setSongs(curSongs => curSongs = songs)
+        })
+        .catch(err=> {
+            console.log('Error while getting songs by filters: \n')
+            console.log(err)
+        } )
+        setFiltersDisabled(true)
+    }
+
+    const popupCallback = () =>{
+        let reseted = filtersReseter(filters)
+
+        updateFilters(reseted)
+        setPopupVisible(false)
+        console.log(filters)
+    }
+
     if(!isLoading)
         return(
             <div id='filters-container-id' className="filters-container"> 
@@ -75,6 +93,13 @@ function FilterComponent(){
                     <FilterTimeElement  name="Длительность" id="duration" function = {filtersUpdateFunction}/>
                     <FilterChckboxElement name="Дополнительно" id="extra"  function = {filtersUpdateFunction}/>
                     <button className='filters-apply-btn' disabled={filtersDisabled} onClick={updateSongs}>Применить фильтры</button>
+                    
+                    <FilterNotificationPopup 
+                        visible={popupVisible}
+                        notificationText={'К сожалению, нам не удалось найти песни с подходящими фильтрами'}
+                        actionButtonText={'Сбросить фильтры'}
+                        actionButtonCallback={popupCallback}
+                    />
                 </div>
             </div>
         )    
