@@ -6,6 +6,9 @@ import Registration from "../Registration/Registration";
 import Sidebar from "../Sidebar/Sidebar";
 import Player from "../Player/Player";
 
+import { Provider } from 'react-redux';
+import store from '../../Redux/store.js';
+
 import ArtistCard from '../../Pages/ArtistCard/ArtistCard.jsx'
 import { Routes, Route, Link, createBrowserRouter, createRoutesFromElements, RouterProvider, useSubmit, useNavigate } from 'react-router-dom';
 import React, { Fragment, createContext } from "react";
@@ -74,7 +77,6 @@ export const VideoPlayerContext = createContext({});
 export const VertVideoPlayerContext = createContext({});
 export const VertVideoInfoContext = createContext({});
 // ссылка на переменную
-export const SearchQueryContext = createContext({});
 export const ResizeContext = createContext({});
 
 function App() {
@@ -103,7 +105,6 @@ function App() {
     const [playlists, setPlaylists] = useState(playlistsJSON ? JSON.parse(playlistsJSON) : []);
     const [cookies, setCookies] = useCookies(['accessToken', 'refreshToken', 'authorId', 'role', 'userId']);
     const [resize, setResize] = useState(resizeJSON ? JSON.parse(resizeJSON) : 'standart');
-    const [searchInput, setSearchInput] = useState('');
 
     useEffect(() => {
         // изменение со стандартной на мобильную версию
@@ -282,15 +283,11 @@ function App() {
         localStorage.setItem('RESIZE', JSON.stringify(resize));
     }, [songs, currentSong, subscriptions, featured, excluded, playlists, resize]);
 
-    function searchInputHandler(input) {
-        setSearchInput(input)
-    }
-
     return (
+        <Provider store={store}>
         <ResizeContext.Provider value={{resize, setResize}}>
         <FiltersProvider>
         <CacheProvider>
-        <SearchQueryContext.Provider value={{searchInput, setSearchInput}}>
             <PlaylistsContext.Provider value={{playlists, setPlaylists}}>
                 <ExcludedContext.Provider value={{excluded, setExcluded}}>
                     <FeaturedContext.Provider value={{featured, setFeatured}}>
@@ -344,10 +341,10 @@ function App() {
                     </FeaturedContext.Provider>
                 </ExcludedContext.Provider>
             </PlaylistsContext.Provider>
-        </SearchQueryContext.Provider>
-    </CacheProvider>
+            </CacheProvider>
     </FiltersProvider>
     </ResizeContext.Provider>
+    </Provider>
     );
 }
 

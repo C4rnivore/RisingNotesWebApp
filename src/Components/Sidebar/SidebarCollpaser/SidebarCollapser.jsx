@@ -4,26 +4,29 @@ import warning from '../../../Images/sidebar/warning.svg'
 import like from '../../../Images/sidebar/like.svg'
 import { NavLink} from "react-router-dom";
 import { useContext, useState, useEffect } from 'react';
-import { ResizeContext, SearchQueryContext } from '../../App/App'
+import { ResizeContext } from '../../App/App'
 import subsIcon from '../../../Images/sidebar/subs-icon.svg';
+
+import { useDispatch } from 'react-redux'
+import { updateValue } from '../../../Redux/slices/searchSlice';
 
 import './SidebarCollapser.css';
 
 function SidebarCollapser(props){
-   const {resize, setResize} = useContext(ResizeContext);
+   const {resize} = useContext(ResizeContext);
+   const [searchQuery, setSearchQuery] = useState('')
+   const dispatch = useDispatch()
 
    const handleToggle = () => {
       props.collapseFunc()
    }
-   const {searchInput, setSearchInput} = useContext(SearchQueryContext);
-   const [searchQuery, setSearchQuery] = useState('')
-
+   
    const clearQuery =(e)=>{
       setSearchQuery('')
    }
 
    useEffect(()=>{
-      setSearchInput(searchQuery);
+      dispatch(updateValue(searchQuery));
    },[searchQuery])
 
 

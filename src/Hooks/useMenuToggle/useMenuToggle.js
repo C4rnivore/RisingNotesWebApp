@@ -1,13 +1,14 @@
 import { useMediaQuery } from 'react-responsive'
 import { useState, useEffect, useContext } from 'react'
-import { SearchQueryContext } from '../../Components/App/App'
+import { useDispatch } from 'react-redux'
+import { updateValue } from '../../Redux/slices/searchSlice'
 
 const useMenuToggle = () =>{
     const [collapsed, setCollapsed] = useState(true)
-    const {searchInput, setSearchInput} = useContext(SearchQueryContext);
     const isMobile = useMediaQuery({
         query: '(max-width: 720px)'
     })
+    const dispatch = useDispatch()
 
     useEffect(()=>{
         setCollapsed(getInitState())
@@ -38,7 +39,7 @@ const useMenuToggle = () =>{
             }
             else{
                 sidebar.classList.add('collapse')
-                setSearchInput('')
+                dispatch(updateValue(''))
                 setCollapsed(true)
             }
         }
