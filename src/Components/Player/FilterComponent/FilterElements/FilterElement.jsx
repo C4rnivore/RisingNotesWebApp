@@ -1,27 +1,42 @@
 import { useEffect, useState } from "react"
-import { useFilters } from "../../../../Hooks/useFilters/useFilters";
 
+function FilterElement({
+    name,
+    id,
+    filters,
+    options,
+    updater
+}){
+    const [tags, setTags] = useState([]);
+    const [predicate, setPredicate] = useState('and')
 
-function FilterElement(props){
-    const [tags, setTags] = useState(props.tags);
-    const [switchState, setSwitchState] = useState(props.switch === 'and'? 'и':'или')
-
-    const handleSwitchStateClick = ()=>{
-        const swt = document.getElementById(props.id)
-        if(swt.classList.contains('filter-switch-toggled')){
-            swt.classList.remove('filter-switch-toggled')
-            swt.classList.add('filter-switch')
+    useEffect(()=>{
+        switch(id){
+            case "genre":
+                setPredicate(filters.genreOrAnd) 
+                setTags(filters.genre)
+                break
+            case "language":
+                setPredicate(filters.languageOrAnd) 
+                setTags(filters.language)
+                break
+            case "similar":
+                setPredicate(filters.similarOrAnd) 
+                setTags(filters.similar)
+                break
+            case "mood":
+                setPredicate(filters.moodOrAnd) 
+                setTags(filters.mood)
+                break
         }
-        else{
-            swt.classList.add('filter-switch-toggled')
-            swt.classList.remove('filter-switch')
-        }
-        setSwitchState(cur => cur === 'и' ? 'или': 'и' )
-    }
+
+    },[filters])
+
+
 
     const handleInputClick = (e) =>{
         e.preventDefault()
-        let inp = document.getElementById(props.id+"-input")
+        let inp = document.getElementById(id+"-input")
         if(!inp)
             return
         else if(inp.value === '')
@@ -29,6 +44,7 @@ function FilterElement(props){
         else if(tags.includes(inp.value))
             return
         setTags(cur => cur = [...cur, inp.value])
+        inp.value = ''
     }
 
     const deleteTag = (value) => {
@@ -37,31 +53,29 @@ function FilterElement(props){
     }
 
     function passToParent(filterId, filterValue, filterOrAnd = null){
-        props.function(filterId, filterValue, filterOrAnd)
+        updater(filterId, filterValue, filterOrAnd)
     }
 
     useEffect(()=>{ 
-        const stateToPass = switchState === 'и' ? 'and': 'or'
-        passToParent(props.id, tags, stateToPass )
-    }, [tags, switchState])
-
+        passToParent(id, tags, predicate)
+    }, [tags, predicate])
 
     return(     
             <div className="filterOption">
                 <div className="filter-top">
                     <div className="filter-top-start">
                         <div className="filter-dot"></div>
-                        <span className="filter-name">{props.name}</span>
+                        <span className="filter-name">{name}</span>
                     </div>
-                    <div id={props.id} className={props.switch === 'and'? "filter-switch":'filter-switch-toggled'} onClick={handleSwitchStateClick}>
+                    <div id={id} className={predicate === 'and'? "filter-switch":'filter-switch-toggled'} onClick={()=>setPredicate(predicate === 'and'? 'or': 'and')}>
                         <div className="switch-ball"></div>
-                        <span className="switch-state-name">{switchState}</span>
+                        <span className="switch-state-name">{predicate === 'and'? 'и':'или'}</span>
                     </div>
                 </div>
                 <form className="filters-form">
-                    <input className="filters-input" id={props.id + "-input"} list={props.id+'-options'} type="text"  placeholder={'Начните вводить'}/>
-                    <datalist id={props.id+'-options'}>
-                    {props.filters?.map(
+                    <input className="filters-input" id={id + "-input"} list={id+'-options'} type="text"  placeholder={'Начните вводить'}/>
+                    <datalist id={id+'-options'}>
+                    {options?.map(
                         (opt, i) => <option key = {i}>{opt}</option>
                     )}
                     </datalist>

@@ -1,16 +1,19 @@
 import { useEffect, useState } from "react"
 
-
-function FilterTimeElement(props){
+function FilterTimeElement({id, name, filters, updater}){
     const[duration, setDuration] = useState('any')
-    const [initialCall, setInitialCall] = useState(true)
+
+    useState(()=>{
+        console.log(filters.duration)
+        // setDuration(props.filters.duration)
+    },[filters])
 
     useEffect(()=>{
-        passToParent(props.id, duration)
+        passToParent(id, duration)
     },[duration])
 
     function passToParent(filterId, filterValue, filterOrAnd = null){
-        props.function(filterId, filterValue, filterOrAnd)
+        updater(filterId, filterValue, filterOrAnd)
     }
 
     const handleDurationChange = () =>{
@@ -25,7 +28,7 @@ function FilterTimeElement(props){
             <div className="filter-top">
                 <div className="filter-top-start">
                     <div className="filter-dot"></div>
-                    <span className="filter-name">{props.name}</span>
+                    <span className="filter-name">{name}</span>
                 </div>
             </div>
             <form className="filters-form">

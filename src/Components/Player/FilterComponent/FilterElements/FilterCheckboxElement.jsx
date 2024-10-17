@@ -1,26 +1,31 @@
 import { useEffect, useState } from "react"
 
 
-function FilterCheckboxElement(props){
+function FilterCheckboxElement({id,name,filters,updater}){
     const [expContent, setExpContent] = useState('Disabled')
     const [removedContent, setRemovedContent] = useState('Disabled')
-    const [initialCall, setInitialCall] = useState(true)
 
     function passToParent(filterId, filterValue, filterOrAnd = null){
-        props.function(filterId, filterValue, filterOrAnd)
+        updater(filterId, filterValue, filterOrAnd)
     }
 
     useEffect(()=>{
-        passToParent(props.id, {"explicit" : expContent, "removed" : removedContent})
+        passToParent(id, {"explicit" : expContent, "removed" : removedContent})
     },[expContent, removedContent])
+
+    useEffect(()=>{
+        setExpContent(filters.extra.explicit)
+    },[filters])
 
 
     const handleCheckboxChange = (id) =>{
         const cb = document.getElementById(id);
-        if(cb.checked)
+        if(cb.checked){
             id === 'explicit' ? setExpContent('Enabled') : setRemovedContent('Enabled')
-        else
-            id === 'explicit' ? setExpContent('Disabled') : setRemovedContent('Disabled') 
+        }
+        else{
+            id === 'explicit' ? setExpContent('Disabled') : setRemovedContent('Disabled')
+        }
     }
 
     return(
@@ -28,12 +33,12 @@ function FilterCheckboxElement(props){
             <div className="filter-top">
                 <div className="filter-top-start">
                     <div className="filter-dot"></div>
-                    <span className="filter-name">{props.name}</span>
+                    <span className="filter-name">{name}</span>
                 </div>
             </div>
             <div className="filter-checkbox-container">
                 <div className="filter-checkbox">
-                    <input type="checkbox" id="explicit" onChange={e=>handleCheckboxChange('explicit')}/>
+                    <input type="checkbox" id="explicit" onChange={() => handleCheckboxChange('explicit')}/>
                     <label>Ненормативная лексика</label>
                 </div>
             </div>
