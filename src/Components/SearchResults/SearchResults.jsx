@@ -1,4 +1,4 @@
-import { useEffect, useState,useContext } from 'react'
+import { useEffect, useState } from 'react'
 import './SearchResults.css'
 import backIcon from '../../Images/artist-card/Chevron_Left.svg'
 import SearchContent from './SearchContent/SeacrhContent'
@@ -25,6 +25,7 @@ function SearchResults(props){
     const handleNavClick = (id) =>{
         if(id === activeNav)
             return
+        
         document.getElementById(activeNav).classList.remove('active')
         document.getElementById(id).classList.add('active')
         setActiveNav(id)
