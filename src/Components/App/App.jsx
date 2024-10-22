@@ -37,6 +37,9 @@ import Footer from '../Footer/Footer.jsx';
 import VideoPlayer from '../VideoPLayer/VideoPlayer.jsx';
 import VertVideoPlayer from '../BlogVideoPlayer/BlogVideoPlayer.jsx';
 
+import { useSelector, useDispatch } from 'react-redux';
+import { updateResizeValue } from '../../Redux/slices/resizeSlice.js';
+
 export const api = process.env.REACT_APP_API_ENDPOINT;
 
 export const axiosAuthorized = axios.create({
@@ -79,6 +82,7 @@ export const VertVideoInfoContext = createContext({});
 // ссылка на переменную
 export const ResizeContext = createContext({});
 
+
 function App() {
     const navigate = useNavigate();
     const [errorVisibility, setErrorVisibility] = useState(false);
@@ -90,8 +94,11 @@ function App() {
     const featuredJSON = localStorage.getItem('FEATURED');
     const excludedJSON = localStorage.getItem('EXCLUDED');
     const playlistsJSON = localStorage.getItem('PLAYLISTS');
-    const resizeJSON = localStorage.getItem('RESIZE');
+
     // подгружаю из браузера
+
+    const resize_ = useSelector((state)=> state.resize.value)
+    const dispatch = useDispatch()
 
     const [subscriptions, setSubscriptions] = useState(subsJSON ? JSON.parse(subsJSON) : []);
     const [featured, setFeatured] = useState(featuredJSON ? JSON.parse(featuredJSON) : []);
@@ -104,16 +111,18 @@ function App() {
     // проверка на наличие
     const [playlists, setPlaylists] = useState(playlistsJSON ? JSON.parse(playlistsJSON) : []);
     const [cookies, setCookies] = useCookies(['accessToken', 'refreshToken', 'authorId', 'role', 'userId']);
-    const [resize, setResize] = useState(resizeJSON ? JSON.parse(resizeJSON) : 'standart');
+
+    // const resizeJSON = localStorage.getItem('RESIZE');
+    // const [resize, setResize] = useState(resizeJSON ? JSON.parse(resizeJSON) : 'standart');
 
     useEffect(() => {
         // изменение со стандартной на мобильную версию
         function handleResize() {
             if (window.innerWidth <= 720) {
-                setResize('mobile');
+                dispatch(updateResizeValue('mobile'))
             }
             else {
-                setResize('standart');
+                dispatch(updateResizeValue('standart'))
             }
         }
         window.addEventListener('resize', handleResize);
@@ -280,12 +289,11 @@ function App() {
         localStorage.setItem('FEATURED', JSON.stringify(featured));
         localStorage.setItem('EXCLUDED', JSON.stringify(excluded));
         localStorage.setItem('PLAYLISTS', JSON.stringify(playlists));
-        localStorage.setItem('RESIZE', JSON.stringify(resize));
-    }, [songs, currentSong, subscriptions, featured, excluded, playlists, resize]);
+        
+        localStorage.setItem('RESIZE', JSON.stringify(resize_));
+    }, [songs, currentSong, subscriptions, featured, excluded, playlists, resize_]);
 
     return (
-        <Provider store={store}>
-        <ResizeContext.Provider value={{resize, setResize}}>
         <FiltersProvider>
         <CacheProvider>
             <PlaylistsContext.Provider value={{playlists, setPlaylists}}>
@@ -343,8 +351,6 @@ function App() {
             </PlaylistsContext.Provider>
             </CacheProvider>
     </FiltersProvider>
-    </ResizeContext.Provider>
-    </Provider>
     );
 }
 

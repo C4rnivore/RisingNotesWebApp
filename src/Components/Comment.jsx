@@ -8,12 +8,15 @@ import xIcon from '../Images/commentaries/x-icon.svg';
 
 import { ResizeContext, api } from './App/App';
 import { axiosAuthorized } from './App/App';
+import { useSelector } from 'react-redux';
 
 const Comment = (props) => {
     const [isDeleted, setIsDeleted] = useState(false);
     const [comment, setComment] = useState(props.data.text);
     const [cookies, setCookies] = useCookies(['userId']);
-    const {resize, setResize} = useContext(ResizeContext);
+    // const {resize, setResize} = useContext(ResizeContext);
+
+    const resize = useSelector((state)=> state.resize.value)
 
     const handleDeleteComment = () => {
         axiosAuthorized.delete(`api/song/comment/${props.data.id}`);

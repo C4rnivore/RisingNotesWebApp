@@ -21,6 +21,7 @@ import { axiosAuthorized, axiosUnauthorized } from '../App/App';
 import './MusicPlayer.css';
 import useSearchClean from '../../Hooks/useSearchClean/useSearchClean';
 import { useCookies } from 'react-cookie';
+import { useSelector } from 'react-redux';
 
 const MusicPlayer = (props) => {
     const [isPlaying, setIsPlaying] = useState(false);  
@@ -39,7 +40,8 @@ const MusicPlayer = (props) => {
     const {currentSong, setCurrentSong} = useContext(CurrentSongContext);
     const {featured, setFeatured} = useContext(FeaturedContext);
     const {excluded, setExcluded} = useContext(ExcludedContext);
-    const {resize, setResize} = useContext(ResizeContext);
+    // const {resize, setResize} = useContext(ResizeContext);
+    const resize = useSelector((state)=> state.resize.value)
     const {cleanQuery} = useSearchClean();
 
     

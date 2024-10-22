@@ -4,7 +4,7 @@ import { ResizeContext, VertVideoInfoContext, VertVideoPlayerContext, api, axios
 import placeholder from '../../Images/main-placeholder.png';
 import heart from '../../Images/controller/heart.svg';
 import closeButton from '../../Images/playerforvideo/closebutton.svg'
-
+import { useSelector } from 'react-redux';
 
 function VertVideoPlayer() {
     const { vertvideo, setVertVideo } = useContext(VertVideoPlayerContext);
@@ -12,7 +12,8 @@ function VertVideoPlayer() {
     const videoRef = useRef();
     const placeholderVideoRef = useRef();
     const [isPlaying, setIsPlaying] = useState(false);
-    const {resize, setResize} = useContext(ResizeContext);
+    // const {resize, setResize} = useContext(ResizeContext);
+    const resize = useSelector((state)=> state.resize.value)
 
     useEffect(() => {
         if (resize === 'standart')

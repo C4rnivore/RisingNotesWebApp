@@ -7,13 +7,14 @@ import { useContext, useState, useEffect } from 'react';
 import { ResizeContext } from '../../App/App'
 import subsIcon from '../../../Images/sidebar/subs-icon.svg';
 
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { updateValue } from '../../../Redux/slices/searchSlice';
 
 import './SidebarCollapser.css';
 
 function SidebarCollapser(props){
-   const {resize} = useContext(ResizeContext);
+   // const {resize} = useContext(ResizeContext);
+   const resize = useSelector((state)=> state.resize.value)
    const [searchQuery, setSearchQuery] = useState('')
    const dispatch = useDispatch()
 

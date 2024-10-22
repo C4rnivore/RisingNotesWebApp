@@ -12,7 +12,6 @@ function SearchResults(props){
     const [activeNav, setActiveNav] = useState('All')
     const [isFetching, setIsFetching] = useState(false)
     const [searchRes, setSearchRes] = useState(undefined)
-    // const {searchInput, setSearchInput} = useContext(SearchQueryContext)
     const {cache} = useSearchCache()
 
     const input = useSelector((state) => state.searchInput.value)

@@ -9,7 +9,7 @@ import defaultAvatar from '../../Images/main-placeholder.png';
 import burderImg from '../../Images/burger.svg';
 import useSearchClean from '../../Hooks/useSearchClean/useSearchClean';
 import useMenuToggle from '../../Hooks/useMenuToggle/useMenuToggle';
-
+import { useSelector } from 'react-redux';
 
 import './Header.css';
 
@@ -19,7 +19,8 @@ function Header() {
     const [isImageExist, setIsImageExist] = useState(false);
     const [cookies, setCookies] = useCookies(['accessToken', 'refreshToken', 'authorId', 'role', 'subscriptions', 'userId']);
     const [isUserAuthorized, setIsUserAuthorized] = useState(false);
-    const {resize, setResize} = useContext(ResizeContext);
+    // const {resize, setResize} = useContext(ResizeContext);
+    const resize = useSelector((state)=> state.resize.value)
     const {cleanQuery} = useSearchClean()
     const {toggler} = useMenuToggle()
 

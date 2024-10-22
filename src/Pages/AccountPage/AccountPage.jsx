@@ -16,7 +16,7 @@ import Loader from "../../Components/Loader/Loader";
 import blogIcon from '../../Images/account-page/blog.svg';
 import clipsIcon from '../../Images/account-page/clips.svg';
 import profileIcon from '../../Images/account-page/profile.svg';
-
+import { useSelector } from "react-redux";
 import './AccountPage.css';
 import Songs from "./Songs/Songs";
 import Clips from "./Clips/Clips";
@@ -35,7 +35,8 @@ export default function AccountPage () {
     const [authorId, setAuthorId] = useState(undefined);
     const [isLoaded, setIsLoaded] = useState(false);
     const [email, setEmail] = useState('');
-    const {resize, setResize} = useContext(ResizeContext); 
+    // const {resize, setResize} = useContext(ResizeContext); 
+    const resize = useSelector((state)=> state.resize.value)
 
     useEffect(() => {
         // попытка загрузки информации и перенаправление

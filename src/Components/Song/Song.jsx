@@ -10,7 +10,7 @@ import { CurrentSongContext, ExcludedContext, FeaturedContext, PlayerContext, Re
 import thumb from '../../Images/main-placeholder.png';
 import check from '../../Images/check_big.svg';
 import useSearchClean from '../../Hooks/useSearchClean/useSearchClean';
-
+import { useSelector } from 'react-redux';
 import './Song.css';
 
 function Song(props) {
@@ -21,7 +21,8 @@ function Song(props) {
     const {featured, setFeatured} = useContext(FeaturedContext);
     const {excluded, setExcluded} = useContext(ExcludedContext);
     const {cleanQuery} = useSearchClean()
-    const {resize, setResize} = useContext(ResizeContext);
+    // const {resize, setResize} = useContext(ResizeContext);
+    const resize = useSelector((state)=> state.resize.value)
 
     const changeModalState = () => {
         setModalIsHidden(modalIsHidden => modalIsHidden = !modalIsHidden);

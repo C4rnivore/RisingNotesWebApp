@@ -9,6 +9,7 @@ import commentsIcon from '../../Images/controller/message.svg';
 import sendIcon from '../../Images/controller/sendIcon.svg';
 import burgerIcon from '../../Images/controller/menu.svg';
 import playIcon from '../../Images/player/PlayBtn.svg';
+import { useSelector } from 'react-redux';
 
 import './Commentaries.css';
 import CustomButton from '../../Components/CustomButton/CustomButton';
@@ -25,7 +26,8 @@ const Commentaries = (props) => {
 
     const [currPage, setCurrPage] = useState(0);
     const [songText, setText] = useState('');
-    const {resize, setResize} = useContext(ResizeContext);
+    // const {resize, setResize} = useContext(ResizeContext);
+    const resize = useSelector((state)=> state.resize.value)
 
     useEffect(() => {
         axiosUnauthorized.get(`api/song/${params.id}/comment/list`)

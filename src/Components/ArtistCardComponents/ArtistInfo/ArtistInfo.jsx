@@ -9,6 +9,8 @@ import { useContext, useEffect, useState } from "react"
 import { ResizeContext, SubscriptionsContext, api, axiosPictures } from "../../App/App"
 import { useParams } from "react-router-dom"
 
+import { useSelector } from "react-redux"
+
 function ArtistInfo(props) {
     
     const artistImage = props.artist.artistImage
@@ -24,7 +26,9 @@ function ArtistInfo(props) {
     const {subscriptions, setSubscriptions} = useContext(SubscriptionsContext);
     const [isSubscribed, setIsSubscribed] = useState(subscriptions.includes(params.id));
     const [isImageExist, setIsImageExist] = useState(false);
-    const {resize, setResize} = useContext(ResizeContext);
+    // const {resize, setResize} = useContext(ResizeContext);
+
+    const resize = useSelector((state)=> state.resize.value)
 
     useEffect(() => {
         // проверка наличия картинки и подписки

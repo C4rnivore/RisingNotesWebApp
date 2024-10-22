@@ -8,6 +8,7 @@ import { useContext, useEffect, useRef, useState } from 'react';
 import { useCookies, withCookies } from 'react-cookie';
 import { ResizeContext, api, axiosAuthorized, axiosPictures, axiosUnauthorized } from '../../../Components/App/App';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 export default function AccountHead (props) {
     const navigate = useNavigate();
@@ -17,7 +18,8 @@ export default function AccountHead (props) {
     const [auditionsCount, setAuditions] = useState(0);
     const [isImageExist, setIsImageExist] = useState(false);
     const [cookies, setCookies] = useCookies(['accessToken', 'refreshToken', 'authorId', 'role', 'subscriptions', 'userId']);
-    const {resize, setResize} = useContext(ResizeContext); 
+    // const {resize, setResize} = useContext(ResizeContext); 
+    const resize = useSelector((state)=> state.resize.value)
 
     useEffect(() => {
         // получение аватарки и количества прослушиваний музыканта, количество подписчиков
