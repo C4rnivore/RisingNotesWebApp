@@ -1,9 +1,8 @@
 import React from 'react';
 import Chevron from '../Images/controller/chevron-left.svg';
 import { useNavigate } from 'react-router-dom';
-import { useSelector
+import { useSelector} from 'react-redux';
 
- } from 'react-redux';
 function BackButton() {
     const navigate = useNavigate();
     const resize = useSelector((state)=> state.resize.value)

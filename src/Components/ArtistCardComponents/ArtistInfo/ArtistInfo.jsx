@@ -12,7 +12,6 @@ import { useParams } from "react-router-dom"
 import { useSelector } from "react-redux"
 
 function ArtistInfo(props) {
-    
     const artistImage = props.artist.artistImage
     const artistName = props.artist.artistName
     const artistInfoText = props.artist.artistInfoText

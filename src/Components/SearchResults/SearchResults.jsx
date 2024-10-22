@@ -4,16 +4,16 @@ import backIcon from '../../Images/artist-card/Chevron_Left.svg'
 import SearchContent from './SearchContent/SeacrhContent'
 import { fetchInput } from './APICallers/GetArtistData'
 import Loader from '../Loader/Loader'
-import { useSearchCache } from '../../Hooks/useSearchInput/useSearchCache'
 import { useSelector, useDispatch } from 'react-redux'
 import { updateValue } from '../../Redux/slices/searchSlice'
+import { updateCacheValue } from '../../Redux/slices/cacheSlise'
 
 function SearchResults(props){
     const [activeNav, setActiveNav] = useState('All')
     const [isFetching, setIsFetching] = useState(false)
     const [searchRes, setSearchRes] = useState(undefined)
-    const {cache} = useSearchCache()
 
+    const cache = useSelector((state)=>state.cache.value)
     const input = useSelector((state) => state.searchInput.value)
     const dispatch = useDispatch()
 
@@ -55,7 +55,9 @@ function SearchResults(props){
     }
 
     const updateCache = (key, value) =>{
-        cache.set(key, value)
+        dispatch(
+            updateCacheValue({key, value})
+        )
     }
 
     if(input === ''){

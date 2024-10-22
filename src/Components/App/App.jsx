@@ -25,7 +25,6 @@ import UploadVideo from '../../Pages/InstallVideo/UploadVideo.jsx';
 import InstallVerticalVideo from '../../Pages/UploadVerticalVideo/UploadVertVideo.jsx';
 import ErrorPage from '../../Pages/404Page/404Page';
 import { FiltersProvider } from '../../Hooks/useFilters/useFilters';
-import { CacheProvider } from '../../Hooks/useSearchInput/useSearchCache.js';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { jwtDecode } from 'jwt-decode';
@@ -80,8 +79,6 @@ export const VideoPlayerContext = createContext({});
 export const VertVideoPlayerContext = createContext({});
 export const VertVideoInfoContext = createContext({});
 // ссылка на переменную
-export const ResizeContext = createContext({});
-
 
 function App() {
     const navigate = useNavigate();
@@ -111,9 +108,6 @@ function App() {
     // проверка на наличие
     const [playlists, setPlaylists] = useState(playlistsJSON ? JSON.parse(playlistsJSON) : []);
     const [cookies, setCookies] = useCookies(['accessToken', 'refreshToken', 'authorId', 'role', 'userId']);
-
-    // const resizeJSON = localStorage.getItem('RESIZE');
-    // const [resize, setResize] = useState(resizeJSON ? JSON.parse(resizeJSON) : 'standart');
 
     useEffect(() => {
         // изменение со стандартной на мобильную версию
@@ -295,7 +289,6 @@ function App() {
 
     return (
         <FiltersProvider>
-        <CacheProvider>
             <PlaylistsContext.Provider value={{playlists, setPlaylists}}>
                 <ExcludedContext.Provider value={{excluded, setExcluded}}>
                     <FeaturedContext.Provider value={{featured, setFeatured}}>
@@ -349,7 +342,6 @@ function App() {
                     </FeaturedContext.Provider>
                 </ExcludedContext.Provider>
             </PlaylistsContext.Provider>
-            </CacheProvider>
     </FiltersProvider>
     );
 }

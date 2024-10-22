@@ -6,7 +6,7 @@ import message from '../../Images/controller/Chat_Dots.png';
 import dislike from '../../Images/controller/thumbs-down.svg';
 import redDislike from '../../Images/controller/dislike-red.svg';
 import list from '../../Images/list.svg'
-import { CurrentSongContext, ExcludedContext, FeaturedContext, PlayerContext, ResizeContext, api, axiosAuthorized } from '../App/App';
+import { CurrentSongContext, ExcludedContext, FeaturedContext, PlayerContext,api, axiosAuthorized } from '../App/App';
 import thumb from '../../Images/main-placeholder.png';
 import check from '../../Images/check_big.svg';
 import useSearchClean from '../../Hooks/useSearchClean/useSearchClean';

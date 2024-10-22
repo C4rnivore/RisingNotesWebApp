@@ -11,6 +11,7 @@
     "dependencies": "^0.0.1",
     "dotenv": "^16.4.5",
     "firebase": "^10.7.1",
+    "immer": "^10.1.1",
     "jsonwebtoken": "^9.0.2",
     "jwt-decode": "^4.0.0",
     "qs": "^6.11.2",
