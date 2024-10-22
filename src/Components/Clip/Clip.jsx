@@ -3,7 +3,6 @@ import viewsIcon from '../../Images/account-page/stats-icon.svg';
 import editIcon from '../../Images/account-page/edit-icon.svg';
 import { api } from '../App/App';
 import axios from 'axios';
-import { CurrentSongContext, PlayerContext } from '../App/App';
 import { useEffect, useState, useContext, useRef } from 'react';
 import { NavLink } from 'react-router-dom';
 import useSearchClean from '../../Hooks/useSearchClean/useSearchClean';
@@ -11,6 +10,11 @@ import { VideoPlayerContext } from '../App/App';
 import { handleVideoEnter, handleVideoHover, handleVideoLeave, handleVideoMove } from './handlers/ClipHandlers';
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
+
+import { useDispatch, useSelector } from 'react-redux';
+import { updateCurrentSongValue } from '../../Redux/slices/currentSongSlice';
+import { updateSongsValue } from '../../Redux/slices/songsSlice';
+
 
 const statusType = {
     0: 'Неизвестно',
@@ -35,12 +39,13 @@ function Clip({key, clipId, authorId, songId, name, status, views, isArtist=fals
     const [videoLoaded, setVideoLoaded] = useState(false)
     const {cleanQuery} = useSearchClean()
 
-    const {setCurrentSong} = useContext(CurrentSongContext);
-    const {setSongs} = useContext(PlayerContext);
     const {setVideo } = useContext(VideoPlayerContext);
     
     const previewRef = useRef(undefined)
     const videoPreviewRef = useRef(undefined)
+
+    const dispatch = useDispatch()
+    const songs = useSelector((state)=>state.songs.value)
 
     const getAuthorName = async (id) =>{
         try{
@@ -58,8 +63,8 @@ function Clip({key, clipId, authorId, songId, name, status, views, isArtist=fals
     }
 
     const handleSongClick = () =>{
-        setSongs(e => e = [...e, songId]);
-        setCurrentSong(songId);
+        dispatch(updateSongsValue([...songs, songId]))
+        dispatch(updateCurrentSongValue(songId))
     }
 
     useEffect(()=>{

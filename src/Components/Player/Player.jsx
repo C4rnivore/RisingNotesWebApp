@@ -1,18 +1,18 @@
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import songCoverTemplate from '../../Images/main-placeholder.png';
 
 import FilterComponent from './FilterComponent/FilterComponent.jsx'
 import SongCover from './PlayerComponents/SongCover.jsx'
-import SongLyrics from './PlayerComponents/SongLyrics.jsx'
 import FilterBtn from '../../Images/player/FilterBtn.svg';
 
 import './Player.css';
-import { CurrentSongContext, api, axiosPictures, axiosUnauthorized } from '../App/App.jsx';
+import { api, axiosPictures, axiosUnauthorized } from '../App/App.jsx';
 import Loader from '../Loader/Loader.jsx';
+
+import { useSelector } from 'react-redux';
 
 
 function Player() {
-    const {currentSong, setCurrentSong} = useContext(CurrentSongContext);
     const [currentTrack, setCurrentTrack] = useState({
         trackName: 'Нет треков',
         trackCover: songCoverTemplate,
@@ -21,6 +21,7 @@ function Player() {
         lyrcs: ``
     });
     const [isLoaded, setIsLoaded] = useState(false);
+    const currentSong = useSelector((state)=> state.currentSong.value)
 
     const getCurrentTrackInfo = async () => {
         // подгрузка информации о текущем треке

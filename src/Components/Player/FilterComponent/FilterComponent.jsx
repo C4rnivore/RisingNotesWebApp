@@ -5,11 +5,11 @@ import FilterNotificationPopup from './FilterElements/FilterNotificationPopup'
 
 import { useDispatch, useSelector } from 'react-redux'
 import { updateFilterValue, setDefaultFilterValue } from '../../../Redux/slices/filtersSlice'
+import { updateSongsValue } from '../../../Redux/slices/songsSlice'
 
-import { PlayerContext, CurrentSongContext } from '../../App/App'
-import { useState, useEffect, useContext } from 'react'
+import { useState, useEffect } from 'react'
 import { getGenres, getLanguages, getMoods } from './APICallers/FiltersGetter'
-import {  songsByFiltersGetter, extractSongsIdsList } from './FIlters/Filters';
+import { songsByFiltersGetter, extractSongsIdsList } from './FIlters/Filters';
 
 import './FilterComponent.css';
 
@@ -22,7 +22,6 @@ function FilterComponent(){
     const filters = useSelector((state)=> state.filters.value)
     const dispatch = useDispatch()
 
-    const {setSongs} = useContext(PlayerContext);
     const [filtersDisabled, setFiltersDisabled] = useState(false)
     const [popupVisible, setPopupVisible] = useState(false)
 
@@ -67,7 +66,7 @@ function FilterComponent(){
             }
             const songs = extractSongsIdsList(res)
             setPopupVisible(false)
-            setSongs(songs)
+            dispatch(updateSongsValue(songs))
         })
         .catch(err=> {
             console.log('Error while getting songs by filters: \n')

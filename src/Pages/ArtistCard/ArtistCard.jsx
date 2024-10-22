@@ -3,31 +3,35 @@ import ArtistImage from '../../Images/main-placeholder.png';
 import TrackTemplate from '../../Images/main-placeholder.png';
 
 import ArtistInfo from "../../Components/ArtistCardComponents/ArtistInfo/ArtistInfo.jsx"
-import { useContext, useEffect, useState } from "react"
-import { SubscriptionsContext, api, axiosAuthorized, axiosUnauthorized } from "../../Components/App/App.jsx"
+import { useEffect, useState } from "react"
+import { api, axiosAuthorized, axiosUnauthorized } from "../../Components/App/App.jsx"
 import BackButton from "../../Components/BackButton.jsx";
 import Songs from "../../Components/ArtistCardComponents/Songs/Songs.jsx"
 import Blog from "../../Components/Blog/Blog.jsx"
 import Clips from "../../Components/ArtistCardComponents/Clips/Clips.jsx";
 import arrowRight from '../../Images/artist-card/Chevron_Right.svg'
 
+import { useDispatch, useSelector } from "react-redux";
+import { updateSubscriptionsValue } from "../../Redux/slices/subscriptionsSlice.js";
+
 import './ArtistCard.css';
 
-function ArtistCard(props){
+function ArtistCard(){
     const navigate = useNavigate();
     const params = useParams();
     const [artist, setArtist] = useState(undefined);
     const [isLoaded, setIsLoaded] = useState(false);
-    const {subscriptions, setSubscriptions} = useContext(SubscriptionsContext);
     const [isSubscribed, setIsSubscribed] = useState(subscriptions.includes(params.id));
-
     const [currPage, setCurrPage] = useState(0);
+
+    const dispatch = useDispatch()
+    const subscriptions = useSelector((state)=>state.subscriptions.value)
 
     const handleSubscribe = async () => {
         // подписка
         await axiosAuthorized.post(api + `api/subscription/${params.id}`)
         .then( r => {
-            setSubscriptions(e => e = [...e, params.id])
+            dispatch(updateSubscriptionsValue([...subscriptions, params.id]))
             setIsSubscribed(subscriptions.includes(params.id));
             setIsLoaded(false);
         })
@@ -38,7 +42,7 @@ function ArtistCard(props){
         // отписка
         await axiosAuthorized.delete(api + `api/subscription/${params.id}`)
         .then( r => {
-            setSubscriptions(e => e = e.filter(el => el != params.id))
+            dispatch(updateSubscriptionsValue(subscriptions.filter(el => el != params.id)))
             setIsSubscribed(subscriptions.includes(params.id));
             setIsLoaded(false);
         })

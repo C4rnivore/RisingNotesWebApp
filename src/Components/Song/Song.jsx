@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import heart from '../../Images/controller/heart.svg';
 import redHeart from '../../Images/red-heart.svg';
@@ -6,23 +6,28 @@ import message from '../../Images/controller/Chat_Dots.png';
 import dislike from '../../Images/controller/thumbs-down.svg';
 import redDislike from '../../Images/controller/dislike-red.svg';
 import list from '../../Images/list.svg'
-import { CurrentSongContext, ExcludedContext, FeaturedContext, PlayerContext,api, axiosAuthorized } from '../App/App';
+import { api, axiosAuthorized } from '../App/App';
 import thumb from '../../Images/main-placeholder.png';
 import check from '../../Images/check_big.svg';
 import useSearchClean from '../../Hooks/useSearchClean/useSearchClean';
-import { useSelector } from 'react-redux';
+
+import { useSelector, useDispatch } from 'react-redux';
+import { updateExcludedValue } from '../../Redux/slices/excludedSlice';
+import { updateFeaturedValue } from '../../Redux/slices/featuredSlice';
+import { updateCurrentSongValue } from '../../Redux/slices/currentSongSlice';
+import { updateSongsValue } from '../../Redux/slices/songsSlice';
 import './Song.css';
 
 function Song(props) {
     const [modalIsHidden, setModalIsHidden] = useState(true);
     const [duration, setDuration] = useState(0);
-    const {songs, setSongs} = useContext(PlayerContext);
-    const {currentSong, setCurrentSong} = useContext(CurrentSongContext);
-    const {featured, setFeatured} = useContext(FeaturedContext);
-    const {excluded, setExcluded} = useContext(ExcludedContext);
     const {cleanQuery} = useSearchClean()
-    
+
+    const dispatch = useDispatch()
+    const excluded = useSelector((state)=>state.excluded.value)
     const resize = useSelector((state)=> state.resize.value)
+    const featured = useSelector((state)=>state.featured.value)
+    const songs = useSelector((state)=>state.songs.value)
 
     const changeModalState = () => {
         setModalIsHidden(modalIsHidden => modalIsHidden = !modalIsHidden);
@@ -46,32 +51,32 @@ function Song(props) {
     async function handleToFavorite() {
         if (featured.includes(props.id)) {
             await axiosAuthorized.delete(api + `api/song/favorite/${props.id}`).then(resp => {
-                setFeatured(e => e = e.filter(el => el != props.id));
+                dispatch(updateFeaturedValue(featured.filter(el => el != props.id)))
             });
         }
         else {
             await axiosAuthorized.patch(api + `api/song/favorite/${props.id}`).then(resp => {
-                setFeatured(e => e = [...e, props.id]);
-            });;
+                dispatch(updateFeaturedValue([...featured, props.id]))
+            });
         }
     };
 
     async function handleToExcluded() {
         if (excluded.includes(props.id)) {
             await axiosAuthorized.delete(api + `api/excluded-track/${props.id}`).then(resp => {
-                setExcluded(e => e = e.filter(el => el != props.id));
-            });;
+                dispatch(updateExcludedValue(excluded.filter(el => el != props.id)))
+            });
         }
         else {
             await axiosAuthorized.post(api + `api/excluded-track/${props.id}`).then(resp => {
-                setExcluded(e => e = [...e, props.id]);
-            });;
+                dispatch(updateExcludedValue([...excluded, props.id]))
+            });
         }
     };
 
     const handleAddToSongs = () => {
-        setSongs(e => e = [...e, props.id]);
-        setCurrentSong(props.id);
+        dispatch(updateSongsValue([...songs, props.id]))
+        dispatch(updateCurrentSongValue(props.id));
     };
 
     return (

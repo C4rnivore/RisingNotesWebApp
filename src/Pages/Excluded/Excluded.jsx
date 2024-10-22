@@ -1,20 +1,17 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import BackButton from '../../Components/BackButton';
-import Playlist from '../../Components/Playlist';
 import Song from '../../Components/Song/Song';
-import newPlaylist from '../../Images/featured/newplaylist.png';
-import menu from '../../Images/controller/menu.svg'
-import Sidebar from '../../Components/Sidebar/Sidebar';
-import { ExcludedContext, axiosUnauthorized } from '../../Components/App/App';
+import { axiosUnauthorized } from '../../Components/App/App';
 import { useCookies } from 'react-cookie';
+import { useSelector } from 'react-redux';
 
 function Excluded () {
     const navigate = useNavigate();
     const [cookies, setCookies] = useCookies(['accessToken', 'refreshToken', 'authorId', 'role', 'userId']);
-
-    const {excluded, setExcluded} = useContext(ExcludedContext);
     const [songs, setSongs] = useState([]);
+
+    const excluded = useSelector((state)=>state.excluded.value)
 
     useEffect(() => {
         if (!cookies.role) {

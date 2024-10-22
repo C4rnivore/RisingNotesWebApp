@@ -1,6 +1,5 @@
-import axios from 'axios';
-import React, { useEffect, useState, useRef, useContext } from 'react';
-import {Link, NavLink, useLocation} from "react-router-dom";
+import React, { useEffect, useState, useRef } from 'react';
+import {Link, useLocation} from "react-router-dom";
 
 import heart from '../../Images/controller/heart.svg';
 import redHeart from '../../Images/red-heart.svg';
@@ -15,17 +14,21 @@ import cover from '../../Images/main-placeholder.png';
 import vol from '../../Images/controller/volume-2.svg';
 import filtersImg from '../../Images/player/FilterBtn.svg';
 
-import { CurrentSongContext, ExcludedContext, FeaturedContext, PlayerContext, api } from '../App/App';
+import { api } from '../App/App';
 import { axiosAuthorized, axiosUnauthorized } from '../App/App';
 
 import './MusicPlayer.css';
 import useSearchClean from '../../Hooks/useSearchClean/useSearchClean';
 import { useCookies } from 'react-cookie';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { updateExcludedValue } from '../../Redux/slices/excludedSlice';
+import { updateFeaturedValue } from '../../Redux/slices/featuredSlice';
+import { updateCurrentSongValue } from '../../Redux/slices/currentSongSlice';
+import { updateSongsValue } from '../../Redux/slices/songsSlice';
 
-const MusicPlayer = (props) => {
+const MusicPlayer = () => {
     const [isPlaying, setIsPlaying] = useState(false);  
-    const [nextSongIndex,setNextSongIndex] = useState(0);
+    const [nextSongIndex, setNextSongIndex] = useState(0);
     const audioRef = useRef(null);
     const [trackCurrentDuration, setTrackCurrentDuration] = useState(0);
     const [trackDuration, setTrackDuration] = useState(0);
@@ -35,19 +38,19 @@ const MusicPlayer = (props) => {
     const [authorId, setAuthorId] = useState('');
     const location = useLocation();
     const [hiddenTag, setHiddenTag] = useState('');
-
-    const {songs, setSongs} = useContext(PlayerContext);
-    const {currentSong, setCurrentSong} = useContext(CurrentSongContext);
-    const {featured, setFeatured} = useContext(FeaturedContext);
-    const {excluded, setExcluded} = useContext(ExcludedContext);
     
-    const resize = useSelector((state)=> state.resize.value)
     const {cleanQuery} = useSearchClean();
-
     
     const volumeJSON = localStorage.getItem('VOL');
     const [volume, setVolume] = useState(volumeJSON ? JSON.parse(volumeJSON) : 1);
     const [cookies, setCookies] = useCookies(['role']);
+
+    const dispatch = useDispatch()
+    const excluded = useSelector((state)=>state.excluded.value)
+    const featured = useSelector((state)=>state.featured.value)
+    const resize = useSelector((state)=> state.resize.value)
+    const currentSong = useSelector((state)=> state.currentSong.value)
+    const songs = useSelector((state)=> state.songs.value)
 
     useEffect(() => {
         // скрытие плеера
@@ -80,18 +83,18 @@ const MusicPlayer = (props) => {
                     })
                     .catch(err => {
                         console.log(err);
-                        setSongs(arr => arr.filter(e => e !== currentSong));
-                        setCurrentSong('');
+                        dispatch(updateSongsValue(songs.filter(e => e !== currentSong)))
+                        dispatch(updateCurrentSongValue(''))
                     })
             })
             .catch(err => {
                 console.log(err);
-                setSongs(arr => arr.filter(e => e !== currentSong));
-                setCurrentSong('');
+                dispatch(updateSongsValue(songs.filter(e => e !== currentSong)))
+                dispatch(updateCurrentSongValue(''))
             })
         }
         else if (songs.length > 0){
-            setCurrentSong(songs[0]);
+            dispatch(updateCurrentSongValue(songs[0]))
         }
 
     }, [songs, currentSong])
@@ -125,7 +128,8 @@ const MusicPlayer = (props) => {
             setNextSongIndex(nextSongIndex => nextSongIndex + 1);
 
         audioRef.current.currentTime = 0;
-        setCurrentSong(songs[nextSongIndex]);
+
+        dispatch(updateCurrentSongValue(songs[nextSongIndex]))
 
         handleRef.current = setInterval(() => {
             setTrackCurrentDuration(t => t = audioRef.current.currentTime);
@@ -142,7 +146,8 @@ const MusicPlayer = (props) => {
             setNextSongIndex(nextSongIndex => nextSongIndex - 1);
 
         audioRef.current.currentTime = 0;
-        setCurrentSong(songs[nextSongIndex]);
+
+        dispatch(updateCurrentSongValue(songs[nextSongIndex]))
 
         handleRef.current = setInterval(() => {
             setTrackCurrentDuration(t => t = audioRef.current.currentTime);
@@ -205,12 +210,12 @@ const MusicPlayer = (props) => {
             
             if (featured.includes(currentSong)) {
                 await axiosAuthorized.delete(api + `api/song/favorite/${currentSong}`).then(resp => {
-                    setFeatured(e => e = e.filter(el => el != currentSong));
+                    dispatch(updateFeaturedValue(featured.filter(el => el != currentSong)))
                 });
             }
             else {
                 await axiosAuthorized.patch(api + `api/song/favorite/${currentSong}`).then(resp => {
-                    setFeatured(e => e = [...e, currentSong]);
+                    dispatch(updateFeaturedValue([...featured, currentSong]))
                 });
             }
         }
@@ -221,12 +226,12 @@ const MusicPlayer = (props) => {
         if (currentSong !== '' ) {
             if (excluded.includes(currentSong)) {
                 await axiosAuthorized.delete(api + `api/excluded-track/${currentSong}`).then(resp => {
-                    setExcluded(e => e = e.filter(el => el != currentSong));
+                    dispatch(updateExcludedValue(excluded.filter(el => el != currentSong)))
                 });
             }
             else {
                 await axiosAuthorized.post(api + `api/excluded-track/${currentSong}`).then(resp => {
-                    setExcluded(e => e = [...e, currentSong]);
+                    dispatch(updateExcludedValue([...excluded, currentSong]))
                 });
             }
         }

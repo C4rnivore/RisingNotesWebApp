@@ -5,8 +5,8 @@ import linkIcon from '../../../Images/artist-card/Link.svg'
 import vkIcon from '../../../Images/artist-card/Social Icons.svg'
 import yandexIcon from '../../../Images/artist-card/yandex.svg'
 import defaultAvatar from '../../../Images/main-placeholder.png';
-import { useContext, useEffect, useState } from "react"
-import { SubscriptionsContext, api, axiosPictures } from "../../App/App"
+import { useEffect, useState } from "react"
+import { api, axiosPictures } from "../../App/App"
 import { useParams } from "react-router-dom"
 
 import { useSelector } from "react-redux"
@@ -22,11 +22,11 @@ function ArtistInfo(props) {
     const userId = props.artist.userId;
 
     const params = useParams();
-    const {subscriptions, setSubscriptions} = useContext(SubscriptionsContext);
     const [isSubscribed, setIsSubscribed] = useState(subscriptions.includes(params.id));
     const [isImageExist, setIsImageExist] = useState(false);
 
     const resize = useSelector((state)=> state.resize.value)
+    const subscriptions = useSelector((state)=> state.subscriptions.value)
 
     useEffect(() => {
         // проверка наличия картинки и подписки

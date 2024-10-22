@@ -1,25 +1,24 @@
 import logo from '../../Images/login/logo.png'
-import {Link} from "react-router-dom";
-import { useContext, useState } from 'react';
+import { Link } from "react-router-dom";
+import { useState } from 'react';
 import { useCookies } from 'react-cookie';
 import headphones from '../../Images/login/headphones.png';
 import stripe from '../../Images/login/bottom-design-element.svg';
 import { jwtDecode } from 'jwt-decode';
-import { useDispatch } from 'react-redux';
-import { updatePlaylistsValue } from '../../Redux/slices/playlistsSlice';
-import { ExcludedContext, FeaturedContext, SubscriptionsContext, api, axiosAuthorized, axiosUnauthorized } from '../App/App';
-
+import { api, axiosUnauthorized } from '../App/App';
 import './Login.css';
 import CustomButton from '../CustomButton/CustomButton';
+
+import { useDispatch } from 'react-redux';
+import { updatePlaylistsValue } from '../../Redux/slices/playlistsSlice';
+import { updateExcludedValue } from '../../Redux/slices/excludedSlice';
+import { updateFeaturedValue } from '../../Redux/slices/featuredSlice';
+import { updateSubscriptionsValue } from '../../Redux/slices/subscriptionsSlice';
 
 function Login() {
     const [cookies, setCookies] = useCookies(['accessToken', 'refreshToken', 'authorId', 'role', 'subscriptions', 'userId']);
     const [userName, setUserName] = useState(undefined);
     const [password, setPassword] = useState(undefined);
-    const {subscriptions, setSubscriptions} = useContext(SubscriptionsContext);
-    const {featured, setFeatured} = useContext(FeaturedContext);
-    const {excluded, setExcluded} = useContext(ExcludedContext);
-
     const dispatch = useDispatch()
 
     async function handleLogin () {
@@ -63,7 +62,7 @@ function Login() {
                 .then(response => {
                     let arr = [];
                     response.data.subscriptionList.map(e => arr.push(e.authorId));
-                    setSubscriptions(arr);
+                    dispatch(updateSubscriptionsValue(arr));
                 })
 
                 await axiosUnauthorized.get('api/song/favorite/list', {
@@ -75,7 +74,7 @@ function Login() {
                 .then(response => {
                     let arr = []
                     response.data.songInfoList.map(el => arr.push(el.id));
-                    setFeatured(arr);
+                    dispatch(updateFeaturedValue(arr))
                 })
 
                 await axiosUnauthorized.get('api/excluded-track/list', {
@@ -87,7 +86,7 @@ function Login() {
                 .then(response => {
                     let arr = []
                     response.data.excludedTrackList.map(el => arr.push(el.id));
-                    setExcluded(arr);
+                    dispatch(updateExcludedValue(arr))
                 })
                 
                 await getPlaylists(userId);

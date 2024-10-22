@@ -1,17 +1,17 @@
 import React, { useEffect } from 'react';
 import BackButton from '../../Components/BackButton';
 import Subscription from '../../Components/Subscription';
-import { useContext } from 'react';
-import { SubscriptionsContext } from '../../Components/App/App';
 import { useCookies } from 'react-cookie';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 import './Subscriptions.css';
 
 function Subscriptions () {
     const navigate = useNavigate();
-    const {subscriptions, setSubscriptions} = useContext(SubscriptionsContext);
+
     const [cookies, setCookies] = useCookies(['accessToken', 'refreshToken', 'authorId', 'role', 'userId']);
+    const subscriptions = useSelector((state)=>state.subscriptions.value)
 
     useEffect(() => {
         if (!cookies.role) {

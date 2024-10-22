@@ -1,10 +1,10 @@
-import React, { useContext, useEffect, useState} from 'react';
+import React, { useEffect, useState} from 'react';
 import { useNavigate, redirect } from 'react-router-dom';
 import BackButton from '../../Components/BackButton';
 import Playlist from '../../Components/Playlist';
 import Song from '../../Components/Song/Song';
 import newPlaylist from '../../Images/featured/newplaylist.png';
-import { FeaturedContext, api, axiosAuthorized, axiosUnauthorized} from '../../Components/App/App';
+import { api, axiosAuthorized, axiosUnauthorized} from '../../Components/App/App';
 import { useCookies } from 'react-cookie';
 
 import { useSelector, useDispatch } from 'react-redux'
@@ -15,13 +15,13 @@ import Loader from '../../Components/Loader/Loader';
 
 export default function Featured() {
     const navigate = useNavigate();
-    const { featured } = useContext(FeaturedContext);
     const [songs, setSongs] = useState([]);
     const [cookies, setCookies] = useCookies(['accessToken', 'refreshToken', 'authorId', 'role', 'userId']);
     const [isLoaded, setIsLoaded] = useState(false)
     const dispatch = useDispatch()
-    const playlists = useSelector((state) => state.playlists.value)
 
+    const playlists = useSelector((state) => state.playlists.value)
+    const featured = useSelector((state) => state.featured.value)
 
     useEffect(() => {
         if (!cookies.role) {
