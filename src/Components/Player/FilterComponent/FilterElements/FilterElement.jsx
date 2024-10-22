@@ -1,14 +1,15 @@
 import { useEffect, useState } from "react"
+import { useSelector } from "react-redux";
 
 function FilterElement({
     name,
     id,
-    filters,
     options,
     updater
 }){
     const [tags, setTags] = useState([]);
     const [predicate, setPredicate] = useState('and')
+    const filters = useSelector((state)=>state.filters.value)
 
     useEffect(()=>{
         switch(id){

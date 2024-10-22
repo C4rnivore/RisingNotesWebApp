@@ -1,14 +1,13 @@
 import logo from '../../Images/login/logo.png'
 import {Link} from "react-router-dom";
-import Sidebar from '../Sidebar/Sidebar';
 import { useContext, useState } from 'react';
-import axios from 'axios';
-import { useCookies, withCookies } from 'react-cookie';
+import { useCookies } from 'react-cookie';
 import headphones from '../../Images/login/headphones.png';
 import stripe from '../../Images/login/bottom-design-element.svg';
 import { jwtDecode } from 'jwt-decode';
-
-import { PlaylistsContext, ExcludedContext, FeaturedContext, SubscriptionsContext, api, axiosAuthorized, axiosUnauthorized } from '../App/App';
+import { useDispatch } from 'react-redux';
+import { updatePlaylistsValue } from '../../Redux/slices/playlistsSlice';
+import { ExcludedContext, FeaturedContext, SubscriptionsContext, api, axiosAuthorized, axiosUnauthorized } from '../App/App';
 
 import './Login.css';
 import CustomButton from '../CustomButton/CustomButton';
@@ -20,7 +19,8 @@ function Login() {
     const {subscriptions, setSubscriptions} = useContext(SubscriptionsContext);
     const {featured, setFeatured} = useContext(FeaturedContext);
     const {excluded, setExcluded} = useContext(ExcludedContext);
-    const {playlists, setPlaylists} = useContext(PlaylistsContext);
+
+    const dispatch = useDispatch()
 
     async function handleLogin () {
         let decoded = undefined;
@@ -104,7 +104,7 @@ function Login() {
             response => {
                 let arr = [];
                 response.data.playlistInfoList.map(e => arr.push(e.id));
-                setPlaylists(arr);
+                dispatch(updatePlaylistsValue(arr))
                 window.location.replace('/');
             })
     }

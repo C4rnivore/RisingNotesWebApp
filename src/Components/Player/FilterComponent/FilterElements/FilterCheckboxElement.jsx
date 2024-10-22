@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react"
+import { useSelector } from "react-redux";
 
-
-function FilterCheckboxElement({id,name,filters,updater}){
+function FilterCheckboxElement({id,name,updater}){
     const [expContent, setExpContent] = useState('Disabled')
     const [removedContent, setRemovedContent] = useState('Disabled')
+    const filters = useSelector((state)=>state.filters.value)
 
     function passToParent(filterId, filterValue, filterOrAnd = null){
         updater(filterId, filterValue, filterOrAnd)

@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react"
+import { useSelector } from "react-redux"
 
-function FilterTimeElement({id, name, filters, updater}){
+function FilterTimeElement({id, name, updater}){
     const[duration, setDuration] = useState('any')
+    const filters = useSelector((state)=>state.filters.value)
 
     useState(()=>{
         console.log(filters.duration)

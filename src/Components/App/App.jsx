@@ -24,7 +24,6 @@ import UploadMusic from '../../Pages/UploadMusic/UploadMusic.jsx';
 import UploadVideo from '../../Pages/InstallVideo/UploadVideo.jsx';
 import InstallVerticalVideo from '../../Pages/UploadVerticalVideo/UploadVertVideo.jsx';
 import ErrorPage from '../../Pages/404Page/404Page';
-import { FiltersProvider } from '../../Hooks/useFilters/useFilters';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { jwtDecode } from 'jwt-decode';
@@ -38,6 +37,7 @@ import VertVideoPlayer from '../BlogVideoPlayer/BlogVideoPlayer.jsx';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { updateResizeValue } from '../../Redux/slices/resizeSlice.js';
+import { updatePlaylistsValue } from '../../Redux/slices/playlistsSlice.js';
 
 export const api = process.env.REACT_APP_API_ENDPOINT;
 
@@ -74,7 +74,7 @@ export const CurrentSongContext = createContext({});
 export const SubscriptionsContext = createContext({});
 export const FeaturedContext = createContext({});
 export const ExcludedContext = createContext({});
-export const PlaylistsContext = createContext({});
+// export const PlaylistsContext = createContext({});
 export const VideoPlayerContext = createContext({});
 export const VertVideoPlayerContext = createContext({});
 export const VertVideoInfoContext = createContext({});
@@ -90,11 +90,10 @@ function App() {
     const subsJSON = localStorage.getItem('SUBS');
     const featuredJSON = localStorage.getItem('FEATURED');
     const excludedJSON = localStorage.getItem('EXCLUDED');
-    const playlistsJSON = localStorage.getItem('PLAYLISTS');
 
     // подгружаю из браузера
-
-    const resize_ = useSelector((state)=> state.resize.value)
+    const resize_ = useSelector((state) => state.resize.value)
+    const playlists_ = useSelector((state) => state.playlists.value)
     const dispatch = useDispatch()
 
     const [subscriptions, setSubscriptions] = useState(subsJSON ? JSON.parse(subsJSON) : []);
@@ -106,7 +105,7 @@ function App() {
     const [excluded, setExcluded] = useState(excludedJSON ? JSON.parse(excludedJSON) : []);
     const [currentSong, setCurrentSong] = useState(currentSongJSON === undefined ? '' : JSON.parse(currentSongJSON));
     // проверка на наличие
-    const [playlists, setPlaylists] = useState(playlistsJSON ? JSON.parse(playlistsJSON) : []);
+    // const [playlists, setPlaylists] = useState(playlistsJSON ? JSON.parse(playlistsJSON) : []);
     const [cookies, setCookies] = useCookies(['accessToken', 'refreshToken', 'authorId', 'role', 'userId']);
 
     useEffect(() => {
@@ -282,67 +281,63 @@ function App() {
         localStorage.setItem('SUBS', JSON.stringify(subscriptions));
         localStorage.setItem('FEATURED', JSON.stringify(featured));
         localStorage.setItem('EXCLUDED', JSON.stringify(excluded));
-        localStorage.setItem('PLAYLISTS', JSON.stringify(playlists));
-        
+
+        localStorage.setItem('PLAYLISTS', JSON.stringify(playlists_));
         localStorage.setItem('RESIZE', JSON.stringify(resize_));
-    }, [songs, currentSong, subscriptions, featured, excluded, playlists, resize_]);
+    }, [songs, currentSong, subscriptions, featured, excluded, playlists_, resize_]);
 
     return (
-        <FiltersProvider>
-            <PlaylistsContext.Provider value={{playlists, setPlaylists}}>
-                <ExcludedContext.Provider value={{excluded, setExcluded}}>
-                    <FeaturedContext.Provider value={{featured, setFeatured}}>
-                        <SubscriptionsContext.Provider value={{subscriptions, setSubscriptions}}>
-                            <CurrentSongContext.Provider value={{currentSong, setCurrentSong}}>
-                                <PlayerContext.Provider value={{songs, setSongs}}>
-                                    <VideoPlayerContext.Provider value={{ video, setVideo }}>
-                                        <VertVideoPlayerContext.Provider value={{ vertvideo, setVertVideo }}>
-                                            <VertVideoInfoContext.Provider value={{vertVideoInfo, setVertVideoInfo}}>
-                                                <div className="App">
-                                                    <VertVideoPlayer />
-                                                    <VideoPlayer />
-                                                    <Header/>
-                                                    <MusicPlayer/>
-                                                    {cookies.role === 'admin' ? <></> : <Sidebar></Sidebar>}
-                                                    <SearchResults/>
-                                                    <ErrorMessage text={errorText} visibility={errorVisibility}/>
-                                                    <Routes>
-                                                        <Route path={'/login'} element={<Login/>}/>
-                                                        <Route path={'/registration'} element={<Registration/>}/>
-                                                        <Route path={'/artist/:id'} element={<ArtistCard/>}/>
-                                                        <Route path={'/commentaries/:id'} element={<Commentaries/>}/>
-                                                        <Route path={'/playlist/:id'} element={<PlaylistWindow/>}/>
-                                                        <Route path={'/uploadmusic/:id'} element={<UploadMusic/>}/>
-                                                        <Route path={'*'} element={<ErrorPage/>}/>
-                                                        <Route path={'/verticalvideo'} element={<BlogVideo/>}/>
-                                                        {cookies.role === 'admin' ? (<>
-                                                            <Route path={'/'} element={<AdminPanel/>}/>
-                                                        </>) : (
-                                                        <>
-                                                            <Route path={'/'} element={<Player/>}/>
-                                                            <Route path={'/featured'} element={<Featured/>}/>
-                                                            <Route path={'/excluded'} element={<Excluded/>}/>
-                                                            <Route path={'/account'} element={<AccountPage/>}/>
-                                                            <Route path={'/subscriptions'} element={<Subscriptions/>}/>
-                                                            <Route path={'/uploadmusic'} element={<UploadMusic/>}/>
-                                                            <Route path={'/uploadvideo'} element={<UploadVideo/>}/>
-                                                            <Route path={'/uploadvertvideo'} element={<InstallVerticalVideo/>}/>
-                                                        </>
-                                                        )}
-                                                        
-                                                    </Routes>  
-                                                    <Footer/>
-                                                </div>
-                                            </VertVideoInfoContext.Provider>
-                                        </VertVideoPlayerContext.Provider>
-                                    </VideoPlayerContext.Provider>
-                                </PlayerContext.Provider>
-                            </CurrentSongContext.Provider>
-                        </SubscriptionsContext.Provider>
-                    </FeaturedContext.Provider>
-                </ExcludedContext.Provider>
-            </PlaylistsContext.Provider>
-    </FiltersProvider>
+    <ExcludedContext.Provider value={{excluded, setExcluded}}>
+        <FeaturedContext.Provider value={{featured, setFeatured}}>
+            <SubscriptionsContext.Provider value={{subscriptions, setSubscriptions}}>
+                <CurrentSongContext.Provider value={{currentSong, setCurrentSong}}>
+                    <PlayerContext.Provider value={{songs, setSongs}}>
+                        <VideoPlayerContext.Provider value={{ video, setVideo }}>
+                            <VertVideoPlayerContext.Provider value={{ vertvideo, setVertVideo }}>
+                                <VertVideoInfoContext.Provider value={{vertVideoInfo, setVertVideoInfo}}>
+                                    <div className="App">
+                                        <VertVideoPlayer />
+                                        <VideoPlayer />
+                                        <Header/>
+                                        <MusicPlayer/>
+                                        {cookies.role === 'admin' ? <></> : <Sidebar></Sidebar>}
+                                        <SearchResults/>
+                                        <ErrorMessage text={errorText} visibility={errorVisibility}/>
+                                        <Routes>
+                                            <Route path={'/login'} element={<Login/>}/>
+                                            <Route path={'/registration'} element={<Registration/>}/>
+                                            <Route path={'/artist/:id'} element={<ArtistCard/>}/>
+                                            <Route path={'/commentaries/:id'} element={<Commentaries/>}/>
+                                            <Route path={'/playlist/:id'} element={<PlaylistWindow/>}/>
+                                            <Route path={'/uploadmusic/:id'} element={<UploadMusic/>}/>
+                                            <Route path={'*'} element={<ErrorPage/>}/>
+                                            <Route path={'/verticalvideo'} element={<BlogVideo/>}/>
+                                            {cookies.role === 'admin' ? (<>
+                                                <Route path={'/'} element={<AdminPanel/>}/>
+                                            </>) : (
+                                            <>
+                                                <Route path={'/'} element={<Player/>}/>
+                                                <Route path={'/featured'} element={<Featured/>}/>
+                                                <Route path={'/excluded'} element={<Excluded/>}/>
+                                                <Route path={'/account'} element={<AccountPage/>}/>
+                                                <Route path={'/subscriptions'} element={<Subscriptions/>}/>
+                                                <Route path={'/uploadmusic'} element={<UploadMusic/>}/>
+                                                <Route path={'/uploadvideo'} element={<UploadVideo/>}/>
+                                                <Route path={'/uploadvertvideo'} element={<InstallVerticalVideo/>}/>
+                                            </>
+                                            )}
+                                            
+                                        </Routes>  
+                                        <Footer/>
+                                    </div>
+                                </VertVideoInfoContext.Provider>
+                            </VertVideoPlayerContext.Provider>
+                        </VideoPlayerContext.Provider>
+                    </PlayerContext.Provider>
+                </CurrentSongContext.Provider>
+            </SubscriptionsContext.Provider>
+        </FeaturedContext.Provider>
+    </ExcludedContext.Provider>
     );
 }
 

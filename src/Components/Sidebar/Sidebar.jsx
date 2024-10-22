@@ -1,9 +1,11 @@
-import { PlaylistsContext, api, axiosAuthorized, axiosPictures } from '../App/App'
-import { updateValue } from '../../Redux/slices/searchSlice'
-import { useContext, useEffect, useState } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import {NavLink, useNavigate} from "react-router-dom"
+import { api, axiosAuthorized, axiosPictures } from '../App/App'
+import { useEffect, useState } from 'react'
+import { NavLink, useNavigate } from "react-router-dom"
 import { useCookies } from 'react-cookie'
+
+import { useSelector, useDispatch } from 'react-redux'
+import { updatePlaylistsValue } from '../../Redux/slices/playlistsSlice';
+import { updateValue } from '../../Redux/slices/searchSlice'
 
 import searchIcon from '../../Images/sidebar/Vector.svg';
 import wave from '../../Images/sidebar/vave.svg';
@@ -21,19 +23,18 @@ import './Sidebar.css';
 
 function Sidebar(props) {
    const [search, setSearch] = useState(searchIcon)
-   // const [collapsed, setCollapsed] = useState(true)
    const [searchQuery, setSearchQuery] = useState('')
    const [playlistsInfo, setPlaylistsInfo] = useState([]); 
-   const {playlists, setPlaylists} = useContext(PlaylistsContext);
    const navigate = useNavigate();
    const [cookies, setCookies] = useCookies(['accessToken', 'refreshToken', 'authorId', 'role', 'userId']);
    
    const {cleanQuery} = useSearchClean()
    const {collapsed, toggler} = useMenuToggle()
 
-   const searchInput = useSelector((state) => state.searchInput.value)
    const dispatch = useDispatch()
-
+   const searchInput = useSelector((state) => state.searchInput.value)
+   const playlists = useSelector((state) => state.playlists.value)
+   
    useEffect(()=>{
       dispatch(updateValue(searchQuery))
    },[searchQuery]);
@@ -91,7 +92,7 @@ function Sidebar(props) {
       .then (
          response => {
             id = response.data.id
-            setPlaylists(e => e = [...e, id])
+            dispatch(updatePlaylistsValue([...playlists, id]))
          }
       )
       navigate(`/playlist/${id}`)

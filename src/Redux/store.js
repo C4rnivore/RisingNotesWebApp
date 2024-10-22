@@ -5,5 +5,6 @@ import reducers from "./reducers"
 enableMapSet();
 
 export default configureStore({
-    reducer: reducers
+    reducer: reducers,
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware({serializableCheck: false})
 })

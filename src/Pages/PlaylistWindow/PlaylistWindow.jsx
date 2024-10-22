@@ -4,9 +4,11 @@ import Song from '../../Components/Song/Song';
 import BackButton from '../../Components/BackButton';
 import trash from '../../Images/trash.svg';
 import bigEdit from '../../Images/account-page/edit-big.svg';
-import { useState, useContext, useRef } from 'react';
+import { useState, useRef } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { FeaturedContext, PlaylistsContext, api, axiosAuthorized, axiosPictures, axiosUnauthorized} from '../../Components/App/App';
+import { useDispatch, useSelector   } from 'react-redux';
+import { updatePlaylistsValue } from '../../Redux/slices/playlistsSlice';
+import { api, axiosAuthorized, axiosPictures, axiosUnauthorized} from '../../Components/App/App';
 
 import './PlaylistWindow.css';
 
@@ -14,13 +16,15 @@ function PlaylistWindow(){
     const imageSetterRef = useRef(null);
     const [songs, setSongs] = useState([]);
     const [namePlaylist, setNamePlaylist] = useState('');
-    const {playlists, setPlaylists} = useContext(PlaylistsContext);
     const [isreviewSkin, setReviewSkin] = useState(false);
     let params = useParams();
     const [isEditing, setIsEditing] = useState(false);
     const navigate = useNavigate();
     const [logofile, setLogofile] = useState(undefined);
     const [isPrivate, setIsPrivate] = useState(false);
+
+    const playlists = useSelector((state)=>state.playlists.value)
+    const dispatch = useDispatch()
     
 
     function reviewAvatar() {
@@ -50,12 +54,14 @@ function PlaylistWindow(){
     async function deletePlaylist() {
         // удаление плейлиста
         try {
-          await axiosAuthorized.delete(`api/playlist/${params.id}`);
-          setPlaylists(prevPlaylists => prevPlaylists.filter(id => id !== params.id));
-          navigate(`/featured`)
+            await axiosAuthorized.delete(`api/playlist/${params.id}`);
+                dispatch(
+                    updatePlaylistsValue(prevPlaylists => prevPlaylists.filter(id => id !== params.id))
+                )
+            navigate(`/featured`)
         } 
         catch (error) {
-          console.error('Error:', error);
+            console.error('Error:', error);
         }
     }
 
@@ -65,8 +71,9 @@ function PlaylistWindow(){
 
     async function uploadLogo(event) {
         // обновление картинки
-        setPlaylists(arr => arr.filter(el => el != params.id));
-
+        dispatch(
+            updatePlaylistsValue(arr => arr.filter(el => el != params.id))
+        )
         const reader = new FileReader();
         reader.onload = (event) => {
             setLogofile(event.target.result);
@@ -82,14 +89,17 @@ function PlaylistWindow(){
         .then ( () => {
             setReviewSkin(true)
         });
-
-        setPlaylists(arr => arr = [...arr, params.id]);
+        dispatch(
+            updatePlaylistsValue([...playlists, params.id])
+        )
     };
    
     const toggleEditMode = () => {
         // переход в режим редактирования и удаление текущего плейлиста из списка
         setIsEditing(!isEditing);
-        setPlaylists(arr => arr.filter(el => el != params.id));
+        dispatch(
+            updatePlaylistsValue(arr => arr.filter(el => el != params.id))
+        )
     };
 
     const handleInputChange = (event) => {
@@ -106,8 +116,9 @@ function PlaylistWindow(){
         .then(() => {
             setIsEditing(false);
         });
-
-        setPlaylists(arr => arr = [...arr, params.id]);
+        dispatch(
+            updatePlaylistsValue([...playlists, params.id])
+        )
     };
 
     const handleCheckboxChange = async () => {
