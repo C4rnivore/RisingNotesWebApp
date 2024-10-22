@@ -6,7 +6,6 @@ import trashIcon from '../Images/commentaries/trash-icon.svg';
 import trashRedIcon from '../Images/commentaries/trash-red-icon.svg';
 import xIcon from '../Images/commentaries/x-icon.svg';
 
-import { ResizeContext, api } from './App/App';
 import { axiosAuthorized } from './App/App';
 import { useSelector } from 'react-redux';
 
@@ -14,7 +13,6 @@ const Comment = (props) => {
     const [isDeleted, setIsDeleted] = useState(false);
     const [comment, setComment] = useState(props.data.text);
     const [cookies, setCookies] = useCookies(['userId']);
-    // const {resize, setResize} = useContext(ResizeContext);
 
     const resize = useSelector((state)=> state.resize.value)
 

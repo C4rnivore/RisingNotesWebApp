@@ -1,6 +1,6 @@
 import BackButton from '../../Components/BackButton';
 import Comment from '../../Components/Comment';
-import { ResizeContext, api } from '../../Components/App/App';
+import {  api } from '../../Components/App/App';
 import React, { useContext } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useEffect, useState } from "react";
@@ -26,7 +26,6 @@ const Commentaries = (props) => {
 
     const [currPage, setCurrPage] = useState(0);
     const [songText, setText] = useState('');
-    // const {resize, setResize} = useContext(ResizeContext);
     const resize = useSelector((state)=> state.resize.value)
 
     useEffect(() => {

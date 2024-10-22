@@ -6,7 +6,7 @@ import vkIcon from '../../../Images/artist-card/Social Icons.svg'
 import yandexIcon from '../../../Images/artist-card/yandex.svg'
 import defaultAvatar from '../../../Images/main-placeholder.png';
 import { useContext, useEffect, useState } from "react"
-import { ResizeContext, SubscriptionsContext, api, axiosPictures } from "../../App/App"
+import { SubscriptionsContext, api, axiosPictures } from "../../App/App"
 import { useParams } from "react-router-dom"
 
 import { useSelector } from "react-redux"
@@ -26,7 +26,6 @@ function ArtistInfo(props) {
     const {subscriptions, setSubscriptions} = useContext(SubscriptionsContext);
     const [isSubscribed, setIsSubscribed] = useState(subscriptions.includes(params.id));
     const [isImageExist, setIsImageExist] = useState(false);
-    // const {resize, setResize} = useContext(ResizeContext);
 
     const resize = useSelector((state)=> state.resize.value)
 

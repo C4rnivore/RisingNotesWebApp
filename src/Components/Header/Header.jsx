@@ -1,6 +1,6 @@
-import { useContext, useEffect, useState } from 'react'
+import {  useEffect, useState } from 'react'
 import {Link, NavLink} from "react-router-dom";
-import { ResizeContext, api, axiosPictures } from '../App/App';
+import { api, axiosPictures } from '../App/App';
 import { useCookies } from 'react-cookie';
 import logotype from '../../Images/logo.svg'
 import FallDownMenu from '../FallDownMenu/FallDownMenu';
@@ -19,7 +19,7 @@ function Header() {
     const [isImageExist, setIsImageExist] = useState(false);
     const [cookies, setCookies] = useCookies(['accessToken', 'refreshToken', 'authorId', 'role', 'subscriptions', 'userId']);
     const [isUserAuthorized, setIsUserAuthorized] = useState(false);
-    // const {resize, setResize} = useContext(ResizeContext);
+    
     const resize = useSelector((state)=> state.resize.value)
     const {cleanQuery} = useSearchClean()
     const {toggler} = useMenuToggle()

@@ -1,6 +1,6 @@
 import { useContext, useEffect, useRef, useState } from 'react';
 import './BlogVideoPlayer.css';
-import { ResizeContext, VertVideoInfoContext, VertVideoPlayerContext, api, axiosUnauthorized } from '../App/App';
+import {  VertVideoInfoContext, VertVideoPlayerContext, api, axiosUnauthorized } from '../App/App';
 import placeholder from '../../Images/main-placeholder.png';
 import heart from '../../Images/controller/heart.svg';
 import closeButton from '../../Images/playerforvideo/closebutton.svg'
@@ -12,7 +12,7 @@ function VertVideoPlayer() {
     const videoRef = useRef();
     const placeholderVideoRef = useRef();
     const [isPlaying, setIsPlaying] = useState(false);
-    // const {resize, setResize} = useContext(ResizeContext);
+    
     const resize = useSelector((state)=> state.resize.value)
 
     useEffect(() => {

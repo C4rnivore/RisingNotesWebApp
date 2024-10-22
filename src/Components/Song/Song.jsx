@@ -21,7 +21,7 @@ function Song(props) {
     const {featured, setFeatured} = useContext(FeaturedContext);
     const {excluded, setExcluded} = useContext(ExcludedContext);
     const {cleanQuery} = useSearchClean()
-    // const {resize, setResize} = useContext(ResizeContext);
+    
     const resize = useSelector((state)=> state.resize.value)
 
     const changeModalState = () => {

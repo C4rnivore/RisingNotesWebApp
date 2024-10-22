@@ -15,7 +15,7 @@ import cover from '../../Images/main-placeholder.png';
 import vol from '../../Images/controller/volume-2.svg';
 import filtersImg from '../../Images/player/FilterBtn.svg';
 
-import { CurrentSongContext, ExcludedContext, FeaturedContext, PlayerContext, ResizeContext, api } from '../App/App';
+import { CurrentSongContext, ExcludedContext, FeaturedContext, PlayerContext, api } from '../App/App';
 import { axiosAuthorized, axiosUnauthorized } from '../App/App';
 
 import './MusicPlayer.css';
@@ -40,7 +40,7 @@ const MusicPlayer = (props) => {
     const {currentSong, setCurrentSong} = useContext(CurrentSongContext);
     const {featured, setFeatured} = useContext(FeaturedContext);
     const {excluded, setExcluded} = useContext(ExcludedContext);
-    // const {resize, setResize} = useContext(ResizeContext);
+    
     const resize = useSelector((state)=> state.resize.value)
     const {cleanQuery} = useSearchClean();
 

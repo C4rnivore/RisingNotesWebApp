@@ -3,10 +3,10 @@ import statsIcon from '../../../Images/account-page/stats-icon.svg';
 import subsIcon from '../../../Images/account-page/subs-icon.svg';
 import creditIcon from '../../../Images/account-page/credit-card-red-icon.svg';
 import bigEdit from '../../../Images/account-page/edit-big.svg';
-import { useContext, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
-import { useCookies, withCookies } from 'react-cookie';
-import { ResizeContext, api, axiosAuthorized, axiosPictures, axiosUnauthorized } from '../../../Components/App/App';
+import { useCookies } from 'react-cookie';
+import {  api, axiosAuthorized, axiosPictures, axiosUnauthorized } from '../../../Components/App/App';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
@@ -18,7 +18,7 @@ export default function AccountHead (props) {
     const [auditionsCount, setAuditions] = useState(0);
     const [isImageExist, setIsImageExist] = useState(false);
     const [cookies, setCookies] = useCookies(['accessToken', 'refreshToken', 'authorId', 'role', 'subscriptions', 'userId']);
-    // const {resize, setResize} = useContext(ResizeContext); 
+    
     const resize = useSelector((state)=> state.resize.value)
 
     useEffect(() => {
