@@ -3,10 +3,9 @@ import viewsIcon from '../../Images/account-page/stats-icon.svg';
 import editIcon from '../../Images/account-page/edit-icon.svg';
 import { api } from '../App/App';
 import axios from 'axios';
-import { useEffect, useState, useContext, useRef } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { NavLink } from 'react-router-dom';
 import useSearchClean from '../../Hooks/useSearchClean/useSearchClean';
-import { VideoPlayerContext } from '../App/App';
 import { handleVideoEnter, handleVideoHover, handleVideoLeave, handleVideoMove } from './handlers/ClipHandlers';
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
@@ -14,6 +13,7 @@ import 'react-loading-skeleton/dist/skeleton.css'
 import { useDispatch, useSelector } from 'react-redux';
 import { updateCurrentSongValue } from '../../Redux/slices/currentSongSlice';
 import { updateSongsValue } from '../../Redux/slices/songsSlice';
+import { updateVideoPlayerValue } from '../../Redux/slices/videoPlayerSlice';
 
 
 const statusType = {
@@ -35,18 +35,15 @@ const statusColor = {
 }
 
 function Clip({key, clipId, authorId, songId, name, status, views, isArtist=false}) {
-    const [authorName, setAuthorName] = useState('')
     const [videoLoaded, setVideoLoaded] = useState(false)
-    const {cleanQuery} = useSearchClean()
-
-    const {setVideo } = useContext(VideoPlayerContext);
-    
-    const previewRef = useRef(undefined)
+    const [authorName, setAuthorName] = useState('')
     const videoPreviewRef = useRef(undefined)
-
-    const dispatch = useDispatch()
+    const previewRef = useRef(undefined)
+    const {cleanQuery} = useSearchClean()
+    
     const songs = useSelector((state)=>state.songs.value)
-
+    const dispatch = useDispatch()
+    
     const getAuthorName = async (id) =>{
         try{
             const response = await axios({
@@ -81,7 +78,10 @@ function Clip({key, clipId, authorId, songId, name, status, views, isArtist=fals
                 <Skeleton baseColor='#0F141D' highlightColor="#2C323D" count={2} />
             </>}
             <div className="cover-wrapper" style={videoLoaded?{display:'block'}:{display:'none'}}>
-                <div className="clip-video" onClick={() => setVideo(api + `api/music-clip/${clipId}/file`)} 
+                <div className="clip-video" onClick={() =>
+                    dispatch(
+                        updateVideoPlayerValue(api + `api/music-clip/${clipId}/file`)
+                    )} 
                         onMouseOver={() => handleVideoHover(videoPreviewRef, api + `api/music-clip/${clipId}/file` )}
                         onMouseEnter={() => handleVideoEnter(previewRef)}
                         onMouseMove={() => handleVideoMove(videoPreviewRef)}

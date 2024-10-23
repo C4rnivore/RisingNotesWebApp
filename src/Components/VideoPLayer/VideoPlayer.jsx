@@ -1,14 +1,16 @@
-import { useContext, useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import './VideoPlayer.css';
-import { VideoPlayerContext, api } from '../App/App';
 import closeButton from '../../Images/playerforvideo/closebutton.svg'
 import risingnotes from '../../Images/playerforvideo/risingnotes.svg'
+import { useSelector, useDispatch } from 'react-redux';
+import { updateVideoPlayerValue } from '../../Redux/slices/videoPlayerSlice';
 
 
 
 function VideoPlayer() {
-    const { video, setVideo } = useContext(VideoPlayerContext);
     const videoRef = useRef();
+    const video = useSelector((state)=>state.videoPlayer.value)
+    const dispatch = useDispatch()
 
     useEffect(() => {
         handlePlayVideo();
@@ -70,7 +72,11 @@ function VideoPlayer() {
             {video ?
                 <div className='video-player-wrapper'>
                     <img className="rising-notes-forplayer" src={risingnotes}></img>
-                    <button className='player-exit-button' onClick={() => setVideo(false)}><img src={closeButton}/></button>
+                    <button className='player-exit-button' onClick={() => 
+                        dispatch(
+                            updateVideoPlayerValue(false)
+                            )}>
+                    <img src={closeButton}/></button>
                     <video className='video-player' ref={videoRef} type="video/mp4" preload="auto" controls/>
                 </div>
                 : <></>

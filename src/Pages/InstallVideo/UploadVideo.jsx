@@ -1,24 +1,24 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import BackButton from '../../Components/BackButton';
 import VideoPrewiew from '../../Images/installvideo/videoprewiew.svg';
 import { useState, useRef } from 'react'
-import { BsCloudArrowUp } from "react-icons/bs";
-import { VideoPlayerContext, api, axiosAuthorized } from '../../Components/App/App';
+import { axiosAuthorized } from '../../Components/App/App';
 import bigEdit from '../../Images/account-page/edit-big.svg';
 import closeImg from '../../Images/x.svg';
 import uploadImg from '../../Images/upload.svg';
 import playImg from '../../Images/play.svg';
 import pauseImg from '../../Images/Pause.svg';
 
-
 import './UploadVideo.css';
 import CustomButton from '../../Components/CustomButton/CustomButton';
 import { useDropzone } from 'react-dropzone';
 import InputSongs from './InputSongs';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { updateVideoPlayerValue } from '../../Redux/slices/videoPlayerSlice';
 
 function UploadVideo(){
-    const {video, setVideo} = useContext(VideoPlayerContext);
+    const dispatch = useDispatch()
     const navigate = useNavigate();
     const skinSetterRef = useRef(null);
     const [skinfile, setSkinfile] = useState(undefined);
@@ -64,7 +64,7 @@ function UploadVideo(){
 
     function handlePlayVideo() {
         // плеер видео
-        setVideo(videoFile);
+        dispatch(updateVideoPlayerValue(videoFile))
         // if (isPlaying) {
         //     videoRef.current.pause();
         //     setIsPlaying(false);

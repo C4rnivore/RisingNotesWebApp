@@ -1,11 +1,13 @@
 import { useState } from 'react'
 import './VerticalClip.css'
-import { useEffect, useContext, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import { api } from '../App/App'
 import axios from 'axios'
 import Skeleton from 'react-loading-skeleton'
-import { VertVideoInfoContext, VertVideoPlayerContext,} from '../App/App';
 import { handleVideoEnter, handleVideoHover, handleVideoLeave, handleVideoMove } from '../Clip/handlers/ClipHandlers';
+import { useDispatch } from 'react-redux'
+import { updateVertVideoInfoValue } from '../../Redux/slices/vertVideoInfoSlice'
+import { updateVertVideoPlayerValue } from '../../Redux/slices/vertVideoPlayerSlice'
 
 function VerticalClip(props) {
     const [dataFetched, setDataFetched] = useState(false)
@@ -13,11 +15,10 @@ function VerticalClip(props) {
     const [videoLoaded, setVideoLoaded] = useState(false)
     const [authorName, setAuthorName] = useState('')
 
-    const { vertvideo, setVertVideo } = useContext(VertVideoPlayerContext);
-    const { vertVideoInfo, setVertVideoInfo } = useContext(VertVideoInfoContext);
-
     const previewRef = useRef(undefined)
     const videoPreviewRef = useRef(undefined)
+
+    const dispatch = useDispatch()
 
     useEffect(()=>{
         getVertData()
@@ -60,13 +61,15 @@ function VerticalClip(props) {
     }
 
     const handleVertClick = () =>{
-        setVertVideo(api + `api/short-video/${props.id}/file`)
-        setVertVideoInfo({
+        dispatch(updateVertVideoPlayerValue(
+            api + `api/short-video/${props.id}/file`
+        ))
+        dispatch(updateVertVideoInfoValue( {
             author:authorName,
             description: vertData.description,
             title:vertData.title,
             songId:vertData.relatedSongId
-        })
+        }))
     }
 
     return ( 

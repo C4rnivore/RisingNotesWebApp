@@ -1,8 +1,8 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import BackButton from '../../Components/BackButton';
 import VideoPrewiew from '../../Images/installvideo/vertvideo.svg';
 import { useState, useEffect, useRef } from 'react'
-import { VertVideoInfoContext, VertVideoPlayerContext, VideoPlayerContext, axiosAuthorized, axiosUnauthorized } from '../../Components/App/App';
+import { axiosAuthorized, axiosUnauthorized } from '../../Components/App/App';
 import bigEdit from '../../Images/account-page/edit-big.svg';
 import closeImg from '../../Images/x.svg';
 import uploadImg from '../../Images/upload.svg';
@@ -14,10 +14,11 @@ import CustomButton from '../../Components/CustomButton/CustomButton';
 import InputSongs from '../InstallVideo/InputSongs';
 import { useDropzone } from 'react-dropzone';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { updateVertVideoInfoValue } from '../../Redux/slices/vertVideoInfoSlice';
+import { updateVertVideoPlayerValue } from '../../Redux/slices/vertVideoPlayerSlice';
 
 function InstallVerticalVideo(){
-    const {vertvideo, setVertVideo} = useContext(VertVideoPlayerContext);
-    const { vertVideoInfo, setVertVideoInfo } = useContext(VertVideoInfoContext);
     const vertskinSetterRef = useRef(null);
     const [vertskinfile, setVertSkinfile] = useState(undefined);
     const [currentVertSkin, setCurrentVertSkin] = useState(VideoPrewiew);
@@ -34,7 +35,8 @@ function InstallVerticalVideo(){
     const [authorName, setAuthorName] = useState('Автор не указан');
 
     const formData= new FormData();
-    
+    const dispatch = useDispatch();
+
     useEffect(() => {
         if (songId !== undefined) {
             axiosUnauthorized.get(`/api/song/${songId}`)
@@ -91,13 +93,13 @@ function InstallVerticalVideo(){
 
     function handlePlayVideo() {
         // плеер видео
-        setVertVideoInfo({
+        dispatch(updateVertVideoInfoValue({
             description: description,
             title: songName,
             author: authorName,
             songId: songId
-        });
-        setVertVideo(videoFile);
+        }))
+        dispatch(updateVertVideoPlayerValue(videoFile))
     }
 
     const changeVideo = (event) => {

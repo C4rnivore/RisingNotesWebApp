@@ -34,7 +34,7 @@ import VertVideoPlayer from '../BlogVideoPlayer/BlogVideoPlayer.jsx';
 import { useSelector, useDispatch } from 'react-redux';
 import { updateResizeValue } from '../../Redux/slices/resizeSlice.js';
 
-export const api = process.env.REACT_APP_API_ENDPOINT;
+export const api = 'http://81.31.247.227/';
 
 export const axiosAuthorized = axios.create({
     baseURL: api,
@@ -64,16 +64,13 @@ export const axiosPictures = axios.create({
     },
 });
 
-export const VideoPlayerContext = createContext({});
-export const VertVideoPlayerContext = createContext({});
-export const VertVideoInfoContext = createContext({});
 // ссылка на переменную
 
 function App() {
     //Redux Dispatcher
     const dispatch = useDispatch()
 
-    //Redux slices
+    //Redux slices data
     const resize_ = useSelector((state) => state.resize.value)
     const playlists_ = useSelector((state) => state.playlists.value)
     const excluded_ = useSelector((state) => state.excluded.value)
@@ -82,13 +79,11 @@ function App() {
     const currentSong_ = useSelector((state) => state.currentSong.value)
     const songs_ = useSelector((state) => state.songs.value)
     
-    const navigate = useNavigate();
+    //State hooks
     const [errorVisibility, setErrorVisibility] = useState(false);
     const [errorText, setErrorText] = useState('');
-
-    const [video, setVideo] = useState('');
-    const [vertvideo, setVertVideo] = useState('');
-    const [vertVideoInfo, setVertVideoInfo] = useState('');
+    
+    const navigate = useNavigate();
     const [cookies, setCookies] = useCookies(['accessToken', 'refreshToken', 'authorId', 'role', 'userId']);
 
     useEffect(() => {
@@ -269,48 +264,49 @@ function App() {
     }, [songs_, currentSong_, subscriptions_, featured_, excluded_, playlists_, resize_]);
 
     return (
-    <VideoPlayerContext.Provider value={{ video, setVideo }}>
-        <VertVideoPlayerContext.Provider value={{ vertvideo, setVertVideo }}>
-            <VertVideoInfoContext.Provider value={{vertVideoInfo, setVertVideoInfo}}>
-                <div className="App">
-                    <VertVideoPlayer />
-                    <VideoPlayer />
-                    <Header/>
-                    <MusicPlayer/>
-                    {cookies.role === 'admin' ? <></> : <Sidebar></Sidebar>}
-                    <SearchResults/>
-                    <ErrorMessage text={errorText} visibility={errorVisibility}/>
-                    <Routes>
-                        <Route path={'/login'} element={<Login/>}/>
-                        <Route path={'/registration'} element={<Registration/>}/>
-                        <Route path={'/artist/:id'} element={<ArtistCard/>}/>
-                        <Route path={'/commentaries/:id'} element={<Commentaries/>}/>
-                        <Route path={'/playlist/:id'} element={<PlaylistWindow/>}/>
-                        <Route path={'/uploadmusic/:id'} element={<UploadMusic/>}/>
-                        <Route path={'*'} element={<ErrorPage/>}/>
-                        <Route path={'/verticalvideo'} element={<BlogVideo/>}/>
-                        {cookies.role === 'admin' ? (<>
-                            <Route path={'/'} element={<AdminPanel/>}/>
-                        </>) : (
-                        <>
-                            <Route path={'/'} element={<Player/>}/>
-                            <Route path={'/featured'} element={<Featured/>}/>
-                            <Route path={'/excluded'} element={<Excluded/>}/>
-                            <Route path={'/account'} element={<AccountPage/>}/>
-                            <Route path={'/subscriptions'} element={<Subscriptions/>}/>
-                            <Route path={'/uploadmusic'} element={<UploadMusic/>}/>
-                            <Route path={'/uploadvideo'} element={<UploadVideo/>}/>
-                            <Route path={'/uploadvertvideo'} element={<InstallVerticalVideo/>}/>
-                        </>
-                        )}
-                        
-                    </Routes>  
-                    <Footer/>
-                </div>
-            </VertVideoInfoContext.Provider>
-        </VertVideoPlayerContext.Provider>
-    </VideoPlayerContext.Provider>
+        <div className="App">
+            <Header/>
+            {cookies.role === 'admin' ? <></> : <Sidebar></Sidebar>}
+            <SearchResults/>
+            <ErrorMessage text={errorText} visibility={errorVisibility}/>
+            <Players/>
+            <Routes>
+                <Route path={'/login'} element={<Login/>}/>
+                <Route path={'/registration'} element={<Registration/>}/>
+                <Route path={'/artist/:id'} element={<ArtistCard/>}/>
+                <Route path={'/commentaries/:id'} element={<Commentaries/>}/>
+                <Route path={'/playlist/:id'} element={<PlaylistWindow/>}/>
+                <Route path={'/uploadmusic/:id'} element={<UploadMusic/>}/>
+                <Route path={'*'} element={<ErrorPage/>}/>
+                <Route path={'/verticalvideo'} element={<BlogVideo/>}/>
+                {cookies.role === 'admin' ? (<>
+                    <Route path={'/'} element={<AdminPanel/>}/>
+                </>) : (
+                <>
+                    <Route path={'/'} element={<Player/>}/>
+                    <Route path={'/featured'} element={<Featured/>}/>
+                    <Route path={'/excluded'} element={<Excluded/>}/>
+                    <Route path={'/account'} element={<AccountPage/>}/>
+                    <Route path={'/subscriptions'} element={<Subscriptions/>}/>
+                    <Route path={'/uploadmusic'} element={<UploadMusic/>}/>
+                    <Route path={'/uploadvideo'} element={<UploadVideo/>}/>
+                    <Route path={'/uploadvertvideo'} element={<InstallVerticalVideo/>}/>
+                </>
+                )}
+            </Routes>  
+            <Footer/>
+        </div>
     );
+}
+
+const Players = () => {
+    return(
+        <>
+            <VertVideoPlayer />
+            <MusicPlayer/>
+            <VideoPlayer />
+        </>
+    )
 }
 
 export default App;

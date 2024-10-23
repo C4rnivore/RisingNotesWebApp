@@ -8,6 +8,9 @@ import featuredReducer from './slices/featuredSlice.js'
 import subscriptionsReducer from './slices/subscriptionsSlice.js'
 import currentSongReducer from './slices/currentSongSlice.js'
 import songsReducer from './slices/songsSlice.js'
+import vertVideoInfoReducer from './slices/vertVideoInfoSlice.js'
+import videoPlayerReducer from './slices/videoPlayerSlice.js'
+import vertVideoPlayerReducer from './slices/vertVideoPlayerSlice.js'
 
 const reducers = {
     searchInput: searchReducer,
@@ -19,7 +22,10 @@ const reducers = {
     featured: featuredReducer,
     subscriptions:subscriptionsReducer,
     currentSong: currentSongReducer,
-    songs: songsReducer
+    songs: songsReducer,
+    vertVideoInfo: vertVideoInfoReducer,
+    videoPlayer: videoPlayerReducer,
+    vertVideoPlayer: vertVideoPlayerReducer
 }
 
 export default reducers
