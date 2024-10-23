@@ -39,7 +39,7 @@ function UploadVideo(){
     }
 
     async function uploadVideo() {
-        
+        // загрузка видео
         formData.append('Title', title);
         console.log(title)
         formData.append('Description', description);
@@ -85,8 +85,10 @@ function UploadVideo(){
     const changeVideo = (event) => {
         // смена клипа
         event.preventDefault();
-        setVideoFileName(event.target.files[0].name);
-        setVideofile(event.target.files[0]);
+        if (event.target.files.length > 0) {
+            setVideoFileName(event.target.files[0].name);
+            setVideofile(event.target.files[0]);
+        }
     }
 
 
@@ -96,22 +98,31 @@ function UploadVideo(){
 
     const { getRootProps: getInputFile } = useDropzone({
         // обработка файла закинутого drag & drop
-        accept: ".mp4,.mkv,.avi,.mov",
+        accept: {
+            "video/mp4": [".mp4", ".avi"],
+            "video/x-msvideo": [".mkv"],
+            "video/mpeg": [".mov"]
+        },
+        maxSize: 200000000,
         onDrop: acceptedFiles => {
-            setVideoFileName(acceptedFiles[0].name);
-            setVideofile(acceptedFiles[0]);
+            if (acceptedFiles.length > 0) {
+                setVideoFileName(acceptedFiles[0].name);
+                setVideofile(acceptedFiles[0]);
+            }
         },
     });   
 
     const changeSkin = (event) => {
         // смена обложки
         event.preventDefault();
-        setSkinfile(event.target.files[0]);
-        const reader = new FileReader();
-        reader.onload = (event) => {
-            setCurrentSkin(event.target.result);
-        };
-        reader.readAsDataURL(event.target.files[0]);
+        if (event.target.files.length > 0) {
+            setSkinfile(event.target.files[0]);
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                setCurrentSkin(event.target.result);
+            };
+            reader.readAsDataURL(event.target.files[0]);
+        }
     }
 
     return (
@@ -157,9 +168,9 @@ function UploadVideo(){
                 </div>
                 <div className='video-information-3' >
                     <div className='button-and-text'>
-                        <CustomButton text={'Опубликовать*'} func={() => uploadVideo()} success={'Опубликовано'} icon={uploadImg}/>
+                        <CustomButton text={'Опубликовать'} func={() => uploadVideo()} success={'Опубликовано'} icon={uploadImg}/>
                     </div>
-                    <text className='warning-upload'>*перед публикацией видео будет отправлено на модерацию</text>
+                    {/* <text className='warning-upload'>*перед публикацией видео будет отправлено на модерацию</text> */}
 
                     <input type='file' accept=".jpg,.png" className='input-file' ref={skinSetterRef} onChange={changeSkin}></input>
                     <input type='file' accept=".mp4,.avi,.mkv,.mov" className='input-file' ref={videoSetterRef} onChange={changeVideo}></input>

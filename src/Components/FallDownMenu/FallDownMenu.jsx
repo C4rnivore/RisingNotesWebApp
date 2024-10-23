@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import userIcon from '../../Images/account-page/user-icon.svg';
 import settingsIcon from '../../Images/account-page/settings-icon.svg';
 import exitIcon from '../../Images/account-page/exit-icon.svg';
@@ -9,6 +9,7 @@ import './FallDownMenu.css';
 import { useEffect } from "react";
 
 export default function FallDownMenu ({callback}) {
+    const navigate = useNavigate();
     const [cookies, setCookies] = useCookies(['accessToken', 'refreshToken', 'authorId', 'role', 'subscriptions', 'userId']);
     const {cleanQuery} = useSearchClean()
 
@@ -19,6 +20,7 @@ export default function FallDownMenu ({callback}) {
         document.cookie = 'role=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT;';
         document.cookie = 'userId=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT;';
         localStorage.clear();
+        // navigate('/');
         window.location.replace('/');
     }
 

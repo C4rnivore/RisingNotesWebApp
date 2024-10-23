@@ -3,15 +3,23 @@ import authorButtonIcon from '../../../Images/player/authorButtonIcon.svg'
 import currentSongIcon from '../../../Images/player/currentSongIcon.svg'
 import playBtn from '../../../Images/player/PlayBtn.svg'
 import CustomButton from '../../CustomButton/CustomButton'
+import { useContext, useEffect, useState } from 'react';
+import { api, axiosPictures, axiosUnauthorized, VideoPlayerContext } from '../../App/App';
 
 function SongCover(props) {
     let currentTrack = props.track;
+    const [clipId, setClipId] = useState(undefined);
+    const {setVideo } = useContext(VideoPlayerContext);
 
-    
-
-    const handleAuthorBtnClick = () =>{
-        return
-    }
+    useEffect(() => {
+        if (currentTrack.id !== '')
+            axiosPictures.get(api + 'api/music-clip/by-song/' + currentTrack.id).then(response => {
+                setClipId(response?.data.clipId);
+            })
+            .catch(err => {
+                setClipId(undefined);
+            })
+    }, [currentTrack]);
 
     const coverLoaded = ()=>{
         const img = document.querySelector('.track-cover')
@@ -29,9 +37,6 @@ function SongCover(props) {
             <div className="player-authors">
                 <img draggable='false' src={currentTrack.authorLogo} alt="artist cover" className="player-authors-pfp" />
                 <Link to={`/artist/` + currentTrack?.authorId} className='player-author-name'>
-                    {/* {currentTrack?.authors?.map((author, index)=>(
-                        index!==currentTrack.authors.length-1? author + ', ':author
-                    ))} */}
                     {currentTrack?.authors ? currentTrack?.authors[0] : 'Трек не выбран'}
                 </Link>
             </div>
@@ -40,11 +45,10 @@ function SongCover(props) {
                     <div className="player-track-tag" key={index}>{tag}</div>
                 ))}
             </div>
-            {/* <button className="player-watch-clip-btn">
-                <img src={playBtn} alt="" />
-                <span>Смотреть клип</span>
-            </button> */}
-            <CustomButton text='Смотреть клип' icon={playBtn}/>
+            {clipId !== undefined ? (
+                <CustomButton text='Смотреть клип' icon={playBtn} func={() => setVideo(api + `api/music-clip/${clipId}/file`)} success={'Смотреть клип'}/>
+            ) : (<></>)}
+            
         </div>
     )}
 

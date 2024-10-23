@@ -152,7 +152,7 @@ function SearchContent(props){
                         </button>
                     </div>
                     <div className="search-authors-content">
-                        <div className='playlists'>
+                        <div className='subscriptions'>
                             {artists?.map((artist, index) => (
                                 <SearchArtistCard key={index} artist={artist} srcErrHandler={addDefaultSrc}/>
                             ))}

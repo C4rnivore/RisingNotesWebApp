@@ -1,6 +1,6 @@
 import BackButton from '../../Components/BackButton';
 import Comment from '../../Components/Comment';
-import { ResizeContext, api } from '../../Components/App/App';
+import { ResizeContext, VideoPlayerContext, api, axiosPictures } from '../../Components/App/App';
 import React, { useContext } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useEffect, useState } from "react";
@@ -22,10 +22,12 @@ const Commentaries = (props) => {
     const [songAuthor, setSongAuthor] = useState('');
     const [authorId, setAuthorId] = useState('');
     const [genres, setGenres] = useState([]);
+    const [clipId, setClipId] = useState(undefined);
 
     const [currPage, setCurrPage] = useState(0);
     const [songText, setText] = useState('');
     const {resize, setResize} = useContext(ResizeContext);
+    const {setVideo } = useContext(VideoPlayerContext);
 
     useEffect(() => {
         axiosUnauthorized.get(`api/song/${params.id}/comment/list`)
@@ -62,6 +64,14 @@ const Commentaries = (props) => {
             .then(response => {
                 setAuthorId(response.data.authorId);
             });
+
+        axiosPictures.get(api + 'api/music-clip/by-song/' + params.id)
+            .then(response => {
+                setClipId(response?.data.clipId);
+            })
+            .catch(err => {
+                setClipId(undefined);
+            })
     }, [isDataUpdated, params.id]);
 
     const handleSendComment = () => {
@@ -92,7 +102,7 @@ const Commentaries = (props) => {
 
     return (
         <div className='comment-page-wrapper'>
-            <div className='featured'>
+            <div className='comment-page'>
                 <BackButton/>
 
                 <div className='comm-head'>
@@ -103,14 +113,14 @@ const Commentaries = (props) => {
                         <div className='comm-head-buttons'>
                             {genres.map(el => <span key={el} className='song-tag'>{el}</span>)}
                         </div>
-                        {resize === 'mobile' ? (
-                            <CustomButton text={'Смотреть клип'} icon={playIcon}/>
+                        {clipId && resize === 'mobile' ? (
+                            <CustomButton text={'Смотреть клип'} icon={playIcon} func={() => setVideo(api + `api/music-clip/${clipId}/file`)} success={'Смотреть клип'}/>
                         ) : 
                         (<></>)}
                     </span>
-                    {resize === 'standart' ? (
+                    {clipId && resize === 'standart' ? (
                         <div className='comm-head-button'>
-                            <CustomButton text={'Смотреть клип'} icon={playIcon}/>
+                            <CustomButton text={'Смотреть клип'} icon={playIcon} func={() => setVideo(api + `api/music-clip/${clipId}/file`)} success={'Смотреть клип'}/>
                         </div>
                     ) : 
                     (<></>)}

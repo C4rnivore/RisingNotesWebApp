@@ -11,7 +11,7 @@ import pauseImg from '../../Images/Pause.svg';
 
 import './UploadVertVideo.css';
 import CustomButton from '../../Components/CustomButton/CustomButton';
-import InputSongs from '../InstallVideo/InputSongs';
+import InputSongs from '../UploadVideo/InputSongs';
 import { useDropzone } from 'react-dropzone';
 import { useNavigate } from 'react-router-dom';
 
@@ -52,12 +52,14 @@ function InstallVerticalVideo(){
     const changeSkin = (event) => {
         // смена обложки
         event.preventDefault();
-        setVertSkinfile(event.target.files[0]);
-        const reader = new FileReader();
-        reader.onload = (event) => {
-            setCurrentVertSkin(event.target.result);
-        };
-        reader.readAsDataURL(event.target.files[0]);
+        if (event.target.files.length > 0) {
+            setVertSkinfile(event.target.files[0]);
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                setCurrentVertSkin(event.target.result);
+            };
+            reader.readAsDataURL(event.target.files[0]);
+        }
     }
 
     function handleChoosenSong(id, title) {
@@ -66,7 +68,7 @@ function InstallVerticalVideo(){
     }
 
     async function uploadVideo() {
-        
+        // загрузка видео
         formData.append('Title', title);
         console.log(title)
         formData.append('Description', description);
@@ -86,7 +88,6 @@ function InstallVerticalVideo(){
         })
         .then(response => {navigate('/account')})
         .catch(err => {return Promise.reject(err)});
-        
     }
 
     function handlePlayVideo() {
@@ -103,17 +104,26 @@ function InstallVerticalVideo(){
     const changeVideo = (event) => {
         // смена клипа
         event.preventDefault();
-        setVideoFileName(event.target.files[0].name);
-        setVideofile(event.target.files[0]);
+        if (event.target.files.length > 0) {
+            setVideoFileName(event.target.files[0].name);
+            setVideofile(event.target.files[0]);
+        }
     }
 
 
     const { getRootProps: getInputFile } = useDropzone({
         // обработка файла закинутого drag & drop
-        accept: ".mp4,.mkv,.avi,.mov",
+        accept: {
+            "video/mp4": [".mp4", ".avi"],
+            "video/x-msvideo": [".mkv"],
+            "video/mpeg": [".mov"]
+        },
+        maxSize: 200000000,
         onDrop: acceptedFiles => {
-            setVideoFileName(acceptedFiles[0].name);
-            setVideofile(acceptedFiles[0]);
+            if (acceptedFiles.length > 0) {
+                setVideoFileName(acceptedFiles[0].name);
+                setVideofile(acceptedFiles[0]);
+            }
         },
     });   
 
@@ -161,9 +171,9 @@ function InstallVerticalVideo(){
                 </div>
                 <div className='video-information-3' >
                     <div className='button-and-text'>
-                            <CustomButton text={'Опубликовать*'} func={() => uploadVideo()} success={'Опубликовано'} icon={uploadImg}/>
+                            <CustomButton text={'Опубликовать'} func={() => uploadVideo()} success={'Опубликовано'} icon={uploadImg}/>
                     </div>
-                    <text className='warning-upload'>*перед публикацией видео будет отправлено на модерацию</text>
+                    {/* <text className='warning-upload'>*перед публикацией видео будет отправлено на модерацию</text> */}
                     <input type='file' className='input-file' ref={videoSetterRef} onChange={changeVideo}></input>
                     <input type='file' accept="image/*" className='input-file' ref={vertskinSetterRef} onChange={changeSkin}></input>
                 </div>

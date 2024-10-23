@@ -94,7 +94,8 @@ function UploadMusic(){
         }
     }
 
-    const handleImageInput = () => {
+    const handleImageInput = (e) => {
+        e.preventDefault();
         imageSetterRef.current.click();
     }
 
@@ -105,19 +106,23 @@ function UploadMusic(){
     const changeLogo = (event) => {
         // смена картинки
         event.preventDefault();
-        setLogofile(event.target.files[0]);
-        const reader = new FileReader();
-        reader.onload = (event) => {
-            setCurrentImage(event.target.result);
-        };
-        reader.readAsDataURL(event.target.files[0]);
+        if (event.target.files.length > 0) {
+            setLogofile(event.target.files[0]);
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                setCurrentImage(event.target.result);
+            };
+            reader.readAsDataURL(event.target.files[0]);
+        }
     }
 
     const changeSong = (event) => {
         // смена песни
         event.preventDefault();
-        setSongFileName(event.target.files[0].name);
-        setSongfile(event.target.files[0]);
+        if (event.target.files.length > 0) {
+            setSongFileName(event.target.files[0].name);
+            setSongfile(event.target.files[0]);
+        }
     }
 
     useEffect(() => {
@@ -237,10 +242,16 @@ function UploadMusic(){
 
     const { getRootProps: getInputFile } = useDropzone({
         // обработка файла закинутого drag & drop
-        accept: ".mp3",
+        accept: {
+            "audio/mpeg": [".mp3"],
+            "audio/wav": [".wav"]
+        },
+        maxSize: 100000000,
         onDrop: acceptedFiles => {
-            setSongFileName(acceptedFiles[0].name);
-            setSongfile(acceptedFiles[0]);
+            if (acceptedFiles.length > 0) {
+                setSongFileName(acceptedFiles[0].name);
+                setSongfile(acceptedFiles[0]);
+            }
         },
     });   
     
@@ -300,7 +311,7 @@ function UploadMusic(){
                 <div className='song-information-2'>
                     <div className='column'>
                         <h2 className='column1-h2'>Название трека</h2>
-                        <input className='inp-column1' placeholder={'Введите название...'} value={name} onChange={e => setName(e.target.value)}/>
+                        <input className='inp-column1' placeholder={name === undefined ? 'Введите название...' : 'Это обязательное поле'} value={name} onChange={e => setName(e.target.value)}/>
                     </div>
                     <div className='column'>
                         <h2 className='column1-h2'>Настроение</h2>
@@ -369,7 +380,7 @@ function UploadMusic(){
                     </div> : ''}
 
                     <input type='file' accept=".jpg,.png" className='input-file' ref={imageSetterRef} onChange={changeLogo}></input>
-                    <input type='file' accept=".mp3" className='input-file' ref={songSetterRef} onChange={changeSong}></input>
+                    <input type='file' accept=".mp3,.wav" className='input-file' ref={songSetterRef} onChange={changeSong}></input>
                     <audio ref={audioRef} src={songFileName ? api + `api/song/${songFileName}/file` : ''}
                         type="audio/mpeg" controls style={{ display: 'none' }}/>
                 </div>

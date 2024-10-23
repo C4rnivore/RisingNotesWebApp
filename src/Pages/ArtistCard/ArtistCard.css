@@ -271,15 +271,7 @@
     border-radius: 10px;
     width: 280px;
 }
-.list-modal-window{
-    z-index: 60;
-    position: absolute;
-    display: flex;
-    margin-left: 800px;
-    margin-top: -40px;
-    flex-direction: column;
-    gap:10px;
-}
+
 .add-to-playlist{
     color: black;
     font-size: 18px;

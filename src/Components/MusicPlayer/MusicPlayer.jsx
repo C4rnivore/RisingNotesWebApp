@@ -15,7 +15,7 @@ import cover from '../../Images/main-placeholder.png';
 import vol from '../../Images/controller/volume-2.svg';
 import filtersImg from '../../Images/player/FilterBtn.svg';
 
-import { CurrentSongContext, ExcludedContext, FeaturedContext, PlayerContext, ResizeContext, api } from '../App/App';
+import { CurrentSongContext, ExcludedContext, FeaturedContext, PlayerContext, ResizeContext, VideoPlayerContext, api } from '../App/App';
 import { axiosAuthorized, axiosUnauthorized } from '../App/App';
 
 import './MusicPlayer.css';
@@ -41,6 +41,7 @@ const MusicPlayer = (props) => {
     const {excluded, setExcluded} = useContext(ExcludedContext);
     const {resize, setResize} = useContext(ResizeContext);
     const {cleanQuery} = useSearchClean();
+    const { video, setVideo } = useContext(VideoPlayerContext);
 
     
     const volumeJSON = localStorage.getItem('VOL');
@@ -67,7 +68,7 @@ const MusicPlayer = (props) => {
 
     useEffect(() => {
         // обновление информации о текущей песне и сброс плеера
-        if(currentSong !== ''){
+        if(currentSong !== '' && currentSong !== null){
             axiosUnauthorized.get(`api/song/${currentSong}`)
             .then(response => {
                 setSongName(response.data.name);

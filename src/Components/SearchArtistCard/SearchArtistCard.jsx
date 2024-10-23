@@ -8,12 +8,10 @@ function SearchArtistCard(props) {
     const {cleanQuery} = useSearchClean()
 
     return ( 
-        <div key={props.index} className="search-artist-card">
-            <Link to={`/artist/${props.artist.id}`} onClick={() => cleanQuery()}>
-                <img onError={onSrcError} src={api + `api/author/${props.artist.id}/logo?width=200&height=200`? api + `api/author/${props.artist.id}/logo?width=200&height=200`:'12'} alt={"нет картинки"} />
-            </Link>
-            <span className='search-artist-name'>{props.artist.name}</span>
-        </div>
+        <Link key={props.index} to={`/artist/${props.artist.id}`} className='playlist'>
+            <img className='playlistskin' onError={onSrcError} src={api + `api/author/${props.artist.id}/logo?width=200&height=200`? api + `api/author/${props.artist.id}/logo?width=200&height=200`:'12'} alt={"нет картинки"} />
+            <p className='labelplaylist'>{props.artist.name}</p>
+        </Link>
     );
 }
 

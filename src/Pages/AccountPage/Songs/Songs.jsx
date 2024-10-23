@@ -13,7 +13,7 @@ export default function Songs(props) {
         // получение списка заявок
         axiosAuthorized.get(`api/song/upload-request/list`)
         .then(response => {
-            setUploads(response.data.publishRequestShortInfoList);
+            setUploads(response?.data.publishRequestShortInfoList);
             setIsLoaded(true);
         });
 
@@ -26,7 +26,7 @@ export default function Songs(props) {
             <Link to={'/uploadmusic'} className='account-page-add-song'><img alt='icon' src={plus}/>Добавить трек</Link>
 
             <div className="tracks">
-                {uploads.map(el => 
+                {uploads?.map(el => 
                     <Song 
                         key={el.id} 
                         id={el.id} 
@@ -34,7 +34,7 @@ export default function Songs(props) {
                         status={el.status} />
                 )}
             </div>
-            {uploads.length == 0 ? <p>Вы еще не загрузили ни одного трека</p> : <></>}
+            {uploads?.length == 0 ? <p>Вы еще не загрузили ни одного трека</p> : <></>}
         </div>
     )
     else {

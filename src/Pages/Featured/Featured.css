@@ -10,7 +10,7 @@
 
     width: 100%;
     max-width: 1220px;
-    z-index: 5;
+    /* z-index: 5; */
     
     @media screen and (max-width: 720px){ 
         margin-top: 40px;

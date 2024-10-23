@@ -1,4 +1,5 @@
 .song-modal {
+    position: absolute;
     width: 257px;
 
     border-radius: 20px;
@@ -6,6 +7,7 @@
 
     color: #787885;
     background-color: #191E28;
+    top: 25px;
 }
 
 .song-modal__title {
@@ -16,14 +18,20 @@
     padding: 16px 24px;
 }
 
+.red-text {
+    color: #FE1170
+}
+
 .song-modal__playlists {
     overflow: scroll;
+    height: fit-content;
+    max-height: 150px;
 
     border-top: 1px #2C323D solid;
     border-bottom: 1px #2C323D solid;
 
     padding: 12px 0;
-    height: 154px;
+    height: fit-content;
 }
 
 .song-modal__playlist {
@@ -35,6 +43,7 @@
 .song-modal__playlist:hover {
     color: white;
     background-color: #222832;
+    cursor: pointer;
 }
 
 .song-modal__playlist-selected {
@@ -48,6 +57,16 @@
     background-color: #222832;
 }
 
+.list-modal-window{
+    max-width: 1120px;
+    width: inherit;
+    z-index: 60;
+    display: flex;
+    justify-content: flex-end;
+    align-items: end;
+
+    position: absolute;
+}
 
 .song-modal__playlist-thumb {
     margin-right: 8px;
@@ -55,8 +74,7 @@
     height: auto;
 }
 
-.song-modal__playlist-thumb-selected {
-    position: absolute;
+.song-modal__playlist-thumb-selected {    
     background: linear-gradient(0deg, #191E28 0%, rgba(25, 30, 40, 0.00) 193.75%);  
 }
 

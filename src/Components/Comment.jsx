@@ -1,12 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import avatar from '../Images/image-placeholder/user_logo_small_placeholder.png';
+import placeholder from '../Images/image-placeholder/user_logo_small_placeholder.png';
 import { useCookies, withCookies } from 'react-cookie';
 import trashIcon from '../Images/commentaries/trash-icon.svg';
 import trashRedIcon from '../Images/commentaries/trash-red-icon.svg';
 import xIcon from '../Images/commentaries/x-icon.svg';
 
-import { ResizeContext, api } from './App/App';
+import { ResizeContext, api, axiosPictures, axiosUnauthorized } from './App/App';
 import { axiosAuthorized } from './App/App';
 
 const Comment = (props) => {
@@ -14,6 +14,16 @@ const Comment = (props) => {
     const [comment, setComment] = useState(props.data.text);
     const [cookies, setCookies] = useCookies(['userId']);
     const {resize, setResize} = useContext(ResizeContext);
+    const [avatar, setAvatar] = useState(placeholder);
+
+    useEffect(() => {
+        axiosPictures.get(api + 'api/user/' + props.data.authorId + '/logo?width=400&height=400').then(response => {
+            setAvatar(api + 'api/user/' + props.data.authorId + '/logo?width=400&height=400');
+        })
+        .catch(err => {
+            console.log(err);
+        })
+    }, [props]);
 
     const handleDeleteComment = () => {
         axiosAuthorized.delete(`api/song/comment/${props.data.id}`);

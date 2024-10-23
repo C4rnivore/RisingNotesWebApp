@@ -25,12 +25,6 @@ function Subscription (props) {
     }, []);
 
     return (
-        // <Link to={`/artist/${props.authorId}`}>
-        //     <div className='subscription'>
-        //         <img alt='cover' src={isImageExist ? api + `api/user/${userId}/logo?width=400&height=400` : defaultAvatar}/>
-        //         <p>{name}</p>
-        //     </div>
-        // </Link>
         <Link to={`/artist/${props.authorId}`} className='playlist'>
             <img className='playlistskin' alt='cover' src={isImageExist ? api + `api/user/${userId}/logo?width=400&height=400` : defaultAvatar}/>
             <p className='labelplaylist'>{name}</p>

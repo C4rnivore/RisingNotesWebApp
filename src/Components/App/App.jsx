@@ -18,7 +18,7 @@ import MusicPlayer from '../MusicPlayer/MusicPlayer';
 import PlaylistWindow from '../../Pages/PlaylistWindow/PlaylistWindow';
 import SearchResults from '../SearchResults/SearchResults';
 import UploadMusic from '../../Pages/UploadMusic/UploadMusic.jsx';
-import UploadVideo from '../../Pages/InstallVideo/UploadVideo.jsx';
+import UploadVideo from '../../Pages/UploadVideo/UploadVideo.jsx';
 import InstallVerticalVideo from '../../Pages/UploadVerticalVideo/UploadVertVideo.jsx';
 import ErrorPage from '../../Pages/404Page/404Page';
 import { FiltersProvider } from '../../Hooks/useFilters/useFilters';
@@ -34,7 +34,8 @@ import Footer from '../Footer/Footer.jsx';
 import VideoPlayer from '../VideoPLayer/VideoPlayer.jsx';
 import VertVideoPlayer from '../BlogVideoPlayer/BlogVideoPlayer.jsx';
 
-export const api = process.env.REACT_APP_API_ENDPOINT;
+// export const api = process.env.REACT_APP_API_ENDPOINT;
+export const api = 'http://81.31.247.227/'
 
 export const axiosAuthorized = axios.create({
     baseURL: api,
@@ -187,7 +188,11 @@ function App() {
             return config;
         },
         error => {
-            if (error.response?.status === 404) {
+            if (error.response === undefined) {
+                setErrorText('Нет сети');
+                setErrorVisibility(true);
+            }
+            else if (error.response?.status === 404) {
                 setErrorText('Указанного объекта не существует');
                 setErrorVisibility(true);
                 // window.location.replace('/404');
@@ -213,7 +218,7 @@ function App() {
             else if (error.response?.status === 400) {
                 setErrorText(error.message);
                 setErrorVisibility(true);
-                return Promise.reject(error);
+                return Promise.reject(error.response);
             }
             else {
                 setErrorText(error.message);
@@ -228,7 +233,11 @@ function App() {
             return config;
         },
         error => {
-            if (error.response?.status === 404) {
+            if (error.response === undefined) {
+                setErrorText('Нет сети');
+                setErrorVisibility(true);
+            }
+            else if (error.response?.status === 404) {
                 setErrorText('Указанного объекта не существует');
                 setErrorVisibility(true);
                 // window.location.replace('/404');
@@ -249,7 +258,7 @@ function App() {
             else if (error.response?.status === 400) {
                 setErrorText(error.message);
                 setErrorVisibility(true);
-                return Promise.reject(error);
+                return Promise.reject(error.response);
             }
             else {
                 setErrorText(error.message);

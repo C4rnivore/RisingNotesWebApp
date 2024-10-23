@@ -35,8 +35,12 @@ function PlaylistWindow(){
     }
 
     useEffect(() => {
+        getPlaylistInfo();
+    }, [params]);
+
+    async function getPlaylistInfo() {
         // подгрузка информации о плейлисте
-        axiosUnauthorized.get(`api/playlist/${params.id}`)
+        await axiosUnauthorized.get(`api/playlist/${params.id}`)
         .then(
             response => {
                 setNamePlaylist(response.data.name);
@@ -45,7 +49,13 @@ function PlaylistWindow(){
             }
         )
         .catch(err => {navigate(-1)});
-    }, [params]) 
+
+        await axiosAuthorized.get(`api/playlist/` + params.id +`/song/list`)
+        .then(
+            response => {
+                setSongs(response.data.songList);
+        })
+    }
 
     async function deletePlaylist() {
         // удаление плейлиста
@@ -122,11 +132,11 @@ function PlaylistWindow(){
         }
 
         setIsPrivate(!isPrivate);
-       };
+    };
 
     return (
         <div className='comment-page-wrapper'>
-            <div className='featured'>
+            <div className='comment-page'>
                 <BackButton/>
                 <div className='playlist-information'>
                     <div className='playlist-image-wrapper' onClick={handleImageInput}>

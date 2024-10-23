@@ -14,6 +14,7 @@ import Loader from '../Loader/Loader.jsx';
 function Player() {
     const {currentSong, setCurrentSong} = useContext(CurrentSongContext);
     const [currentTrack, setCurrentTrack] = useState({
+        id: '',
         trackName: 'Нет треков',
         trackCover: songCoverTemplate,
         authors: [],
@@ -37,6 +38,7 @@ function Player() {
         await axiosUnauthorized.get(`api/song/` + currentSong)
         .then(response => {
             info = {
+                id: response.data.id,
                 authorId: response.data.authorId,
                 trackName: response.data.name,
                 authors: [response.data.authorName],
@@ -46,9 +48,9 @@ function Player() {
         })
         .catch(err => {console.log(err)});
 
-        await axiosPictures.get(`api/user/` + info.authorId + `/logo`)
+        await axiosPictures.get(`api/author/` + info.authorId + `/logo`)
         .then(response => {
-            info.authorLogo = api + `api/user/` + info.authorId + `/logo`
+            info.authorLogo = api + `api/author/` + info.authorId + `/logo`
         })
         .catch(err => {
             info.authorLogo = songCoverTemplate
@@ -59,7 +61,7 @@ function Player() {
     }
 
     useEffect(() => {
-        if(currentSong === '')
+        if(currentSong === '' || currentSong === null)
             return
         
         getCurrentTrackInfo();
@@ -100,7 +102,8 @@ function Player() {
         return (
             <>
                 <section className="comment-page-wrapper">           
-                    <SongCover track = {currentTrack}/>
+                    {/* <SongCover track = {currentTrack}/> */}
+                    <Loader/>
                     <div className="player-filters-toggle">
                         <button id='f-toggle-btn' onClick={toggleFilters} className="player-filters-toggle-btn">
                         </button>
@@ -109,6 +112,7 @@ function Player() {
                 </section>
                 <FilterComponent/>
                 <img className="player-bg-image" onLoad={bgLoaded} src={currentTrack.trackCover} alt="" />
+                
             </>
         )
     }
