@@ -18,14 +18,13 @@ import './ArtistCard.css';
 
 function ArtistCard(){
     const navigate = useNavigate();
+    const dispatch = useDispatch()
+    const subscriptions = useSelector((state)=>state.subscriptions.value)
     const params = useParams();
     const [artist, setArtist] = useState(undefined);
     const [isLoaded, setIsLoaded] = useState(false);
     const [isSubscribed, setIsSubscribed] = useState(subscriptions.includes(params.id));
     const [currPage, setCurrPage] = useState(0);
-
-    const dispatch = useDispatch()
-    const subscriptions = useSelector((state)=>state.subscriptions.value)
 
     const handleSubscribe = async () => {
         // подписка
